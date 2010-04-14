@@ -1,0 +1,23 @@
+Basic Installation
+==================
+
+Linux::
+
+ qmake -makefile libplugin.pro
+ rm -f make.out
+ make clean all 2>&1 | tee make.out
+ cd build_models
+ rm -f make.out
+ for i in *.pro; do echo $i; qmake -makefile $i; make clean all 2>&1 | tee -a make.out; done
+ cd -
+ qmake -makefile VirtualLeaf.pro 
+ make clean all 2>&1 | tee -a make.out
+
+MacOSX::
+
+ tbw
+
+Windows::
+
+ tbw
+

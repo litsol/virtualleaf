@@ -1,0 +1,21 @@
+# use glob syntax.
+syntax: glob
+
+*~
+*.a
+*.o
+*.so
+*moc_*.cpp
+*make.out
+*Makefile
+src/parameter.h
+src/parameter.cpp
+src/default.par
+src/pardialog.h
+src/pardialog.cpp
+bin*
+
+# switch to regexp syntax.
+syntax: regexp
+
+# finis
