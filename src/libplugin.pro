@@ -28,8 +28,7 @@ QT += qt3support
 TARGET = vleaf
 TEMPLATE = lib
 
-unix:LIBS +=  -lxml2 -lz -lm 
-win32:LIBS += -L\"c:\Lib\" -L\"c:\Bin\" -lxml2 -lz -lm -lwsock32
+LIBXML2DIR = C:\libxml2
 
 HEADERS = \
  cellbase.h \
@@ -59,14 +58,17 @@ SOURCES = \
 
 unix {
  system(rm -f parameter.cpp parameter.h) # this is performed here when qmake is envoked and not in the resulting makefile.
- system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
- system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
  QMAKE_CXXFLAGS += -fexceptions -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
+ LIBS += -lxml2 -lz -lm 
 }
 
 win32 {
-  QMAKE_CXXFLAGS += -fexceptions -IC:\Include
+ system(DEL parameter.cpp parameter.h) 
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
 }
 
+system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
+system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
+#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
 #

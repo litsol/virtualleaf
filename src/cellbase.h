@@ -30,10 +30,13 @@
 #include <vector>
 #include <iostream>
 #include <QString>
+#include <QDebug>
+
 #include "vector.h"
 #include "parameter.h"
 #include "wall.h"
 #include "warning.h"
+#include "assert.h"
 
 extern Parameter par;
 using namespace std;
@@ -128,8 +131,20 @@ class CellBase :  public QObject, public Vector
     inline const char *BoundaryStr(void) { return boundary_type_names[boundary]; }
     
     ostream &print(ostream &os) const;
+
     inline double Chemical(int c) const { // returns the value of chemical c
-      return chem[c];
+    #ifdef QDEBUG
+      qDebug() << endl << "Entering cellbase::chemical(" << c << ")" << endl;
+    #endif
+
+      int nchem = NChem();
+
+      #ifdef _undefined_
+      if ((c<0) || (c>=nchem))
+	MyWarning::warning("CellBase::Chemical says: index c is: %d, but nchem is: %d. Merely return zero", c, nchem);
+      #endif
+
+      return ((c<0) || (c>=nchem)) ? 0 : chem[c];
     }
 
     

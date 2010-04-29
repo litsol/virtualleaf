@@ -36,22 +36,20 @@ PARTMPL = $${TARGET}par.tmpl
 MAINSRC = $${TARGET}.cpp
 QT -= network sql xml
 QT += qt3support
-QWTDIR = /usr/local/qwt
-QMAKE_LIBDIR += $$QWTDIR/lib 
 
-win32:QWTDIR = "C:\Qwt-5.0.2"
-unix:LIBS +=  -lxml2 -lz -lm 
-win32:LIBS += -L\"c:\Lib\" -L\"c:\Bin\" -lxml2 -lz -lm -lwsock32
+LIBXML2DIR = C:\libxml2
 
 !win32 {
  GRAPHICS = qt #qwt
 }
 
 win32 {
+ CONFIG += console
+ system(DEL parameter.cpp parameter.h) 
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
- QMAKE_CXXFLAGS_RELEASE += -fexceptions -IC:\Include
- QMAKE_CXXFLAGS_DEBUG += -fexceptions -IC:\Include
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
+ QMAKE_CXXFLAGS_DEBUG += -DQDEBUG -ggdb3 -O0
  QMAKE_POST_LINK = "\
   C:\Bin\cp release\VirtualLeaf.exe \
   C:\Qt\4.5.3\bin\Qt3Support4.dll \
@@ -66,6 +64,7 @@ win32 {
   C:\bin\zlib1.dll \
   C:\MinGW\bin\mingwm10.dll \
   $${DESTDIR}"
+ LIBS += -lz -lm -lwsock32 -L$${LIBXML2DIR}\lib -lxml2
 }
 
 # Application icons
@@ -86,14 +85,18 @@ macx:release {
 
 unix {
  system(rm -f parameter.cpp parameter.h) 
- system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
- system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
- #system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
  CC = /usr/bin/gcc 
- QMAKE_CXXFLAGS_RELEASE += -fexceptions -I/usr/include/libxml2
- QMAKE_CXXFLAGS_DEBUG += -fexceptions -I/usr/include/libxml2 -DQDEBUG -ggdb3 -O0
+ QWTDIR = /ufs/guravage/opt/qwt-5.2.1-svn
+ QMAKE_LIBDIR += $$QWTDIR/lib 
+ QMAKE_CXXFLAGS += -fexceptions -I/usr/include/libxml2
+ QMAKE_CXXFLAGS_DEBUG += -DQDEBUG -ggdb3 -O0
  QMAKE_LFLAGS += -fPIC
+ LIBS += -lxml2 -lz -lm 
 }
+
+system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
+system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
+#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
 
 # Input
 HEADERS += \
@@ -177,8 +180,8 @@ contains( TARGET, leaf_fleming ) {
 }
 
 contains(GRAPHICS, qwt) {
- macx:LIBS += -L$$QWTDIR/lib -lqwt
- win32:LIBS += -L$$QWTDIR/lib -lqwt5
+ #macx:LIBS += -L$$QWTDIR/lib -lqwt
+ #win32:LIBS += -L$$QWTDIR/lib -lqwt5
  #LIBS += -L$$QWTDIR/lib -lqwt
  INCLUDEPATH += $$QWTDIR/include
  DEFINES += HAVE_QWT
@@ -188,14 +191,12 @@ contains(GRAPHICS, qwt) {
 
 contains( GRAPHICS, qt ) {
  message( "Building Qt executable" )
- QMAKE_CXXFLAGS_RELEASE += -DQTGRAPHICS # -fpermissive
- QMAKE_CXXFLAGS_DEBUG += -DQTGRAPHICS 
+ QMAKE_CXXFLAGS += -DQTGRAPHICS # -fpermissive
 }
 
 contains( GRAPHICS, xfig ) {
  message("Building Xfig executable (background runnable).")
- QMAKE_CXXFLAGS_RELEASE += -DXFIGGRAPHICS
- QMAKE_CXXFLAGS_DEBUG += -DXFIGGRAPHICS
+ QMAKE_CXXFLAGS += -DXFIGGRAPHICS
 }
 
 contains( GRAPHICS, x11 ) {
@@ -205,8 +206,7 @@ contains( GRAPHICS, x11 ) {
  message("Building X11 executable")
  SOURCES += x11graph.cpp
  HEADERS += x11graph.h
- QMAKE_CXXFLAGS_RELEASE += -DX11GRAPHICS
- QMAKE_CXXFLAGS_DEBUG += -DX11GRAPHICS 
+ QMAKE_CXXFLAGS += -DX11GRAPHICS
  CONFIG -= qt
  CONFIG += x11
  unix:LIBS += -lpng

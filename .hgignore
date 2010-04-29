@@ -3,11 +3,17 @@ syntax: glob
 
 *~
 *.a
+*.cache
+*.Debug
 *.o
+*.orig
+*.out
+*.Release
 *.so
-*moc_*.cpp
-*make.out
+*.vars
 *Makefile
+*make.out
+*moc_*.cpp
 src/parameter.h
 src/parameter.cpp
 src/default.par

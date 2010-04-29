@@ -30,16 +30,17 @@ QT += qt3support
 SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 
 
-unix:LIBS += -L"lib" -lvleaf
-win32:LIBS += -L"lib" -lvleaf
+LIBXML2DIR = C:\libxml2
 
 unix {
+ LIBS += -Llib -lvleaf
  QMAKE_CXXFLAGS += -fexceptions -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
 }
 
 win32 {
- QMAKE_CXXFLAGS += -fexceptions -IC:\Include
+ LIBS += -Llib -lvleaf
+ QMAKE_CXXFLAGS += -fexceptions -IC:\strawberry\c\include -I$${LIBXML2DIR}\include
 }
 
 # finis
