@@ -37,18 +37,19 @@ MAINSRC = $${TARGET}.cpp
 QT -= network sql xml
 QT += qt3support
 
-LIBXML2DIR = C:\libxml2
-
 !win32 {
  GRAPHICS = qt #qwt
 }
 
 win32 {
  CONFIG += console
+ LIBXML2DIR = C:\libxml2
+ LIBICONVDIR = C:\libiconv
  system(DEL parameter.cpp parameter.h) 
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
+ QMAKE_CXXFLAGS += -DLIBXML_STATIC
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include
  QMAKE_CXXFLAGS_DEBUG += -DQDEBUG -ggdb3 -O0
  QMAKE_POST_LINK = "\
   C:\Bin\cp release\VirtualLeaf.exe \
@@ -64,7 +65,7 @@ win32 {
   C:\bin\zlib1.dll \
   C:\MinGW\bin\mingwm10.dll \
   $${DESTDIR}"
- LIBS += -lz -lm -lwsock32 -L$${LIBXML2DIR}\lib -lxml2
+ LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib  -lz -lm -lwsock32 -liconv
 }
 
 # Application icons

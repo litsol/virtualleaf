@@ -30,8 +30,6 @@ QT += qt3support
 SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 
 
-LIBXML2DIR = C:\libxml2
-
 unix {
  LIBS += -Llib -lvleaf
  QMAKE_CXXFLAGS += -fexceptions -I/usr/include/libxml2
@@ -39,6 +37,7 @@ unix {
 }
 
 win32 {
+ LIBXML2DIR = C:\libxml2
  LIBS += -Llib -lvleaf
  QMAKE_CXXFLAGS += -fexceptions -IC:\strawberry\c\include -I$${LIBXML2DIR}\include
 }

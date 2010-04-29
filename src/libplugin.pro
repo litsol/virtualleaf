@@ -28,8 +28,6 @@ QT += qt3support
 TARGET = vleaf
 TEMPLATE = lib
 
-LIBXML2DIR = C:\libxml2
-
 HEADERS = \
  cellbase.h \
  matrix.h \
@@ -65,6 +63,8 @@ unix {
 
 win32 {
  system(DEL parameter.cpp parameter.h) 
+ LIBXML2DIR = C:\libxml2
+ QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
 }
 
