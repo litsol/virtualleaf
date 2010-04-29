@@ -38,8 +38,10 @@ unix {
 
 win32 {
  LIBXML2DIR = C:\libxml2
+ LIBICONVDIR = C:\libiconv
  LIBS += -Llib -lvleaf
- QMAKE_CXXFLAGS += -fexceptions -IC:\strawberry\c\include -I$${LIBXML2DIR}\include
+ QMAKE_CXXFLAGS += -DLIBXML_STATIC
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include  -I$${LIBICONVDIR}\include
 }
 
 # finis

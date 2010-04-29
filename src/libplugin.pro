@@ -19,7 +19,7 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG += staticlib release
+CONFIG += staticlib debug #release
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = build_models/lib 
 PERLDIR = ./perl
@@ -64,8 +64,9 @@ unix {
 win32 {
  system(DEL parameter.cpp parameter.h) 
  LIBXML2DIR = C:\libxml2
+ LIBICONVDIR = C:\libiconv
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include
 }
 
 system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)

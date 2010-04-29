@@ -21,7 +21,7 @@
 
 
 BINDIR = ../../bin
-CONFIG += plugin release
+CONFIG += plugin debug #release
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = $${BINDIR}/models
 TARGET = test
@@ -39,9 +39,11 @@ unix {
 
 win32 {
  LIBXML2DIR = C:\libxml2
+ LIBICONVDIR = C:\libiconv
  LIBS += -Llib -lvleaf
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include
+ QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include  -I$${LIBICONVDIR}\include
+
 }
 
 # finis
