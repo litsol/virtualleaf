@@ -19,6 +19,14 @@
 #  Copyright 2010 Roeland Merks.
 #
 
+CONFIG -= release
+CONFIG += debug
+CONFIG += qt
+
+QMAKE_CXXFLAGS += -fexceptions
+QMAKE_CXXFLAGS_DEBUG += -g3
+QMAKE_CXXFLAGS_DEBUG -= -DQDEBUG
+
 #REACTIONS = reactions_auxin_growth.h 
 #REACTIONS = reactions_meinhardt.h
 #REACTIONS = reactions_pce_growth.h
@@ -27,11 +35,11 @@ DEFINES += REACTIONS_HEADER=$${REACTIONS}
 DEFINES += REACTIONS_HEADER_STRING=\"$${REACTIONS}\"
 DEFINES += FLEMING
 
-CONFIG += qt release
 PERLDIR = ./perl
 BINDIR = ../bin
 DESTDIR = $$BINDIR
 TARGET = VirtualLeaf
+TEMPLATE = app
 PARTMPL = $${TARGET}par.tmpl
 MAINSRC = $${TARGET}.cpp
 QT -= network sql xml
@@ -45,12 +53,12 @@ win32 {
  CONFIG += console
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
+ LIBZDIR = C:\libz
  system(DEL parameter.cpp parameter.h) 
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include
- QMAKE_CXXFLAGS_DEBUG += -DQDEBUG -ggdb3 -O0
+ QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
  QMAKE_POST_LINK = "\
   C:\Bin\cp release\VirtualLeaf.exe \
   C:\Qt\4.5.3\bin\Qt3Support4.dll \
@@ -65,7 +73,7 @@ win32 {
   C:\bin\zlib1.dll \
   C:\MinGW\bin\mingwm10.dll \
   $${DESTDIR}"
- LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib  -lz -lm -lwsock32 -liconv
+ LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib -L$${LIBZDIR}\lib  -lz -lm -lwsock32 -liconv
 }
 
 # Application icons
@@ -89,8 +97,7 @@ unix {
  CC = /usr/bin/gcc 
  QWTDIR = /ufs/guravage/opt/qwt-5.2.1-svn
  QMAKE_LIBDIR += $$QWTDIR/lib 
- QMAKE_CXXFLAGS += -fexceptions -I/usr/include/libxml2
- QMAKE_CXXFLAGS_DEBUG += -DQDEBUG -ggdb3 -O0
+ QMAKE_CXXFLAGS += -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }

@@ -3,6 +3,7 @@ syntax: glob
 
 *~
 *.a
+*.exe
 *.cache
 *.Debug
 *.o

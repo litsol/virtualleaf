@@ -19,7 +19,14 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG += staticlib debug #release
+CONFIG -= release
+CONFIG += debug
+CONFIG += staticlib
+
+QMAKE_CXXFLAGS += -fexceptions
+QMAKE_CXXFLAGS_DEBUG += -g3
+QMAKE_CXXFLAGS_DEBUG -= -DQDEBUG
+
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = build_models/lib 
 PERLDIR = ./perl
@@ -56,7 +63,7 @@ SOURCES = \
 
 unix {
  system(rm -f parameter.cpp parameter.h) # this is performed here when qmake is envoked and not in the resulting makefile.
- QMAKE_CXXFLAGS += -fexceptions -fPIC -I/usr/include/libxml2
+ QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
@@ -65,8 +72,9 @@ win32 {
  system(DEL parameter.cpp parameter.h) 
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
+ LIBZDIR = C:\libz
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include
+ QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }
 
 system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)

@@ -20,29 +20,34 @@
 #
 
 
+CONFIG -= release
+CONFIG += debug
+CONFIG += plugin
+
 BINDIR = ../../bin
-CONFIG += plugin debug #release
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = $${BINDIR}/models
 TARGET = test
 HEADERS = ../simplugin.h $${TARGET}plugin.h  
-QMAKE_CXXFLAGS += -I..
+QMAKE_CXXFLAGS += -fexceptions -I..
+QMAKE_CXXFLAGS_DEBUG += -g3
 QT += qt3support
 SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 
 
 unix {
  LIBS += -Llib -lvleaf
- QMAKE_CXXFLAGS += -fexceptions -I/usr/include/libxml2
+ QMAKE_CXXFLAGS += -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
 }
 
 win32 {
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
+ LIBZDIR = C:\libz
  LIBS += -Llib -lvleaf
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
- QMAKE_CXXFLAGS += -fexceptions -I$${LIBXML2DIR}\include  -I$${LIBICONVDIR}\include
+ QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 
 }
 
