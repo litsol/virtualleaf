@@ -57,8 +57,55 @@ ${Index_RemoveFilesAndSubDirs}-done:
   !undef Index_RemoveFilesAndSubDirs
 !macroend
 
+!define PRODUCT_NAME "The Virtual Leaf"
+!define PRODUCT_VERSION "1.0"
+!define PRODUCT_PUBLISHER "Center for Mathematics and Computer Science (CWI)"
+!define PRODUCT_WEB_SITE "www.cwi.nl"
+!define EXECUTABLE "VirtualLeaf.exe"
+!define PROGICON "leaficon.ico"
+!define SETUP_BITMAP "leaficon.ico"
+
+# MUI 1.67 compatible ------
+!include "MUI.nsh"
+
+# MUI Settings
+!define MUI_ABORTWARNING
+!define MUI_ICON "leaficon.ico"
+!define MUI_UNICON "leaficon.ico"
+
+# Welcome page
+!insertmacro MUI_PAGE_WELCOME
+
+# License page
+!insertmacro MUI_PAGE_LICENSE "..\doc\GPL"
+
+# Components page
+!insertmacro MUI_PAGE_COMPONENTS
+
+# Directory page
+!insertmacro MUI_PAGE_DIRECTORY
+
+# Instfiles page
+!insertmacro MUI_PAGE_INSTFILES
+
+# Finish page
+!insertmacro MUI_PAGE_FINISH
+
+# Uninstaller pages
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
+
+# Language files
+!insertmacro MUI_LANGUAGE "English"
+
+# MUI end ------
+
 # set the name of the installer
 outfile "VirtualLeaf-install.exe"
+Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+ShowInstDetails show
+ShowUnInstDetails show
  
 # define the directory to install to
 installDir C:\VirtualLeaf
@@ -66,31 +113,24 @@ installDir C:\VirtualLeaf
 # Request application privileges
 RequestExecutionLevel user
 
-# Pages
-Page directory
-Page instfiles
-
-# default section
-section
- 
+section "Virtual Leaf executable"
+  sectionIn RO
   # define the output path for the Virtual Leaf executable
   setOutPath $INSTDIR
+  writeUninstaller $INSTDIR\uninstaller.exe
   file ..\bin\VirtualLeaf.exe
+sectionEnd
  
+section "Virtual Leaf models"
   # define the output path for the Virtual Leaf models
   setOutPath $INSTDIR\models
   file ..\bin\models\*
-
-  # define uninstaller name
-  writeUninstaller $INSTDIR\uninstaller.exe
- 
-# default section end
 sectionEnd
- 
+
 # create a section to define what the uninstaller does.
 # the section will always be named "Uninstall"
 section "Uninstall"
- 
+
   # Always delete uninstaller first
   delete $INSTDIR\uninstaller.exe
  
