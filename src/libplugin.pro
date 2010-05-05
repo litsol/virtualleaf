@@ -19,13 +19,14 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG -= release
-CONFIG += debug
+CONFIG += release
+CONFIG -= debug
 CONFIG += staticlib
 
 QMAKE_CXXFLAGS += -fexceptions
 QMAKE_CXXFLAGS_DEBUG += -g3
-QMAKE_CXXFLAGS_DEBUG -= -DQDEBUG
+QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
+QMAKE_CXXFLAGS_DEBUG -= -finstrument-functions
 
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = build_models/lib 

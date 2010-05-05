@@ -20,8 +20,8 @@
 #
 
 
-CONFIG -= release
-CONFIG += debug
+CONFIG += release
+CONFIG -= debug
 CONFIG += plugin
 
 BINDIR = ../../bin
@@ -31,6 +31,8 @@ TARGET = test
 HEADERS = ../simplugin.h $${TARGET}plugin.h  
 QMAKE_CXXFLAGS += -fexceptions -I..
 QMAKE_CXXFLAGS_DEBUG += -g3
+QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
+
 QT += qt3support
 SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 

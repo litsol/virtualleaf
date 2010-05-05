@@ -133,7 +133,7 @@ class CellBase :  public QObject, public Vector
     ostream &print(ostream &os) const;
 
     inline double Chemical(int c) const { // returns the value of chemical c
-    #ifdef QDEBUG
+    #ifdef _undefined_
       qDebug() << endl << "Entering cellbase::chemical(" << c << "), and nchem is: " << NChem() << "." << endl;
     #endif
 

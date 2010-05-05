@@ -114,17 +114,23 @@ installDir C:\VirtualLeaf
 RequestExecutionLevel user
 
 section "Virtual Leaf executable"
-  sectionIn RO
+  #sectionIn RO
   # define the output path for the Virtual Leaf executable
   setOutPath $INSTDIR
   writeUninstaller $INSTDIR\uninstaller.exe
   file ..\bin\VirtualLeaf.exe
 sectionEnd
  
-section "Virtual Leaf models"
+section "Virtual Leaf plugins"
   # define the output path for the Virtual Leaf models
   setOutPath $INSTDIR\models
   file ..\bin\models\*
+sectionEnd
+
+section "Virtual Leaf data"
+  # define the output path for the Virtual Leaf models
+  setOutPath $INSTDIR\leaves
+  file ..\data\leaves\*
 sectionEnd
 
 # create a section to define what the uninstaller does.

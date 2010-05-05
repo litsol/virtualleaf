@@ -19,13 +19,13 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG -= release
-CONFIG += debug
+CONFIG += release
+CONFIG -= debug
 CONFIG += qt
 
 QMAKE_CXXFLAGS += -fexceptions
 QMAKE_CXXFLAGS_DEBUG += -g3
-QMAKE_CXXFLAGS_DEBUG -= -DQDEBUG
+QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 
 #REACTIONS = reactions_auxin_growth.h 
 #REACTIONS = reactions_meinhardt.h

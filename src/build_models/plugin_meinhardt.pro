@@ -19,17 +19,19 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG -= release
-CONFIG += debug
+CONFIG += release
+CONFIG -= debug
 CONFIG += plugin
 
 BINDIR = ../../bin
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = $${BINDIR}/models
 TARGET = meinhardt
-HEADERS = simplugin.h $${TARGET}plugin.h  
+HEADERS = ../simplugin.h $${TARGET}plugin.h  
 QMAKE_CXXFLAGS += -fexceptions -I..
 QMAKE_CXXFLAGS_DEBUG += -g3
+QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
+
 QT += qt3support
 SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 
