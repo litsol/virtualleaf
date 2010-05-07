@@ -67,6 +67,7 @@ ${Index_RemoveFilesAndSubDirs}-done:
 
 # MUI 1.67 compatible ------
 !include "MUI.nsh"
+!include "EnvVarUpdate.nsh"
 
 # MUI Settings
 !define MUI_ABORTWARNING
@@ -119,6 +120,26 @@ section "Virtual Leaf executable"
   setOutPath $INSTDIR
   writeUninstaller $INSTDIR\uninstaller.exe
   file ..\bin\VirtualLeaf.exe
+
+  # Required DLLs
+  setOutPath $INSTDIR\bin
+
+  file C:\libiconv\bin\libiconv-2.dll
+  file C:\libxml2\lib\libxml2.dll
+  file C:\libz\bin\zlib1.dll
+
+  file C:\Qt\2010.02.1\mingw\bin\mingwm10.dll
+  file C:\Qt\2010.02.1\mingw\bin\libgcc_s_dw2-1.dll
+
+  file C:\Qt\2010.02.1\qt\bin\Qt3Support4.dll
+  file C:\Qt\2010.02.1\qt\bin\QtCore4.dll
+  file C:\Qt\2010.02.1\qt\bin\QtGui4.dll
+  file C:\Qt\2010.02.1\qt\bin\QtNetwork4.dll
+  file C:\Qt\2010.02.1\qt\bin\QtSql4.dll
+  file C:\Qt\2010.02.1\qt\bin\QtXml4.dll
+
+  # Prepend the Virtual Leaf bin directory to the installers PATH
+  ${EnvVarUpdate} $0 "PATH" "P" "HKCU" "$INSTDIR\bin"  
 sectionEnd
  
 section "Virtual Leaf plugins"
@@ -140,8 +161,11 @@ section "Uninstall"
   # Always delete uninstaller first
   delete $INSTDIR\uninstaller.exe
  
-  # now delete installed file
+  # Now delete installed file
   !insertmacro RemoveFilesAndSubDirs "$INSTDIR"
 
+  # Last but not least - delete the path  
+  ${un.EnvVarUpdate} $0 "PATH" "R" "HKCU" "$INSTDIR\bin"
 sectionEnd
+
 # finis
