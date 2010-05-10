@@ -39,7 +39,7 @@ TEMPLATE = lib
 
 unix {
  LIBS += -Llib -lvleaf
- QMAKE_CXXFLAGS += -I/usr/include/libxml2
+ QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
 }
 

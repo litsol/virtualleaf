@@ -97,7 +97,7 @@ unix {
  CC = /usr/bin/gcc 
  QWTDIR = /ufs/guravage/opt/qwt-5.2.1-svn
  QMAKE_LIBDIR += $$QWTDIR/lib 
- QMAKE_CXXFLAGS += -I/usr/include/libxml2
+ QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
