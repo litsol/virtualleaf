@@ -508,8 +508,9 @@ int main(int argc,char **argv) {
       model_catalogue.PopulateModelMenu();
     model_catalogue.InstallFirstModel();
     
-    mesh.Clean();
-    main_window->Init(leaffile);
+
+    if (leaffile) 
+      main_window->Init(leaffile);
 	  
     Cell::SetMagnification(1);
     Cell::setOffset(0,0);

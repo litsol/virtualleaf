@@ -113,7 +113,7 @@ void ModelCatalogue::LoadPlugin(const char *model) {
     if (SimPluginInterface *plugin = 
 	qobject_cast<SimPluginInterface *>(loader.instance())) {
       models.append(plugin); 
-      MyWarning::warning("Successfully loaded model %s",fileName.toStdString().c_str());
+      //MyWarning::warning("Successfully loaded model %s",fileName.toStdString().c_str());
     } else {
       MyWarning::warning("Could not load plugin %s",fileName.toStdString().c_str());
     }
