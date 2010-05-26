@@ -154,7 +154,7 @@ void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
 
 	if (mainwin) {
 		mainwin->RefreshInfoBar();
-		//mainwin->Init(0);
+		mainwin->Init(0);
 	}
 	//	mesh->StandardInit();
 	
