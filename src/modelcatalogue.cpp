@@ -145,17 +145,17 @@ void ModelCatalogue::InstallModel(QAction *modelaction) {
 
 void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
 	
-	// make sure both main and plugin use the same static datamembers (ncells, nchems...)
-	plugin->SetCellsStaticDatamembers(CellBase::GetStaticDataMemberPointer());
+  // make sure both main and plugin use the same static datamembers (ncells, nchems...)
+  plugin->SetCellsStaticDatamembers(CellBase::GetStaticDataMemberPointer());
 	
-	mesh->SetSimPlugin(plugin);
-	Cell::SetNChem(plugin->NChem());
-	plugin->SetParameters(&par);
+  mesh->SetSimPlugin(plugin);
+  Cell::SetNChem(plugin->NChem());
+  plugin->SetParameters(&par);
 
-	if (mainwin) {
-		mainwin->RefreshInfoBar();
-		mainwin->Init(0);
-	}
-	//	mesh->StandardInit();
+  if (mainwin) {
+    mainwin->RefreshInfoBar();
+    mainwin->Init(0);
+  }
+  //	mesh->StandardInit();
 	
 }

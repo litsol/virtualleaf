@@ -507,7 +507,8 @@ int main(int argc,char **argv) {
     if (useGUI)
       model_catalogue.PopulateModelMenu();
     model_catalogue.InstallFirstModel();
-	  
+    
+    mesh.Clean();
     main_window->Init(leaffile);
 	  
     Cell::SetMagnification(1);
