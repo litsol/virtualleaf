@@ -388,20 +388,21 @@ int main(int argc,char **argv) {
 
 						
     char *leaffile=0;
-
+    char *modelfile=0;
 						
     while (1) {
 							
       //int this_option_optind = optind ? optind : 1;
       int option_index = 0;
       static struct option long_options[] = {
-	{"batch", 0, 0, 0},
-	{"leaffile", 2, 0, 0}
+	{"batch", no_argument, NULL, 'b'},
+	{"leaffile", required_argument, NULL, 'l'},
+	{"model", required_argument, NULL, 'm'} 
       };
 		
       // short option 'p' creates trouble for non-commandline usage on MacOSX. Option -p changed to -P (capital)
-      static char *short_options = "bl";
-      c = getopt_long (argc, argv, "bl:",
+      static char *short_options = "blm";
+      c = getopt_long (argc, argv, "bl:m:",
 		       long_options, &option_index);
       if (c == -1)
 	break;
@@ -429,7 +430,14 @@ int main(int argc,char **argv) {
 	}
 	printf("Reading leaf state file '%s'\n", leaffile);
 	break;
-				
+
+      case 'm':
+	modelfile=strdup(optarg);
+	if (!modelfile) {
+	  throw("Out of memory");
+	}
+	break;
+					
       case '?':
 	break;
 				
@@ -494,19 +502,19 @@ int main(int argc,char **argv) {
 	  */
 
 	 	  
-
-	  ModelCatalogue model_catalogue(&mesh, (Main *)main_window);
-	  model_catalogue.PopulateModelMenu();
-	  model_catalogue.InstallFirstModel();
+    // Install model or read catalogue of models
+    ModelCatalogue model_catalogue(&mesh, useGUI?(Main *)main_window:0,modelfile);
+    if (useGUI)
+      model_catalogue.PopulateModelMenu();
+    model_catalogue.InstallFirstModel();
 	  
-	  //main_window->Init(leaffile);
+    main_window->Init(leaffile);
 	  
     Cell::SetMagnification(1);
     Cell::setOffset(0,0);
 						
     main_window->FitLeafToCanvas();
-						
-				
+							
 						
     main_window->Plot();
 

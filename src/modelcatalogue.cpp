@@ -25,10 +25,16 @@
 
 static const std::string _module_id("$Id$");
 
-ModelCatalogue::ModelCatalogue(Mesh *_mesh, Main *_mainwin) {
+ModelCatalogue::ModelCatalogue(Mesh *_mesh, Main *_mainwin, const char *model=0) {
 	mesh = _mesh;
 	mainwin = _mainwin;
-	LoadPlugins();
+	if (model) {
+	  cerr << "Loading model: " << model << endl;
+		LoadPlugin(model);
+	} else {
+	  cerr << "Loading all models." << endl;
+		LoadPlugins();
+	}
 }
 
 void ModelCatalogue::LoadPlugins() {
@@ -55,7 +61,7 @@ void ModelCatalogue::LoadPlugins() {
 	}
 	
 	
-	QVector<SimPluginInterface *> plugins;
+	//QVector<SimPluginInterface *> plugins;
 	foreach (QString fileName, pluginDir.entryList(QDir::Files)){ 
 		QPluginLoader loader(pluginDir.absoluteFilePath(fileName)); 
 		if (SimPluginInterface *plugin = 
@@ -65,6 +71,53 @@ void ModelCatalogue::LoadPlugins() {
 			MyWarning::warning("Could not load plugin %s",fileName.toStdString().c_str());
 		}
 	}
+}
+
+void ModelCatalogue::LoadPlugin(const char *model) {
+
+	
+  QDir pluginDir(QApplication::applicationDirPath()); 
+  QStringList plugin_filters; // filter for plugins, i.e "*.dll", "*.dylib"
+	
+	
+#if defined(Q_OS_WIN) 
+  if (pluginDir.dirName().toLower() =="debug" 
+      ||pluginDir.dirName().toLower() =="release") 
+    pluginDir.cdUp(); 
+  //plugin_filters << "*.dll";
+#elif defined(Q_OS_MAC) 
+  if (pluginDir.dirName() =="MacOS"){ 
+    pluginDir.cdUp(); 
+    pluginDir.cdUp(); 
+    pluginDir.cdUp(); 
+  } 
+  //plugin_filters << "*.dylib";
+#endif
+  plugin_filters << model;
+  pluginDir.setNameFilters(plugin_filters);
+	
+  if (!pluginDir.cd("models")) {
+    MyWarning::error("Directory 'models' not found!");
+  }
+	
+	
+  //QVector<SimPluginInterface *> plugins;
+	
+  QStringList modelnames=pluginDir.entryList(QDir::Files);
+  if (modelnames.empty()) {
+    MyWarning::error("Model %s not found - hint: do not include path in filename.",model);
+  }
+  foreach (QString fileName, modelnames){ 
+    QPluginLoader loader(pluginDir.absoluteFilePath(fileName)); 
+		
+    if (SimPluginInterface *plugin = 
+	qobject_cast<SimPluginInterface *>(loader.instance())) {
+      models.append(plugin); 
+      MyWarning::warning("Successfully loaded model %s",fileName.toStdString().c_str());
+    } else {
+      MyWarning::warning("Could not load plugin %s",fileName.toStdString().c_str());
+    }
+  }
 }
 
 void ModelCatalogue::InstallFirstModel() {
@@ -99,7 +152,10 @@ void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
 	Cell::SetNChem(plugin->NChem());
 	plugin->SetParameters(&par);
 
-	mainwin->RefreshInfoBar();
-//	mesh->StandardInit();
-	mainwin->Init(0);
+	if (mainwin) {
+		mainwin->RefreshInfoBar();
+		//mainwin->Init(0);
+	}
+	//	mesh->StandardInit();
+	
 }

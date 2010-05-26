@@ -66,9 +66,9 @@ void MyWarning::error(const char *fmt, ...)
   
   QString qmess(message);
   
-  bool batch = false;
+  //  bool batch = false;
   
-  if (batch) {
+  if (qApp->type()==QApplication::Tty) {
     // batch mode: print the message to stderr
     fprintf(stderr, "Fatal error: %s\n",qmess.toStdString().c_str());
     exit(1);
@@ -123,9 +123,9 @@ void MyWarning::warning(const char *fmt, ...)
   
   QString qmess(message);
   
-  bool batch = false;
+  //  bool batch = false;
   
-  if (batch) {
+  if (qApp->type()==QApplication::Tty) {
     // batch mode: print the message to stderr
     fprintf(stderr, "Warning: %s\n",qmess.toStdString().c_str());
   } else { // issue a dialog box

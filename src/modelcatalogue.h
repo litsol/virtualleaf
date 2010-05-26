@@ -41,8 +41,9 @@
 class ModelCatalogue : public QObject {
 Q_OBJECT
 public:
-	ModelCatalogue(Mesh *mesh, Main *mainwin); 	
+	ModelCatalogue(Mesh *mesh, Main *mainwin, const char *model); 	
 	void LoadPlugins(); 
+	void LoadPlugin(const char *model);
 	
 	void InstallFirstModel();
 	void PopulateModelMenu();	
