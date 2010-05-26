@@ -31,6 +31,7 @@
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlreader.h>
+#include <QLocale>
 #include "xmlwrite.h"
 #include "nodeset.h"
 #include "warning.h"
@@ -319,7 +320,9 @@ getnodeset (xmlDocPtr doc, xmlChar *xpath){
 int Cell::XMLRead(xmlNode *cur)  {
   
   xmlNode *n = cur->xmlChildrenNode;
-  
+  QLocale standardlocale(QLocale::C);
+  bool ok;
+
   vector<int> tmp_nodes;
 
 	while(n!=NULL) {
@@ -348,34 +351,36 @@ int Cell::XMLRead(xmlNode *cur)  {
   n = cur->xmlChildrenNode;
   while(n!=NULL) {
 	  if ((!xmlStrcmp(n->name, (const xmlChar *)"chem"))) {
-		xmlChar *v_str = xmlGetProp(n, BAD_CAST "n");
-		  xmlNode *v_node = n->xmlChildrenNode;
-		  int nv=0;
-		  while (v_node!=NULL) {
-			  if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
-
-				  
-				  if (nv>=Cell::NChem()) {
-					  {
-						  stringstream text;
-						  text << "Exception in Mesh::XMLRead: Too many chemical values given for cell(s). Ignoring remaining values.";
-						  //ThrowStringStream(text);
-						  unique_warning(text.str().c_str());
-						  break;
-					  }
-				  }
-				  
-				  xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
-				  
-				  if (nc==0) {
-					  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 1002");
-				  }
-				  double v = strtod( (char *)nc, 0 );
-				  chem[nv++]=v;
-				  xmlFree(nc);
-			  }
-			  v_node = v_node->next; 
+	    xmlChar *v_str = xmlGetProp(n, BAD_CAST "n");
+	    xmlNode *v_node = n->xmlChildrenNode;
+	    int nv=0;
+	    while (v_node!=NULL) {
+	      if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
+		
+		
+		if (nv>=Cell::NChem()) {
+		  {
+		    stringstream text;
+		    text << "Exception in Mesh::XMLRead: Too many chemical values given for cell(s). Ignoring remaining values.";
+		    //ThrowStringStream(text);
+		    unique_warning(text.str().c_str());
+		    break;
 		  }
+		}
+		
+		xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
+		
+		if (nc==0) {
+		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 1002");
+		}
+		//double v = strtod( (char *)nc, 0 );
+		double v=standardlocale.toDouble((char *)nc, &ok);
+		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)nc);
+		chem[nv++]=v;
+		xmlFree(nc);
+	      }
+	      v_node = v_node->next; 
+	    }
 	  }
 	  n = n->next;
   }
@@ -388,7 +393,9 @@ int Cell::XMLRead(xmlNode *cur)  {
 			unique_warning("Token \"area\" not found in xmlwrite.cpp at or around line no. 1018");
 		}
 		if (v_str != NULL) {
-			area = strtod( (char *)v_str, 0);
+		  //area = strtod( (char *)v_str, 0);
+			area=standardlocale.toDouble((char *)v_str, &ok);
+			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
 			xmlFree(v_str);
 		}
 	}
@@ -400,7 +407,9 @@ int Cell::XMLRead(xmlNode *cur)  {
 			unique_warning("Token \"target_area\" not found in xmlwrite.cpp at or around line no. 1029");
 		}
     if (v_str != NULL) {
-      target_area = strtod( (char *)v_str, 0);
+      //target_area = strtod( (char *)v_str, 0);
+      	target_area=standardlocale.toDouble((char *)v_str, &ok);
+	if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
     }
   }
@@ -413,7 +422,9 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"target_length\" not found in xmlwrite.cpp at or around line no. 1041");
     }
     if (v_str != NULL) {
-      target_length = strtod( (char *)v_str, 0);
+      //target_length = strtod( (char *)v_str, 0);
+      target_length=standardlocale.toDouble((char *)v_str, &ok);
+      if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
     }
   }
@@ -425,7 +436,9 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"lambda_celllength\" not found in xmlwrite.cpp at or around line no. 1052");
     }
     if (v_str != NULL) {
-      lambda_celllength = strtod( (char *)v_str, 0);
+      //lambda_celllength = strtod( (char *)v_str, 0);
+      lambda_celllength=standardlocale.toDouble((char *)v_str, &ok);
+      if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
     }
   }
@@ -437,7 +450,9 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"stiffness\" not found in xmlwrite.cpp at or around line no. 1063");
     }
     if (v_str != NULL) {
-      stiffness = strtod( (char *)v_str, 0);
+      //stiffness = strtod( (char *)v_str, 0);
+      stiffness=standardlocale.toDouble((char *)v_str, &ok);
+      if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
     }
   }
@@ -692,14 +707,18 @@ void Wall::XMLAdd(xmlNode *parent) const {
 vector<double> XMLIO::XMLReadValArray(xmlNode *cur) {
   
   vector<double> result;
-  
+  QLocale standardlocale(QLocale::C);
+  bool ok;
+
   xmlNode *valarray_node = cur->xmlChildrenNode;
   while (valarray_node!=NULL) {
     if (!xmlStrcmp(valarray_node->name, (const xmlChar *)"val")) {
       xmlChar *vc = xmlGetProp(valarray_node, BAD_CAST "v");
       if (vc) {
-		  result.push_back(strtod( (const char *)vc, 0));
-		  xmlFree(vc);
+	//result.push_back(strtod( (const char *)vc, 0));
+	result.push_back(standardlocale.toDouble((char *)vc, &ok));
+	if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)vc);
+	xmlFree(vc);
       }
       
     }
@@ -886,13 +905,20 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
 
 void Mesh::XMLReadSimtime(const xmlNode *a_node) {
 	
-	xmlNode *root_node;
-	root_node = (xmlNode *)a_node;
-	xmlNode *cur;
-	xmlChar *strsimtime = xmlGetProp(root_node, BAD_CAST "simtime");
-    if (strsimtime) {
-		double simtime = strtod((const char *)strsimtime, 0);
-		time = simtime;
+  xmlNode *root_node;
+  root_node = (xmlNode *)a_node;
+  xmlNode *cur;
+  xmlChar *strsimtime = xmlGetProp(root_node, BAD_CAST "simtime");
+  
+  
+  if (strsimtime) {
+    //double simtime = strtod((const char *)strsimtime, 0);
+    QLocale standardlocale(QLocale::C);
+    bool ok;
+    
+    double simtime=standardlocale.toDouble((char *)strsimtime, &ok);
+    if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)strsimtime);
+      time = simtime;
 		cerr << "Simtime = " << strsimtime << endl;
 	} else {
 		cerr << "No simtime found in file \n";
@@ -910,10 +936,12 @@ void Mesh::XMLReadPars(const xmlNode * a_node) {
 
 void Mesh::XMLReadGeometry(const xmlNode * a_node)
 {
+  
 	xmlNode *root_node;
 	root_node = (xmlNode *)a_node;
 	xmlNode *cur;
-	
+	QLocale standardlocale(QLocale::C);
+	bool ok;
 	// allocate Nodes
 	cur = root_node->xmlChildrenNode;
 	while (cur!=NULL) {
@@ -950,19 +978,26 @@ void Mesh::XMLReadGeometry(const xmlNode * a_node)
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"cells"))){
 			xmlChar *offsetxc = xmlGetProp(cur, BAD_CAST "offsetx");
 			xmlChar *offsetyc = xmlGetProp(cur, BAD_CAST "offsety");
-			double ox = strtod((const char*)offsetxc, 0);
-			double oy = strtod((const char*)offsetyc, 0);
-			
+			//double ox = strtod((const char*)offsetxc, 0);
+			double ox=standardlocale.toDouble((const char *)offsetxc, &ok);
+			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)offsetxc);
+			//double oy = strtod((const char*)offsetyc, 0);
+			double oy=standardlocale.toDouble((const char *)offsetyc, &ok);
+			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)offsetyc);
 			Cell::setOffset(ox, oy);
 			xmlFree(offsetxc);
 			xmlFree(offsetyc);
 			
 			xmlChar *magnificationc = xmlGetProp(cur, BAD_CAST "magnification");
-			Cell::SetMagnification(strtod((const char*)magnificationc, 0 ));
+			//Cell::SetMagnification(strtod((const char*)magnificationc, 0 ));
+			Cell::SetMagnification(standardlocale.toDouble((const char *)magnificationc, &ok));
+			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)magnificationc);
 			xmlFree(magnificationc);
 			
 			xmlChar *baseareac = xmlGetProp(cur, BAD_CAST "base_area");
-			Cell::BaseArea()= strtod((const char *)baseareac, 0 );
+			//Cell::BaseArea()= strtod((const char *)baseareac, 0 );
+			Cell::BaseArea() = standardlocale.toDouble((const char *)baseareac, &ok);
+			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)baseareac);
 			xmlFree(baseareac);
 			
 			
@@ -1021,314 +1056,344 @@ void Mesh::XMLParseTree(const xmlNode *root_node) {
 
 void Mesh::XMLReadNodes(xmlNode *root) {
 	
-	xmlNode *cur = root;
-	cur = cur->xmlChildrenNode;
+  QLocale standardlocale(QLocale::C);
+  bool ok;
+
+  xmlNode *cur = root;
+  cur = cur->xmlChildrenNode;
 	
-	for (vector<Node *>::iterator i=nodes.begin();
-		 i!=nodes.end();
-		 i++) {
-		delete *i;
-	}
+  for (vector<Node *>::iterator i=nodes.begin();
+       i!=nodes.end();
+       i++) {
+    delete *i;
+  }
 	
-	nodes.clear();
-	Node::nnodes=0;
+  nodes.clear();
+  Node::nnodes=0;
 	
-	xmlChar *tlc = xmlGetProp(root, BAD_CAST "target_length");
+  xmlChar *tlc = xmlGetProp(root, BAD_CAST "target_length");
 	
-	if (tlc != 0) {
-		Node::target_length = strtod( (const char *)tlc, 0 );
-		xmlFree(tlc);
-	} else {
-		// note that libxml2 also defines a token "warning"
-		MyWarning::unique_warning("Warning: value found in XML file for Node::target_length.");
-	}
+  if (tlc != 0) {
+    //Node::target_length = strtod( (const char *)tlc, 0 );
+	  
+    Node::target_length = standardlocale.toDouble((const char *)tlc, &ok);
+    if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)tlc);
+		
+    xmlFree(tlc);
+  } else {
+    // note that libxml2 also defines a token "warning"
+    MyWarning::unique_warning("Warning: value found in XML file for Node::target_length.");
+  }
     
-	while (cur!=NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"node"))){
+  while (cur!=NULL) {
+    if ((!xmlStrcmp(cur->name, (const xmlChar *)"node"))){
 			
-			xmlChar *xc = xmlGetProp(cur, BAD_CAST "x");
+      xmlChar *xc = xmlGetProp(cur, BAD_CAST "x");
 			
-			if (xc==0) {
-				unique_warning("Token \"x\" not found in xmlwrite.cpp at or around line no. 722");
-			}
+      if (xc==0) {
+	unique_warning("Token \"x\" not found in xmlwrite.cpp at or around line no. 722");
+      }
 			
-			xmlChar *yc = xmlGetProp(cur, BAD_CAST "y");
+      xmlChar *yc = xmlGetProp(cur, BAD_CAST "y");
 			
-			if (yc==0) {
-				unique_warning("Token \"y\" not found in xmlwrite.cpp at or around line no. 727");
-			}
+      if (yc==0) {
+	unique_warning("Token \"y\" not found in xmlwrite.cpp at or around line no. 727");
+      }
 			
-			xmlChar *fixedc = xmlGetProp(cur, BAD_CAST "fixed");
-			if (fixedc==0) {
-				unique_warning("Token \"fixed\" not found in xmlwrite.cpp at or around line.");
-			}
+      xmlChar *fixedc = xmlGetProp(cur, BAD_CAST "fixed");
+      if (fixedc==0) {
+	unique_warning("Token \"fixed\" not found in xmlwrite.cpp at or around line.");
+      }
 			
-			xmlChar *boundaryc = xmlGetProp(cur, BAD_CAST "boundary");
-			if (boundaryc==0) {
-				unique_warning("Token \"boundary\" not found in xmlwrite.cpp at or around line.");
-			}
+      xmlChar *boundaryc = xmlGetProp(cur, BAD_CAST "boundary");
+      if (boundaryc==0) {
+	unique_warning("Token \"boundary\" not found in xmlwrite.cpp at or around line.");
+      }
 			
-			xmlChar *samc = xmlGetProp(cur, BAD_CAST "sam");
-			if (samc==0) {
-				unique_warning("Token \"sam\" not found in xmlwrite.cpp at or around line.");
-			}
+      xmlChar *samc = xmlGetProp(cur, BAD_CAST "sam");
+      if (samc==0) {
+	unique_warning("Token \"sam\" not found in xmlwrite.cpp at or around line.");
+      }
 			
-			double x = strtod( (char *)xc , 0);
-			double y = strtod( (char *)yc , 0 );
+      //double x = strtod( (char *)xc , 0);
+      double x = standardlocale.toDouble((const char *)xc, &ok);
+      if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)xc);
+		
+      //double y = strtod( (char *)yc , 0 );
+      double y = standardlocale.toDouble((const char *)yc, &ok);
+      if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)yc);
 			
-			Node *new_node = new Node(x,y);
-			nodes.push_back(new_node);
+      Node *new_node = new Node(x,y);
+      nodes.push_back(new_node);
 			
-			new_node->m = this;
-			new_node->fixed = strtobool( (char *)fixedc);
-			new_node->boundary = strtobool( (char *)boundaryc );
-			new_node->sam = strtobool ( (char *)samc);
-			new_node->node_set = 0;
+      new_node->m = this;
+      new_node->fixed = strtobool( (char *)fixedc);
+      new_node->boundary = strtobool( (char *)boundaryc );
+      new_node->sam = strtobool ( (char *)samc);
+      new_node->node_set = 0;
 			
-			xmlFree(xc);
-			xmlFree(yc);
-			xmlFree(boundaryc);
-			xmlFree(fixedc);
-			xmlFree(samc);
+      xmlFree(xc);
+      xmlFree(yc);
+      xmlFree(boundaryc);
+      xmlFree(fixedc);
+      xmlFree(samc);
 			
 			
-		}
-		cur=cur->next;
-	}
+    }
+    cur=cur->next;
+  }
 	
-	shuffled_nodes.clear();
-	shuffled_nodes = nodes;
+  shuffled_nodes.clear();
+  shuffled_nodes = nodes;
 	
-	MyUrand r(shuffled_nodes.size());
-	random_shuffle(shuffled_nodes.begin(),shuffled_nodes.end(),r);
+  MyUrand r(shuffled_nodes.size());
+  random_shuffle(shuffled_nodes.begin(),shuffled_nodes.end(),r);
 	
 }
 
 void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 	
-	xmlNode *cur = root;
-	cur = cur->xmlChildrenNode;
+  xmlNode *cur = root;
+  cur = cur->xmlChildrenNode;
 	
-	for (list<Wall *>::iterator i=walls.begin();
-		 i!=walls.end();
-		 i++) {
-		delete *i;
-	}
+  for (list<Wall *>::iterator i=walls.begin();
+       i!=walls.end();
+       i++) {
+    delete *i;
+  }
 	
-	walls.clear();
-	Wall::nwalls = 0;
-	tmp_walls->clear();
-	//Node::nnodes=0;
+  walls.clear();
+  Wall::nwalls = 0;
+  tmp_walls->clear();
+  //Node::nnodes=0;
 	
 	
-	while (cur!=NULL) {
+  QLocale standardlocale(QLocale::C);
+  bool ok;
+
+  while (cur!=NULL) {
 		
-		vector<int> tmp_nodes;
-		while(cur!=NULL) {
-			if ((!xmlStrcmp(cur->name, (const xmlChar *)"wall"))) {
+    vector<int> tmp_nodes;
+    while(cur!=NULL) {
+      if ((!xmlStrcmp(cur->name, (const xmlChar *)"wall"))) {
 				
-				xmlChar *nc = xmlGetProp(cur, BAD_CAST "c1");
+	xmlChar *nc = xmlGetProp(cur, BAD_CAST "c1");
 				
-				if (nc==0) {
-					unique_warning("Token \"c1\" not found in xmlwrite.cpp at or around line no. 777");
-				}
-				int c1 = atoi( (char *)nc);
-				xmlFree(nc);
+	if (nc==0) {
+	  unique_warning("Token \"c1\" not found in xmlwrite.cpp at or around line no. 777");
+	}
+	int c1 = atoi( (char *)nc);
+	xmlFree(nc);
 				
-				nc = xmlGetProp(cur, BAD_CAST "c2");
+	nc = xmlGetProp(cur, BAD_CAST "c2");
 				
-				if (	nc==0) {
-					unique_warning("Token \"c2\" not found in xmlwrite.cpp at or around line no. 785");
-				}
-				int c2 = atoi( (char *)nc);
-				xmlFree(nc);
+	if (	nc==0) {
+	  unique_warning("Token \"c2\" not found in xmlwrite.cpp at or around line no. 785");
+	}
+	int c2 = atoi( (char *)nc);
+	xmlFree(nc);
 				
-				nc = xmlGetProp(cur, BAD_CAST "n1");
+	nc = xmlGetProp(cur, BAD_CAST "n1");
 				
-				if (	nc==0) {
-					unique_warning("Token \"n1\" not found in xmlwrite.cpp at or around line no. 793");
-				}
-				int n1 = atoi( (char *)nc);
-				xmlFree(nc);
+	if (	nc==0) {
+	  unique_warning("Token \"n1\" not found in xmlwrite.cpp at or around line no. 793");
+	}
+	int n1 = atoi( (char *)nc);
+	xmlFree(nc);
 				
-				nc = xmlGetProp(cur, BAD_CAST "n2");
+	nc = xmlGetProp(cur, BAD_CAST "n2");
 				
-				if (	nc==0) {
-					unique_warning("Token \"n2\" not found in xmlwrite.cpp at or around line no. 801");
-				}
-				int n2 = atoi( (char *)nc);
-				xmlFree(nc);
+	if (	nc==0) {
+	  unique_warning("Token \"n2\" not found in xmlwrite.cpp at or around line no. 801");
+	}
+	int n2 = atoi( (char *)nc);
+	xmlFree(nc);
 				
-				nc = xmlGetProp(cur, BAD_CAST "length");
+	nc = xmlGetProp(cur, BAD_CAST "length");
 				
-				if (	nc==0) {
-					unique_warning("Token \"length\" not found in xmlwrite.cpp at or around line no. 809");
-				}
-				double length = strtod( (char *)nc, 0);
-				xmlFree(nc);
+	if (	nc==0) {
+	  unique_warning("Token \"length\" not found in xmlwrite.cpp at or around line no. 809");
+	}
+	//double length = strtod( (char *)nc, 0);
+	double length = standardlocale.toDouble((const char *)nc, &ok);
+	if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
+
+	xmlFree(nc);
 				
 				
-				nc = xmlGetProp(cur, BAD_CAST "viz_flux");
+	nc = xmlGetProp(cur, BAD_CAST "viz_flux");
 				
-				double viz_flux;
-				if (nc!=0) {
-					viz_flux = strtod( (char *)nc, 0);
-				} else {
-					// if the info is not there, we really don't care.
-					// It is just for visualization anyhow.
-					viz_flux = 0.;
-				}
-				xmlFree(nc);
+	double viz_flux;
+	if (nc!=0) {
+	  //viz_flux = strtod( (char *)nc, 0);
+	  double viz_flux = standardlocale.toDouble((const char *)nc, &ok);
+	  if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
+
+	} else {
+	  // if the info is not there, we really don't care.
+	  // It is just for visualization anyhow.
+	  viz_flux = 0.;
+	}
+	xmlFree(nc);
 				
-				Wall::WallType wall_type;
-				{
-					xmlChar *v_str = xmlGetProp(cur, BAD_CAST "wall_type");
+	Wall::WallType wall_type;
+	{
+	  xmlChar *v_str = xmlGetProp(cur, BAD_CAST "wall_type");
 					
-					if (v_str != 0) {
+	  if (v_str != 0) {
 						
-						if (!xmlStrcmp(v_str, (const xmlChar *)"aux_source")) {
-							wall_type = Wall::AuxSource;
-						} else {
-							if (!xmlStrcmp(v_str, (const xmlChar *)"aux_sink")) {
-								wall_type = Wall::AuxSink;
-							} else {
-								wall_type = Wall::Normal;
-							}
-						}
-						xmlFree(v_str);
+	    if (!xmlStrcmp(v_str, (const xmlChar *)"aux_source")) {
+	      wall_type = Wall::AuxSource;
+	    } else {
+	      if (!xmlStrcmp(v_str, (const xmlChar *)"aux_sink")) {
+		wall_type = Wall::AuxSink;
+	      } else {
+		wall_type = Wall::Normal;
+	      }
+	    }
+	    xmlFree(v_str);
 						
-					} else {
-						wall_type = Wall::Normal;
-					}
-				}
+	  } else {
+	    wall_type = Wall::Normal;
+	  }
+	}
 				
-				bool dead = false;
-				{
-					// Note: property "delete" is used to manually clean up wall lists in XML files
-					// Simply add property 'delete="true"' to the wall and it will be removed from
-					// the mesh. (This saves us from manually reindexing the file). Otherwise do not use it.
-					xmlChar *v_str = xmlGetProp(cur, BAD_CAST "delete");
+	bool dead = false;
+	{
+	  // Note: property "delete" is used to manually clean up wall lists in XML files
+	  // Simply add property 'delete="true"' to the wall and it will be removed from
+	  // the mesh. (This saves us from manually reindexing the file). Otherwise do not use it.
+	  xmlChar *v_str = xmlGetProp(cur, BAD_CAST "delete");
 					
-					if (v_str != 0) {
-						dead = strtobool( (char *)v_str);
-						xmlFree(v_str);
-					}
+	  if (v_str != 0) {
+	    dead = strtobool( (char *)v_str);
+	    xmlFree(v_str);
+	  }
 					
-				}
+	}
 				
-				Cell *cc1 = c1 != -1 ? cells[c1] : boundary_polygon;
-				Cell *cc2 = c2 != -1 ? cells[c2] : boundary_polygon;
+	Cell *cc1 = c1 != -1 ? cells[c1] : boundary_polygon;
+	Cell *cc2 = c2 != -1 ? cells[c2] : boundary_polygon;
 				
-				Wall *w = new Wall( nodes[n1], nodes[n2], cc1, cc2);
-				w->length = length;
-				w->viz_flux = viz_flux;
-				w->wall_type = wall_type;
-				w->dead = dead;
-				tmp_walls->push_back(w);
-				walls.push_back(w);
+	Wall *w = new Wall( nodes[n1], nodes[n2], cc1, cc2);
+	w->length = length;
+	w->viz_flux = viz_flux;
+	w->wall_type = wall_type;
+	w->dead = dead;
+	tmp_walls->push_back(w);
+	walls.push_back(w);
 				
-				xmlNode *w_node = cur->xmlChildrenNode;
-				while (w_node!=NULL) {
-					if ((!xmlStrcmp(w_node->name, (const xmlChar *)"transporters1"))) {
+	xmlNode *w_node = cur->xmlChildrenNode;
+	while (w_node!=NULL) {
+	  if ((!xmlStrcmp(w_node->name, (const xmlChar *)"transporters1"))) {
 						
-						xmlNode *v_node = w_node->xmlChildrenNode;
-						int nv=0;
-						while (v_node!=NULL) {
+	    xmlNode *v_node = w_node->xmlChildrenNode;
+	    int nv=0;
+	    while (v_node!=NULL) {
 							
-							if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
-								if (nv>=Cell::NChem()) {
-									{
-										stringstream text;
-										text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
-										//ThrowStringStream(text);
-										unique_warning(text.str().c_str());
-										break;
-									}
-								}
-								xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
-								
-								if (nc==0) {
-									unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 835");
-								}
-								double v = strtod( (char *)nc, 0 );
-								w->transporters1[nv++]=v;
-								xmlFree(nc);
-								
-							}
-							v_node = v_node->next; 
-						}
-						
-					}
-					
-					
-					if ((!xmlStrcmp(w_node->name, (const xmlChar *)"transporters2"))) {
-						
-						xmlNode *v_node = w_node->xmlChildrenNode;
-						int nv=0;
-						while (v_node!=NULL) {
-							if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
-								if (nv>=Cell::NChem()) {
-									{
-										stringstream text;
-										text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
-										unique_warning(text.str().c_str());
-										break;
-										// ThrowStringStream(text);
-									}
-								}
-								
-								xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
-								
-								if (nc==0) {
-									unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 861");
-								}
-								double v = strtod( (char *)nc, 0 );
-								w->transporters2[nv++]=v;
-								xmlFree(nc);
-							}
-							v_node = v_node->next; 
-						}
-						
-					} 
-					
-					if ((!xmlStrcmp(w_node->name, (const xmlChar *)"apoplast"))) {
-						
-						xmlNode *v_node = w_node->xmlChildrenNode;
-						int nv=0;
-						while (v_node!=NULL) {
-							
-							if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
-								if (nv>=Cell::NChem()) {
-									{
-										stringstream text;
-										text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
-										//ThrowStringStream(text);
-										unique_warning(text.str().c_str());
-										break;
-									}
-								}
-								xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
-								
-								if (nc==0) {
-									unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 887");
-								}
-								double v = strtod( (char *)nc, 0 );
-								w->apoplast[nv++]=v;
-								xmlFree(nc);
-							}
-							v_node = v_node->next; 
-						}
-						
-					}
-					w_node=w_node->next;
-				}
-				
-			}
-			cur = cur->next;
+	      if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
+		if (nv>=Cell::NChem()) {
+		  {
+		    stringstream text;
+		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
+		    //ThrowStringStream(text);
+		    unique_warning(text.str().c_str());
+		    break;
+		  }
 		}
-		
+		xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
+								
+		if (nc==0) {
+		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 835");
+		}
+		//double v = strtod( (char *)nc, 0 );
+		double v = standardlocale.toDouble((const char *)nc, &ok);
+		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
+
+		w->transporters1[nv++]=v;
+		xmlFree(nc);
+								
+	      }
+	      v_node = v_node->next; 
+	    }
+						
+	  }
+					
+					
+	  if ((!xmlStrcmp(w_node->name, (const xmlChar *)"transporters2"))) {
+						
+	    xmlNode *v_node = w_node->xmlChildrenNode;
+	    int nv=0;
+	    while (v_node!=NULL) {
+	      if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
+		if (nv>=Cell::NChem()) {
+		  {
+		    stringstream text;
+		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
+		    unique_warning(text.str().c_str());
+		    break;
+		    // ThrowStringStream(text);
+		  }
+		}
+								
+		xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
+								
+		if (nc==0) {
+		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 861");
+		}
+		//double v = strtod( (char *)nc, 0 );
+		double v = standardlocale.toDouble((const char *)nc, &ok);
+		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
+
+		w->transporters2[nv++]=v;
+		xmlFree(nc);
+	      }
+	      v_node = v_node->next; 
+	    }
+						
+	  } 
+					
+	  if ((!xmlStrcmp(w_node->name, (const xmlChar *)"apoplast"))) {
+						
+	    xmlNode *v_node = w_node->xmlChildrenNode;
+	    int nv=0;
+	    while (v_node!=NULL) {
+							
+	      if ((!xmlStrcmp(v_node->name, (const xmlChar *)"val"))) {
+		if (nv>=Cell::NChem()) {
+		  {
+		    stringstream text;
+		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
+		    //ThrowStringStream(text);
+		    unique_warning(text.str().c_str());
+		    break;
+		  }
+		}
+		xmlChar *nc = xmlGetProp(v_node, (const xmlChar *) "v");
+								
+		if (nc==0) {
+		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 887");
+		}
+		//double v = strtod( (char *)nc, 0 );
+		double v = standardlocale.toDouble((const char *)nc, &ok);
+		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
+
+		w->apoplast[nv++]=v;
+		xmlFree(nc);
+	      }
+	      v_node = v_node->next; 
+	    }
+						
+	  }
+	  w_node=w_node->next;
 	}
-	//  CleanUpWalls();
+				
+      }
+      cur = cur->next;
+    }
+		
+  }
+  //  CleanUpWalls();
 }
 
 

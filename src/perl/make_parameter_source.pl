@@ -101,6 +101,8 @@ print cppfile <<END_HEADER;
 #include "output.h"
 #include "parse.h"
 #include "xmlwrite.h"
+#include "warning.h"
+#include <QLocale>
 
 using namespace std;
 
@@ -282,7 +284,8 @@ print cppfile "}\n";
 
 print cppfile "void Parameter::AssignValToPar(const char *namec, const char *valc) {\n";
 print cppfile;
-
+print cppfile "  QLocale standardlocale(QLocale::C);\n";
+print cppfile "  bool ok;\n";
 for ($i=0;$i<$lines;$i++) {
 
   if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
@@ -300,9 +303,13 @@ for ($i=0;$i<$lines;$i++) {
 	print cppfile "  $param[$i]=strdup(valc);\n";
       } else {
 	if ($convtype[$i] eq "int") {
-	  print cppfile "  $param[$i] = (int)strtol(valc, 0, 10);\n";
+	  print cppfile "  $param[$i] = standardlocale.toInt(valc, &ok);\n";
+	  print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to integer while reading parameter '$param[$i]' from XML file.\",valc); }\n";
+	  # print cppfile "  $param[$i] = (int)strtol(valc, 0, 10);\n";
 	} else {
-	  print cppfile "  $param[$i] = strtod(valc, 0);\n";
+	  # print cppfile "  $param[$i] = strtod(valc, 0);\n";
+	  print cppfile "  $param[$i] = standardlocale.toDouble(valc, &ok);\n";
+	  print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to double while reading parameter '$param[$i]' from XML file.\",valc); }\n";
 	}
       }
     }
