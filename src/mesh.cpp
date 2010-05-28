@@ -1983,9 +1983,21 @@ void Mesh::Derivatives(double *derivs) {
    // (*wr)(*w, &(derivs[i]), &(derivs[i+nchems]));
 	  plugin->WallDynamics(*w,  &(derivs[i]), &(derivs[i+nchems]));
     // Transport function adds to derivatives of cell chemicals
-	  plugin->CelltoCellTransport(*w, &(derivs[(*w)->c1->Index() * nchems]),
-								  &(derivs[(*w)->c2->Index() * nchems]));
-	  
+	  double *dchem_c1 = &(derivs[(*w)->c1->Index() * nchems]);
+	  double *dchem_c2 = &(derivs[(*w)->c2->Index() * nchems]);
+	  //plugin->CelltoCellTransport(*w, &(derivs[(*w)->c1->Index() * nchems]),
+							//	  &(derivs[(*w)->c2->Index() * nchems]));
+	  // quick fix: dummy values to prevent end user from writing into outer space and causing a crash :-)
+	  // start here if you want to implement chemical input/output into environment over boundaries
+	  double dummy1, dummy2;
+	  if ((*w)->c1->Index()<0) { // tests if c1 is the boundary pol
+		  dchem_c1 = &dummy1;
+	  }
+	  if ((*w)->c2->Index()<0) {
+		  dchem_c2 = &dummy2;
+	  }
+	  plugin->CelltoCellTransport(*w, dchem_c1, dchem_c2); 
+								  
 	  //(*tf)(*w, &(derivs[(*w)->c1->Index() * nchems]),
       //&(derivs[(*w)->c2->Index() * nchems] ) );
     i+=2*nchems;

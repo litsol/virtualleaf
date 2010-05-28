@@ -415,6 +415,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 		daughter->chem[i]=chem[i];
 	}
 	
+	daughter->cell_type = cell_type;
 	//extern double auxin_account;
 	//auxin_account += daughter->chem[0];
 	

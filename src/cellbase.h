@@ -96,6 +96,7 @@ class CellBase :  public QObject, public Vector
   virtual ~CellBase() {
 	  delete[] chem;
 	  delete[] new_chem;
+	  if (division_axis) delete division_axis;
 	  //cerr << "CellBase " << index << " is dying. " << endl;
   }
 	
@@ -217,7 +218,13 @@ class CellBase :  public QObject, public Vector
 	inline void Divide(void) {
 		flag_for_divide = true;
 	}
-    //Vector Strain(void) const;
+	
+	inline void DivideOverAxis(const Vector &v) {
+		division_axis = new Vector(v);
+		flag_for_divide = true;
+	}
+	
+	//Vector Strain(void) const;
 
     inline double Circumference(void) const {
       double sum=0.;
@@ -446,6 +453,8 @@ protected:
     bool at_boundary; 
     bool dead; 
 	bool flag_for_divide;
+	
+	Vector *division_axis;
 	
 	int cell_type;
 	

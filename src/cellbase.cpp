@@ -101,6 +101,7 @@ Vector()
 	div_counter=0;
 	cell_type = 0;
 	flag_for_divide = false;
+	division_axis = 0;
 }
 
 
@@ -140,6 +141,7 @@ CellBase::CellBase(double x,double y,double z) : QObject(), Vector(x,y,z)
 	div_counter = 0;
 	cell_type = 0;
 	flag_for_divide = false;
+	division_axis = 0;
 
 }
 
@@ -180,7 +182,7 @@ CellBase::CellBase(const CellBase &src) :  Vector(src), QObject()
 	cell_type = src.cell_type;
 	div_counter = src.div_counter;
 	flag_for_divide = src.flag_for_divide;
-	
+	division_axis = src.division_axis;
 }
 
 
@@ -219,6 +221,7 @@ CellBase CellBase::operator=(const CellBase &src) {
 	cell_type = src.cell_type;
 	div_counter = src.div_counter;
 	flag_for_divide = src.flag_for_divide;
+	division_axis = src.division_axis;
 	return *this;
 }
 
