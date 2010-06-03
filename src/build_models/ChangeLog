@@ -1,0 +1,7 @@
+2010-05-10    <guravage@caterpie.sen.cwi.nl>
+
+	* plugin_test.pro: Added -fPIC option to QMAKE_CXXFLAGS.
+	* plugin_meinhardt.pro: ditto
+	* plugin_auxingrowth.pro: ditto
+
+

@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  $Rev$:  Revision of last commit
+  $Author$:  Author of last commit
+  $Source$:  Source file
+  $Date$:  Date of last commit
+
+  This file is part of the Virtual Leaf.
+
+  The Virtual Leaf is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  The Virtual Leaf is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with the Virtual Leaf.  If not, see <http://www.gnu.org/licenses/>.
+
+  Copyright 2010 Roeland Merks.
+-->
+<leaf name="/Users/roel/VLeafClean_plugin/Snapshot/init.xml" date="Fri Oct 30 16:54:10 2009" simtime="825">
+  <parameter>
+    <par name="arrowcolor" val="white"/>
+    <par name="arrowsize" val="100"/>
+    <par name="textcolor" val="red"/>
+    <par name="cellnumsize" val="1"/>
+    <par name="nodenumsize" val="1"/>
+    <par name="node_mag" val="20"/>
+    <par name="outlinewidth" val="2"/>
+    <par name="cell_outline_color" val="forestgreen"/>
+    <par name="resize_stride" val="10"/>
+    <par name="T" val="1"/>
+    <par name="lambda_length" val="100"/>
+    <par name="lambda_celllength" val="0"/>
+    <par name="target_length" val="60"/>
+    <par name="cell_expansion_rate" val="100"/>
+    <par name="cell_div_expansion_rate" val="0"/>
+    <par name="auxin_dependent_growth" val="true"/>
+    <par name="ode_accuracy" val="0.0001"/>
+    <par name="mc_stepsize" val="0.4"/>
+    <par name="mc_cell_stepsize" val="0.2"/>
+    <par name="energy_threshold" val="1000"/>
+    <par name="bend_lambda" val="0"/>
+    <par name="alignment_lambda" val="0"/>
+    <par name="rel_cell_div_threshold" val="100000"/>
+    <par name="rel_perimeter_stiffness" val="2"/>
+    <par name="collapse_node_threshold" val="0.05"/>
+    <par name="morphogen_div_threshold" val="0.2"/>
+    <par name="morphogen_expansion_threshold" val="0.01"/>
+    <par name="copy_wall" val="true"/>
+    <par name="source" val="0"/>
+    <par name="D">
+      <valarray>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+      </valarray>
+    </par>
+    <par name="initval">
+      <valarray>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+      </valarray>
+    </par>
+    <par name="k1" val="1"/>
+    <par name="k2" val="0.3"/>
+    <par name="r" val="1"/>
+    <par name="kr" val="1"/>
+    <par name="km" val="1"/>
+    <par name="Pi_tot" val="1"/>
+    <par name="transport" val="0.036"/>
+    <par name="ka" val="1"/>
+    <par name="pin_prod" val="0.001"/>
+    <par name="pin_prod_in_epidermis" val="0.1"/>
+    <par name="pin_breakdown" val="0.001"/>
+    <par name="pin_breakdown_internal" val="0.001"/>
+    <par name="aux1prod" val="0.001"/>
+    <par name="aux1prodmeso" val="0"/>
+    <par name="aux1decay" val="0.001"/>
+    <par name="aux1decaymeso" val="0.1"/>
+    <par name="aux1transport" val="0.036"/>
+    <par name="aux_cons" val="0"/>
+    <par name="aux_breakdown" val="0"/>
+    <par name="kaux1" val="1"/>
+    <par name="kap" val="1"/>
+    <par name="leaf_tip_source" val="0.001"/>
+    <par name="sam_efflux" val="0.0001"/>
+    <par name="sam_auxin" val="10"/>
+    <par name="sam_auxin_breakdown" val="0"/>
+    <par name="dt" val="0.1"/>
+    <par name="rd_dt" val="1"/>
+    <par name="datadir" val="."/>
+    <par name="movie" val="false"/>
+    <par name="nit" val="100000"/>
+    <par name="maxt" val="1000"/>
+    <par name="storage_stride" val="10"/>
+    <par name="xml_storage_stride" val="500"/>
+    <par name="rseed" val="-1"/>
+    <par name="constituous_expansion_limit" val="16"/>
+    <par name="vessel_inh_level" val="1"/>
+    <par name="vessel_expansion_rate" val="0.25"/>
+    <par name="d" val="0"/>
+    <par name="e" val="0"/>
+    <par name="f" val="0"/>
+    <par name="c" val="0"/>
+    <par name="mu" val="0"/>
+    <par name="nu" val="0"/>
+    <par name="rho0" val="0"/>
+    <par name="rho1" val="0"/>
+    <par name="c0" val="0"/>
+    <par name="gamma" val="0"/>
+    <par name="eps" val="0"/>
+    <par name="k">
+      <valarray>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+        <val v="0"/>
+      </valarray>
+    </par>
+    <par name="i1" val="0"/>
+    <par name="i2" val="0"/>
+    <par name="i3" val="0"/>
+    <par name="i4" val="0"/>
+    <par name="i5" val="0"/>
+    <par name="s1" val=""/>
+    <par name="s2" val=""/>
+    <par name="s3" val=""/>
+    <par name="b1" val="false"/>
+    <par name="b2" val="false"/>
+    <par name="b3" val="false"/>
+    <par name="b4" val="false"/>
+    <par name="dir1" val="."/>
+    <par name="dir2" val="."/>
+  </parameter>
+  <code name="VirtualLeaf.cpp">#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;cstring&gt;
+#include &lt;functional&gt; 
+#include &lt;getopt.h&gt;
+#include &lt;cerrno&gt;
+#include "mesh.h"
+#include "parameter.h"
+#include "random.h"
+#include "pi.h"
+#include "cellitem.h"
+#include "canvas.h"
+#include "cell.h"
+#include "output.h"
+#include &lt;qwidget.h&gt;
+#include &lt;q3process.h&gt;
+#include &lt;qapplication.h&gt;
+#include &lt;QDesktopWidget&gt;
+#include &lt;QGraphicsScene&gt;
+#include &lt;QMessageBox&gt;
+//Added by qt3to4:
+#include &lt;QMouseEvent&gt;
+
+#include &lt;unistd.h&gt;
+#include &lt;q3textstream.h&gt; 
+
+
+#ifdef HAVE_QWT
+#include "data_plot.h"
+#endif
+#include &lt;QPalette&gt;
+#include &lt;QBrush&gt;
+#include &lt;QToolTip&gt;
+#include "simplugin.h"
+#include "testplugin.h"
+
+/* #define _xstr_(s) _str_(s)
+#define _str_(s) #s
+#include _xstr_(REACTIONS_HEADER)
+*/
+extern Parameter par;
+
+MainBase *main_window = 0;
+double auxin_account = 0.;
+
+
+
+TestPlugin *plugin = new TestPlugin();
+
+#ifdef XFIGGRAPHICS
+#define TIMESTEP double Graphics::TimeStep(void)
+#endif
+
+class PrintNode {
+public:
+  void operator() (const Node &amp;n) const 
+  {
+    cerr &lt;&lt; n.Index() &lt;&lt; ": " &lt;&lt; n &lt;&lt;  endl;
+  }
+};
+
+
+class EdgeSource {
+	
+public:
+  void operator() (Cell &amp;c) {
+		
+    if (c.AtBoundaryP()) {
+      cerr &lt;&lt; "Cell " &lt;&lt; c.Index() &lt;&lt; " is a source cell.\n";
+      c.SetSource(0,par.source);
+    } else {
+      cerr &lt;&lt; "Cell " &lt;&lt; c.Index() &lt;&lt; " is _not_ a source cell.\n";
+    }
+  }
+	
+};
+
+
+
+class CellInfo {
+public:
+  void operator() (Cell &amp;c,std::ostream &amp;os) const {
+    os &lt;&lt; "Cell " &lt;&lt; c.index &lt;&lt; " says: " &lt;&lt; endl;
+    os &lt;&lt; "c.nodes.size() = " &lt;&lt; c.nodes.size() &lt;&lt; endl;
+    for (list&lt;Node *&gt;::iterator i=c.nodes.begin();
+	 i!=c.nodes.end();
+	 i++) {
+      cerr &lt;&lt; (*i)-&gt;Index() &lt;&lt; " ";
+    }
+    cerr &lt;&lt; endl;
+  }
+};
+
+double PINSum(Cell &amp;c) {
+	
+	return c.Chemical(1) + c.SumTransporters(1);// + c.ReduceCellAndWalls&lt;double&gt;( complex_PijAj );
+	
+}
+
+
+class DrawCell {
+public:
+  void operator() (Cell &amp;c,QGraphicsScene &amp;canvas, MainBase &amp;m) const {
+    if (m.ShowBorderCellsP() || c.Boundary()==Cell::None) {
+      if (!m.ShowBoundaryOnlyP() &amp;&amp; !m.HideCellsP()) 
+	if (m.ShowToolTipsP()) {
+	  QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
+					
+	  info_string += "\n" + c.printednodelist();
+					
+	  c.Draw(&amp;canvas, info_string);
+	} else {
+	  c.Draw(&amp;canvas);
+	}
+      if (m.ShowCentersP())
+	c.DrawCenter(&amp;canvas);
+    if (m.ShowFluxesP())
+	c.DrawFluxes(&amp;canvas, par.arrowsize);
+			
+       }
+ 
+  }
+	
+};
+
+Mesh mesh;
+bool batch=false;
+
+
+void MainBase::Plot(int resize_stride) {
+	
+  clear();
+    
+	
+  static int count=0;
+  if (resize_stride) {
+    if ( !((++count)%resize_stride) ) {
+      FitLeafToCanvas();
+    }
+  }
+  mesh.LoopCells(DrawCell(),canvas,*this);
+	
+  if (ShowNodeNumbersP()) 
+    mesh.LoopNodes( bind2nd (mem_fun_ref ( &amp;Node::DrawIndex), &amp;canvas ) ) ;
+  if (ShowCellNumbersP()) 
+    mesh.LoopCells( bind2nd (mem_fun_ref ( &amp;Cell::DrawIndex), &amp;canvas ) ) ;
+	
+  if (ShowCellAxesP()) 
+    mesh.LoopCells( bind2nd (mem_fun_ref ( &amp;Cell::DrawAxis), &amp;canvas ) );
+	
+  if (ShowCellStrainP()) 
+    mesh.LoopCells( bind2nd (mem_fun_ref ( &amp;Cell::DrawStrain), &amp;canvas ) );
+	
+  if (ShowWallsP())
+  
+    mesh.LoopWalls( bind2nd( mem_fun_ref( &amp;Wall::Draw ), &amp;canvas ) );
+	
+	if (ShowApoplastsP()) 
+		mesh.LoopWalls( bind2nd( mem_fun_ref( &amp;Wall::DrawApoplast ), &amp;canvas ) );
+ 
+	if (ShowMeshP()) 
+    mesh.DrawNodes(&amp;canvas);
+	
+  if (ShowBoundaryOnlyP()) 
+    mesh.DrawBoundary(&amp;canvas);
+
+  
+	if ( ( batch || MovieFramesP() )) {
+		
+		static int frame = 0;
+		// frame numbers are sequential for the most frequently written file type.
+		// for the less frequently written file type they match the other type
+		if (!(count%par.storage_stride) )  {
+		
+			stringstream fname;
+			fname &lt;&lt; par.datadir &lt;&lt; "/leaf.";
+			fname.fill('0');
+			fname.width(6);
+	
+			/* 
+			 fname &lt;&lt; frame &lt;&lt; ".pdf";
+			if (par.storage_stride &lt;= par.xml_storage_stride) {
+				frame++;
+			}
+			
+			// Write high-res JPG snapshot every plot step
+			Save(fname.str().c_str(), "PDF");
+			*/
+			
+			fname &lt;&lt; frame &lt;&lt; ".jpg";
+			if (par.storage_stride &lt;= par.xml_storage_stride) {
+				frame++;
+			}
+			
+			// Write high-res JPG snapshot every plot step
+			Save(fname.str().c_str(), "JPEG",1024,768);
+			
+		}
+	
+		if (!(count%par.xml_storage_stride)) {
+			stringstream fname;
+			fname &lt;&lt; par.datadir &lt;&lt; "/leaf.";
+			fname.fill('0');
+			fname.width(6);
+			fname &lt;&lt; frame &lt;&lt; ".xml";
+	
+			if (par.xml_storage_stride &lt; par.storage_stride) {
+				frame++;
+			}
+			// Write XML file every ten plot steps
+			mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
+		}
+		
+	}
+}
+
+
+void Cell::Flux(double *flux, double *D)  {
+	
+
+  // loop over cell edges
+	
+  for (int c=0;c&lt;Cell::nchem;c++) flux[c]=0.;
+	
+  for (list&lt;Wall *&gt;::iterator i=walls.begin();
+       i!=walls.end();
+       i++) {
+		
+		
+    // leaf cannot take up chemicals from environment ("no flux boundary")
+    if ((*i)-&gt;c2-&gt;BoundaryPolP()) continue;
+		
+  	
+    // flux depends on edge length and concentration difference
+    for (int c=0;c&lt;Cell::nchem;c++) {
+      double phi = (*i)-&gt;length * ( D[c] ) * ( (*i)-&gt;c2-&gt;chem[c] - chem[c] );
+			
+      if ((*i)-&gt;c1!=this) {
+	cerr &lt;&lt; "Warning, bad cells boundary: " &lt;&lt; (*i)-&gt;c1-&gt;index &lt;&lt; ", " &lt;&lt; index &lt;&lt; endl;
+      }
+			
+      flux[c] += phi;
+    }    
+  }
+	
+}
+
+INIT {
+	
+	if (leaffile) { 
+    xmlNode *settings;
+    mesh.XMLRead(leaffile, &amp;settings);
+    main_window-&gt;XMLReadSettings(settings);
+    xmlFree(settings);
+    main_window-&gt;UserMessage(QString("Ready. Time is %1").arg(mesh.getTimeHours().c_str()));
+		
+  } else {
+		
+	  Cell &amp;circle=mesh.CircularCell(0,0,10,10);
+    		
+    circle.SetTargetArea(circle.CalcArea());
+	  mesh.SetBaseArea();
+	// clean up chemicals 
+	  for (int c=0; c&lt;Cell::NChem(); c++) {
+		  circle.SetChemical(c, 0.);
+      }
+  }
+}
+
+TIMESTEP {
+	
+  static int i=0;
+  static int t=0;
+  static int ncells;
+	
+  if (!batch) {
+    UserMessage(QString("Time: %1").arg(mesh.getTimeHours().c_str()),0);
+  }
+			 
+  ncells=mesh.NCells();
+		
+				
+  double dh;
+  		
+  if(DynamicCellsP()) {
+    dh = mesh.DisplaceNodes();
+			
+    // Only allow for node insertion, cell division and cell growth
+    // if the system has equillibrized
+    // i.e. cell wall tension equillibrization is much faster
+    // than biological processes, including division, cell wall yielding
+    // and cell expansion
+    mesh.InsertNodes(); // (this amounts to cell wall yielding)
+			
+    if ( (-dh) &lt; par.energy_threshold) {
+				
+      mesh.IncreaseCellCapacityIfNecessary();
+		mesh.LoopCurrentCells(&amp;TestPlugin::CellHouseKeeping); // this includes cell division
+				
+      // Reaction diffusion	
+		/*CelltoCellTransport *transport_f = &amp;TestPlugin::CelltoCellTransport;
+      CellReaction *cellreaction_f = new plugin-&gt;CellDynamics();
+      WallReaction *wall_f = new WallDynamics();*/
+				
+      mesh.ReactDiffuse(plugin, par.rd_dt);
+		
+				
+      t++;
+				
+      Plot(par.resize_stride);
+		
+		/*QVector&lt; QPair&lt;double, int&gt; &gt; angles=mesh.VertexAnglesValues();
+		QString afname=QString("Angles/anglesvalues%1.dat").arg(t,6,10,QChar('0'));
+		ofstream af(afname.toStdString().c_str());
+		*/
+		
+		/*for (QVector&lt; QPair&lt;qreal, int&gt; &gt;::const_iterator v=angles.begin();
+			 v!=angles.end();
+			 v++) {
+			af &lt;&lt; v-&gt;first &lt;&lt; " " &lt;&lt; v-&gt;second &lt;&lt; endl;
+			}
+			*/
+			}
+		
+			} else {
+			
+  /*  TransportFunction *transport_f = new CelltoCellTransport();
+    CellReaction *cellreaction_f = new CellDynamics();
+    WallReaction *wall_f = new WallDynamics();
+			
+    mesh.ReactDiffuse_New(transport_f, cellreaction_f, wall_f, par.rd_dt);*/
+				mesh.ReactDiffuse(plugin, par.rd_dt);
+		
+    Plot(par.resize_stride);
+			
+  }
+	
+	
+
+		
+		
+  i++;
+  return mesh.getTime();
+		
+}
+		
+		
+				
+/* Called if a cell is clicked */
+void Cell::OnClick(QMouseEvent *e) {
+					
+}
+				
+				
+
+void Wall::OnWallInsert(void) {
+				  
+
+}
+
+				
+				
+				
+int main(int argc,char **argv) {
+					
+  try {
+						
+
+    int c;
+
+						
+    char *leaffile=0;
+
+						
+    while (1) {
+							
+      //int this_option_optind = optind ? optind : 1;
+      int option_index = 0;
+      static struct option long_options[] = {
+	{"batch", 0, 0, 0},
+	{"leaffile", 2, 0, 0}
+      };
+		
+      // short option 'p' creates trouble for non-commandline usage on MacOSX. Option -p changed to -P (capital)
+      static char *short_options = "bl";
+      c = getopt_long (argc, argv, "bl:",
+		       long_options, &amp;option_index);
+      if (c == -1)
+	break;
+		
+		
+      if (c==0) {
+	printf ("option %s", long_options[option_index].name);
+	if (optarg)
+	  printf (" with arg %s", optarg);
+	printf ("\n");
+			
+	c = short_options[option_index];
+      }
+		
+      switch (c) {
+      case 'b':
+	cerr &lt;&lt; "Running in batch mode\n";
+	batch=true;
+	break;
+				
+      case 'l':
+	leaffile=strdup(optarg);
+	if (!leaffile) {
+	  throw("Out of memory");
+	}
+	printf("Reading leaf state file '%s'\n", leaffile);
+	break;
+				
+      case '?':
+	break;
+				
+      default:
+	printf ("?? getopt returned character code 0%o ??\n", c);
+      }
+    }
+	  
+	  
+    if (optind &lt; argc) {
+      printf ("non-option ARGV-elements: ");
+      while (optind &lt; argc)
+	printf ("%s ", argv[optind++]);
+      printf ("\n");
+    }
+	  
+	  MakeDir("Angles");
+    bool useGUI = !batch;
+    QApplication app(argc,argv,useGUI);
+						
+
+    
+    QPalette tooltippalette = QToolTip::palette();
+    QColor transparentcolor = QColor(tooltippalette.brush(QPalette::Window).color());
+
+    tooltippalette.setBrush (QPalette::Window, QBrush (transparentcolor) );
+    QToolTip::setPalette( tooltippalette );
+
+    QGraphicsScene canvas(0,0,8000,6000);
+
+    if (useGUI) {
+         main_window=new Main(canvas, mesh);
+      if ( QApplication::desktop()-&gt;width() &gt; ((Main *)main_window)-&gt;width() + 10
+	   &amp;&amp; QApplication::desktop()-&gt;height() &gt; ((Main *)main_window)-&gt;height() +30 ) {
+
+	((Main *)main_window)-&gt;show();
+	((Main *)main_window)-&gt;resize( ((Main *)main_window)-&gt;sizeHint());
+    } else {
+        ((Main *)main_window)-&gt;showMaximized();
+    }
+  } else {
+        main_window=new MainBase(canvas, mesh);
+
+ }
+
+    
+	  
+    canvas.setSceneRect(QRectF());
+    if (!batch) {
+      QObject::connect( qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()) );
+    }
+
+						
+ 		
+    main_window-&gt;Init(leaffile);
+	  
+    Cell::SetMagnification(10);
+    Cell::setOffset(0,0);
+						
+    main_window-&gt;FitLeafToCanvas();
+						
+				
+						
+    main_window-&gt;Plot();
+
+						
+
+    if (batch) {
+      double t=0.;
+      do {
+	t = main_window-&gt;TimeStep();
+      } while (t &lt; par.maxt);
+							
+    } else
+      return app.exec();
+	  
+						
+  } catch (const char *message) {
+    if (batch) { 
+      cerr &lt;&lt; "Exception caught:" &lt;&lt; endl;
+      cerr &lt;&lt; message &lt;&lt; endl;
+      abort();
+    } else {
+      QString qmess=QString("Exception caught: %1").arg(message);
+      QMessageBox::critical(0, "Critical Error", qmess);
+      abort();
+    }
+  } catch (ios_base::failure) {
+    stringstream error_message;
+    error_message &lt;&lt; "I/O failure: " &lt;&lt; strerror(errno);
+    if (batch) {
+      cerr &lt;&lt; error_message.str() &lt;&lt;endl;
+      abort();
+    } else {
+      QString qmess(error_message.str().c_str());
+      QMessageBox::critical(0, "I/O Error", qmess );
+      abort();
+    }
+  }
+					
+}
+</code>
+  <code name="reactions_pce_growth.h">
+
+// Executed after the cellular mechanics steps have equillibrized
+class CellHouseKeeping {
+public:
+	void operator() (Cell &amp;c) const {
+		
+		c.EnlargeTargetArea(par.cell_expansion_rate);
+		
+		if (c.Area() &gt; par.rel_cell_div_threshold * c.BaseArea() ) {
+			c.Divide();
+		}
+	}
+};
+
+// The number of chemical species in the cels
+const int Cell::nchem = 0;
+
+// Differential equations describing transport of chemicals from cell to cell
+class CelltoCellTransport : public TransportFunction {
+
+ public:
+	virtual void operator()(Wall *w, double *dchem_c1, double *dchem_c2) {}
+    
+ };
+
+// Differential equations describing chemical reactions taking place at or near the cell walls
+// (e.g. PIN accumulation)
+class WallDynamics : public WallReaction {
+ public:
+	virtual void operator()(Wall *w, double *dw1, double *dw2) {}; 
+	
+};
+
+
+// Differential equations describing chemical reactions inside the cells
+class CellDynamics : public CellReaction {
+ public:
+	virtual void operator()(Cell *c, double *dchem) {
+	
+	};
+	
+};
+
+// Rules for cell coloring
+void Cell::SetColor(QColor &amp;color) { }
+
+// To be executed after cell division
+void Cell::OnDivide(ParentInfo &amp;parent_info, Cell &amp;daughter) {}
+
+</code>
+  <nodes n="93" target_length="3.09017">
+    <node x="162.07" y="8.10374" fixed="false" boundary="true" sam="false"/>
+    <node x="86.5501" y="137.913" fixed="false" boundary="true" sam="false"/>
+    <node x="57.408" y="153.921" fixed="false" boundary="true" sam="false"/>
+    <node x="-63.403" y="151.57" fixed="false" boundary="true" sam="false"/>
+    <node x="-151.005" y="61.0595" fixed="false" boundary="true" sam="false"/>
+    <node x="-162.47" y="17.5461" fixed="false" boundary="true" sam="false"/>
+    <node x="-140.048" y="-80.0323" fixed="false" boundary="true" sam="false"/>
+    <node x="7.86416" y="-161.956" fixed="false" boundary="true" sam="false"/>
+    <node x="18.0082" y="-161.38" fixed="false" boundary="true" sam="false"/>
+    <node x="159.864" y="-27.6815" fixed="false" boundary="true" sam="false"/>
+    <node x="4.07734" y="163.409" fixed="false" boundary="true" sam="false"/>
+    <node x="-145.406" y="-69.5878" fixed="false" boundary="true" sam="false"/>
+    <node x="38.3668" y="-157.497" fixed="false" boundary="true" sam="false"/>
+    <node x="-111.474" y="118.233" fixed="false" boundary="true" sam="false"/>
+    <node x="-93.0031" y="-131.235" fixed="false" boundary="true" sam="false"/>
+    <node x="161.316" y="-15.4969" fixed="false" boundary="true" sam="false"/>
+    <node x="156.337" y="42.3852" fixed="false" boundary="true" sam="false"/>
+    <node x="-29.543" y="161.284" fixed="false" boundary="true" sam="false"/>
+    <node x="-74.2161" y="-142.862" fixed="false" boundary="true" sam="false"/>
+    <node x="-161.79" y="-16.2188" fixed="false" boundary="true" sam="false"/>
+    <node x="144.339" y="72.1303" fixed="false" boundary="true" sam="false"/>
+    <node x="110.436" y="-117.923" fixed="false" boundary="true" sam="false"/>
+    <node x="-126.958" y="101.128" fixed="false" boundary="true" sam="false"/>
+    <node x="-2.03919" y="-162.022" fixed="false" boundary="true" sam="false"/>
+    <node x="95.4022" y="130.944" fixed="false" boundary="true" sam="false"/>
+    <node x="159.352" y="31.3756" fixed="false" boundary="true" sam="false"/>
+    <node x="126.417" y="-101.024" fixed="false" boundary="true" sam="false"/>
+    <node x="-92.6639" y="133.204" fixed="false" boundary="true" sam="false"/>
+    <node x="-6.75164" y="163.381" fixed="false" boundary="true" sam="false"/>
+    <node x="-127.227" y="-99.8808" fixed="false" boundary="true" sam="false"/>
+    <node x="-162.709" y="-5.01667" fixed="false" boundary="true" sam="false"/>
+    <node x="-33.7531" y="-158.559" fixed="false" boundary="true" sam="false"/>
+    <node x="133.269" y="-91.8253" fixed="false" boundary="true" sam="false"/>
+    <node x="85.0326" y="-137.337" fixed="false" boundary="true" sam="false"/>
+    <node x="130.255" y="94.9454" fixed="false" boundary="true" sam="false"/>
+    <node x="-51.9784" y="155.919" fixed="false" boundary="true" sam="false"/>
+    <node x="-158.392" y="39.6936" fixed="false" boundary="true" sam="false"/>
+    <node x="36.5952" y="160.041" fixed="false" boundary="true" sam="false"/>
+    <node x="-119.192" y="-108.528" fixed="false" boundary="true" sam="false"/>
+    <node x="148.362" y="62.9898" fixed="false" boundary="true" sam="false"/>
+    <node x="-64.2376" y="-147.888" fixed="false" boundary="true" sam="false"/>
+    <node x="157.938" y="-39.0558" fixed="false" boundary="true" sam="false"/>
+    <node x="67.387" y="-147.108" fixed="false" boundary="true" sam="false"/>
+    <node x="-159.815" y="-27.0815" fixed="false" boundary="true" sam="false"/>
+    <node x="-155.416" y="50.3826" fixed="false" boundary="true" sam="false"/>
+    <node x="118.558" y="108.838" fixed="false" boundary="true" sam="false"/>
+    <node x="-40.6593" y="159.547" fixed="false" boundary="true" sam="false"/>
+    <node x="47.1013" y="157.27" fixed="false" boundary="true" sam="false"/>
+    <node x="162.538" y="-3.47872" fixed="false" boundary="true" sam="false"/>
+    <node x="28.252" y="-159.804" fixed="false" boundary="true" sam="false"/>
+    <node x="101.872" y="-124.795" fixed="false" boundary="true" sam="false"/>
+    <node x="154.753" y="-50.1493" fixed="false" boundary="true" sam="false"/>
+    <node x="-102.38" y="-124.326" fixed="false" boundary="true" sam="false"/>
+    <node x="-43.9115" y="-155.588" fixed="false" boundary="true" sam="false"/>
+    <node x="-140.398" y="81.5558" fixed="false" boundary="true" sam="false"/>
+    <node x="-102.368" y="126.128" fixed="false" boundary="true" sam="false"/>
+    <node x="-150.485" y="-59.4173" fixed="false" boundary="true" sam="false"/>
+    <node x="-163.095" y="6.37856" fixed="false" boundary="true" sam="false"/>
+    <node x="103.953" y="123.448" fixed="false" boundary="true" sam="false"/>
+    <node x="-17.8675" y="163.136" fixed="false" boundary="true" sam="false"/>
+    <node x="150.318" y="-61.6535" fixed="false" boundary="true" sam="false"/>
+    <node x="135.325" y="87.7848" fixed="false" boundary="true" sam="false"/>
+    <node x="67.5772" y="149.381" fixed="false" boundary="true" sam="false"/>
+    <node x="76.5227" y="-142.828" fixed="false" boundary="true" sam="false"/>
+    <node x="-111.47" y="-117.298" fixed="false" boundary="true" sam="false"/>
+    <node x="161.279" y="19.6549" fixed="false" boundary="true" sam="false"/>
+    <node x="-54.1934" y="-151.827" fixed="false" boundary="true" sam="false"/>
+    <node x="-83.5465" y="140.227" fixed="false" boundary="true" sam="false"/>
+    <node x="-119.526" y="110.091" fixed="false" boundary="true" sam="false"/>
+    <node x="-146.197" y="71.4929" fixed="false" boundary="true" sam="false"/>
+    <node x="-154.448" y="-49.3625" fixed="false" boundary="true" sam="false"/>
+    <node x="118.986" y="-109.757" fixed="false" boundary="true" sam="false"/>
+    <node x="58.1914" y="-151.225" fixed="false" boundary="true" sam="false"/>
+    <node x="139.69" y="-82.3249" fixed="false" boundary="true" sam="false"/>
+    <node x="15.1883" y="163.115" fixed="false" boundary="true" sam="false"/>
+    <node x="77.3511" y="144.173" fixed="false" boundary="true" sam="false"/>
+    <node x="111.788" y="116.035" fixed="false" boundary="true" sam="false"/>
+    <node x="-23.2588" y="-160.269" fixed="false" boundary="true" sam="false"/>
+    <node x="-134.104" y="-89.8479" fixed="false" boundary="true" sam="false"/>
+    <node x="152.972" y="53.0423" fixed="false" boundary="true" sam="false"/>
+    <node x="-134.06" y="91.6543" fixed="false" boundary="true" sam="false"/>
+    <node x="-73.6856" y="146.149" fixed="false" boundary="true" sam="false"/>
+    <node x="-160.816" y="28.6433" fixed="false" boundary="true" sam="false"/>
+    <node x="145.221" y="-72.3356" fixed="false" boundary="true" sam="false"/>
+    <node x="-157.218" y="-38.1403" fixed="false" boundary="true" sam="false"/>
+    <node x="-83.7021" y="-137.787" fixed="false" boundary="true" sam="false"/>
+    <node x="25.8657" y="161.966" fixed="false" boundary="true" sam="false"/>
+    <node x="48.3384" y="-154.569" fixed="false" boundary="true" sam="false"/>
+    <node x="-12.6963" y="-161.364" fixed="false" boundary="true" sam="false"/>
+    <node x="93.5461" y="-131.052" fixed="false" boundary="true" sam="false"/>
+    <node x="124.763" y="101.775" fixed="false" boundary="true" sam="false"/>
+    <node x="139.861" y="79.6249" fixed="false" boundary="true" sam="false"/>
+    <node x="152.581" y="-55.6641" fixed="false" boundary="true" sam="false"/>
+  </nodes>
+  <cells n="1" offsetx="0" offsety="0" magnification="10" base_area="293.893" nchem="0">
+    <cell index="0" area="82726.3" target_area="82793.9" target_length="60" lambda_celllength="0" stiffness="0" fixed="false" pin_fixed="false" at_boundary="true" dead="false" source="false" boundary="None" div_counter="0" cell_type="0">
+      <node n="0"/>
+      <node n="65"/>
+      <node n="25"/>
+      <node n="16"/>
+      <node n="79"/>
+      <node n="39"/>
+      <node n="20"/>
+      <node n="91"/>
+      <node n="61"/>
+      <node n="34"/>
+      <node n="90"/>
+      <node n="45"/>
+      <node n="76"/>
+      <node n="58"/>
+      <node n="24"/>
+      <node n="1"/>
+      <node n="75"/>
+      <node n="62"/>
+      <node n="2"/>
+      <node n="47"/>
+      <node n="37"/>
+      <node n="86"/>
+      <node n="74"/>
+      <node n="10"/>
+      <node n="28"/>
+      <node n="59"/>
+      <node n="17"/>
+      <node n="46"/>
+      <node n="35"/>
+      <node n="3"/>
+      <node n="81"/>
+      <node n="67"/>
+      <node n="27"/>
+      <node n="55"/>
+      <node n="13"/>
+      <node n="68"/>
+      <node n="22"/>
+      <node n="80"/>
+      <node n="54"/>
+      <node n="69"/>
+      <node n="4"/>
+      <node n="44"/>
+      <node n="36"/>
+      <node n="82"/>
+      <node n="5"/>
+      <node n="57"/>
+      <node n="30"/>
+      <node n="19"/>
+      <node n="43"/>
+      <node n="84"/>
+      <node n="70"/>
+      <node n="56"/>
+      <node n="11"/>
+      <node n="6"/>
+      <node n="78"/>
+      <node n="29"/>
+      <node n="38"/>
+      <node n="64"/>
+      <node n="52"/>
+      <node n="14"/>
+      <node n="85"/>
+      <node n="18"/>
+      <node n="40"/>
+      <node n="66"/>
+      <node n="53"/>
+      <node n="31"/>
+      <node n="77"/>
+      <node n="88"/>
+      <node n="23"/>
+      <node n="7"/>
+      <node n="8"/>
+      <node n="49"/>
+      <node n="12"/>
+      <node n="87"/>
+      <node n="72"/>
+      <node n="42"/>
+      <node n="63"/>
+      <node n="33"/>
+      <node n="89"/>
+      <node n="50"/>
+      <node n="21"/>
+      <node n="71"/>
+      <node n="26"/>
+      <node n="32"/>
+      <node n="73"/>
+      <node n="83"/>
+      <node n="60"/>
+      <node n="92"/>
+      <node n="51"/>
+      <node n="41"/>
+      <node n="9"/>
+      <node n="15"/>
+      <node n="48"/>
+      <chem n="0"/>
+    </cell>
+    <boundary_polygon index="-1" area="0" target_area="1" target_length="0" lambda_celllength="0" stiffness="0" fixed="false" pin_fixed="false" at_boundary="false" dead="false" source="false" boundary="None" div_counter="0" cell_type="0">
+      <node n="0"/>
+      <node n="65"/>
+      <node n="25"/>
+      <node n="16"/>
+      <node n="79"/>
+      <node n="39"/>
+      <node n="20"/>
+      <node n="91"/>
+      <node n="61"/>
+      <node n="34"/>
+      <node n="90"/>
+      <node n="45"/>
+      <node n="76"/>
+      <node n="58"/>
+      <node n="24"/>
+      <node n="1"/>
+      <node n="75"/>
+      <node n="62"/>
+      <node n="2"/>
+      <node n="47"/>
+      <node n="37"/>
+      <node n="86"/>
+      <node n="74"/>
+      <node n="10"/>
+      <node n="28"/>
+      <node n="59"/>
+      <node n="17"/>
+      <node n="46"/>
+      <node n="35"/>
+      <node n="3"/>
+      <node n="81"/>
+      <node n="67"/>
+      <node n="27"/>
+      <node n="55"/>
+      <node n="13"/>
+      <node n="68"/>
+      <node n="22"/>
+      <node n="80"/>
+      <node n="54"/>
+      <node n="69"/>
+      <node n="4"/>
+      <node n="44"/>
+      <node n="36"/>
+      <node n="82"/>
+      <node n="5"/>
+      <node n="57"/>
+      <node n="30"/>
+      <node n="19"/>
+      <node n="43"/>
+      <node n="84"/>
+      <node n="70"/>
+      <node n="56"/>
+      <node n="11"/>
+      <node n="6"/>
+      <node n="78"/>
+      <node n="29"/>
+      <node n="38"/>
+      <node n="64"/>
+      <node n="52"/>
+      <node n="14"/>
+      <node n="85"/>
+      <node n="18"/>
+      <node n="40"/>
+      <node n="66"/>
+      <node n="53"/>
+      <node n="31"/>
+      <node n="77"/>
+      <node n="88"/>
+      <node n="23"/>
+      <node n="7"/>
+      <node n="8"/>
+      <node n="49"/>
+      <node n="12"/>
+      <node n="87"/>
+      <node n="72"/>
+      <node n="42"/>
+      <node n="63"/>
+      <node n="33"/>
+      <node n="89"/>
+      <node n="50"/>
+      <node n="21"/>
+      <node n="71"/>
+      <node n="26"/>
+      <node n="32"/>
+      <node n="73"/>
+      <node n="83"/>
+      <node n="60"/>
+      <node n="92"/>
+      <node n="51"/>
+      <node n="41"/>
+      <node n="9"/>
+      <node n="15"/>
+      <node n="48"/>
+      <chem n="0"/>
+    </boundary_polygon>
+  </cells>
+  <walls n="0"/>
+  <nodesets n="0"/>
+  <settings>
+    <setting name="show_cell_centers" val="false"/>
+    <setting name="show_nodes" val="true"/>
+    <setting name="show_node_numbers" val="false"/>
+    <setting name="show_cell_numbers" val="false"/>
+    <setting name="show_border_cells" val="false"/>
+    <setting name="show_cell_axes" val="false"/>
+    <setting name="show_cell_strain" val="false"/>
+    <setting name="show_fluxes" val="false"/>
+    <setting name="show_walls" val="false"/>
+    <setting name="show_apoplasts" val="false"/>
+    <setting name="save_movie_frames" val="false"/>
+    <setting name="show_only_leaf_boundary" val="false"/>
+    <setting name="cell_growth" val="true"/>
+    <setting name="hide_cells" val="false"/>
+  </settings>
+</leaf>

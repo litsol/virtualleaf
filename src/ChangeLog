@@ -1,0 +1,4 @@
+2010-05-10    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Added -fPIC option to QMAKE_CXXFLAGS.
+
