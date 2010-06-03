@@ -24,6 +24,7 @@ CONFIG -= debug
 CONFIG += plugin
 
 BINDIR = ../../bin
+LIBDIR = ../../lib
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = $${BINDIR}/models
 TARGET = auxingrowth
@@ -37,7 +38,7 @@ SOURCES = $${TARGET}plugin.cpp
 TEMPLATE = lib 
 
 unix {
- LIBS += -Llib -lvleaf
+ LIBS += -L$${LIBDIR} -lvleaf
  QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
 }
@@ -46,7 +47,7 @@ win32 {
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
  LIBZDIR = C:\libz
- LIBS += -Llib -lvleaf
+ LIBS += -L$${LIBDIR} -Llib -lvleaf
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }

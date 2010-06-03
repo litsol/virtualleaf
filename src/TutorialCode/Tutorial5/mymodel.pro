@@ -1,5 +1,5 @@
 #
-#  $Id$
+# $Id$
 #
 #  This file is part of the Virtual Leaf.
 #
@@ -19,66 +19,43 @@
 #  Copyright 2010 Roeland Merks.
 #
 
+
+TARGET = mymodel
+VLEAFHOME = ../../..
+
 CONFIG += release
 CONFIG -= debug
-CONFIG += staticlib
+CONFIG += plugin
 
-QMAKE_CXXFLAGS += -fexceptions
+BINDIR = $${VLEAFHOME}/bin
+LIBDIR = $${VLEAFHOME}/lib
+INCDIR = $${VLEAFHOME}/src
+DEFINES = QTGRAPHICS # VLEAFPLUGIN
+DESTDIR = $${BINDIR}/models
+HEADERS = $${TARGET}.h 
+INCLUDEPATH += $${INCDIR}	
+
+QMAKE_CXXFLAGS += -fexceptions #-I$${INCDIR}
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
-QMAKE_CXXFLAGS_DEBUG -= -finstrument-functions
-
-DEFINES = QTGRAPHICS # VLEAFPLUGIN
-DESTDIR = ../lib 
-PERLDIR = ./perl
-PARTMPL = VirtualLeafpar.tmpl
 QT += qt3support
-TARGET = vleaf
-TEMPLATE = lib
-
-HEADERS = \
- cellbase.h \
- matrix.h \
- output.h \
- parameter.h \
- parse.h \
- random.h \
- simplugin.h \
- UniqueMessage.h \
- vector.h \
- wallbase.h \
- warning.h
-
-SOURCES = \
- cellbase.cpp \
- matrix.cpp \
- output.cpp \
- parameter.cpp \
- parse.cpp \
- random.cpp \
- simplugin.cpp \
- UniqueMessage.cpp \
- vector.cpp \
- wallbase.cpp \
- warning.cpp
+SOURCES = $${TARGET}.cpp
+TEMPLATE = lib 
 
 unix {
- system(rm -f parameter.cpp parameter.h) # this is performed here when qmake is envoked and not in the resulting makefile.
+ LIBS += -L$${LIBDIR} -lvleaf
  QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
- LIBS += -lxml2 -lz -lm 
 }
 
 win32 {
- system(DEL parameter.cpp parameter.h) 
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
  LIBZDIR = C:\libz
+ LIBS += -L$${LIBDIR} -lvleaf
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
+
 }
 
-system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
-system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
-#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
-#
+# finish

@@ -68,8 +68,12 @@ void ModelCatalogue::LoadPlugins() {
 			qobject_cast<SimPluginInterface *>(loader.instance())) {
 			models.append(plugin); 
 		} else {
-			MyWarning::warning("Could not load plugin %s",fileName.toStdString().c_str());
+			cerr << loader.errorString().toStdString().c_str() << endl;
+			MyWarning::warning("Could not load model %s: %s",fileName.toStdString().c_str(), loader.errorString().toStdString().c_str());
 		}
+	}
+	if (models.size()==0) {
+		MyWarning::error("No models could be loaded.");
 	}
 }
 

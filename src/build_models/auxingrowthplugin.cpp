@@ -37,23 +37,23 @@ bool batch = false;
 
 
 // To be executed after cell division
-void AuxinGrowthPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase &daughter2) {
+void AuxinGrowthPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
 	// Auxin distributes between parent and daughter according to area
-	double area1 = daughter1.Area(), area2 = daughter2.Area();
+	double area1 = daughter1->Area(), area2 = daughter2->Area();
 	double tot_area = area1 + area2;
 	
-	daughter1.SetChemical(0,daughter1.Chemical(0)*(area1/tot_area));
-	daughter2.SetChemical(0,daughter2.Chemical(0)*(area2/tot_area));
+	daughter1->SetChemical(0,daughter1->Chemical(0)*(area1/tot_area));
+	daughter2->SetChemical(0,daughter2->Chemical(0)*(area2/tot_area));
 	
 	// After divisions, parent and daughter cells get a standard stock of PINs.
-	daughter1.SetChemical(1, par->initval[1]);
-	daughter2.SetChemical(1, par->initval[1]);
+	daughter1->SetChemical(1, par->initval[1]);
+	daughter2->SetChemical(1, par->initval[1]);
 	
 	
 	// Reset transporter values of parent and daughter
 	QList<WallBase *> walls;
 	foreach(WallBase *w, walls) { 
-		w->setTransporter(&daughter1, 1, 0.);
+		w->setTransporter(daughter1, 1, 0.);
 	}
 	
 	//daughter1.LoopWalls(Wall::setTransporter(&daughter1, 1, 0.));
@@ -68,29 +68,29 @@ void AuxinGrowthPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, C
 	*/
 }
 
-void AuxinGrowthPlugin::SetCellColor(CellBase &c, QColor &color) { 
+void AuxinGrowthPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
 	// Red: PIN1
 	// Green: Auxin
-	if (c.CellType()==1) color = QColor("Blue"); 
-	else color.setRgb(c.Chemical(1)/(1+c.Chemical(1)) * 255.,(c.Chemical(0)/(1+c.Chemical(0)) * 255.),/* (chem[2]/(1+chem[2]) *255.) */ 0);
+	if (c->CellType()==1) color->setNamedColor("Blue"); 
+	else color->setRgb(c->Chemical(1)/(1+c->Chemical(1)) * 255.,(c->Chemical(0)/(1+c->Chemical(0)) * 255.),/* (chem[2]/(1+chem[2]) *255.) */ 0);
 	
 }
 
 
 
-void AuxinGrowthPlugin::CellHouseKeeping(CellBase &c) {
+void AuxinGrowthPlugin::CellHouseKeeping(CellBase *c) {
 
-	if (c.Boundary()==CellBase::None) {
-		if (c.Area() > par->rel_cell_div_threshold * c.BaseArea() ) {
-			c.SetChemical(0,0);
-			c.Divide();
+	if (c->Boundary()==CellBase::None) {
+		if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
+			c->SetChemical(0,0);
+			c->Divide();
         }		
-		if (c.Chemical(0)>0.6) {
-			c.SetCellType(1);
+		if (c->Chemical(0)>0.6) {
+			c->SetCellType(1);
 		} 
 		// expand according to auxin concentration
-   		c.EnlargeTargetArea(par->auxin_dependent_growth?(c.Chemical(0)/(1.+c.Chemical(0)))*par->cell_expansion_rate:par->cell_expansion_rate);
+   		c->EnlargeTargetArea(par->auxin_dependent_growth?(c->Chemical(0)/(1.+c->Chemical(0)))*par->cell_expansion_rate:par->cell_expansion_rate);
 	}  
 	
 
@@ -241,15 +241,15 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
     dw2[1] = dPijdt2;
 }
 
-double AuxinGrowthPlugin::complex_PijAj(CellBase &here, CellBase &nb, Wall &w) { 
+double AuxinGrowthPlugin::complex_PijAj(CellBase *here, CellBase *nb, Wall *w) { 
 	
 	// gives the amount of complex "auxinreceptor-Pin1"  at the wall (at QSS) 
 	//return here.Chemical(1) * nb.Chemical(0) / ( par->km + here.Chemical(1));
 	
-	double nb_aux = (nb.BoundaryPolP() && w.AuxinSink()) ? par->sam_auxin : nb.Chemical(0);
+	double nb_aux = (nb->BoundaryPolP() && w->AuxinSink()) ? par->sam_auxin : nb->Chemical(0);
 	double receptor_level = nb_aux * par->r / (par->kr + nb_aux);
 	
-	return here.Chemical(1) * receptor_level / ( par->km + here.Chemical(1));
+	return here->Chemical(1) * receptor_level / ( par->km + here->Chemical(1));
 	
 }
 
