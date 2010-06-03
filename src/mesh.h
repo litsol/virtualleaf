@@ -238,7 +238,7 @@ public:
 		for (vector<Cell *>::iterator i = current_cells.begin();
 			 i != current_cells.end();
 			 i ++) {
-			plugin->CellHouseKeeping(**i);
+			plugin->CellHouseKeeping(*i);
 			
 			// Call functions of Cell that cannot be called from CellBase, including Division
 			if ((*i)->flag_for_divide) {

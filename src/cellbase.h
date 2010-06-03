@@ -331,9 +331,9 @@ class CellBase :  public QObject, public Vector
       for (list<Wall *>::const_iterator w=walls.begin();
 	   w!=walls.end();
 	   w++) {
-	sum += (*w)->c1 == this ? 
-	  f( *((*w)->c1), *((*w)->c2), **w ) :  
-	  f( *((*w)->c2), *((*w)->c1), **w );
+	sum += ((*w)->c1 == this) ? 
+	  f( ((*w)->c1), ((*w)->c2), *w ) :  
+	  f( ((*w)->c2), ((*w)->c1), *w );
       }
       return sum;
     }
@@ -484,8 +484,8 @@ protected:
 
 ostream &operator<<(ostream &os, const CellBase &v);
 
-inline Vector PINdir(CellBase &here, CellBase &nb, Wall &w) {
-	return w.getTransporter( &here, 1)  *  w.getInfluxVector(&here);
+inline Vector PINdir(CellBase *here, CellBase *nb, Wall *w) {
+	return w->getTransporter( here, 1)  *  w->getInfluxVector(here);
 }
 
 

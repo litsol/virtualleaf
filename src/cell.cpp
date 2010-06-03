@@ -1094,7 +1094,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 	ConstructNeighborList();
 	daughter->ConstructNeighborList();
 	
-	m->plugin->OnDivide(parent_info,*daughter, *this);
+	m->plugin->OnDivide(&parent_info, daughter, this);
 	// wall->OnWallInsert();
 	//daughter->OnDivide();
 	
@@ -1661,7 +1661,7 @@ void Cell::Draw(QGraphicsScene *c, QString tooltip) {
 	
 	QColor cell_color;
 	
-	m->plugin->SetCellColor(*this,cell_color);
+	m->plugin->SetCellColor(this,&cell_color);
 	
 	p->setPolygon(pa);
 	p->setPen(par.outlinewidth>=0?QPen( QColor(par.cell_outline_color),par.outlinewidth):QPen(Qt::NoPen));

@@ -20,21 +20,19 @@
  *
  */
 
-#ifndef _MEINHARDTPLUGIN_H_
-#define _MEINHARDTPLUGIN_H_
 
 #include <QObject>
 #include <QtGui>
 #include <QString>
-#include "../simplugin.h"
+#include "simplugin.h"
 
 
-class MeinhardtPlugin : public QObject, SimPluginInterface {
+class MyModel : public QObject, SimPluginInterface {
 	Q_OBJECT
 	Q_INTERFACES(SimPluginInterface);
 
 public:
-	virtual QString ModelID(void) { return QString( "Meinhardt 1976, with growth" ); }
+	virtual QString ModelID(void);
 	
 	// Executed after the cellular mechanics steps have equillibrized
 	virtual void CellHouseKeeping (CellBase *c);
@@ -54,7 +52,9 @@ public:
 	// to be executed for coloring a cell
 	virtual void SetCellColor(CellBase *c, QColor *color);	
 	// return number of chemicals
-	virtual int NChem(void) { return 4; }
+	virtual int NChem(void);
 };
 
-#endif
+
+
+

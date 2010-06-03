@@ -21,7 +21,7 @@
 
 #include <QObject>
 #include <QtGui>
-#include "simplugin.h"
+#include "../simplugin.h"
 
 #include "parameter.h"
 #include "warning.h"
@@ -34,24 +34,24 @@ static const std::string _module_id("$Id$");
 bool batch = false;
 
 // To be executed after cell division
-void MeinhardtPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase &daughter2) {
+void MeinhardtPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
 	
 }
 
-void MeinhardtPlugin::SetCellColor(CellBase &c, QColor &color) { 
+void MeinhardtPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
-	if (fpclassify(c.Chemical(0))==FP_NAN) {
+	if (fpclassify(c->Chemical(0))==FP_NAN) {
 		// somehow the function isnan doesn't work properly on my system... SuSE Linux
 		// 10.0 64-bits (isnan seems not be implemented using fpclassify).
 		MyWarning::warning("Whoops! Numerical instability!!");
-		color.setNamedColor("red");
+		color->setNamedColor("red");
 	} else {
 		double range_min = 0.;//, range_max = 1.;
-		if (c.Chemical(0)<range_min) {
+		if (c->Chemical(0)<range_min) {
 			MyWarning::warning("Whoops! Numerical instability!!");
-			color.setNamedColor("blue");
+			color->setNamedColor("blue");
 		} else {
-			color.setRgb(c.Chemical(1)/(1+c.Chemical(1)) * 255.,(c.Chemical(0)/(1+c.Chemical(0)) * 255.),(c.Chemical(3)/(1+c.Chemical(3)) *255.) );
+			color->setRgb(c->Chemical(1)/(1+c->Chemical(1)) * 255.,(c->Chemical(0)/(1+c->Chemical(0)) * 255.),(c->Chemical(3)/(1+c->Chemical(3)) *255.) );
 		}
 		
 	}
@@ -59,21 +59,21 @@ void MeinhardtPlugin::SetCellColor(CellBase &c, QColor &color) {
 
 
 
-void MeinhardtPlugin::CellHouseKeeping(CellBase &c) {
+void MeinhardtPlugin::CellHouseKeeping(CellBase *c) {
 	
-	if (c.Area() > par->rel_cell_div_threshold * c.BaseArea() ) {
-		c.Divide();
+	if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
+		c->Divide();
 	}
 	
     // cell expansion is inhibited by substrate (chem 3)
-	if (!par->constituous_expansion_limit || c.NCells()<par->constituous_expansion_limit) {
-		c.EnlargeTargetArea(par->cell_expansion_rate );
+	if (!par->constituous_expansion_limit || c->NCells()<par->constituous_expansion_limit) {
+		c->EnlargeTargetArea(par->cell_expansion_rate );
 	} else {
-		if (c.Chemical(0)<0.5) {
+		if (c->Chemical(0)<0.5) {
 			double tmp;
-			c.EnlargeTargetArea((tmp=(1.-par->vessel_inh_level*c.Chemical(3))*par->cell_expansion_rate /* + c.Chemical(4)*/)<0?0:tmp); 
+			c->EnlargeTargetArea((tmp=(1.-par->vessel_inh_level*c->Chemical(3))*par->cell_expansion_rate /* + c->Chemical(4)*/)<0?0:tmp); 
 		} else {
-			c.EnlargeTargetArea(par->vessel_expansion_rate);
+			c->EnlargeTargetArea(par->vessel_expansion_rate);
 		}
 	} 
     
