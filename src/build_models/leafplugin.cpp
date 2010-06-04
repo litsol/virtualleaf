@@ -37,9 +37,9 @@ static const std::string _module_id("$Id$");
 bool batch = false;
 
 // To be executed after cell division
-void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase &daughter2) {
+void LeafPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
 		// PIN1 distributes between parent and daughter according to area
-  double area = daughter1.Area(), daughter_area = daughter2.Area();
+  double area = daughter1->Area(), daughter_area = daughter2->Area();
   double tot_area = area + daughter_area;
   
   //chem[1]*=(area/tot_area);
@@ -54,10 +54,10 @@ void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase
   // redistribute the PIN in the endosome according to area
   
 	// "Fudge" rule: if one of the cells is at the boundary, remove all AUX1 in the other cell
-  if (daughter1.AtBoundaryP() && !daughter2.AtBoundaryP()) {
-    //daughter2.new_chem[2]=daughter2.chem[2]=0.;
-		daughter2.SetNewChem(2,0);
-		daughter2.SetChemical(2,0);
+  if (daughter1->AtBoundaryP() && !daughter2->AtBoundaryP()) {
+    //daughter2->new_chem[2]=daughter2->chem[2]=0.;
+		daughter2->SetNewChem(2,0);
+		daughter2->SetChemical(2,0);
 		//daughter.new_chem[0]=daughter.chem[0]=0.;
 		//cerr << "Clearing daughter\n";
 		//for (list<Wall *>::const_iterator w=daughter.walls.begin();
@@ -67,16 +67,16 @@ void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase
 		//	(*w)->setTransporter(&daughter, 1, 0.);
 		
 		//}
-		//new_chem[2]=chem[2]=parent_info.PINendosome;
-		daughter1.SetNewChem(2,parent_info.PINendosome);
-		daughter1.SetChemical(2,parent_info.PINendosome);
+		//new_chem[2]=chem[2]=parent_info->PINendosome;
+		daughter1->SetNewChem(2,parent_info->PINendosome);
+		daughter1->SetChemical(2,parent_info->PINendosome);
  
 	} else {
-		if (daughter2.AtBoundaryP() && !daughter1.AtBoundaryP()) {
+		if (daughter2->AtBoundaryP() && !daughter1->AtBoundaryP()) {
 		  
 		  //new_chem[2]=chem[2]=0.;
-		  daughter1.SetNewChem(2,0);
-		  daughter1.SetChemical(2,0);
+		  daughter1->SetNewChem(2,0);
+		  daughter1->SetChemical(2,0);
 		  
 			/*new_chem[0]=chem[0]=0.;
 			for (list<Wall *>::const_iterator w=walls.begin();
@@ -85,17 +85,17 @@ void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase
 				
 				(*w)->setTransporter(this, 1, 0.);
 			}*/
-		  //daughter2.chem[2]=parent_info.PINendosome;
-		  daughter2.SetChemical(2,parent_info.PINendosome);
+		  //daughter2->chem[2]=parent_info->PINendosome;
+		  daughter2->SetChemical(2,parent_info->PINendosome);
 		  //cerr << "Clearing parent\n";
 		  
 		} else {
-		  //daughter1.new_chem[2]=daughter1.chem[2] = parent_info.PINendosome*(area/tot_area);
-		  daughter1.SetNewChem(2,parent_info.PINendosome*(area/tot_area));
-		  daughter1.SetChemical(2, parent_info.PINendosome*(area/tot_area));
-		  //daughter2.new_chem[2]=daughter2.chem[2] = parent_info.PINendosome*(daughter_area/tot_area);
-		  daughter2.SetNewChem(2,parent_info.PINendosome*(daughter_area/tot_area));
-		  daughter2.SetChemical(2,parent_info.PINendosome*(daughter_area/tot_area));
+		  //daughter1->new_chem[2]=daughter1->chem[2] = parent_info->PINendosome*(area/tot_area);
+		  daughter1->SetNewChem(2,parent_info->PINendosome*(area/tot_area));
+		  daughter1->SetChemical(2, parent_info->PINendosome*(area/tot_area));
+		  //daughter2->new_chem[2]=daughter2->chem[2] = parent_info->PINendosome*(daughter_area/tot_area);
+		  daughter2->SetNewChem(2,parent_info->PINendosome*(daughter_area/tot_area));
+		  daughter2->SetChemical(2,parent_info->PINendosome*(daughter_area/tot_area));
 		  
 		}
 	}
@@ -112,12 +112,12 @@ void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase
 	double daughter_circ = daughter.Circumference();
 	double tot_circ = circ + daughter_circ;
 	
-	double wallPINs = (circ / tot_circ) * parent_info.PINmembrane;
-	double daughter_wallPINs = (daughter_circ / tot_circ) * parent_info.PINmembrane;
+	double wallPINs = (circ / tot_circ) * parent_info->PINmembrane;
+	double daughter_wallPINs = (daughter_circ / tot_circ) * parent_info->PINmembrane;
 	
-     	//cerr << "wallPINs = " << wallPINs <<  ", daughter_wallPINs =  " << daughter_wallPINs << "sum = " << wallPINs + daughter_wallPINs << ", PINmembrane = " << parent_info.PINmembrane << endl;
+     	//cerr << "wallPINs = " << wallPINs <<  ", daughter_wallPINs =  " << daughter_wallPINs << "sum = " << wallPINs + daughter_wallPINs << ", PINmembrane = " << parent_info->PINmembrane << endl;
 	// distrubute it according to the overall polarity
-	Vector polarization = parent_info.polarization.Normalised().Perp2D();
+	Vector polarization = parent_info->polarization.Normalised().Perp2D();
 	
 	double sum=0.;
 	for (list<Wall *>::const_iterator w=walls.begin();
@@ -143,30 +143,30 @@ void LeafPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase
 	*/
 }
 
-void LeafPlugin::SetCellColor(CellBase &c, QColor &color) { 
+void LeafPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
 	// Red: AUX1
 	// Green: Auxin
 	// Blue: van-3
-  //  color.setRgb(chem[2]/(1+chem[2]) * 255.,(chem[0]/(1+chem[0]) * 255.),(chem[3]/(1+chem[3]) *255.) );
-  color.setRgb(c.Chemical(2)/(1+c.Chemical(2)) * 255.,(c.Chemical(0)/(1+c.Chemical(0)) * 255.),(c.Chemical(3)/(1+c.Chemical(3)) *255.) );
+  //  color->setRgb(chem[2]/(1+chem[2]) * 255.,(chem[0]/(1+chem[0]) * 255.),(chem[3]/(1+chem[3]) *255.) );
+  color->setRgb(c->Chemical(2)/(1+c->Chemical(2)) * 255.,(c->Chemical(0)/(1+c->Chemical(0)) * 255.),(c->Chemical(3)/(1+c->Chemical(3)) *255.) );
   
 
 }
 
 
 
-void LeafPlugin::CellHouseKeeping(CellBase &c) {
+void LeafPlugin::CellHouseKeeping(CellBase *c) {
 	
-  if (c.Boundary()==CellBase::None) {
-    if (c.Area() > par->rel_cell_div_threshold * c.BaseArea() ) {
-      //c.SetChemical(0,0);
-      c.Divide();
+  if (c->Boundary()==CellBase::None) {
+    if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
+      //c->SetChemical(0,0);
+      c->Divide();
     }		
     
     // expand if this is not a provascular cell
-    if (c.Chemical(3) < 0.7 ) {
-      c.EnlargeTargetArea(par->cell_expansion_rate);
+    if (c->Chemical(3) < 0.7 ) {
+      c->EnlargeTargetArea(par->cell_expansion_rate);
     } 
   }  
   
@@ -359,15 +359,15 @@ void LeafPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
   
 }
 
-double LeafPlugin::complex_PijAj(CellBase &here, CellBase &nb, Wall &w) { 
+double LeafPlugin::complex_PijAj(CellBase *here, CellBase *nb, Wall *w) { 
 
   // gives the amount of complex "auxinreceptor-Pin1"  at the wall (at QSS) 
   //return here.Chemical(1) * nb.Chemical(0) / ( par->km + here.Chemical(1));
   
-  double nb_aux = (nb.BoundaryPolP() && w.AuxinSink()) ? par->sam_auxin : nb.Chemical(0);
+  double nb_aux = (nb->BoundaryPolP() && w->AuxinSink()) ? par->sam_auxin : nb->Chemical(0);
   double receptor_level = nb_aux * par->r / (par->kr + nb_aux);
 
-  return here.Chemical(1) * receptor_level / ( par->km + here.Chemical(1));
+  return here->Chemical(1) * receptor_level / ( par->km + here->Chemical(1));
   
 }
 

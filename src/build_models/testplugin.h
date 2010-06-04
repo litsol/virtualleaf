@@ -35,7 +35,7 @@ public:
 	virtual QString ModelID(void) { return QString( "Test model" ); }
 	
 	// Executed after the cellular mechanics steps have equillibrized
-	virtual void CellHouseKeeping (CellBase &c);
+	virtual void CellHouseKeeping (CellBase *c);
 	// Differential equations describing transport of chemicals from cell to cell
 	virtual void CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2);
     
@@ -47,10 +47,10 @@ public:
 	virtual void CellDynamics(CellBase *c, double *dchem);
 	
 	// to be executed after a cell division
-	virtual void OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase &daughter2);
+	virtual void OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2);
 	
 	// to be executed for coloring a cell
-	virtual void SetCellColor(CellBase &c, QColor &color);	
+	virtual void SetCellColor(CellBase *c, QColor *color);	
 	// return number of chemicals
 	virtual int NChem(void) { return 0; }
 };

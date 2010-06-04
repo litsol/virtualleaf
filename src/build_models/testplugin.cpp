@@ -35,26 +35,26 @@ static const std::string _module_id("$Id$");
 bool batch = false;
 
 // To be executed after cell division
-void TestPlugin::OnDivide(ParentInfo &parent_info, CellBase &daughter1, CellBase &daughter2) {
+void TestPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
 	
 }
 
-void TestPlugin::SetCellColor(CellBase &c, QColor &color) { 
+void TestPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
 	static QStringList colors;
 	if (colors.size()==0) {
 		colors << "red" << "green" << "blue";
 	}
-	color = colors[c.Index()%colors.size()];
+	color->setNamedColor(colors[c->Index()%colors.size()]);
 }
 
 
 
-void TestPlugin::CellHouseKeeping(CellBase &c) {
+void TestPlugin::CellHouseKeeping(CellBase *c) {
 	
-	c.EnlargeTargetArea(par->cell_expansion_rate);
-	if (c.Area() > par->rel_cell_div_threshold * c.BaseArea() ) {
-		c.Divide();
+	c->EnlargeTargetArea(par->cell_expansion_rate);
+	if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
+		c->Divide();
 	}
 }
 

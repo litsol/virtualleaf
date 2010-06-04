@@ -113,7 +113,7 @@ HEADERS += \
  cellbase.h \
  cell.h \
  cellitem.h \
- forwardeuler.h \
+# forwardeuler.h \
  infobar.h \
  mainbase.h \
  mainbase.h \
@@ -154,7 +154,7 @@ SOURCES += \
  cellbase.cpp \
  cell.cpp \
  cellitem.cpp \
- forwardeuler.cpp \
+# forwardeuler.cpp \
  mainbase.cpp \
  matrix.cpp \
  mesh.cpp \
