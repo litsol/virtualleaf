@@ -1,4 +1,4 @@
-# $Id: Makefile,v 3f0977faba37 2010/06/03 15:54:37 michael $
+# $Id$
 
 QMAKE = qmake
 

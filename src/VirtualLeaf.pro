@@ -50,6 +50,11 @@ QT += qt3support
 }
 
 win32 {
+ system(WHERE /Q perl && IF errorlevel 0 (DEL parameter.cpp parameter.h pardialog.cpp pardialog.h)
+ system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_parameter_source.pl $$PARTMPL)
+ system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_pardialog_source.pl $$PARTMPL)
+#system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_xmlwritecode.pl -h $$REACTIONS)
+
  CONFIG += console
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
@@ -93,7 +98,10 @@ macx:release {
 }
 
 unix {
- system(rm -f parameter.cpp parameter.h) 
+ system(if `which perl > /dev/null 2>&1` ; then rm -f parameter.cpp parameter.h pardialog.cpp pardialog.h; fi)
+ system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_parameter_source.pl $$PARTMPL; fi)
+ system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL; fi)
+#system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS; fi)
  CC = /usr/bin/gcc 
  QWTDIR = /ufs/guravage/opt/qwt-5.2.1-svn
  QMAKE_LIBDIR += $$QWTDIR/lib 
@@ -101,10 +109,6 @@ unix {
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
-
-system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
-system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
-#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
 
 # Input
 HEADERS += \
