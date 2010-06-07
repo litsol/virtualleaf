@@ -226,8 +226,11 @@ class Main : public Q3MainWindow, public MainBase {
   void shrink();
   void zoomIn();
   void zoomOut();
-  
+	
   void CleanMesh();
+	void CleanMeshChemicals(void);
+	void CleanMeshTransporters(void);
+	
   void RandomizeMesh();
 
  signals:

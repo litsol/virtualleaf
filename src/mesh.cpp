@@ -1888,34 +1888,47 @@ void Mesh::DeleteLooseWalls(void) {
   }*/
 
 
-void Mesh::CleanChemicals(const vector<double> &clean_chem, const vector<double> &clean_transporters) {
-  
-  if (clean_chem.size()!=(unsigned)Cell::NChem() || clean_transporters.size()!=(unsigned)Cell::NChem()) {
-    throw "Run time error in Mesh::CleanChemicals: size of clean_chem and clean_transporters should be equal to Cell::NChem()";
-  }
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-    
-    for (int i=0;i<Cell::NChem();i++) {
-      (*c)->SetChemical(i,clean_chem[i]);
-    }
-    (*c)->SetNewChemToChem();
 
-  }
+void Mesh::CleanChemicals(const vector<double> &clean_chem) {
+	
+	if (clean_chem.size()!=(unsigned)Cell::NChem()) {
+		throw "Run time error in Mesh::CleanChemicals: size of clean_chem should be equal to Cell::NChem()";
+	}
+	for (vector<Cell *>::iterator c=cells.begin();
+		 c!=cells.end();
+		 c++) {
+		
+		for (int i=0;i<Cell::NChem();i++) {
+			(*c)->SetChemical(i,clean_chem[i]);
+		}
+		(*c)->SetNewChemToChem();
+		
+	}
+	
 
-  // clean transporters
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-    
-    for (int i=0;i<Cell::NChem();i++) {
-      (*w)->setTransporters1(i,clean_transporters[i]); (*w)->setNewTransporters1(i,clean_transporters[i]);
-      (*w)->setTransporters2(i,clean_transporters[i]); (*w)->setNewTransporters2(i,clean_transporters[i]);
-    }
-  }
-  
 }
+
+
+void Mesh::CleanTransporters(const vector<double> &clean_transporters) {
+	
+	if (clean_transporters.size()!=(unsigned)Cell::NChem()) {
+		throw "Run time error in Mesh::CleanTransporters: size ofclean_transporters should be equal to Cell::NChem()";
+	}
+
+	
+	// clean transporters
+	for (list<Wall *>::iterator w=walls.begin();
+		 w!=walls.end();
+		 w++) {
+		
+		for (int i=0;i<Cell::NChem();i++) {
+			(*w)->setTransporters1(i,clean_transporters[i]); (*w)->setNewTransporters1(i,clean_transporters[i]);
+			(*w)->setTransporters2(i,clean_transporters[i]); (*w)->setNewTransporters2(i,clean_transporters[i]);
+		}
+	}
+	
+}
+
 
 void Mesh::RandomizeChemicals(const vector<double> &max_chem, const vector<double> &max_transporters) {
   
@@ -2158,7 +2171,8 @@ void Mesh::SettoInitVals(void) {
   // Amount of PIN1
   //clean_chem[1] = 0.;
   
-  CleanChemicals(clean_chem, clean_transporters);
+	CleanChemicals(clean_chem);
+	CleanTransporters(clean_transporters);
 
 }
 

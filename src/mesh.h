@@ -413,7 +413,8 @@ public:
 		node_sets.push_back(node_set);
 	}
 	
-	void CleanChemicals(const vector<double> &clean_chem, const vector<double> &clean_transporters);
+	void CleanChemicals(const vector<double> &clean_chem);
+	void CleanTransporters(const vector<double> &clean_transporters);
 	void RandomizeChemicals(const vector<double> &max_chem, const vector<double> &max_transporters);
 	inline double getTime(void) const { return time; }
 	string getTimeHours(void) const; 

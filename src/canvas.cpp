@@ -562,6 +562,8 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
 	
 	Q3PopupMenu* edit = new Q3PopupMenu( menu );
   edit->insertItem("Reset Chemicals and Transporters", this, SLOT( CleanMesh()), Qt::CTRL+Qt::Key_R );
+	edit->insertItem("Reset Chemicals", this, SLOT( CleanMeshChemicals()) );
+	edit->insertItem("Reset Transporters", this, SLOT( CleanMeshTransporters()) );
   edit->insertItem("Randomize PIN1 Transporters", this, SLOT( RandomizeMesh()) );
   edit->insertItem("Cut away SAM", this, SLOT( CutSAM() ));
   menu->insertItem("&Edit", edit);
@@ -1437,14 +1439,56 @@ void Main::FitLeafToCanvas(void) {
 }
 
 void Main::CleanMesh(void) {
-  
-  mesh.SettoInitVals();
+	vector<double> clean_chem(Cell::NChem());
+	vector<double> clean_transporters(Cell::NChem());
+
+	for (int i=0;i<Cell::NChem();i++) {
+		clean_chem[i]=par.initval[i];
+		clean_transporters[i]=0.;		
+	}
+	
+	mesh.CleanChemicals(clean_chem);
+	mesh.CleanTransporters(clean_transporters);
+	
 	mesh.setTime(0);
-  Plot();
-  
-  editor->FullRedraw();
- 
+	Plot();
+	
+	editor->FullRedraw();
+	
   //  repaint();
+}
+
+void Main::CleanMeshChemicals(void) {
+	
+	vector<double> clean_chem(Cell::NChem());
+
+	for (int i=0;i<Cell::NChem();i++) {
+		clean_chem[i]=par.initval[i];
+	}
+	
+	mesh.CleanChemicals(clean_chem);
+	mesh.setTime(0);
+	Plot();
+	
+	editor->FullRedraw();
+	
+	//  repaint();
+}
+
+void Main::CleanMeshTransporters(void) {
+	vector<double> clean_transporters(Cell::NChem());
+	for (int i=0;i<Cell::NChem();i++) {
+		clean_transporters[i]=0.;
+	}
+	
+	mesh.CleanTransporters(clean_transporters);
+	
+	mesh.setTime(0);
+	Plot();
+	
+	editor->FullRedraw();
+	
+	//  repaint();
 }
 
 void Main::RandomizeMesh(void) {
