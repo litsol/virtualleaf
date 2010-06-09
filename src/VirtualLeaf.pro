@@ -146,6 +146,8 @@ HEADERS += \
  wallitem.h \
  warning.h \
  xmlwrite.h \
+ flux_function.h \
+ vleafmodel.h \
  $${PARTMPL}
 
 SOURCES += \

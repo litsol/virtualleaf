@@ -53,6 +53,8 @@ public:
 	virtual void SetCellColor(CellBase *c, QColor *color);	
 	// return number of chemicals
 	virtual int NChem(void);
+	
+	virtual double PINflux(CellBase *this_cell, CellBase *adjacent_cell, Wall *w); 
 };
 
 

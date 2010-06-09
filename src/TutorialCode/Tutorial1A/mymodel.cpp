@@ -34,86 +34,36 @@ static const std::string _module_id("$Id$");
 
 QString MyModel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Growth hormones" );
+  return QString( "Cell growth" );
 }
 
 // return the number of chemicals your model uses
-int MyModel::NChem(void) { return 1; }
+int MyModel::NChem(void) { return 0; }
 
 // To be executed after cell division
 void MyModel::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
   // rules to be executed after cell division go here
   // (e.g., cell differentiation rules)
-	
-	// set one cell to source after first division
-	if (CellBase::NCells()==2) {
-		daughter1->SetCellType(1);
-		daughter2->SetCellType(0);
-	}
-	
-	// if a source cells has divided, one of the daughters becomes the new source
-	if (daughter1->CellType()==1) {
-		
-		// if both cells are at the tissue perimeter, choose at random
-		if (daughter1->AtBoundaryP() && daughter2->AtBoundaryP()) {
-		
-			if (qrand()%2){
-				daughter1->SetCellType(1);
-				daughter2->SetCellType(0);
-			} else {
-				daughter1->SetCellType(0);
-				daughter2->SetCellType(1);
-			}
-		} else {
-			// otherwise choose the one that is still at the perimeter
-			if (daughter1->AtBoundaryP()) {
-				daughter1->SetCellType(1);
-				daughter2->SetCellType(0);
-			} else {
-				daughter1->SetCellType(0);
-				daughter2->SetCellType(1);
-			}
-		}
-	}
-	
 }
 
 void MyModel::SetCellColor(CellBase *c, QColor *color) { 
   // add cell coloring rules here
-	
-	// white: high concentration of growth hormone, black low concentration
-	double val = 1.-c->Chemical(0)/(1.+c->Chemical(0));
-	color->setRgbF(val, val, val);
+
 }
 
 void MyModel::CellHouseKeeping(CellBase *c) {
   // add cell behavioral rules here
-	if (CellBase::NCells()==1)
-		// first cell expands unconditionally 
-		c->EnlargeTargetArea(par->cell_expansion_rate);
-	else 
-		c->EnlargeTargetArea(c->Chemical(0)*par->cell_expansion_rate);
-	
-	if (c->Area() > par->rel_cell_div_threshold * c->BaseArea()) {
-		c->Divide();
-	}
+	c->EnlargeTargetArea(par->cell_expansion_rate);
 }
 
 void MyModel::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
   // add biochemical transport rules here
-	double phi = w->Length() * par->D[0] * ( w->C2()->Chemical(0) - w->C1()->Chemical(0) );
-	dchem_c1[0]+=phi;
-	dchem_c2[0]-=phi;
 }
-
 void MyModel::WallDynamics(Wall *w, double *dw1, double *dw2) {
   // add biochemical networks for reactions occuring at walls here
 }
 void MyModel::CellDynamics(CellBase *c, double *dchem) { 
   // add biochemical networks for intracellular reactions here
-	if (c->CellType()==1) {
-		dchem[0] = par->leaf_tip_source;
-	}
 }
 
 

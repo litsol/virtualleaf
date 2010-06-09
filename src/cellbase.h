@@ -118,7 +118,8 @@ class CellBase :  public QObject, public Vector
       source_chem = chem;
       source_conc = conc;
 	}
-    
+	// set chem 1 to conc in all membranes of this cell
+    void SetTransporters(int chem, double conc);
     void UnfixNodes(void);
     void FixNodes(void);
     void UnsetSource(void) {
