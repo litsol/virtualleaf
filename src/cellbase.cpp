@@ -234,6 +234,19 @@ void CellBase::SetChemical(int c, double conc) {
 	chem[c]=conc;
 }
 
+void CellBase::SetTransporters(int ch, double conc) {
+	if (ch>=NChem()) {
+		stringstream error;
+		error << "SetChemical: value ch = " << ch << " is out of range\n";
+		throw error.str().c_str();
+	}
+	for (list<Wall *>::iterator w=walls.begin();
+		 w!=walls.end();
+		 w++) {
+		(*w)->setTransporter(this, ch, conc);
+	}
+}
+
 ostream &CellBase::print(ostream &os) const {
 	
 	

@@ -137,6 +137,8 @@ void MyModel::CellDynamics(CellBase *c, double *dchem) {
 	// sum all incoming fluxes of PINs
 	dchem[1] =  - SumFluxFromWalls( c, MyModel::PINflux );
 	
+	// auxin degradation
+	dchem[0] = - par->aux_breakdown * c->Chemical(0); 
 	
 	
 }
