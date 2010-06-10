@@ -76,17 +76,6 @@ win32 {
  LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib -L$${LIBZDIR}\lib  -lz -lm -lwsock32 -liconv
 }
 
-# Application icons
-macx {
- ICON = leaficon.icns
- # make sure that the executable can find the libqwt share library
- QMAKE_POST_LINK = "mkdir $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-  cp /usr/local/qwt/lib/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/.; \
-  #install_name_tool -change libqwt.5.dylib $$QWTDIR/lib/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
-  install_name_tool -id @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/libqwt.dylib; \
-  install_name_tool -change libqwt.5.dylib @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET};\
-  cp leaficon.icns $${DESTDIR}/$${TARGET}.app; "
-}
 
 macx:release {
  LIBS+= -dead_strip
@@ -113,7 +102,7 @@ HEADERS += \
  cellbase.h \
  cell.h \
  cellitem.h \
-# forwardeuler.h \
+ forwardeuler.h \
  infobar.h \
  mainbase.h \
  mainbase.h \
@@ -146,8 +135,6 @@ HEADERS += \
  wallitem.h \
  warning.h \
  xmlwrite.h \
- flux_function.h \
- vleafmodel.h \
  $${PARTMPL}
 
 SOURCES += \
@@ -156,7 +143,7 @@ SOURCES += \
  cellbase.cpp \
  cell.cpp \
  cellitem.cpp \
-# forwardeuler.cpp \
+ forwardeuler.cpp \
  mainbase.cpp \
  matrix.cpp \
  mesh.cpp \
@@ -220,6 +207,34 @@ contains( GRAPHICS, x11 ) {
  CONFIG -= qt
  CONFIG += x11
  unix:LIBS += -lpng
+}
+
+#contains( GRAPHICS, qwt ) {
+# 	QMAKE_POST_LINK = "install_name_tool -change libqwt.5.dylib $$QWTDIR/lib/libqwt.dylib $${TARGET}.app/Contents/MacOS/$${TARGET}; \
+#}
+
+# MACOSX packaging
+macx {
+ICON = leaficon.icns
+QMAKE_POST_LINK = "\
+	#install_name_tool -change libqwt.5.dylib $$QWTDIR/lib/libqwt.dylib $${TARGET}.app/Contents/MacOS/$${TARGET}; \
+	cp leaficon.icns $${DESTDIR}/$${TARGET}.app; \
+	mkdir $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
+	cp -R /Library/Frameworks/QtCore.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
+	cp -R /Library/Frameworks/QtGui.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
+	cp -R /Library/Frameworks/Qt3Support.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
+	#cp /usr/local/qwt/lib/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
+	#install_name_tool -id @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/libqwt.dylib; \
+	install_name_tool -change /usr/local/qwt/lib/libqwt.dylib @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET};\
+	install_name_tool -id @executable_path/../Frameworks/QtCore.framework/Versions/Current/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/QtCore.framework/Versions/4.0/QtCore; \
+	install_name_tool -id @executable_path/../Frameworks/QtGui.framework/Versions/Current/QtGui $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/QtGui.framework/Versions/4.0/QtGui; \
+	install_name_tool -id @executable_path/../Frameworks/Qt3Support.framework/Versions/Current/Qt3Support $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
+	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
+	install_name_tool -change Frameworks/QtGui.framework/Versions/Current/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/4.0/QtGui $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
+	install_name_tool -change Frameworks/Qt3Support.framework/Versions/Current/Qt3Support @executable_path/../Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
+	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
+	install_name_tool -change Frameworks/QtGui.framework/Versions/Current/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/4.0/QtGui $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
+	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; "
 }
 
 # finis
