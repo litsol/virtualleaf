@@ -12,14 +12,10 @@ syntax: glob
 *.Release
 *.so
 *.vars
-*Makefile
+*Makefile.*
 *make.out
 *moc_*.cpp
-src/parameter.h
-src/parameter.cpp
 src/default.par
-src/pardialog.h
-src/pardialog.cpp
 bin*
 
 # switch to regexp syntax.

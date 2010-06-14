@@ -82,7 +82,6 @@ macx:release {
 }
 
 unix {
- system(rm -f parameter.cpp parameter.h) 
  CC = /usr/bin/gcc 
  QWTDIR = /ufs/guravage/opt/qwt-5.2.1-svn
  QMAKE_LIBDIR += $$QWTDIR/lib 
@@ -90,10 +89,6 @@ unix {
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
-
-system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
-system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
-#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
 
 # Input
 HEADERS += \
