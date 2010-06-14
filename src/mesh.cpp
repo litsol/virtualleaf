@@ -47,7 +47,7 @@
 #include <iostream>
 #include <iterator>
 
-static const std::string _module_id("$Id: mesh.cpp,v 79f94eaa3b9e 2010/04/14 07:51:02 michael $");
+static const std::string _module_id("$Id$");
 
 extern Parameter par;
 

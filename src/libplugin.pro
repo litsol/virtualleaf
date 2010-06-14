@@ -63,14 +63,12 @@ SOURCES = \
  warning.cpp
 
 unix {
- system(rm -f parameter.cpp parameter.h) # this is performed here when qmake is envoked and not in the resulting makefile.
  QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
 
 win32 {
- system(DEL parameter.cpp parameter.h) 
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
  LIBZDIR = C:\libz
@@ -78,7 +76,4 @@ win32 {
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }
 
-system(perl $$PERLDIR/make_parameter_source.pl $$PARTMPL)
-system(perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL)
-#system(perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS)
 #
