@@ -23,5 +23,7 @@ clean:
 	make -f Makefile.libplugin clean
 	make -f Makefile.VirtualLeaf clean
 	make -C build_models clean
+	touch VirtualLeaf.pro
+	touch libplugin.pro
 
 #finis
