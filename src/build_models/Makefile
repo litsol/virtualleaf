@@ -33,5 +33,9 @@ clean:
 	make -f Makefile.plugin_leaf clean
 	make -f Makefile.plugin_meinhardt clean
 	make -f Makefile.plugin_test clean
+	touch plugin_auxingrowth.pro
+	touch plugin_leaf.pro
+	touch plugin_meinhardt.pro
+	touch plugin_test.pro
 
 #finis

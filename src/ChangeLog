@@ -1,3 +1,8 @@
+2010-06-07    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Removed explicit perl invocation to regerenerate parameter files.
+	* libplugin.pro: ditto.
+
 2010-06-03    <guravage@caterpie.sen.cwi.nl>
 
 	* pardialog.h: Added default versions of this automatically generated file.

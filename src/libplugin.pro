@@ -63,22 +63,12 @@ SOURCES = \
  warning.cpp
 
 unix {
- system(if `which perl > /dev/null 2>&1` ; then rm -f parameter.cpp parameter.h pardialog.cpp pardialog.h; fi)
- system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_parameter_source.pl $$PARTMPL; fi)
- system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_pardialog_source.pl $$PARTMPL; fi)
-#system(if `which perl > /dev/null 2>&1` ; then perl $$PERLDIR/make_xmlwritecode.pl -h $$REACTIONS; fi)
-
  QMAKE_CXXFLAGS += -fPIC -I/usr/include/libxml2
  QMAKE_LFLAGS += -fPIC
  LIBS += -lxml2 -lz -lm 
 }
 
 win32 {
- system(WHERE /Q perl && IF errorlevel 0 (DEL parameter.cpp parameter.h pardialog.cpp pardialog.h)
- system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_parameter_source.pl $$PARTMPL)
- system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_pardialog_source.pl $$PARTMPL)
-#system(WHERE /Q perl && IF errorlevel 0 (perl $$PERLDIR\make_xmlwritecode.pl -h $$REACTIONS)
-
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
  LIBZDIR = C:\libz
