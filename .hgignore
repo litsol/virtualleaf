@@ -17,6 +17,8 @@ syntax: glob
 *moc_*.cpp
 src/default.par
 bin*
+TAGS
+BROWSE
 
 # switch to regexp syntax.
 syntax: regexp
