@@ -19,6 +19,7 @@
  *
  */
 
+#include <QDebug>
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,9 +85,10 @@ double RANDOM(void)
 int Seed(int seed)
 {
   if (seed < 0) {
-    cerr << "Randomizing random generator, seed is ";
     int rseed=Randomize();
-    cerr << rseed << "\n";
+    #ifdef QDEBUG
+    qDebug() << "Randomizing random generator, seed is " << rseed << endl;
+    #endif
     return rseed;
   } else {
     int i;

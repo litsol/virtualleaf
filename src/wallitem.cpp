@@ -19,6 +19,7 @@
  *
  */
 
+#include <QDebug>
 #include <string>
 #include <QGraphicsScene>
 #include <QVector>
@@ -125,10 +126,12 @@ void WallItem::OnClick(QMouseEvent *e) {
   
 
 	Wall *w=&getWall();
-	cerr << "Wall ID = " << w->Index() << ", this = " << w << "\n";
-	cerr << "Wall item = " << this << "\n";
-	cerr << "C1 = " << w->C1()->Index() << ", C2 = " << w->C2()->Index() << endl;
-	cerr << "N1 = " << w->N1()->Index() << ", N2 = " << w->N2()->Index() << endl;
+	#ifdef QDEBUG
+	qDebug() << "Wall ID = " << w->Index() << ", this = " << w << endl;
+	qDebug() << "Wall item = " << this << endl;
+	qDebug() << "C1 = " << w->C1()->Index() << ", C2 = " << w->C2()->Index() << endl;
+	qDebug() << "N1 = " << w->N1()->Index() << ", N2 = " << w->N2()->Index() << endl;
+	#endif
 	//double tr = wn==1?w->Transporters1(1):w->Transporters2(1);
 	CellBase *c = wn==1?w->C1():w->C2();
 

@@ -65,10 +65,14 @@ public:
 		ncells = 0;
 		nchem = 0;
 		base_area = 0.;
-		cerr << "Constructor of CellsStaticDatamembers\n";
+                #ifdef QDEBUG
+		qDebug() << "Constructor of CellsStaticDatamembers" << endl;
+		#endif
 	}
 	~CellsStaticDatamembers() {
-		cerr << "Oops! Desctructor of CellsStaticDatamembers called\n";
+                #ifdef QDEBUG
+	        qDebug() << "Oops! Desctructor of CellsStaticDatamembers called" << endl;
+                #endif
 	}
 	int ncells;
 	int nchem;

@@ -19,6 +19,8 @@
  *
  */
 
+#include <QDebug>
+
 #include <string>
 #include "cell.h"
 #include "node.h"
@@ -30,7 +32,6 @@
 #include "qcanvasarrow.h"
 #include "parameter.h"
 
-#include <QDebug>
 
 static const std::string _module_id("$Id$");
 
@@ -111,13 +112,15 @@ double Cell::MeanArea(void) {
 void Cell::Apoptose(void) {
 	
 	// First kill walls
-	cerr << "This is cell " << Index() << "\n";
-	cerr << "Number of walls: " << walls.size() << endl;
-	
-	for (list<Wall *>::iterator w=walls.begin();
-		 w!=walls.end();
-		 w++) {
-		cerr << "Before apoptosis, wall " << (*w)->Index() << " says: c1 = " << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
+        #ifdef QDEBUG
+        qDebug() << "This is cell " << Index() << endl;
+	qDebug() << "Number of walls: " << walls.size() << endl;
+	#endif
+	for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
+             #ifdef QDEBUG
+	     qDebug() << "Before apoptosis, wall " << (*w)->Index() << " says: c1 = "
+		      << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
+             #endif
 	}
 	for (list<Wall *>::iterator w=walls.begin();
 		 w!=walls.end();
@@ -140,24 +143,34 @@ void Cell::Apoptose(void) {
 			(*w)->c2 = m->boundary_polygon;
 		}
 		
+		#ifdef QDEBUG
 		if (illegal_flag && (*w)->c1==(*w)->c2) {
-			cerr << "I created an illegal wall.\n";
+		  qDebug() << "I created an illegal wall." << endl;
 		}
+		#endif
+
 		if ( ((*w)->N1()->DeadP() || (*w)->N2()->DeadP()) ||
 			((*w)->C1() == (*w)->C2() ) ){
 			// kill wall
-			cerr << "Killing wall.\n";
+		        #ifdef QDEBUG
+		        qDebug() << "Killing wall." << endl;
+			#endif
 			(*w)->Kill();
+
+			#ifdef QDEBUG
 			if ((*w)) {
-				cerr << "Wall " << (*w)->Index() << " says: c1 = " << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
+			  qDebug() << "Wall " << (*w)->Index() << " says: c1 = " 
+				   << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
 			}
+			#endif
 			(*w)=0;
 		} else {
-			cerr << "Not killing wall.\n";
-			cerr << "Wall " << (*w)->Index() << " says: c1 = " << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
+		        #ifdef QDEBUG
+		        qDebug() << "Not killing wall." << endl;
+			qDebug() << "Wall " << (*w)->Index() << " says: c1 = " 
+				 << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
+                        #endif
 		}
-		
-		
 		
 	}
 	walls.remove(0);
@@ -328,7 +341,9 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
 	// check each edge for intersection with the line
 	ItList new_node_locations;
 	
-	cerr << "Cell " << Index() << " is doing DivideOverGivenLine \n";
+	#ifdef QDEBUG
+	qDebug() << "Cell " << Index() << " is doing DivideOverGivenLine" << endl;
+	#endif
 	for (list<Node *>::iterator i=nodes.begin();
 		 i!=nodes.end();
 		 i++) {
@@ -361,29 +376,31 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
 		} 
 	}
 	
+        #ifdef QDEBUG
 	if (new_node_locations.size()<2) { 
-		
-		cerr << "Line does not intersect with two edges of Cell " << Index() << endl;
-		cerr << "new_node_locations.size() = " << new_node_locations.size() << endl;
-		return false;
+	  qDebug() << "Line does not intersect with two edges of Cell " << Index() << endl;
+	  qDebug() << "new_node_locations.size() = " << new_node_locations.size() << endl;
+	  return false;
 	}
 	
 	ItList::iterator i = new_node_locations.begin();
 	list< Node *>::iterator j;
-	cerr << "-------------------------------\n";
-	cerr << "Location of new nodes: " << (**i)->Index() << " and ";
+	qDebug() << "-------------------------------" << endl;
+	qDebug() << "Location of new nodes: " << (**i)->Index() << " and ";
+
 	++i;
 	j = *i; 
 	if (j==nodes.begin()) j=nodes.end(); j--;
 	
-	cerr << (*j)->Index() << endl;
-	cerr << "-------------------------------\n";
+	qDebug() << (*j)->Index() << endl;
+	qDebug() << "-------------------------------" << endl;
     
 	if ( **new_node_locations.begin() == *j ) {
-		cerr << "Rejecting proposed division (cutting off zero area).\n";
+	  qDebug() << "Rejecting proposed division (cutting off zero area)." << endl;
 		return false;
 	}
-	
+	#endif
+
 	DivideWalls(new_node_locations, v1, v2, fix_cellwall, node_set);
 	
 	return true;
@@ -451,9 +468,12 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 		// Cell somewhere in the middle of Mesh::Cells the indices will
 		// get totally messed up...! (e.g. the indices used in Nodes::cells)
 		
-		cerr << "new_node_locations.size() = " << new_node_locations.size() <<endl;
-		cerr << "daughter->index = " << daughter->index << endl;
-		cerr << "cells.size() = " << m->cells.size() << endl;
+		#ifdef QDEBUG
+		qDebug() << "new_node_locations.size() = " << new_node_locations.size() <<endl;
+		qDebug() << "daughter->index = " << daughter->index << endl;
+		qDebug() << "cells.size() = " << m->cells.size() << endl;
+		#endif
+
 		m->cells.pop_back();
 		Cell::NCells()--;
 		m->shuffled_cells.pop_back();
@@ -529,7 +549,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 			new_node_flag[nnc]=1;
 			new_node[nnc] = *(**i);
 			new_node_ind[nnc] = **i;
-			//cerr << **i << "\n" ;
+			//cerr << **i << endl ;
 		} else 
 			if ( (*(*nb) - *n).Norm() < collapse_node_threshold * elem_length ) {
 				new_node_flag[nnc]=2;
@@ -785,10 +805,11 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 			} while ( w!=walls.end() && !(*w)->IntersectsWithDivisionPlaneP( from, to ) ); // go on until we find the right one.
 			
 			if (w == walls.end()) {
-				cerr << "Whoops, wall element not found...!\n";
-				cerr << "Cell ID: " << neighbor_cell->Index() << endl;
-				cerr << "My cell ID: " << Index() << endl;
-				
+			        #ifdef QDEBUG
+			  qDebug() << "Whoops, wall element not found...!" << endl;
+			        qDebug() << "Cell ID: " << neighbor_cell->Index() << endl;
+				qDebug() << "My cell ID: " << Index() << endl;
+                                #endif
 			} else {
 				
 				// 2. Split it up, if we should (sometimes, the new node coincides with an existing node so
@@ -895,7 +916,9 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 					(*i)->owners.end(),
 				bind2nd(mem_fun_ref( &Neighbor::CellEquals ),this->Index() )  );
 			if (neighb_with_this_cell==(*i)->owners.end()) {
-				cerr << "not found\n";
+			        #ifdef QDEBUG
+			  qDebug() << "not found" << endl;
+                                #endif
 				abort();
 			}
 			
@@ -1619,9 +1642,11 @@ void Cell::Flux(double *flux, double *D)  {
 		for (int c=0;c<NChem();c++) {
 			double phi = (*i)->length * ( D[c] ) * ( ((Cell *)(*i)->c2)->chem[c] - chem[c] );
 			
+			#ifdef QDEBUG
 			if ((*i)->c1!=this) {
-				cerr << "Warning, bad cells boundary: " << (*i)->c1->Index() << ", " << index << endl;
+			  qDebug() << "Warning, bad cells boundary: " << (*i)->c1->Index() << ", " << index << endl;
 			}
+			#endif
 			
 			flux[c] += phi;
 		}    
@@ -1640,7 +1665,9 @@ void Cell::Draw(QGraphicsScene *c, QString tooltip) {
 	// Draw the cell on a QCanvas object
 	
 	if (DeadP()) { 
-		cerr << "Cell " << index << " not drawn, because dead.\n";
+	        #ifdef QDEBUG
+	  qDebug() << "Cell " << index << " not drawn, because dead." << endl;
+		#endif
 		return;
 	}
 	
@@ -1940,11 +1967,12 @@ void Cell::SetWallLengths(void) {
 void Cell::AddWall( Wall *w ) {
 	
 	// if necessary, we could try later inserting it at the correct position
+        #ifdef QDEBUG
 	if (w->c1 == w->c2 ){
-		
-		cerr << "Wall between identical cells: " << w->c1->Index()<< endl;
-		
+	  qDebug() << "Wall between identical cells: " << w->c1->Index()<< endl;
 	}
+	#endif
+
 	// Add Wall to Cell's list
 	walls.push_back( w );
 	

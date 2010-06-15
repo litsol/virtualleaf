@@ -61,7 +61,9 @@ bool Wall::CorrectWall( void ) {
 	//cerr << "wall_owners.size() = " << wall_owners.size() << endl;
 	if (wall_owners.size() == 3 && nwalls==1 /* bug-fix 22/10/2007; confine this condition to first division only */) {
 		
-		cerr << "nwalls = " << nwalls << endl;
+	        #ifdef QDEBUG
+	        qDebug() << "nwalls = " << nwalls << endl;
+		#endif
 		// special case for first cleavage
 		
 		// find boundary polygon in the wall owners list
@@ -86,35 +88,35 @@ bool Wall::CorrectWall( void ) {
 			wall_owners.erase(bpit); 
 			
 		}else {
+
+		  #ifdef QDEBUG
+		  qDebug() << "Wall::CorrectWall says: Wall has three owners, but none of them is the BoundaryPolygon. I have no clue what to do with this case... Sorry!" << endl;
+		  qDebug() << "Wall: " << *this << endl;
+		  qDebug() << "Owners are: ";
+		  transform(wall_owners.begin(), wall_owners.end(), ostream_iterator<int>(qDebug(), "  "), mem_fun (&CellBase::Index) );
+		  qDebug() << endl;
+		  qDebug() << "Owners node " << n1->Index() << ": ";
+		  for (list<Neighbor>::iterator i = n1->owners.begin(); i!=n1->owners.end(); i++) {
+		    qDebug() << i->getCell()->Index() << " ";
+		  }
+		  qDebug() << endl;
+		  qDebug() << "Owners node " << n2->Index() << ": ";
 			
-			cerr << "Wall::CorrectWall says: Wall has three owners, but none of them is the BoundaryPolygon. I have no clue what to do with this case... Sorry!\n";
-			cerr << "Wall: " << *this << endl;
-			cerr << "Owners are: ";
-			transform(wall_owners.begin(), wall_owners.end(), ostream_iterator<int>(cerr, "  "), mem_fun (&CellBase::Index) );
-			cerr << endl;
-			cerr << "Owners node " << n1->Index() << ": ";
-			for (list<Neighbor>::iterator i = n1->owners.begin();
-				 i!=n1->owners.end();
-				 i++) {
-				cerr << i->getCell()->Index() << " ";
-			}
-			cerr << endl;
-			cerr << "Owners node " << n2->Index() << ": ";
-			
-			for (list<Neighbor>::iterator i = n2->owners.begin();
-				 i!=n2->owners.end();
-				 i++) {
-				cerr << i->getCell()->Index() << " ";
-			}
-			cerr << endl;
-			std::exit(1);
+		  for (list<Neighbor>::iterator i = n2->owners.begin(); i!=n2->owners.end(); i++) {
+		    qDebug() << i->getCell()->Index() << " ";
+		  }
+		  qDebug() << endl;
+                  #endif
+		  std::exit(1);
 		}
 		
 	}
 	
+	#ifdef QDEBUG
 	if (wall_owners.size() == 1) {
-		cerr << "Corner point. Special case.\n";
+	  qDebug() << "Corner point. Special case." << endl;
 	}
+	#endif
 	
 	CellBase *cell1 = wall_owners.front();
 	CellBase *cell2 = wall_owners.back();
@@ -148,7 +150,9 @@ bool Wall::CorrectWall( void ) {
 					((Cell *)c1)->AddWall(this);
 					//	  cerr << "Block 3\n";
 				} else {
-					cerr << "Warning, cell wall was not corrected.\n";
+				        #ifdef QDEBUG
+				        qDebug() << "Warning, cell wall was not corrected." << endl;
+					#endif
 					return false;
 				}
 			}

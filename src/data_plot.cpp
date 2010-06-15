@@ -32,11 +32,13 @@
 #include <QDialog>
 #include <QString>
 #include <QStringList>
+#include <QDebug>
 #include <iostream>
-
 #include "data_plot.h"
 
-static const std::string _module_id("$Id$");
+using namespace std;
+
+static const string _module_id("$Id$");
 
 //
 //  Initialize main window
@@ -90,7 +92,11 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
     curves[i].attach(this);
     curves[i].setPen(QPen(curvecolors[i]));
     QString col(curvecolors[i]);
-    std::cerr << "Curvecolor " << col.toStdString() << std::endl;
+
+    #ifdef QDEBUG
+    qDebug() << "Curvecolor " << col.toStdString() << endl;
+    #endif
+
     curves[i].setRawData(d_t, d_x[i], PLOT_SIZE);
   }
     

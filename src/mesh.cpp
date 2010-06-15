@@ -394,9 +394,10 @@ Cell &Mesh::LeafPrimordium(int nnodes, double pet_length) {
 		n1);
 
   
-  
-  cerr << circle << endl;
-  cerr << petiole << endl;
+  #ifdef QDEBUG  
+  qDebug() << circle << endl;
+  qDebug() << petiole << endl;
+  #endif
   
   AddNodeToCell(boundary_polygon, *it_n1, 
 		n4,
@@ -578,10 +579,12 @@ void Mesh::Clear(void) {
 	 
 	 cerr << "Meshed cleared: cells: " << cells.size() << ", nodes: " << nodes.size() << endl;
 	 */
-	
-	cerr << "cells.size() = " << cells.size() << endl;
-	cerr << "walls.size() = " << walls.size() << endl;
-	cerr << "nodes.size() = " << nodes.size() << endl;
+
+	#ifdef QDEBUG
+	qDebug() << "cells.size() = " << cells.size() << endl;
+	qDebug << "walls.size() = " << walls.size() << endl;
+	qDebug << "nodes.size() = " << nodes.size() << endl;
+        #endif
 }
 
 double Mesh::DisplaceNodes(void) {
@@ -1445,8 +1448,10 @@ void Mesh::CutAwayBelowLine( Vector startpoint, Vector endpoint) {
   
   Vector perp = (endpoint-startpoint).Perp2D().Normalised();
   
-  
-  cerr << "Before Apoptose\n";
+  #ifdef QDEBUG
+  qDebug() << "Before Apoptose" << endl;
+  #endif
+
   TestIllegalWalls();
   for (vector<Cell *>::iterator i=cells.begin();
        i!=cells.end();
@@ -1461,7 +1466,9 @@ void Mesh::CutAwayBelowLine( Vector startpoint, Vector endpoint) {
     }
   }
 
-  cerr << "Before CleanUpCellNodeLists\n";
+  #ifdef QDEBUG
+  qDebug() << "Before CleanUpCellNodeLists" << endl;
+  #endif
   TestIllegalWalls();
   
   CleanUpCellNodeLists();
@@ -1492,7 +1499,9 @@ void Mesh::TestIllegalWalls(void) {
        w!=walls.end();
        w++) {
     if ((*w)->IllegalP() ) {
-      cerr << "Wall " << **w << " is illegal.\n";
+      #ifdef QDEBUG
+      qDebug() << "Wall " << **w << " is illegal." << endl;
+      #endif
     }
   }
 
@@ -1617,7 +1626,7 @@ void Mesh::RepairBoundaryPolygon(void) {
   boundary_polygon->ConstructNeighborList();
   
 #ifdef QDEBUG
-  cerr << "Repaired Boundary Polygon node indices: ";
+  qDebug() << "Repaired Boundary Polygon node indices: ";
   foreach (Node* node, boundary_polygon->nodes){
     qDebug() << node->Index() << " " ;
   }

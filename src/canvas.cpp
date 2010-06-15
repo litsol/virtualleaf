@@ -43,6 +43,7 @@
 #include <q3filedialog.h>
 #include <QGraphicsItem>
 #include <QList>
+#include <QDebug>
 
 #include <set>
 
@@ -228,8 +229,10 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 	if ( !item->hit( p ) )
 	continue;
 	}*/
-      cerr << typeid(**it).name() << endl;
-    
+      #ifdef QDEBUG
+      qDebug() << typeid(**it).name() << endl;
+      #endif QDEBUG
+
       if ( !strcmp(typeid(**it).name(),"8NodeItem")) {
 	//moving = dynamic_cast<NodeItem*>(*it);
 	//moving = *it;
@@ -348,8 +351,9 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
   
   if (e->button()==Qt::LeftButton) { 
     if (intersection_line ) {
-    
-      cerr << "Trying to cut leaf\n";
+      #ifdef QDEBUG
+      qDebug() << "Trying to cut leaf" << endl;
+      #endif
       QPointF sp = intersection_line -> line().p1(); // startpoint
       //QPointF ep = matrix().inverted().map(e->pos()); // endpoint
       QPointF ep = mapToScene(e->pos());
@@ -361,7 +365,9 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
     
       // no cells selected, do nothing
       if (intersected_cells.size()==0) {
-	cerr << "No cells detected :-( \n";
+        #ifdef QDEBUG
+	qDebug() << "No cells detected :-(" << endl;
+	#endif
 	return;
       }
       
@@ -388,14 +394,20 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
 	// quickly dragging and releasing division lines...
 	scene()->update();
 	
-	cerr << "Dividing Cell " << c.Index() << endl;
+	#ifdef QDEBUG
+	qDebug() << "Dividing Cell " << c.Index() << endl;
+	#endif
+
 	c.DivideOverGivenLine( startpoint, endpoint, true, node_set);
       }
       
       node_set->CleanUp();
       mesh.AddNodeSet(node_set);
       
-      cerr << "Done DivideOverGivenLine\n";
+      #ifdef QDEBUG
+      qDebug() << "Done DivideOverGivenLine" << endl;
+      #endif
+
       mesh.TestIllegalWalls();
       // Do the actual cutting and removing
       if (intersected_cells.size()) {
@@ -425,20 +437,27 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
 
 
 
-	cerr << "Done CutAwayBelowLine\n";
+	#ifdef QDEBUG
+	qDebug() << "Done CutAwayBelowLine" << endl;
+	#endif
 	mesh.TestIllegalWalls();
 	mesh.RepairBoundaryPolygon();
-	cerr << "Done RepairBoundaryPolygon\n";
+	#ifdef QDEBUG
+	qDebug() << "Done RepairBoundaryPolygon" << endl;
+	#endif
 	mesh.TestIllegalWalls();
 	mesh.CleanUpWalls();
-	cerr << "Done CleanUpWalls\n";
+	#ifdef QDEBUG
+	qDebug() << "Done CleanUpWalls" << endl;
+	#endif
 	mesh.TestIllegalWalls();
       }
       
       dynamic_cast<Main *>(parent())->Plot();
       
-      cerr << "NodeSet of cutting line: " << *node_set << endl;
-
+        #ifdef QDEBUG
+	qDebug() << "NodeSet of cutting line: " << *node_set << endl;
+	#endif
     }
   } else 
     if (e->button()==Qt::RightButton) {
@@ -469,10 +488,15 @@ vector <CellItem *> FigureEditor::getIntersectedCells(void) {
   
   QList<QGraphicsItem *> l = intersection_line->collidingItems( );
   
-  cerr << "l.size() = " << l.size() << endl;
+  #ifdef QDEBUG
+  qDebug() <<  "l.size() = " << l.size() << endl;
+  #endif
+
   for (QList<QGraphicsItem *>::Iterator it=l.begin(); it!=l.end(); ++it) {
     
-    cerr << typeid(**it).name() << endl;
+    #ifdef QDEBUG
+    qDebug() << typeid(**it).name() << endl;
+    #endif
     
     if ( !strcmp(typeid(**it).name(),"8CellItem") ) {
       
@@ -534,7 +558,11 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
 	  //canvas(c)
 {
   editor = new FigureEditor(canvas,mesh, this);
-  cerr << "Interactive = " << editor->isEnabled();
+
+  #ifdef QDEBUG
+  qDebug() << "Interactive = " << editor->isEnabled();
+  #endif
+
   working_dir = 0;
   QObject::connect( editor, SIGNAL(MousePressed()), this, SLOT(PauseIfRunning()));
   QObject::connect( editor, SIGNAL(MouseReleased()), this, SLOT(ContIfRunning()));
@@ -591,9 +619,9 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   mesh_id = view->insertItem("Show &nodes", this, SLOT(toggleShowNodes()), Qt::CTRL+Qt::SHIFT+Qt::Key_N);
   view->setItemChecked(mesh_id, TRUE);
   node_number_id = view->insertItem("Show node numbers", this, SLOT(toggleNodeNumbers()), Qt::CTRL+Qt::SHIFT+Qt::Key_M);
-  view->setItemChecked(node_number_id, TRUE);
+  view->setItemChecked(node_number_id, FALSE);
   cell_number_id = view->insertItem("Show cell numbers", this, SLOT(toggleCellNumbers()));
-  view->setItemChecked(cell_number_id, TRUE);
+  view->setItemChecked(cell_number_id, FALSE);
   hide_cells_id = view->insertItem("Hide cells", this, SLOT(toggleHideCells()));
   view->setItemChecked(hide_cells_id, FALSE);
   border_id = view->insertItem("Show &border cells", this, SLOT(toggleShowBorderCells()));
@@ -911,7 +939,9 @@ int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simt
   try {
     xmlNode *settings;
     mesh.XMLRead((const char *)filename, &settings, geometry, pars, simtime);
-	cerr << "Reading done.\n";
+    #ifdef QDEBUG
+    qDebug() << "Reading done."<< endl;
+    #endif
     XMLReadSettings(settings);
     xmlFree(settings);
     Cell::SetMagnification(1);
@@ -927,7 +957,9 @@ int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simt
 	setCaption(caption_with_file.arg(filename));
     statusBar()->message(status_message);
     emit ParsChanged();
-	cerr << "Done. Returning 0.\n";
+    #ifdef QDEBUG
+    qDebug() << "Done. Returning 0." << endl;
+    #endif
     return 0;
   } catch (const char *error_message) {
     QMessageBox mb( "Read leaf from XML file",
@@ -1028,7 +1060,9 @@ void Main::readStateXML() {
   //  extern Mesh mesh;
 
   stopSimulation();
-  cerr << "Trying to open an OptionFileDialog\n";
+  #ifdef QDEBUG
+  qDebug() << "Trying to open an OptionFileDialog" << endl;
+  #endif
   OptionFileDialog *fd = new OptionFileDialog( this, "read dialog", TRUE );
   fd->setMode( OptionFileDialog::ExistingFile );
   fd->setFilter( "XML files (*.xml)");
@@ -1204,7 +1238,7 @@ void Main::toggleHideCells(void) {
   void Main::stopSimulation(void) {
     //run->setItemChecked(paused_id, true);
     timer->stop();
-    cerr << "Stopping simulation\n";
+    cerr << "Stopping simulation" << endl;
     statusBar()->message("Simulation paused");
     running = false;
   }
@@ -1213,10 +1247,10 @@ void Main::toggleHideCells(void) {
   {
     bool s = run->isItemChecked(paused_id);
     if (s) {
-      cerr << "Calling start simulation\n";
+      cerr << "Calling start simulation" << endl;
       startSimulation();
     } else {
-      cerr << "Calling stop simulation\n";
+      cerr << "Calling stop simulation" << endl;
       stopSimulation();
     }
   }
@@ -1273,14 +1307,18 @@ void Main::toggleHideCells(void) {
       //    extern Mesh mesh;
       Vector bbll,bbur;
       mesh.BoundingBox(bbll,bbur);
-      cerr << "bbll = " << bbll << endl;
-      cerr << "bbur = " << bbur << endl;
+
+      #ifdef QDEBUG
+      qDebug() << "bbll = " << bbll << endl;
+      qDebug() << "bbur = " << bbur << endl;
+      #endif
       double cw = (bbur.x - bbll.x);
       double ch = (bbur.y - bbll.y);
       QPainter pp(printer);
       QRect vp=pp.viewport();
-      cerr << "Paper width = " << vp.width() << " x " << vp.height() << endl;
-    
+      #ifdef QDEBUG
+      qDebug() << "Paper width = " << vp.width() << " x " << vp.height() << endl;
+      #endif
 
       // Note that Cell is also translated...
       pp.translate(-bbur.x,-bbur.y);
@@ -1316,7 +1354,7 @@ void Main::toggleHideCells(void) {
 				  "Are you sure?"),
 							   QMessageBox::Yes | QMessageBox::No, QMessageBox::NoButton ) == QMessageBox::Yes ) {
 
-		cerr << "Restarting simulation\n";
+      cerr << "Restarting simulation" << endl;
       //    extern Mesh mesh;
       mesh.Clear();
       Init();
@@ -1397,13 +1435,15 @@ void Main::FitCanvasToWindow(void) {
   double scale_factor_y = (double)editor->height()/(double)canvas.height();
   double scale_factor = scale_factor_x > scale_factor_y ? scale_factor_x : scale_factor_y;
   QMatrix m = editor->matrix();
+
+  #ifdef QDEBUG  
+  qDebug() << "editor->width() = " << editor->width() << endl;
+  qDebug() << "editor->height() = " << editor->height() << endl;
   
-  cerr << "editor->width() = " << editor->width() << endl;
-  cerr << "editor->height() = " << editor->height() << endl;
-  
-  cerr << "scale_factor = " << scale_factor << endl;
-  cerr << "scale_factor_x = " << scale_factor_x << endl;
-  cerr << "scale_factor_y = " << scale_factor_y << endl;
+  qDebug() << "scale_factor = " << scale_factor << endl;
+  qDebug() << "scale_factor_x = " << scale_factor_x << endl;
+  qDebug() << "scale_factor_y = " << scale_factor_y << endl;
+  #endif
   m.scale( scale_factor, scale_factor );
   editor->setMatrix( m );
   editor->show();
