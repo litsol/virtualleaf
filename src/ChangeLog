@@ -1,3 +1,20 @@
+2010-06-15    <guravage@caterpie.sen.cwi.nl>
+
+	* cell.cpp: Wrapped diagnostic output in QDEBUG blocks.
+	* VirtualLeaf.cpp ditto.
+	* canvas.cpp ditto.
+	* cell.cpp ditto.
+	* cellbase.h
+	* data_plot.cpp ditto.
+	* forwardeuler.cpp ditto.
+	* mesh.cpp ditto.
+	* mesh.h
+	* random.cpp ditto.
+	* wall.cpp ditto.
+	* wallbase.cpp ditto.
+	* wallitem.cpp ditto.
+
+
 2010-06-07    <guravage@caterpie.sen.cwi.nl>
 
 	* VirtualLeaf.pro: Removed explicit perl invocation to regerenerate parameter files.

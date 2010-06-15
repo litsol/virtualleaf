@@ -58,8 +58,8 @@
 #include "modelcatalogue.h"
 
 /* #define _xstr_(s) _str_(s)
-#define _str_(s) #s
-#include _xstr_(REACTIONS_HEADER)
+   #define _str_(s) #s
+   #include _xstr_(REACTIONS_HEADER)
 */
 
 static const std::string _module_id("$Id$");
@@ -68,7 +68,6 @@ extern Parameter par;
 
 MainBase *main_window = 0;
 //double auxin_account = 0.;
-
 
 
 #ifdef XFIGGRAPHICS
@@ -96,7 +95,6 @@ public:
       cerr << "Cell " << c.Index() << " is _not_ a source cell.\n";
     }
   }
-	
 };
 
 
@@ -116,9 +114,7 @@ public:
 };
 
 double PINSum(Cell &c) {
-	
-	return c.Chemical(1) + c.SumTransporters(1);// + c.ReduceCellAndWalls<double>( complex_PijAj );
-	
+  return c.Chemical(1) + c.SumTransporters(1);// + c.ReduceCellAndWalls<double>( complex_PijAj );
 }
 
 
@@ -131,30 +127,24 @@ public:
 	  QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
 					
 	  info_string += "\n" + c.printednodelist();
-					
 	  c.Draw(&canvas, info_string);
 	} else {
 	  c.Draw(&canvas);
 	}
       if (m.ShowCentersP())
 	c.DrawCenter(&canvas);
-    if (m.ShowFluxesP())
+      if (m.ShowFluxesP())
 	c.DrawFluxes(&canvas, par.arrowsize);
-			
-       }
- 
+    }
   }
-	
 };
 
 Mesh mesh;
 bool batch=false;
 
-
 void MainBase::Plot(int resize_stride) {
 	
   clear();
-    
 	
   static int count=0;
   if (resize_stride) {
@@ -176,83 +166,79 @@ void MainBase::Plot(int resize_stride) {
     mesh.LoopCells( bind2nd (mem_fun_ref ( &Cell::DrawStrain), &canvas ) );
 	
   if (ShowWallsP())
-  
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::Draw ), &canvas ) );
 	
-	if (ShowApoplastsP()) 
-		mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
+  if (ShowApoplastsP()) 
+    mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
  
-	if (ShowMeshP()) 
+  if (ShowMeshP()) 
     mesh.DrawNodes(&canvas);
 	
   if (ShowBoundaryOnlyP()) 
     mesh.DrawBoundary(&canvas);
 
-  
-	if ( ( batch || MovieFramesP() )) {
+  if ( ( batch || MovieFramesP() )) {
 		
-		static int frame = 0;
-		// frame numbers are sequential for the most frequently written file type.
-		// for the less frequently written file type they match the other type
-		if (!(count%par.storage_stride) )  {
+    static int frame = 0;
+    // frame numbers are sequential for the most frequently written file type.
+    // for the less frequently written file type they match the other type
+    if (!(count%par.storage_stride) )  {
 		
-			stringstream fname;
-			fname << par.datadir << "/leaf.";
-			fname.fill('0');
-			fname.width(6);
+      stringstream fname;
+      fname << par.datadir << "/leaf.";
+      fname.fill('0');
+      fname.width(6);
 	
-			/* 
-			 fname << frame << ".pdf";
-			if (par.storage_stride <= par.xml_storage_stride) {
-				frame++;
-			}
+      /* 
+	 fname << frame << ".pdf";
+	 if (par.storage_stride <= par.xml_storage_stride) {
+	 frame++;
+	 }
 			
-			// Write high-res JPG snapshot every plot step
-			Save(fname.str().c_str(), "PDF");
-			*/
+	 // Write high-res JPG snapshot every plot step
+	 Save(fname.str().c_str(), "PDF");
+      */
 			
-			fname << frame << ".jpg";
-			if (par.storage_stride <= par.xml_storage_stride) {
-				frame++;
-			}
+      fname << frame << ".jpg";
+      if (par.storage_stride <= par.xml_storage_stride) {
+	frame++;
+      }
 			
-			// Write high-res JPG snapshot every plot step
-			Save(fname.str().c_str(), "JPEG",1024,768);
-			
-		}
+      // Write high-res JPG snapshot every plot step
+      Save(fname.str().c_str(), "JPEG",1024,768);
+    }
 	
-		if (!(count%par.xml_storage_stride)) {
-			stringstream fname;
-			fname << par.datadir << "/leaf.";
-			fname.fill('0');
-			fname.width(6);
-			fname << frame << ".xml";
+    if (!(count%par.xml_storage_stride)) {
+      stringstream fname;
+      fname << par.datadir << "/leaf.";
+      fname.fill('0');
+      fname.width(6);
+      fname << frame << ".xml";
 	
-			if (par.xml_storage_stride < par.storage_stride) {
-				frame++;
-			}
-			// Write XML file every ten plot steps
-			mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
-		}
-		
-	}
+      if (par.xml_storage_stride < par.storage_stride) {
+	frame++;
+      }
+      // Write XML file every ten plot steps
+      mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
+    }
+  }
 }
 
 
 
 INIT {
 	
-	//mesh.SetSimPlugin(plugin);
-	if (leaffile) { 
-		xmlNode *settings;
-		mesh.XMLRead(leaffile, &settings);
+  //mesh.SetSimPlugin(plugin);
+  if (leaffile) { 
+    xmlNode *settings;
+    mesh.XMLRead(leaffile, &settings);
 		
     main_window->XMLReadSettings(settings);
     xmlFree(settings);
     main_window->UserMessage(QString("Ready. Time is %1").arg(mesh.getTimeHours().c_str()));
 		
   } else {
-	  mesh.StandardInit();
+    mesh.StandardInit();
   }
 }
 
@@ -283,51 +269,46 @@ TIMESTEP {
 			
     if ( (-dh) < par.energy_threshold) {
 				
-		mesh.IncreaseCellCapacityIfNecessary();
-		mesh.DoCellHouseKeeping();
-		//mesh.LoopCurrentCells(mem_fun(&plugin->CellHouseKeeping)); // this includes cell division
+      mesh.IncreaseCellCapacityIfNecessary();
+      mesh.DoCellHouseKeeping();
+      //mesh.LoopCurrentCells(mem_fun(&plugin->CellHouseKeeping)); // this includes cell division
 				
       // Reaction diffusion	
-		/*CelltoCellTransport *transport_f = &TestPlugin::CelltoCellTransport;
-      CellReaction *cellreaction_f = new plugin->CellDynamics();
-      WallReaction *wall_f = new WallDynamics();*/
+      /*CelltoCellTransport *transport_f = &TestPlugin::CelltoCellTransport;
+	CellReaction *cellreaction_f = new plugin->CellDynamics();
+	WallReaction *wall_f = new WallDynamics();*/
 				
       mesh.ReactDiffuse(par.rd_dt);
-		
 				
       t++;
 				
       Plot(par.resize_stride);
 		
-		/*QVector< QPair<double, int> > angles=mesh.VertexAnglesValues();
-		QString afname=QString("Angles/anglesvalues%1.dat").arg(t,6,10,QChar('0'));
-		ofstream af(afname.toStdString().c_str());
-		*/
+      /*QVector< QPair<double, int> > angles=mesh.VertexAnglesValues();
+	QString afname=QString("Angles/anglesvalues%1.dat").arg(t,6,10,QChar('0'));
+	ofstream af(afname.toStdString().c_str());
+      */
 		
-		/*for (QVector< QPair<qreal, int> >::const_iterator v=angles.begin();
-			 v!=angles.end();
-			 v++) {
-			af << v->first << " " << v->second << endl;
-			}
-			*/
-			}
+      /*for (QVector< QPair<qreal, int> >::const_iterator v=angles.begin();
+	v!=angles.end();
+	v++) {
+	af << v->first << " " << v->second << endl;
+	}
+      */
+    }
 		
-			} else {
+  } else {
 			
-  /*  TransportFunction *transport_f = new CelltoCellTransport();
-    CellReaction *cellreaction_f = new CellDynamics();
-    WallReaction *wall_f = new WallDynamics();
+    /*  TransportFunction *transport_f = new CelltoCellTransport();
+	CellReaction *cellreaction_f = new CellDynamics();
+	WallReaction *wall_f = new WallDynamics();
 			
-    mesh.ReactDiffuse_New(transport_f, cellreaction_f, wall_f, par.rd_dt);*/
-				mesh.ReactDiffuse(par.rd_dt);
+	mesh.ReactDiffuse_New(transport_f, cellreaction_f, wall_f, par.rd_dt);*/
+    mesh.ReactDiffuse(par.rd_dt);
 		
     Plot(par.resize_stride);
 			
   }
-	
-	
-
-		
 		
   i++;
   return mesh.getTime();
@@ -339,42 +320,42 @@ TIMESTEP {
 /* Called if a cell is clicked */
 void Cell::OnClick(QMouseEvent *e) {
   /* #ifdef HAVE_QWT
-	// Launch DataPlot window
-	QStringList curvenames;
-    for (int i=0;i<NChem();i++) {
-		curvenames += QString("Chem #%1").arg(i);
-	}
-    PlotDialog *plot = new PlotDialog((Main *)main_window, QString("Monitor for Cell %1").arg(Index()), curvenames);
-    QObject::connect(this, SIGNAL(ChemMonValue(double, double *)),
-                     plot, SLOT(AddValue(double,double *)));
-#endif
-	*/
-	//getMesh().plugin->OnClick(*this);
+  // Launch DataPlot window
+  QStringList curvenames;
+  for (int i=0;i<NChem();i++) {
+  curvenames += QString("Chem #%1").arg(i);
+  }
+  PlotDialog *plot = new PlotDialog((Main *)main_window, QString("Monitor for Cell %1").arg(Index()), curvenames);
+  QObject::connect(this, SIGNAL(ChemMonValue(double, double *)),
+  plot, SLOT(AddValue(double,double *)));
+  #endif
+  */
+  //getMesh().plugin->OnClick(*this);
 }
 				
 
 /* Custom message handler - Default appends a newline character to the end of each line. */ 
- void vlMessageOutput(QtMsgType type, const char *msg)
- {
-     switch (type) {
-     case QtDebugMsg:
-       //fprintf(stderr, "Debug: %s\n", msg);
-       cerr << msg << flush;
-       break;
-     case QtWarningMsg:
-       //fprintf(stderr, "Warning: %s\n", msg);
-       cerr << "Warning: " << msg << flush;
-       break;
-     case QtCriticalMsg:
-       fprintf(stderr, "Critical: %s\n", msg);
-       cerr << "Critical: " << msg << flush;
-       break;
-     case QtFatalMsg:
-       //fprintf(stderr, "Fatal: %s\n", msg);
-       cerr << "Fatal: " << msg << flush;
-       abort();
-     }
- }
+void vlMessageOutput(QtMsgType type, const char *msg)
+{
+  switch (type) {
+  case QtDebugMsg:
+    //fprintf(stderr, "Debug: %s\n", msg);
+    cerr << msg << flush;
+    break;
+  case QtWarningMsg:
+    //fprintf(stderr, "Warning: %s\n", msg);
+    cerr << "Warning: " << msg << flush;
+    break;
+  case QtCriticalMsg:
+    fprintf(stderr, "Critical: %s\n", msg);
+    cerr << "Critical: " << msg << flush;
+    break;
+  case QtFatalMsg:
+    //fprintf(stderr, "Fatal: %s\n", msg);
+    cerr << "Fatal: " << msg << flush;
+    abort();
+  }
+}
 				
 
 Parameter par;
@@ -470,19 +451,19 @@ int main(int argc,char **argv) {
 
 	  
     if (useGUI) {
-         main_window=new Main(canvas, mesh);
+      main_window=new Main(canvas, mesh);
       if ( QApplication::desktop()->width() > ((Main *)main_window)->width() + 10
 	   && QApplication::desktop()->height() > ((Main *)main_window)->height() +30 ) {
 
 	((Main *)main_window)->show();
 	((Main *)main_window)->resize( ((Main *)main_window)->sizeHint());
-    } else {
+      } else {
         ((Main *)main_window)->showMaximized();
-    }
-  } else {
-        main_window=new MainBase(canvas, mesh);
+      }
+    } else {
+      main_window=new MainBase(canvas, mesh);
 
- }
+    }
 
     
 	  
@@ -491,15 +472,15 @@ int main(int argc,char **argv) {
       QObject::connect( qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()) );
     }
 
-	  // Load plugins
-	  /*QVector<SimPluginInterface *> plugins = LoadPlugins();
-	  InstallPlugin(plugins[0], main_window);
+    // Load plugins
+    /*QVector<SimPluginInterface *> plugins = LoadPlugins();
+      InstallPlugin(plugins[0], main_window);
 	  
-	  cerr << "List of models:" << endl;
-	  foreach (SimPluginInterface *p, plugins) {
-		  cerr << p->ModelID().toStdString() << endl;
-	  }
-	  */
+      cerr << "List of models:" << endl;
+      foreach (SimPluginInterface *p, plugins) {
+      cerr << p->ModelID().toStdString() << endl;
+      }
+    */
 
 	 	  
     // Install model or read catalogue of models
@@ -517,10 +498,7 @@ int main(int argc,char **argv) {
 						
     main_window->FitLeafToCanvas();
 							
-						
     main_window->Plot();
-
-						
 
     if (batch) {
       double t=0.;
@@ -554,5 +532,4 @@ int main(int argc,char **argv) {
       abort();
     }
   }
-					
 }

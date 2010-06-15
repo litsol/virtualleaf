@@ -19,6 +19,8 @@
  *
  */
 
+#include <QDebug>
+
 #include "wall.h"
 #include "wallbase.h"
 #include "node.h"
@@ -53,9 +55,11 @@ ostream &operator<<(ostream &os, const WallBase &w) {
 
 WallBase::WallBase(Node *sn1, Node *sn2, CellBase *sc1, CellBase *sc2) {
 	
+        #ifdef QDEBUG
 	if (sc1==sc2) { 
-		cerr << "Attempting to build a wall between identical cells: " << sc1->Index() << endl; 
+	  qDebug() << "Attempting to build a wall between identical cells: " << sc1->Index() << endl; 
 	}
+	#endif
 	
 	c1 = sc1;
 	c2 = sc2;

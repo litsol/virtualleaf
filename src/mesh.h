@@ -40,6 +40,7 @@
 #include "simplugin.h"
 #include <QVector>
 #include <QPair>
+#include <QDebug>
 
 using namespace std;
 // new queue which rejects duplicate elements
@@ -110,8 +111,10 @@ public:
 		if ((unsigned)i<cells.size())
 			return *cells[i];
 		else {
-			cerr << i << endl;
-			cerr << "size is " << cells.size() << endl;
+                        #ifdef QDEBUG
+                        qDebug() << i << endl;
+                        qDebug() << "size is " << cells.size() << endl;
+                        #endif
 			abort();
 			//	throw("Index out of range in Mesh::getCell");
 		}

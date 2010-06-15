@@ -26,7 +26,9 @@
 #include "maxmin.h"
 #include <string>
 
-static const std::string _module_id("$Id$");
+using namespace std;
+
+static const string _module_id("$Id$");
 
 // The value Errcon equals (5/Safety) raised to the power (1/PGrow), see use below.
 
@@ -66,7 +68,7 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
 {
   static bool warning_issued = false;
   if (!warning_issued) {
-    std::cerr << "Using inaccurate method ForwardEuler\n";
+    cerr << "Using inaccurate method ForwardEuler\n";
     warning_issued=true;
     //MyWarning::warning("Using inaccurate method ForwardEuler");
   }
