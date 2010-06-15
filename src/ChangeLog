@@ -1,5 +1,10 @@
 2010-06-15    <guravage@caterpie.sen.cwi.nl>
 
+	* VirtualLeaf.pro: Removed xmlwritecode.cpp from SOURCES list.
+
+	* xmlwrite.cpp (XMLSave): Removed references to XMLWriteLeafSourceCode and XMLWriteReactionsCode.
+	* xmlwrite.h (XMLIO): Ditto!
+
 	* mesh.cpp (findNextBoundaryNode): Initialize Node *next_boundary_node = NULL;
 
 	* xmlwrite.cpp (XMLReadSimtime): Removed unused variable cur

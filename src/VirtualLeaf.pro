@@ -163,7 +163,6 @@ SOURCES += \
  wall.cpp \
  wallitem.cpp \
  warning.cpp \
- xmlwritecode.cpp \
  xmlwrite.cpp \
  $$MAINSRC
 

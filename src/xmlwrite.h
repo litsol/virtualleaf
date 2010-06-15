@@ -32,8 +32,6 @@
 namespace XMLIO {
 
 	std::vector <double> XMLReadValArray(xmlNode *cur);
-  void XMLWriteLeafSourceCode(xmlNode *parent);
-  void XMLWriteReactionsCode(xmlNode *parent);
   template<class For, class E> long list_index (For beg, For end, E *elem) {
     
     long n = 0;

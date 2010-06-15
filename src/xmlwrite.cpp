@@ -771,9 +771,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
 	 */
 	//dtd = xmlCreateIntSubset(doc, BAD_CAST "root", NULL, BAD_CAST "tree2.dtd");
 	par.XMLAdd(root_node);
-	XMLIO::XMLWriteLeafSourceCode(root_node);
-	XMLIO::XMLWriteReactionsCode(root_node);
-	
+
 	xmlNodePtr xmlnodes = xmlNewChild(root_node, NULL, BAD_CAST "nodes",NULL);
 	{ ostringstream text;
 		text << NNodes();
