@@ -101,6 +101,9 @@ FigureEditor::FigureEditor(
 			   const char* name, Qt::WindowFlags f) :
   QGraphicsView(&c,parent), mesh(m)
 {
+  name = NULL; // use these two assignments merely to obviate compile time warnings
+  f = Qt::Widget;
+
   intersection_line = 0;
   //angle_line = 0;
   setInteractive(true);
@@ -152,8 +155,6 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 
   //QPointF p = matrix().inverted().map(e->pos());
   QPointF p = mapToScene(e->pos());
-
-  NodeItem *item;
 
 #ifdef QDEBUG  
   qDebug() << endl << "MousePressEvent location: (" << p.x() << "," << p.y() << ")." << endl;
@@ -231,7 +232,7 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 	}*/
       #ifdef QDEBUG
       qDebug() << typeid(**it).name() << endl;
-      #endif QDEBUG
+      #endif
 
       if ( !strcmp(typeid(**it).name(),"8NodeItem")) {
 	//moving = dynamic_cast<NodeItem*>(*it);

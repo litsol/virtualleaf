@@ -1658,7 +1658,7 @@ void Mesh::RepairBoundaryPolygon(void) {
 
 Node* Mesh::findNextBoundaryNode(Node* boundary_node) {
   bool found_next_boundary_node = false;
-  Node *next_boundary_node;
+  Node *next_boundary_node = NULL;
   set<int> boundary_node_owners; // This is a list of the current boundary node's owners' Ids
   vector<int> neighborIds; // A list of the current boundary node's owners' 2nd neighbor Ids
   vector<set<int> *>  nodeOwners; // A vector of set pointers where each set contains the owner Ids of the nodes in the neighborIds list.

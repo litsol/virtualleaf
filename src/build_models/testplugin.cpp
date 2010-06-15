@@ -36,7 +36,8 @@ bool batch = false;
 
 // To be executed after cell division
 void TestPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
-	
+  parent_info = NULL;
+  daughter1 = daughter2 = NULL;
 }
 
 void TestPlugin::SetCellColor(CellBase *c, QColor *color) { 
@@ -58,9 +59,19 @@ void TestPlugin::CellHouseKeeping(CellBase *c) {
 	}
 }
 
-void TestPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {}
-void TestPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {}
-void TestPlugin::CellDynamics(CellBase *c, double *dchem) { }
+void TestPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
+  w = NULL;
+  dchem_c1 = dchem_c2 = NULL;
+}
 
+void TestPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
+  w = NULL;
+  dw1 = dw2 = NULL;
+}
+
+void TestPlugin::CellDynamics(CellBase *c, double *dchem) {
+  c = NULL;
+  dchem=NULL;
+}
 
 Q_EXPORT_PLUGIN2(testplugin, TestPlugin)

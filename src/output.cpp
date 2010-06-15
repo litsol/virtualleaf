@@ -117,7 +117,6 @@ FILE *OpenWriteFile(const char *filename)
   char fname[FNAMESIZE];
 
   FILE *fp;
-  extern Parameter par;
 
   fprintf(stderr,"Opening %s for writing\n",filename);
 	
@@ -210,10 +209,8 @@ FILE *OpenReadFile(const char *filename)
   
   if((OpenFileAndCheckExistance(&fp,filename,"r"))==FALSE) {	
     char *message=(char *)malloc(2000*sizeof(char));
-    sprintf(message," File %s not found or empty, exiting... \n"
-			,filename);
+    sprintf(message," File %s not found or empty, exiting... \n" ,filename);
     throw(message);
-	  
   }
   return fp;
 }

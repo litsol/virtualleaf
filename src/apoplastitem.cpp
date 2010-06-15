@@ -34,8 +34,6 @@ static const std::string _module_id("$Id$");
 ApoplastItem::ApoplastItem( Wall *w, QGraphicsScene *canvas )
 : QGraphicsLineItem( 0, canvas ), SimItemBase( w, canvas){
 		
-	extern Parameter par;
-	
 	setColor();
 	
 	// line with "PIN1"is a bit inside the cell wall
@@ -72,7 +70,6 @@ void ApoplastItem::setColor(void) {
 }
 
 void ApoplastItem::OnClick(QMouseEvent *e) {
-	
-	
+  e = NULL; // merely to obviate compile time warning
 }
 

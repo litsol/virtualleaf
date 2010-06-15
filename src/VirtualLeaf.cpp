@@ -122,7 +122,7 @@ class DrawCell {
 public:
   void operator() (Cell &c,QGraphicsScene &canvas, MainBase &m) const {
     if (m.ShowBorderCellsP() || c.Boundary()==Cell::None) {
-      if (!m.ShowBoundaryOnlyP() && !m.HideCellsP()) 
+      if (!m.ShowBoundaryOnlyP() && !m.HideCellsP()) {
 	if (m.ShowToolTipsP()) {
 	  QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
 					
@@ -131,10 +131,13 @@ public:
 	} else {
 	  c.Draw(&canvas);
 	}
-      if (m.ShowCentersP())
+      }
+      if (m.ShowCentersP()){
 	c.DrawCenter(&canvas);
-      if (m.ShowFluxesP())
+      }
+      if (m.ShowFluxesP()){
 	c.DrawFluxes(&canvas, par.arrowsize);
+      }
     }
   }
 };
@@ -319,6 +322,9 @@ TIMESTEP {
 				
 /* Called if a cell is clicked */
 void Cell::OnClick(QMouseEvent *e) {
+
+  e = NULL; // use assignment merely to obviate compilation warning
+
   /* #ifdef HAVE_QWT
   // Launch DataPlot window
   QStringList curvenames;

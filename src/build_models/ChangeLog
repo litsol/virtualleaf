@@ -1,3 +1,16 @@
+2010-06-15    <guravage@caterpie.sen.cwi.nl>
+
+
+	* testplugin.cpp (CelltoCellTransport) Use NULL assignment merely to obviate compilation warnings.
+	(WallDynamics): Ditto.
+	(CellDynamics): Ditto.
+	(OnDivide): Ditto.
+
+	* meinhardtplugin.cpp (OnDivide): Use NULL assignment merely to obviate compilation warnings.
+	* (WallDynamics): Ditto.
+
+	* auxingrowthplugin.cpp (OnDivide): Use NULL assignment merely to obviate compilation warnings.
+
 2010-06-03    <guravage@caterpie.sen.cwi.nl>
 
 	* Makefile: Added top-level Makefile.

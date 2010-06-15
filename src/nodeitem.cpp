@@ -72,6 +72,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
   }
   
   painter->setBrush(gradient); */
+  option = NULL; // use assignment merely to obviate compilation warning
   
   painter->setBrush(brush);
   painter->setPen(Qt::NoPen);

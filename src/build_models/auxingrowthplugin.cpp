@@ -38,6 +38,8 @@ bool batch = false;
 
 // To be executed after cell division
 void AuxinGrowthPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
+  parent_info = NULL; // merely to obviate compile time error
+
 	// Auxin distributes between parent and daughter according to area
 	double area1 = daughter1->Area(), area2 = daughter2->Area();
 	double tot_area = area1 + area2;

@@ -351,7 +351,7 @@ int Cell::XMLRead(xmlNode *cur)  {
   n = cur->xmlChildrenNode;
   while(n!=NULL) {
 	  if ((!xmlStrcmp(n->name, (const xmlChar *)"chem"))) {
-	    xmlChar *v_str = xmlGetProp(n, BAD_CAST "n");
+
 	    xmlNode *v_node = n->xmlChildrenNode;
 	    int nv=0;
 	    while (v_node!=NULL) {
@@ -907,7 +907,6 @@ void Mesh::XMLReadSimtime(const xmlNode *a_node) {
 	
   xmlNode *root_node;
   root_node = (xmlNode *)a_node;
-  xmlNode *cur;
   xmlChar *strsimtime = xmlGetProp(root_node, BAD_CAST "simtime");
   
   
@@ -1223,16 +1222,11 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 				
 	nc = xmlGetProp(cur, BAD_CAST "viz_flux");
 				
-	double viz_flux;
+	double viz_flux = 0.0;
 	if (nc!=0) {
 	  //viz_flux = strtod( (char *)nc, 0);
-	  double viz_flux = standardlocale.toDouble((const char *)nc, &ok);
+	  viz_flux = standardlocale.toDouble((const char *)nc, &ok);
 	  if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
-
-	} else {
-	  // if the info is not there, we really don't care.
-	  // It is just for visualization anyhow.
-	  viz_flux = 0.;
 	}
 	xmlFree(nc);
 				
@@ -1544,7 +1538,7 @@ void Mesh::XMLReadCells(xmlNode *root) {
 	while (cur!=NULL) {
 		
 		Cell *new_cell=0;
-		static int count=0;
+
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"cell"))){
 			
 			new_cell = new Cell(0,0);
