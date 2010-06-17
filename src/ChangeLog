@@ -1,3 +1,8 @@
+2010-06-17    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Removed perl references.
+	* libplugin.pro: Ditto.
+
 2010-06-15    <guravage@caterpie.sen.cwi.nl>
 
 	* VirtualLeaf.pro: Removed xmlwritecode.cpp from SOURCES list.
