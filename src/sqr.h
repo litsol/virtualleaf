@@ -26,13 +26,6 @@
 #ifndef _SQR_H_
 #define _SQR_H_
 
-/* static float sqrarg;
-#define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
-
-static double dsqrarg;
-#define DSQR(a) ((dsqrarg=(a)) == 0.0 ? 0.0 : dsqrarg*dsqrarg)
-*/
-
 
 // redefine these macros as inline functions, to prevent scary
 // behavior.  (According to compiler warnings, the above macros from

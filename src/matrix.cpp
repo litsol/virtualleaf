@@ -42,8 +42,6 @@ Matrix::Matrix(const Vector &c1, const Vector &c2, const Vector &c3) {
 void Matrix::Alloc(void) {
 
   // constructor
-//  mat=(double **)malloc(3*sizeof(double *));
-//  mat[0]=(double *)malloc(9*sizeof(double));
   mat = new double*[3];
   mat[0] = new double[9];
   for (int i=1;i<3;i++)
@@ -54,8 +52,6 @@ void Matrix::Alloc(void) {
 Matrix::~Matrix() {
  
   // destructor
-  //free(mat[0]);
-  //free(mat);
   delete[] mat[0];
   delete[] mat;
 }

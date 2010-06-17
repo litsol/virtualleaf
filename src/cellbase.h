@@ -108,8 +108,6 @@ class CellBase :  public QObject, public Vector
 	virtual bool BoundaryPolP(void) const { return false; } 
 	
 	
-	//  CellBase(const Vector &src); // not allowed (we cannot know to which mesh 
-	/// the CellBase will belong...)
     CellBase operator=(const CellBase &src); // assignment operator
     CellBase operator=(const Vector &src);
   
@@ -158,8 +156,6 @@ class CellBase :  public QObject, public Vector
 
     boundary_type SetBoundary(boundary_type bound) {
       if (bound!=None) {
-	//area=0.;
-	//length=0.;
       }
       return boundary=bound;
     }
@@ -229,7 +225,6 @@ class CellBase :  public QObject, public Vector
 		flag_for_divide = true;
 	}
 	
-	//Vector Strain(void) const;
 
     inline double Circumference(void) const {
       double sum=0.;
@@ -251,13 +246,11 @@ class CellBase :  public QObject, public Vector
 		}
 		return wall_list;
 	}
-  //  void XFigPrint(std::ostream &os) const;
     
     void Dump(ostream &os) const;
    	
 	QString printednodelist(void);
  
-   // void OnDivide(ParentInfo &parent_info, CellBase &daughter);
 
     
     inline bool DeadP(void) { return dead; }
@@ -343,13 +336,6 @@ class CellBase :  public QObject, public Vector
       return sum;
     }
     
-	/* template<class Op> void LoopWalls(Op f) {
-		for (list<Wall *>::const_iterator w=walls.begin();
-			 w!=walls.end();
-			 w++) {
-			( **w)->f;
-		}
-	}*/
 	
     //! Sum transporters at this CellBase's side of the walls
     double SumTransporters(int ch) {
@@ -463,9 +449,6 @@ protected:
 	
 	int cell_type;
 	
-    //double length;
-    //Vector meanflux;
-    //int valence;
     
     // for length constraint
     mutable double intgrl_xx, intgrl_xy, intgrl_yy, intgrl_x, intgrl_y;

@@ -91,10 +91,6 @@ public:
 		return factor;
     }
     
-    // return node "i"
-    // wrapped around, i.e. node n==node 0
-    // will not work if i < -nodes.size()
-    //Node &getNode(int i) const;
     void DivideOverAxis(Vector axis); // divide cell over axis
     bool DivideOverGivenLine(const Vector v1, const Vector v2, bool wall_fixed = false, NodeSet *node_set = 0); // divide over the line (if line and cell intersect)
 	

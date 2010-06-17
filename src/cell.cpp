@@ -94,10 +94,7 @@ void Cell::DivideOverAxis(Vector axis) {
 			
 			new_node_locations.push_back(i);
 			
-		} // else {
-		//       //cerr << "cross.z * prev_cross_z = " << cross.z * prev_cross_z << endl;
-		//     }
-		
+		}		
 		prev_cross_z=cross.z;
 	}
 	
@@ -220,52 +217,6 @@ void Cell::Apoptose(void) {
 	
 	
 	
-	/*
-	 // correct boundary polygon if this cell touches the boundary
-	 
-	 // find the first living boundary node after a dead node
-	 bool node_found = false;
-	 for (list<Node *>::iterator n=nodes.begin();
-	 n!=nodes.end();
-	 n++) {
-	 
-	 Node &no(*(*n));
-	 
-	 if (no.DeadP()) {
-	 
-	 list<Node *>::iterator first_node = n; 
-	 if (++next_node == nodes.end()) first_node=nodes.begin();
-	 
-	 if (!(*(*first_node)).DeadP() && ((*first_node)->boundary)) {
-	 node_found=true;
-	 break;
-	 }
-	 
-	 }
-	 }
-	 
-	 // locate it in the boundary_polygon
-	 if (node_found) {
-	 list<Node *>::iterator insert_it = find(mesh->boundary_polygon->nodes.begin(),
-	 mesh->boundary_polygon->nodes.end(),
-	 ++first_node);
-	 if (insert_it!=owners.end()) {
-	 
-	 if (insert_it==owners.end()) insert_it=owners.begin();
-	 
-	 for (list<Node *>::iterator n=insert_it;
-	 n!=nodes.end();
-	 n++) {
-	 
-	 Node &no(*(*n));
-	 
-	 mesh->boundary_polygon->nodes.insert(
-	 
-	 }
-	 
-	 
-	 }
-	 } */
 	// mark cell as dead
 	MarkDead();
 }
@@ -364,8 +315,6 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
 		double ub = 
 		((v2.x - v1.x)*(v1.y-v3.y) - (v2.y- v1.y)*(v1.x - v3.x))/denominator;
 		
-		/* double intersec_x = v1.x + ua*(v2.x-v1.x);
-		 double intersec_y = v1.y + ua*(v2.y-v1.y);*/
 		
 		//cerr << "Edge " << *i << " to " << *nb << ": ua = " << ua << ", ub = " << ub << ":  ";
 		// this construction with "TINY" should simulate open/closed interval <0,1]
@@ -433,8 +382,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 	}
 	
 	daughter->cell_type = cell_type;
-	//extern double auxin_account;
-	//auxin_account += daughter->chem[0];
 	
 	for (int i=0;i<NChem();i++) {
 		daughter->new_chem[i]=new_chem[i];
@@ -448,7 +395,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 	
 	target_area/=2;
 	daughter->cellvec=cellvec;
-//	daughter->BaseArea()  = base_area;
 	
 	
 	// Division currently only works for convex cells: i.e. if the division line
@@ -617,11 +563,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 				(new_node_ind[i])->fixed = true;
 				
 				// All this we'll do later for the node set only
-				/* (new_node_ind[i])->boundary = true;
-				 (new_node_ind[i])->sam = true;
-				 boundary_touched_flag = true;
-				 boundary = SAM;
-				 daughter->boundary = SAM;*/
 			}
 			
 			// if new node is inserted into the boundary
@@ -806,7 +747,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 			
 			if (w == walls.end()) {
 			        #ifdef QDEBUG
-			  qDebug() << "Whoops, wall element not found...!" << endl;
+			        qDebug() << "Whoops, wall element not found...!" << endl;
 			        qDebug() << "Cell ID: " << neighbor_cell->Index() << endl;
 				qDebug() << "My cell ID: " << Index() << endl;
                                 #endif
@@ -838,18 +779,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 						(*w)->n1 = new_node_ind[i];
 					}
 					
-					
-					//new_wall->ResetTransporterConcentrations(orig_length);
-					//(*w)->ResetTransporterConcentrations(orig_length);
-					
-					// reset the transporter concentrations
-					
-					
-					/*	  new_wall->SetLength();
-					 new_wall->CorrectLength(orig_length);
-					 
-					 (*w)->SetLength();
-					 (*w)->CorrectLength(orig_length);*/
 					
 					// 3. Give wall elements to appropriate cells
 					if (new_wall->n1 != new_wall->n2) {
@@ -1001,11 +930,8 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 		
 		if (!fix_cellwall)
 			node->boundary = false;
-		else { // if fix_cellwall is true, that is if we are cutting off
-			// part of a leaf to make a nice initial condition, we also want to make it part of the boundary
-			//node->boundary = true;
+		else {
 			node->fixed = true;
-			//node->sam = true;
 		}
 		
 		ins_pos=daughter->nodes.insert(ins_pos, node );
@@ -1100,10 +1026,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 		}
 	}
 	
-	//neighbors.push_back( daughter );
-	//daughter->neighbors.push_back( this );
-	
-	
 	//cerr << "Cell " << index << " has been dividing, and gave birth to Cell " << daughter->index << endl;
 	
 	// now reconstruct neighbor list for all "broken" neighbors
@@ -1118,8 +1040,6 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 	daughter->ConstructNeighborList();
 	
 	m->plugin->OnDivide(&parent_info, daughter, this);
-	// wall->OnWallInsert();
-	//daughter->OnDivide();
 	
 	daughter->div_counter=(++div_counter);
 	
@@ -1166,19 +1086,17 @@ double Cell::Displace(double dx, double dy, double dh) {
 		 i!=nodes.end();
 		 i++) {
 		
-		//if ((*i)->Fixed()) return; // commented out 01/12/05
+
 		for (list<Neighbor>::const_iterator n=(*i)->owners.begin();
 			 n!=(*i)->owners.end();
 			 n++) {
 			
 			if (n->getCell()!=this) {
-				//if (!(m->getNode(n->nb1).Fixed() && m->getNode(n->nb2).Fixed())) {
 				length_edges.push_back( pair <Node *,Node *> (*i, n->nb1) );
 				length_edges.push_back( pair <Node *,Node *> (*i, n->nb2) );
 				old_length += 
 				DSQR(Node::target_length-(*(*i)-*(n->nb1)).Norm())+
 				DSQR(Node::target_length-(*(*i)-*(n->nb2)).Norm());
-				//}
 			}
 		}
 	}
@@ -1229,22 +1147,6 @@ double Cell::Displace(double dx, double dy, double dh) {
 		}
 		
 		//cerr << endl;
-		
-		/*vector<double> area1;
-		 vector<double> area2;
-		 m->ExtractFromCells( mem_fun_ref(&Cell::Area), back_inserter(area1) );
-		 m->ExtractFromCells( mem_fun_ref(&Cell::CalcArea), back_inserter(area2));
-		 vector<double>::iterator i=area1.begin();
-		 vector<double>::iterator j=area2.begin();
-		 int c=0;
-		 for (;
-		 i!=area1.end();
-		 (i++, j++)) {
-		 if ( (*i-*j) > 1e-10) {
-		 cerr << c++ << " " << *i << " " << *j << endl;
-		 abort();
-		 }
-		 }*/
 		
 	} else {
 		
@@ -1351,8 +1253,6 @@ bool Cell::SelfIntersect(void) {
 			double ub = 
 			((v2.x - v1.x)*(v1.y-v3.y) - (v2.y- v1.y)*(v1.x - v3.x))/denominator;
 			
-			/* double intersec_x = v1.x + ua*(v2.x-v1.x);
-			 double intersec_y = v1.y + ua*(v2.y-v1.y);*/
 			
 			if ( ( TINY < ua && ua < 1.-TINY ) && ( TINY < ub && ub < 1.-TINY ) ) {
 				//cerr << "ua = " << ua << ", ub = " << ub << endl;
@@ -1426,9 +1326,6 @@ bool Cell::MoveSelfIntersectsP(Node *moving_node_ind, Vector new_pos) {
 			double ub = 
 			((neighbor_of_moving_node[j].x - new_pos.x)*(new_pos.y-v3.y) - (neighbor_of_moving_node[j].y- new_pos.y)*(new_pos.x - v3.x))/denominator;
 			
-			/* double intersec_x = new_pos.x + ua*(neighbor_of_moving_node[j].x-new_pos.x);
-			 double intersec_y = new_pos.y + ua*(neighbor_of_moving_node[j].y-new_pos.y);*/
-			
 			if ( ( TINY < ua && ua < 1.-TINY ) && ( TINY < ub && ub < 1.-TINY ) ) {
 				//cerr << "ua = " << ua << ", ub = " << ub << endl;
 				return true;
@@ -1471,9 +1368,6 @@ bool Cell::IntersectsWithLineP(const Vector v1, const Vector v2) {
 		((v4.x - v3.x)*(v1.y - v3.y) - (v4.y - v3.y)*(v1.x -v3.x))/denominator;
 		double ub = 
 		((v2.x - v1.x)*(v1.y-v3.y) - (v2.y- v1.y)*(v1.x - v3.x))/denominator;
-		
-		/* double intersec_x = v1.x + ua*(v2.x-v1.x);
-		 double intersec_y = v1.y + ua*(v2.y-v1.y);*/
 		
 		if ( ( TINY < ua && ua < 1.-TINY ) && ( TINY < ub && ub < 1.-TINY ) ) {
 			return true;
@@ -1571,14 +1465,12 @@ void Cell::ConstructWalls(void) {
 		
 		// One Wall for each neighbor, so we should be able to correctly construct neighbor lists here.
 		if (duplicates[0]==this) {
-			//walls. new Wall(*nb,*i,duplicates[0],duplicates[1]) );
 			AddWall(  new Wall(*nb,*i,duplicates[0],duplicates[1]) );
 			if (!duplicates[1]->BoundaryPolP()) {
 				
 				neighbors.push_back(duplicates[1]);
 			}
 		} else {
-			//walls.push_back( new Wall(*nb,*i,duplicates[1],duplicates[0]) ); 
 			AddWall ( new Wall(*nb,*i,duplicates[1],duplicates[0]) );
 			if (!duplicates[0]->BoundaryPolP()) {
 				neighbors.push_back(duplicates[0]);
@@ -1724,26 +1616,9 @@ void Cell::DrawNodes(QGraphicsScene *c) const {
 		 n++) {
 		Node *i=*n;
 		
-		//QCanvasEllipse *item = new QCanvasEllipse( 10, 10, c);
+
 		NodeItem *item = new NodeItem ( &(*i), c );
-		//QGraphicsRectItem *item = new QGraphicsRectItem(-50, -50, 50, 50, 0, c);
-		//disk->setBrush( QColor("IndianRed") );
-		
-		/*if (i->sam) {
-		 item->setBrush( purple );
-		 } else {
-		 if (i->boundary) {
-		 item->setBrush( deep_sky_blue );
-		 } 
-		 else {
-		 item->setBrush( indian_red );
-		 }
-		 }*/
 		item->setColor();
-		
-		/*(if (item->getNode().DeadP()) {
-		 item->setBrush( QBrush (Qt::Dense6Pattern) );
-		 }*/
 		item->setZValue(5);
 		item->show();
 		item ->setPos(((offset[0]+i->x)*factor),
@@ -1754,16 +1629,6 @@ void Cell::DrawNodes(QGraphicsScene *c) const {
 
 void Cell::DrawIndex(QGraphicsScene *c) const {
 	
-	//  stringstream text;
-	//     text << index;
-	//     Vector centroid = Centroid();
-	//     QCanvasText *number = new QCanvasText ( QString (text.str()), c );
-	//     number->setColor( QColor(par.textcolor) );
-	//     number->setZ(20);
-	//     number->setFont( QFont( "Helvetica", par.cellnumsize, QFont::Bold) );
-	//     number->show();
-	//     number -> move((int)((offset[0]+centroid.x)*factor),
-	// 		   (int)((offset[1]+centroid.y)*factor) );
 	DrawText( c, QString("%1").arg(index));
 }
 
@@ -1775,7 +1640,6 @@ void Cell::DrawText(QGraphicsScene *c, const QString &text) const {
 	ctext->setPen( QPen(QColor(par.textcolor)) );
 	ctext->setZValue(20);
 	ctext->setFont( QFont( "Helvetica", par.cellnumsize, QFont::Bold) );
-	//ctext->setTextFlags(Qt::AlignCenter);
 	ctext->show();
 	ctext ->setPos(((offset[0]+centroid.x)*factor),
 				   ((offset[1]+centroid.y)*factor) );
@@ -1815,61 +1679,12 @@ void Cell::DrawAxis(QGraphicsScene *c) const {
 void Cell::DrawStrain(QGraphicsScene *c) const {
   c = NULL; // assignment merely to obviate compilation warning
 	MyWarning::warning("Sorry, Cell::DrawStrain temporarily not implemented.");
-	/* Vector long_axis;
-	double width;
-	Length(&long_axis, &width);
-	
-	//cerr << "Length is "  << length << endl;
-	long_axis.Normalise();
-	Vector short_axis=long_axis.Perp2D();
-    
-	//  To test method "Strain" temporarily substitute "short_axis" for "strain" 
-	Vector strain = Strain();
-	//strain.Normalise();
-	//static ofstream strainf("strain.dat");
-	//strainf << strain.Norm() << endl;
-	Vector centroid = Centroid();
-	// Vector from = centroid - 0.5 * width * short_axis;
-    // Vector to = centroid + 0.5 * width *short_axis;
-	Vector from = centroid - 0.5 * strain;
-	Vector to = centroid + 0.5 * strain;
-	
-	QGraphicsArrowItem *arrow = new QGraphicsArrowItem(0, c);
-	arrow->setPen( QPen(QColor(par.arrowcolor),100) );
-    
-	arrow->setLine( ( (offset[0]+from.x)*factor ),
-				   ( (offset[1]+from.y)*factor ), 
-				   ( (offset[0]+to.x)*factor ),
-				   ( (offset[1]+to.y)*factor ) );
-	arrow->setZValue(10.);
-	arrow->show();
-	*/
 }
-
-// Draw connecting lines to neighbors
-/*void Cell::DrawTriangles(QCanvas &c) {
- 
- for (list<Neighbor>::const_iterator nb=nb_list.begin();
- nb!=nb_list.end();
- nb++) {
- QCanvasLine *line = new QCanvasLine(&c);
- line->setPen( QPen(QColor("black"),2) );
- line->setZ(2);
- 
- line->setPoints((offset[0]+x)*factor,(offset[1]+y)*factor, 
- (offset[0]+nb->c->x)*factor,(offset[1]+nb->c->y)*factor);
- line->setZ(10);
- line->show();
- }
- 
- }*/
-
 
 
 void Cell::DrawFluxes(QGraphicsScene *c, double arrowsize)  {
 	
 	// get the mean flux through this cell
-	//Vector vec_flux = ReduceWalls( mem_fun_ref( &Wall::VizFlux ), Vector() );
 	Vector vec_flux = ReduceCellAndWalls<Vector>( PINdir );
 	
 	vec_flux.Normalise();
@@ -2012,7 +1827,6 @@ list<Wall *>::iterator Cell::RemoveWall( Wall *w ) {
 void Cell::EmitValues(double t) {
 	
 	//  cerr << "Attempting to emit " << t << ", " << chem[0] << ", " << chem[1] << endl;
-	//chem[3] = SumTransporters( 1 );
 	emit ChemMonValue(t, chem);
 	
 }

@@ -28,19 +28,6 @@
 #define MEMORYCHECK(x) if ((x)==NULL) {   fprintf(stderr, "Out of Memory error in "#x" \n");  exit(0); }
 
 #define UNIDENTIFIED 2353996
-//static int last_value=UNIDENTIFIED;
-/*#define WATCH(x) if (last_value==UNIDENTIFIED) {   last_value=x; 
-} else { if (x!=last_value) { fprintf(stderr,"WATCH value changed. Suspending execution. \n Interrupt within debugger to examine position in program.\n"); 
-				 last_value=x; 
-				 while(1);
-	   } else { 
-		      last_value=x;
-	   } 
-	   }*/
-
-
-/* These functions were a gift from Josh Barnes */
-/* I changed the name "eprintf" to "warning" */
 
 #ifdef __cplusplus 
 extern "C" { 

@@ -42,7 +42,6 @@ public:
   DataPlot(QWidget *parent, const QString title, const QStringList curvenames);
   virtual ~DataPlot(void);
 public slots:
-    //    void setTimerInterval(double interval);
     void AddValue(double t, double *x);
 
 private:
@@ -74,7 +73,6 @@ Q_OBJECT
   PlotDialog(QWidget *parent, const QString title, const QStringList curvenames);
   ~PlotDialog(void);
   public slots:
-    //    void setTimerInterval(double interval);
   void AddValue(double t, double *x) {
     //std::cerr << "AddValue receives: " << t << ", " << y << ", " << z << std::endl;
     plot->AddValue(t,x);

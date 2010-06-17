@@ -125,11 +125,9 @@ public:
     boundary = !boundary;
   }
   
-  //void Displace(void);
 
   Cell &getCell(const Neighbor &i);
   
-  //Node &getNode(int i);
   ostream &print(ostream &os) const;
   void XMLAdd(xmlNodePtr nodes_node) const;
   
@@ -164,24 +162,6 @@ public:
     return dead;
   }
 
-  /*void UpdateAfterNodeRemoved(int n) {
-    for (list<Neighbor>::iterator i=owners.begin();
-    i!=owners.end();
-    i++) {
-    if (i->nb1>=n) i->nb1--;
-    if (i->nb2>=n) i->nb2--;
-    }
-    }
- 
-    void UpdateAfterCellRemoved(int n) {
-    for (list<Neighbor>::iterator i=owners.begin();
-    i!=owners.end();
-    i++) {
-    if (i->cell>=n) i->cell--;
-    }
-    }
-  */
-  
   inline void Mark(void) {
     marked=true;
   }
@@ -198,7 +178,6 @@ public:
     z = p.z;
   }
   inline bool SamP(void) const { return sam; }
-  //enum boundary_type {NoBoundary, Noflux, SourceSink, SAM};
 
   //!\brief Calculate angles with neighboring vertices
   //! Sum of angles should be 2*Pi

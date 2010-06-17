@@ -24,7 +24,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-//#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "warning.h"
@@ -85,31 +84,6 @@ int YesNoP(const char *message) {
     
 }
 
-/* //FILE *OpenWriteFile(char *filename) 
-// {
-//   FILE *fp;
-//   fprintf(stderr,"Opening %s for writing\n",filename);
-	
-//   if((OpenFileAndCheckExistance(&fp,filename,"r"))==TRUE) {
-// 	if (!YesNoP("File exists, overwrite?")) {
-// 	  fprintf(stderr," Could not open file %s for writing, exiting... \n"
-// 			  ,filename);
-// 	  exit(0);
-// 	}
-//   }
-  
-//   if (fp!=NULL) // file existed, but user wants to overwrite
-// 	fclose(fp);
-  
-//   if ((fp=fopen(filename,"w"))==NULL) {
-// 	fprintf(stderr," Could not open file %s for writing, exiting... \n"
-// 			,filename);
-// 	exit(0);
-//   }
-	
-//   return fp;
-// }
-*/
 
 FILE *OpenWriteFile(const char *filename) 
 {
@@ -151,55 +125,6 @@ FILE *OpenWriteFile(const char *filename)
   return fp;
 }
 
-/*FILE *OpenGZippedWriteFile(const char *filename) 
-{
-
-  // Open file that is zipped while it is written
-  // uses a pipe
-    
-  char fname[FNAMESIZE];
-  char gzname[FNAMESIZE];
-
-  FILE *fp;
-  extern Parameter par;
-
-  // step 1, add ".gz" to the filename
-  sprintf(gzname, "%s.gz", filename);
-  
-  // and check whether it already exists
-  fprintf(stderr,"Opening %s for writing\n",gzname);
-	
-  if(FileExistsP(gzname)==TRUE) {
-  
-    if (par.interactive) {
-      if (!YesNoP("File exists, overwrite?")) {
-	fprintf(stderr," Could not open file %s for writing, exiting... \n"
-		,gzname);
-	exit(0);
-      }
-    } else {
-      // Rename old file 
-      snprintf(fname, FNAMESIZE-1, "%s~",gzname);
-      rename(gzname, fname);
-      
-    }
-  }
-  
-  //  strncpy(fname, gzname, FNAMESIZE-1);
-  char *command=new char[20+sizeof(gzname)];
-  sprintf(command, "gzip -c > %s", gzname);
-  
-  if ((fp=popen(command,"w"))==NULL) {
-    fprintf(stderr," Could not open file %s for writing: "
-	    ,fname);
-    perror("");
-    exit(-1);
-  }
-	
-  delete[] command;
-  return fp;
-}
-*/
 
 FILE *OpenReadFile(const char *filename) 
 {
@@ -331,8 +256,7 @@ char *Chext(char *filename) {
 }
 
 void MakeDir(const char *dirname) {
-  
-  cerr << "Entering MakeDir for name " << dirname << "\n";
+
 #ifdef QTGRAPHICS
   QFileInfo file_info(dirname);
   
@@ -341,7 +265,7 @@ void MakeDir(const char *dirname) {
     
     if (file_info.isDir()) {
       // OK 
-      cerr << "Using existing directory " << dirname << " for data storage.\n";
+      cerr << "Using existing directory " << dirname << " for data storage." << endl;
       return;
     } else {
       char *message = new char[MESS_BUF_SIZE+1];
@@ -415,49 +339,3 @@ void MakeDir(const char *dirname) {
 #endif
 }
 
-/*bool CanWeWriteP(char *filename) {
-
-  // check for the existance of file "filename"
-   // if it exists, ask the user whether we may overwrite it
-   //false: do not overwrite. true: do overwrite 
-   
-  
-  char message[MESS_BUF_SIZE];
-  char fname[FNAMESIZE];
-
-  extern const Parameter par;
-
-  int status;
-  status=access(filename, F_OK);
-  if (status < 0) {// file does not exist, or something else is wrong      
-    // check error code
-    if (errno!=ENOENT) {
-	
-      // another error occured 
-      snprintf(message, MESS_BUF_SIZE, "Error checking for existance of %s",filename);
-      perror(message);	      
-      exit(1);
-    }
-      
-  } else {
-      
-    // file exists, ask for permission to overwrite if interactive
-    if (par.interactive) {
-      snprintf(message, MESS_BUF_SIZE, "File %s exists. Overwrite? ",filename);
-      if (!YesNoP(message))
-	return false;
-      else 
-	return true;
-    } else {
-      // Rename old file 
-      snprintf(fname, FNAMESIZE-1, "%s~",filename);
-      rename(filename, fname);
-    }
-    
-    return true;
-  }
-    
-  // file does not exist, or user permits overwriting
-  return true;
-    
-}*/

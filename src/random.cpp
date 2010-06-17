@@ -141,24 +141,9 @@ int Randomize(void) {
   
   seed=abs((int)((t.time*t.millitm)%655337));
   Seed(seed);
-  fprintf(stderr,"Random seed is %d\n",seed);
+#ifdef QDEBUG
+  qdebug() << "Random seed is " << seed << endl;
+#endif
   return seed;
 }
 
-/** TESTING random generator 
-#include <vector>
-#include <fstream>
-int main(void) {
-  
-  MyUrand r(-1);
-  
-  vector<int> bucket(100);
-  for (int i = 0; i<1000000 ; i++) {
-    bucket[r(100)]++;
-  }
-  ofstream out("randomtest.dat");
-  for (int i = 0; i<=100; i++) {
-    out << i << " " << bucket[i] << endl;
-  }
-}
-***/

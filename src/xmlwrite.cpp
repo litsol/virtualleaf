@@ -187,7 +187,6 @@ void Cell::XMLAddCore(xmlNodePtr xmlcell) const {
     {
       ostringstream text;
       xmlNodePtr wall_xml = xmlNewChild(xmlcell, NULL, BAD_CAST "wall", NULL);
-      //text <<wall_list_index( *i );
       text << XMLIO::list_index( m->walls.begin(), m->walls.end(), *i );
       xmlNewProp(wall_xml, BAD_CAST "w", BAD_CAST text.str().c_str());
     }
@@ -362,7 +361,6 @@ int Cell::XMLRead(xmlNode *cur)  {
 		  {
 		    stringstream text;
 		    text << "Exception in Mesh::XMLRead: Too many chemical values given for cell(s). Ignoring remaining values.";
-		    //ThrowStringStream(text);
 		    unique_warning(text.str().c_str());
 		    break;
 		  }
@@ -373,7 +371,6 @@ int Cell::XMLRead(xmlNode *cur)  {
 		if (nc==0) {
 		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 1002");
 		}
-		//double v = strtod( (char *)nc, 0 );
 		double v=standardlocale.toDouble((char *)nc, &ok);
 		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)nc);
 		chem[nv++]=v;
@@ -393,7 +390,6 @@ int Cell::XMLRead(xmlNode *cur)  {
 			unique_warning("Token \"area\" not found in xmlwrite.cpp at or around line no. 1018");
 		}
 		if (v_str != NULL) {
-		  //area = strtod( (char *)v_str, 0);
 			area=standardlocale.toDouble((char *)v_str, &ok);
 			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
 			xmlFree(v_str);
@@ -407,7 +403,6 @@ int Cell::XMLRead(xmlNode *cur)  {
 			unique_warning("Token \"target_area\" not found in xmlwrite.cpp at or around line no. 1029");
 		}
     if (v_str != NULL) {
-      //target_area = strtod( (char *)v_str, 0);
       	target_area=standardlocale.toDouble((char *)v_str, &ok);
 	if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
@@ -422,7 +417,6 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"target_length\" not found in xmlwrite.cpp at or around line no. 1041");
     }
     if (v_str != NULL) {
-      //target_length = strtod( (char *)v_str, 0);
       target_length=standardlocale.toDouble((char *)v_str, &ok);
       if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
@@ -436,7 +430,6 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"lambda_celllength\" not found in xmlwrite.cpp at or around line no. 1052");
     }
     if (v_str != NULL) {
-      //lambda_celllength = strtod( (char *)v_str, 0);
       lambda_celllength=standardlocale.toDouble((char *)v_str, &ok);
       if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
@@ -450,7 +443,6 @@ int Cell::XMLRead(xmlNode *cur)  {
       unique_warning("Token \"stiffness\" not found in xmlwrite.cpp at or around line no. 1063");
     }
     if (v_str != NULL) {
-      //stiffness = strtod( (char *)v_str, 0);
       stiffness=standardlocale.toDouble((char *)v_str, &ok);
       if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)v_str);
       xmlFree(v_str);
@@ -598,12 +590,6 @@ void Wall::XMLAdd(xmlNode *parent) const {
   // Save the node to a stream so we can reconstruct its state later
   xmlNodePtr xmlwall = xmlNewChild(parent, NULL, BAD_CAST "wall",NULL);
   
-  /* {
-     ostringstream text;
-     text << index;
-     xmlNewProp(xmlnode, BAD_CAST "index", BAD_CAST text.str().c_str());
-     }*/
-  
   {
     ostringstream text;
     text << Index();
@@ -657,12 +643,6 @@ void Wall::XMLAdd(xmlNode *parent) const {
       
     
   xmlNodePtr tr1_xml = xmlNewChild(xmlwall, NULL, BAD_CAST "transporters1", NULL); 
-  //   {
-  //     ostringstream text;
-  //     text << Cell::nchem;
-  //     xmlNewProp(tr1_xml, BAD_CAST "n", BAD_CAST text.str().c_str());
-  //   }
-  
   if (transporters1) {
     for (int i=0;i<Cell::NChem();i++) {
       xmlNodePtr tr1_val_xml = xmlNewChild(tr1_xml, NULL, BAD_CAST "val", NULL);
@@ -753,7 +733,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
 	
 	time_t t;
 	std::time(&t);
-	// asctime_r(localtime(&t),tstring); //Doesn't work for MinGW
+
 	char *tstring = strdup(asctime(localtime(&t))); // but this does
 	// replace "end of line character by '\0'
 	char *eol=strchr(tstring,'\n');
@@ -769,7 +749,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
 	/*
 	 * Creates a DTD declaration. Isn't mandatory. 
 	 */
-	//dtd = xmlCreateIntSubset(doc, BAD_CAST "root", NULL, BAD_CAST "tree2.dtd");
+
 	par.XMLAdd(root_node);
 
 	xmlNodePtr xmlnodes = xmlNewChild(root_node, NULL, BAD_CAST "nodes",NULL);
@@ -896,7 +876,6 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
 	/*
 	 * this is to debug memory for regression tests
 	 */
-	//xmlMemoryDump();
 }
 
 
@@ -909,16 +888,20 @@ void Mesh::XMLReadSimtime(const xmlNode *a_node) {
   
   
   if (strsimtime) {
-    //double simtime = strtod((const char *)strsimtime, 0);
+
     QLocale standardlocale(QLocale::C);
     bool ok;
     
     double simtime=standardlocale.toDouble((char *)strsimtime, &ok);
     if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(char *)strsimtime);
       time = simtime;
-		cerr << "Simtime = " << strsimtime << endl;
+#ifdef QDEBUG
+                qDebug() << "Simtime = " << strsimtime << endl;
+#endif
 	} else {
-		cerr << "No simtime found in file \n";
+#ifdef QDEBUG
+    qDebug() << "No simtime found in file." << endl;
+#endif
 		time =0;
 	}	
 }
@@ -964,7 +947,6 @@ void Mesh::XMLReadGeometry(const xmlNode * a_node)
 		cur = cur->next;
 	}
     
-	//cur = root_node;
     
 	// allocate Cells
 	cur = root_node;
@@ -975,10 +957,10 @@ void Mesh::XMLReadGeometry(const xmlNode * a_node)
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"cells"))){
 			xmlChar *offsetxc = xmlGetProp(cur, BAD_CAST "offsetx");
 			xmlChar *offsetyc = xmlGetProp(cur, BAD_CAST "offsety");
-			//double ox = strtod((const char*)offsetxc, 0);
+
 			double ox=standardlocale.toDouble((const char *)offsetxc, &ok);
 			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)offsetxc);
-			//double oy = strtod((const char*)offsetyc, 0);
+
 			double oy=standardlocale.toDouble((const char *)offsetyc, &ok);
 			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)offsetyc);
 			Cell::setOffset(ox, oy);
@@ -986,13 +968,13 @@ void Mesh::XMLReadGeometry(const xmlNode * a_node)
 			xmlFree(offsetyc);
 			
 			xmlChar *magnificationc = xmlGetProp(cur, BAD_CAST "magnification");
-			//Cell::SetMagnification(strtod((const char*)magnificationc, 0 ));
+
 			Cell::SetMagnification(standardlocale.toDouble((const char *)magnificationc, &ok));
 			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)magnificationc);
 			xmlFree(magnificationc);
 			
 			xmlChar *baseareac = xmlGetProp(cur, BAD_CAST "base_area");
-			//Cell::BaseArea()= strtod((const char *)baseareac, 0 );
+
 			Cell::BaseArea() = standardlocale.toDouble((const char *)baseareac, &ok);
 			if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)baseareac);
 			xmlFree(baseareac);
@@ -1071,7 +1053,7 @@ void Mesh::XMLReadNodes(xmlNode *root) {
   xmlChar *tlc = xmlGetProp(root, BAD_CAST "target_length");
 	
   if (tlc != 0) {
-    //Node::target_length = strtod( (const char *)tlc, 0 );
+
 	  
     Node::target_length = standardlocale.toDouble((const char *)tlc, &ok);
     if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)tlc);
@@ -1112,11 +1094,10 @@ void Mesh::XMLReadNodes(xmlNode *root) {
 	unique_warning("Token \"sam\" not found in xmlwrite.cpp at or around line.");
       }
 			
-      //double x = strtod( (char *)xc , 0);
+
       double x = standardlocale.toDouble((const char *)xc, &ok);
       if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)xc);
 		
-      //double y = strtod( (char *)yc , 0 );
       double y = standardlocale.toDouble((const char *)yc, &ok);
       if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)yc);
 			
@@ -1162,8 +1143,6 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
   walls.clear();
   Wall::nwalls = 0;
   tmp_walls->clear();
-  //Node::nnodes=0;
-	
 	
   QLocale standardlocale(QLocale::C);
   bool ok;
@@ -1211,7 +1190,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 	if (	nc==0) {
 	  unique_warning("Token \"length\" not found in xmlwrite.cpp at or around line no. 809");
 	}
-	//double length = strtod( (char *)nc, 0);
+
 	double length = standardlocale.toDouble((const char *)nc, &ok);
 	if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
 
@@ -1222,7 +1201,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 				
 	double viz_flux = 0.0;
 	if (nc!=0) {
-	  //viz_flux = strtod( (char *)nc, 0);
+
 	  viz_flux = standardlocale.toDouble((const char *)nc, &ok);
 	  if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
 	}
@@ -1288,7 +1267,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		  {
 		    stringstream text;
 		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
-		    //ThrowStringStream(text);
+
 		    unique_warning(text.str().c_str());
 		    break;
 		  }
@@ -1298,7 +1277,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		if (nc==0) {
 		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 835");
 		}
-		//double v = strtod( (char *)nc, 0 );
+
 		double v = standardlocale.toDouble((const char *)nc, &ok);
 		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
 
@@ -1324,7 +1303,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
 		    unique_warning(text.str().c_str());
 		    break;
-		    // ThrowStringStream(text);
+
 		  }
 		}
 								
@@ -1333,7 +1312,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		if (nc==0) {
 		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 861");
 		}
-		//double v = strtod( (char *)nc, 0 );
+
 		double v = standardlocale.toDouble((const char *)nc, &ok);
 		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
 
@@ -1356,7 +1335,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		  {
 		    stringstream text;
 		    text << "Exception in Mesh::XMLRead: Too many transporter values given for wall(s). Ignoring remaining values.";
-		    //ThrowStringStream(text);
+
 		    unique_warning(text.str().c_str());
 		    break;
 		  }
@@ -1366,7 +1345,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 		if (nc==0) {
 		  unique_warning("Token \"v\" not found in xmlwrite.cpp at or around line no. 887");
 		}
-		//double v = strtod( (char *)nc, 0 );
+
 		double v = standardlocale.toDouble((const char *)nc, &ok);
 		if (!ok) MyWarning::error("Could not convert \"%s\" to double in XMLRead.",(const char *)nc);
 
@@ -1375,17 +1354,13 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls) {
 	      }
 	      v_node = v_node->next; 
 	    }
-						
 	  }
 	  w_node=w_node->next;
 	}
-				
       }
       cur = cur->next;
     }
-		
   }
-  //  CleanUpWalls();
 }
 
 
@@ -1401,8 +1376,6 @@ void Mesh::XMLReadWallsToCells(xmlNode *root, vector<Wall *> *tmp_walls) {
 	int ci=0; // cell index
 	
 	while (cur!=NULL) {
-		
-		//Cell *new_cell=0;
 		
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"cell")) ||
 			(!xmlStrcmp(cur->name, (const xmlChar *)"boundary_polygon" ))) {
@@ -1584,12 +1557,10 @@ void Mesh::XMLRead(const char *docname, xmlNode **settings, bool geometry, bool 
 	
 	/*Get the root element node */
 	xmlNode *root_element = xmlDocGetRootElement(doc);
-	
-	//XMLParseTree(root_element);
+
 	if (geometry) XMLReadGeometry(root_element);
 	if (pars) XMLReadPars(root_element);
 	if (simtime) XMLReadSimtime(root_element);
-	//print_element_names(root_element);
 	
 	// If pointer settings defined, return a copy of the settings tree
 	if (settings) {
@@ -1617,11 +1588,6 @@ void Mesh::XMLRead(const char *docname, xmlNode **settings, bool geometry, bool 
 }
 
 
-/*  int Mesh::XMLReadWall(xmlNode *cur)  {
-  
-
-    return w;
-    }*/
 void Parameter::XMLRead(xmlNode *root) {
 	
 	xmlNode *cur = root->xmlChildrenNode;

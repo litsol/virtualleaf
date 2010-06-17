@@ -20,6 +20,8 @@
  *
  */
 
+#ifndef _TESTPLUGIN_H_
+#define _TESTPLUGIN_H_
 
 #include <QObject>
 #include <QtGui>
@@ -55,6 +57,4 @@ public:
 	virtual int NChem(void) { return 0; }
 };
 
-
-
-
+#endif

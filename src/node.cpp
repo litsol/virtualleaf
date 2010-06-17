@@ -185,8 +185,6 @@ QVector<qreal> Node::NeighbourAngles(void) {
 		Vector v1 = (*this - *i->nb1).Normalised();
 		Vector v2 = (*this - *i->nb2).Normalised();	
 	
-		//angles.push_back(atan2(v2.y,v2.x)-atan2(v1.y,v1.x));
-		//angles.push_back(atan2(v2.y,v2.x)-atan2(v1.y,v1.x));
 		double angle = v1.SignedAngle(v2);
 		if (angle<0) {
 			//cerr << "Changing sign of angle " << angle << endl;

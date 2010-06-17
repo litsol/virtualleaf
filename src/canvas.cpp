@@ -163,11 +163,6 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 #endif
   
 
-  /*  if (dynamic_cast<Main *>(parent())->RotationModeP()) {
-  // if in rotation mode, exit it upon a mouse click
-  dynamic_cast<Main *>(parent())->ExitRotationMode();
-  }*/
-  
   QList<QGraphicsItem *> l=scene()->items(p);
 
 #ifdef QDEBUG  
@@ -175,45 +170,6 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
   qDebug() << "Mouse button modifier: " << e->modifiers() << endl;
 #endif
 
-
-    /*  if (rotation_mid_point) {
-    
-    // calculate rotation angle alpha
-    QPointF q_v1 = intersection_line->line().p2();
-    - intersection_line->line().p1();
-    QPointF q_v2 = angle_line->line().p2();
-    - angle_line->line().p1();
-    
-    Vector v1(q_v1.x(),q_v1.y());
-    Vector v2(q_v2.x(),q_v2.y());
-    
-    cerr << "v1 = " << v1 << endl;
-    cerr << "v2 = " << v2 << endl;
-    
-    
-    rot_angle = v1.SignedAngle(v2);
-    cerr << "Angle is " << rot_angle << endl;
-    
-    const QPointF &q_c(angle_line->line().p1());
-    Vector center = Vector(q_c.x(), q_c.y()) / Cell::Factor() - Cell::Offset();
-    
-    cerr << "Center is " << center << endl;
-    
-    mesh.Rotate(rot_angle, center);
-    delete angle_line;
-    angle_line=0;
-    delete intersection_line;
-    intersection_line=0;
-    
-    viewport()->setMouseTracking( FALSE );
-    dynamic_cast<Main *>(parent())->Plot();
-    
-    
-    return;
-    
-    }*/
-  
-   
     if (e->button()==Qt::RightButton || l.size()==0) {
     
       //cerr << "Drawing an intersection line from " << p.x() << ", " << p.y() << endl;
@@ -225,19 +181,11 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
     }
   
     for (QList<QGraphicsItem *>::Iterator it=l.begin(); it!=l.end(); ++it) {
-      /*if ( (*it)->rtti() == imageRTTI ) {
-	ImageItem *item= (ImageItem*)(*it);
-	if ( !item->hit( p ) )
-	continue;
-	}*/
       #ifdef QDEBUG
       qDebug() << typeid(**it).name() << endl;
       #endif
 
       if ( !strcmp(typeid(**it).name(),"8NodeItem")) {
-	//moving = dynamic_cast<NodeItem*>(*it);
-	//moving = *it;
-	//moving_start = p;
       
 	stringstream data_strstream;
 	data_strstream << (dynamic_cast<NodeItem*>(*it))->getNode();
@@ -249,19 +197,6 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 	if ( !strcmp(typeid(**it).name(),"8CellItem") ) {
       
 	  Cell &c=((dynamic_cast<CellItem *>(*it))->getCell());      
-	  //static int old_stride=100;
-	  //if (!c.Source()) {
-	  /* if (!c.Source()) {
-	     c.SetChemical(0,par.cellsource);
-	     //flag=true;
-	     //c.SetSource(0,par.cellsource);
-	     //c.Fix();
-	     //cerr << "Setting source\n";
-			
-	     } else { 
-	     //c.UnsetSource();
-	     cerr << "Unsetting source\n";
-	     } */
 	  // OnClick to be defined in end-user code
 	  c.OnClick(e);
 	} else {
@@ -300,15 +235,13 @@ void FigureEditor::mouseMoveEvent(QMouseEvent* e)
     
     mesh.Rotate(d_alpha, ( Vector(rotation_midpoint) + Cell::Offset() ) / Cell::Factor() );
     
-    //viewport()->setMouseTracking( FALSE );
     dynamic_cast<Main *>(parent())->Plot(0);
 	  FullRedraw();
     return;
   }
   if ( moving ) {
-    //QPoint p = matrix().inverted().map(e->pos());
+
     QPointF p = mapToScene(e->pos());
-    
     moving->userMove(p.x() - moving_start.x(),
 		     p.y() - moving_start.y());
     moving_start = p;
@@ -319,28 +252,16 @@ void FigureEditor::mouseMoveEvent(QMouseEvent* e)
   //cerr << "event";
   
   // keep track of intersection line to interactively cut a growing leaf
-  /* if (angle_line) {
-
-    QPointF sp = angle_line -> line().p1(); // startpoint
-    //QPointF ep = matrix().inverted().map(e->pos()); // endpoint
-    QPointF ep = mapToScene(e->pos()); // endpoint
-    angle_line -> setLine( QLineF(sp, ep) ); 
-    scene()->update();
-  
-    } else { */
     
   if ( intersection_line ) {
     
     QPointF sp = intersection_line -> line().p1(); // startpoint
-    //QPointF ep = matrix().inverted().map(e->pos()); // endpoint
     QPointF ep = mapToScene(e->pos()); // endpoint
     intersection_line -> setLine( QLineF(sp, ep) ); 
     scene()->update();
     // Need this for Mac
     FullRedraw();
     }
-  /* } */
-  
 }
 
 //void FigureEditor::contentsMouseReleaseEvent(QMouseEvent* e)
@@ -356,7 +277,6 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
       qDebug() << "Trying to cut leaf" << endl;
       #endif
       QPointF sp = intersection_line -> line().p1(); // startpoint
-      //QPointF ep = matrix().inverted().map(e->pos()); // endpoint
       QPointF ep = mapToScene(e->pos());
 
       intersection_line -> setLine( QLineF(sp, ep) ); 
@@ -376,14 +296,12 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
       Vector startpoint = Vector(sp.x(), sp.y()) / Cell::Factor() - Cell::Offset();
       Vector endpoint = Vector(ep.x(), ep.y()) / Cell::Factor() - Cell::Offset();
     
-      // Mesh &m(intersected_cells.front()->getCell().getMesh());
       NodeSet *node_set = new NodeSet;
       
       for (vector<CellItem *>::iterator it = intersected_cells.begin();
 	   it != intersected_cells.end();
 	   it++) {
       
-	//(*it)->Mark();
 	(*it)->setBrush(QBrush("purple"));
        
 	Cell &c=(*it)->getCell();
@@ -412,7 +330,6 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
       mesh.TestIllegalWalls();
       // Do the actual cutting and removing
       if (intersected_cells.size()) {
-	//      Mesh &m(intersected_cells.front()->getCell().getMesh());
 	mesh.CutAwayBelowLine( startpoint, endpoint ); 
 	
 	// Correct flags of nodeset
@@ -465,19 +382,11 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
       
       if (intersection_line /* && !angle_line*/) {
 	
-	//QPointF p = matrix().inverted().map(e->pos());
 	QPointF p = mapToScene(e->pos());
 	QPointF sp = intersection_line->line().p1();
 	
 	viewport()->setMouseTracking( TRUE );
-	/* angle_line = new QGraphicsLineItem( 0, scene() );
-	angle_line->setPen( QPen( QColor("Blue"), 3, Qt::DashLine ) );
-	angle_line->setLine( QLineF(sp, p) );
-	angle_line->setZValue( 100 );
-	angle_line->show();
-	*/
       } 
-            
     }
 }
 
@@ -500,9 +409,7 @@ vector <CellItem *> FigureEditor::getIntersectedCells(void) {
     #endif
     
     if ( !strcmp(typeid(**it).name(),"8CellItem") ) {
-      
       colliding_cells.push_back(dynamic_cast<CellItem *>(*it));
-      
     }
   }
   
@@ -555,8 +462,6 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   Q3MainWindow(parent,name,f),
   MainBase(c,m),
   mesh(m)
-	   
-	  //canvas(c)
 {
   editor = new FigureEditor(canvas,mesh, this);
 
@@ -570,18 +475,16 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   QMenuBar* menu = menuBar();
   
   Q3PopupMenu* file = new Q3PopupMenu( menu );
- // file->insertItem("&Fill canvas", this, SLOT(init()), Qt::CTRL+Qt::Key_F);
+
 	file->insertItem("&Read leaf", this, SLOT(readStateXML()));
 	file->insertItem("&Save leaf", this, SLOT(saveStateXML()));
 	file->insertItem("Snapshot", this, SLOT(snapshot()), Qt::CTRL+Qt::SHIFT+Qt::Key_S);
- // file->insertItem("&New view", this, SLOT(newView()), Qt::CTRL+Qt::Key_N);
+
    file->insertSeparator();
 	file->insertItem("Read next leaf", this, SLOT(readNextStateXML()), Qt::Key_PageDown);
 	file->insertItem("Read previous leaf", this, SLOT(readPrevStateXML()), Qt::Key_PageUp);
 	file->insertItem("Read last leaf", this, SLOT(readLastStateXML()), Qt::Key_End);
 	file->insertItem("Read first leaf", this, SLOT(readFirstStateXML()), Qt::Key_Home);
-	//file->insertItem("Read &parameters", this, SLOT(readPars()));
-  //file->insertItem("&Write parameters", this, SLOT(savePars()));
 	
 	file->insertSeparator();
 	file->insertItem("&Print...", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
@@ -598,25 +501,19 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   menu->insertItem("&Edit", edit);
 
   run = new Q3PopupMenu( menu );
-  //  edit->insertItem("Add &Polygon", this, SLOT(addPolygon()), ALT+Key_P);
-  //edit->insertItem("Add &Line", this, SLOT(addLine()), ALT+Key_L);
   running = false;
 	paused_id = run->insertItem("&Simulation paused", this, SLOT(togglePaused()), Qt::Key_S);
   run->setItemChecked(paused_id, FALSE);
 
-  //run->insertItem("&Divide Cell", this, SLOT(Divide()), Qt::CTRL+Qt::Key_D);
- // run->insertItem("&Restart Simulation", this, SLOT(RestartSim())); 
   menu->insertItem("&Run", run);
   
   view = new Q3PopupMenu( menu );
-  //view->insertItem("&Enlarge", this, SLOT(enlarge()), SHIFT+CTRL+Key_Plus);
-  //view->insertItem("Shr&ink", this, SLOT(shrink()), SHIFT+CTRL+Key_Minus);
 	view->insertItem("&Zoom in", this, SLOT(zoomIn()), Qt::CTRL+Qt::Key_Equal);
   view->insertItem("Zoom &out", this, SLOT(zoomOut()), Qt::CTRL+Qt::Key_Minus);
 	view->insertSeparator();
 	com_id = view->insertItem("Show cell &centers", this, SLOT(toggleShowCellCenters()));
   view->setItemChecked(com_id, FALSE);
-  //view->insertItem("Cell monitor", this, SLOT(cellmonitor()));
+
   mesh_id = view->insertItem("Show &nodes", this, SLOT(toggleShowNodes()), Qt::CTRL+Qt::SHIFT+Qt::Key_N);
   view->setItemChecked(mesh_id, TRUE);
   node_number_id = view->insertItem("Show node numbers", this, SLOT(toggleNodeNumbers()), Qt::CTRL+Qt::SHIFT+Qt::Key_M);
@@ -638,7 +535,6 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   view->setItemChecked(apoplasts_id, FALSE);
  	view->insertSeparator();
 	  only_boundary_id = view->insertItem("Show only leaf &boundary", this, SLOT(toggleLeafBoundary()));
-  //only_boundary_id = view->insertItem("Show only leaf &boundary", 0,0);
 	view->insertSeparator();
 	movie_frames_id = view->insertItem("Start saving movie &frames", this, SLOT(toggleMovieFrames()));
   view->setItemChecked(movie_frames_id, par.movie);
@@ -648,8 +544,6 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   
   
   options = new Q3PopupMenu( menu );
-  /* dbf_id = options->insertItem("Double buffer", this, SLOT(toggleDoubleBuffer()));
-     options->setItemChecked(dbf_id, TRUE);*/
   dyn_cells_id = options->insertItem("Cell growth", this, SLOT(toggleDynCells()));
   options->setItemChecked(dyn_cells_id, true);
 
@@ -673,30 +567,10 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   helpmenu->insertSeparator();
 
   helpmenu->insertItem("&About", this, SLOT(help()) ); //, Key_F1);
-  //help->insertItem( "What's &This", this , SLOT(whatsThis()), SHIFT+Key_F1);
   menu->insertItem("&Help",helpmenu);
-  //QSlider *flux_arrow_slider = new QSlider( 0, 10000, 1, 100, Qt::Horizontal, this, "flux arrow size");
-  //QSpinBox *stride  = new QSpinBox( 1, 1000, 1, this, "stride");
-  
-	    
-  //QGridLayout *controlgrid = new QGridLayout( this, 1, 2, 10);
-  // 2x1, 10 pixel border
-  
-  //controlgrid->addWidget( stride, 0, 0);
-  //controlgrid->addWidget( flux_arrow_slider, 0, 1);
-  //controlgrid->setColStretch( 1, 10 );
-  
-  
-  //flux_arrow_size = 1.;
-  //flux_arrow_slider -> setMinimumSize( 200,50);
-  //connect( flux_arrow_slider, SIGNAL( valueChanged( int ) ), this, SLOT( setFluxArrowSize(int) ) );
-  
   statusBar();
-  
   setCentralWidget(editor);
-
   printer = 0;
-
   init();
     
   // Start timer which repetitively invokes
@@ -709,20 +583,6 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   setCaption(caption);
   gifanim = 0;
 	
-	// A little bit of PSB/CWI decoration ;-)
-	/*dockwindow = new Q3DockWindow();
-	addDockWindow(dockwindow);
-	QLabel *viblab = new QLabel; viblab->setPixmap(QPixmap(cwi_xpm));
-	QString virtleafstring("<h1>The Virtual Leaf</h1>\n<center><b>Model:</b> <i>%1</i></center>");
-	QLabel *virtleaf = new QLabel(virtleafstring.arg(mesh.ModelID()));
-	QLabel *psblab = new QLabel; psblab->setPixmap(QPixmap(PSB_xpm));
-	dockwindow->setHorizontalStretchable(true);
-	dockwindow->boxLayout()->addWidget(viblab);//,Qt::AlignLeft);
-	dockwindow->boxLayout()->addStretch();
-	dockwindow->boxLayout()->addWidget(virtleaf);//, Qt::AlignHCenter);
-	dockwindow->boxLayout()->addStretch();
-	dockwindow->boxLayout()->addWidget(psblab);//, Qt::AlignRight);*/
-	//QString virtleafstring("<h1>The Virtual Leaf</h1>\n<center><b>Model:</b> <i>%1</i></center>");
 	infobar = new InfoBar();
 	addDockWindow(infobar);
 
@@ -783,9 +643,6 @@ void Main::EditParameters() {
 
 void Main::savePars() {
   
-  // bool timer_active;
-  /* if (timer_active=timer->isActive())
-     imer->stop();*/
   stopSimulation();
   
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
@@ -826,10 +683,6 @@ void Main::readPars() {
 
 void Main::saveStateXML() {
   
-   
-  //   bool timer_active;
-  //   if (timer_active=timer->isActive())
-  //     timer->stop();
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
@@ -863,9 +716,6 @@ void Main::saveStateXML() {
 void Main::snapshot() {
   
    
-  //   bool timer_active;
-  //   if (timer_active=timer->isActive())
-  //     timer->stop();
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "Save snapshot", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
@@ -931,8 +781,6 @@ void Main::readPrevStateXML() {
     readStateXML((const char *)next_file);
     
   }
-  
-  
 }
 
 int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simtime) {
@@ -953,7 +801,7 @@ int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simt
     currentFile =  QString(filename);
 	
     Plot();
-    QString status_message = QString("Succesfully read leaf from file %1. Time is %2 h.\n").arg(currentFile).arg(mesh.getTimeHours().c_str());
+    QString status_message = QString("Successfully read leaf from file %1. Time is %2 h.").arg(currentFile).arg(mesh.getTimeHours().c_str());
     cerr << status_message.toStdString() << endl;
 	setCaption(caption_with_file.arg(filename));
     statusBar()->message(status_message);
@@ -1081,26 +929,6 @@ void Main::readStateXML() {
 	
     if (readStateXML((const char *)fileName,fd->readGeometryP(), fd->readParametersP()) )
       return readStateXML(); // user can try again
-    
-//     try {
-//       mesh.XMLRead((const char *)fileName);
-//       currentFile =  fileName;
-//     } catch (const char *error_message) {
-//       QMessageBox mb( "Read leaf from XML file",
-// 		      QString(error_message),
-// 		      QMessageBox::Critical,
-// 		      QMessageBox::Ok | QMessageBox::Default,
-// 		      QMessageBox::NoButton,
-// 		      QMessageBox::NoButton);
-//       mb.exec();
-//       return readStateXML(); // user can try again
-//     }
-    
-//     Vector bbll,bbur;
-//     mesh.BoundingBox(bbll,bbur);
-    
-//     //FitLeafToCanvas();
-//     Plot();
   }
 }
 
@@ -1133,24 +961,13 @@ void Main::help()
     QMessageBox::aboutQt( this, "Virtual Leaf" );
   }
 
-/* void Main::toggleDoubleBuffer()
-{
-  bool s = !options->isItemChecked(dbf_id);
-  options->setItemChecked(dbf_id,s);
-  canvas.setDoubleBuffering(s);
-}
-*/
   void Main::toggleShowCellCenters()
   {
-    //bool s = !view->isItemChecked(com_id);
-    //view->setItemChecked(com_id,s);
     Plot();
   }
 
   void Main::toggleShowWalls()
   {
-    //bool s = !view->isItemChecked(cell_walls_id);
-    //view->setItemChecked(cell_walls_id,s);
     Plot();
   }
 void Main::toggleShowApoplasts()
@@ -1159,50 +976,30 @@ void Main::toggleShowApoplasts()
 }
   void Main::toggleShowNodes()
   {
-    //bool s = !view->isItemChecked(mesh_id);
-    //view->setItemChecked(mesh_id,s);
     Plot();
   }
 
   void Main::toggleNodeNumbers(void) {
-  
-    //bool s = !view->isItemChecked(node_number_id);
-    //view->setItemChecked(node_number_id,s);
     Plot();
   }
 
   void Main::toggleCellNumbers(void) {
-  
-    //bool s = !view->isItemChecked(cell_number_id);
-    //view->setItemChecked(cell_number_id,s);
     Plot();
   }
 
   void Main::toggleCellAxes(void) {
-  
-    //bool s = !view->isItemChecked(cell_axes_id);
-    //view->setItemChecked(cell_axes_id,s);
     Plot();
   }
 
   void Main::toggleCellStrain(void) {
-  
-    //bool s = !view->isItemChecked(cell_strain_id);
-    //view->setItemChecked(cell_strain_id,s);
     Plot();
   }
 
   void Main::toggleShowFluxes(void) {
-  
-    //bool s = !view->isItemChecked(fluxes_id);
-    //view->setItemChecked(fluxes_id,s);
     Plot();
   }
 
-  void Main::toggleShowBorderCells()
-  {
-    //bool s = !view->isItemChecked(border_id);
-    //view->setItemChecked(border_id,s);
+  void Main::toggleShowBorderCells(){
     Plot();
   }
 
@@ -1210,34 +1007,19 @@ void Main::toggleHideCells(void) {
 	Plot();
 	editor->FullRedraw();
 }
-  void Main::toggleMovieFrames()
-  {
-    //bool s = !view->isItemChecked(movie_frames_id);
-    //view->setItemChecked(movie_frames_id,s);
-  }
+  void Main::toggleMovieFrames(){}
 
-  void Main::toggleLeafBoundary()
-  {
-    //bool s = !view->isItemChecked(only_boundary_id);
-    //view->setItemChecked(only_boundary_id,s);
-  }
+  void Main::toggleLeafBoundary(){}
 
-  void Main::toggleDynCells()
-  {
-    //bool s = !options->isItemChecked(dyn_cells_id);
-    //options->setItemChecked(dyn_cells_id,s);
-  }
-
-
+  void Main::toggleDynCells() {}
+  
   void Main::startSimulation(void) {
-    //run->setItemChecked(paused_id, false);
     timer->start( 0 );
     statusBar()->message("Simulation started");
     running = true;
   }
 
   void Main::stopSimulation(void) {
-    //run->setItemChecked(paused_id, true);
     timer->stop();
     cerr << "Stopping simulation" << endl;
     statusBar()->message("Simulation paused");
@@ -1264,19 +1046,14 @@ void Main::toggleHideCells(void) {
 
   void Main::enlarge()
   {
-    //canvas.resize(canvas.width()*4/3, canvas.height()*4/3);
     canvas.setSceneRect( QRectF( 0,0, canvas.width()*4./3., canvas.height()*4./3.) );
   }
 
   void Main::shrink()
   {
     canvas.setSceneRect( QRectF( 0,0, canvas.width()*3/4, canvas.height()*3/4) );
-    
   }
 
-/* void Main::scrollBy(int dx, int dy) {
-    editor->scrollBy(dx,dy);
-    }*/
 
   void Main::scale(double factor) {
     QMatrix m = editor->matrix();
@@ -1365,70 +1142,6 @@ void Main::toggleHideCells(void) {
     //startSimulation();
   }
 
-  /*
-    void Main::SaveToGifAnim(void) {
-  
-    if (gifanim) {
-    
-    QPixmap image(canvas.width(), canvas.height());
-    QPainter im(&image);
-    
-    
-    canvas.drawArea(QRect(0,0,canvas.width(),canvas.height()),&im,FALSE);
-    QFile conversionpipe;
-    conversionpipe.open ( IO_WriteOnly, popen("pngtopnm | ppmtogif > tmp.gif", "w") );
-    image.save( &conversionpipe, "PNG");
-    conversionpipe.close();
-    
-    QFile readconvertedimage("tmp.gif");
-    readconvertedimage.open(IO_ReadOnly);
-    int c;
-    while ( (c=readconvertedimage.getch())!=-1) {
-    gifanim->putch(c);
-    }
-    }
-    }*/
-
-  /* void Main::StartGifAnim(QString fname) {
-  
-  if (gifanim) {
-  QMessageBox::information( this, "Animation",
-  "Already making another animation."
-  "Please end it and try again.",
-  QMessageBox::Ok );
-  } else {
-    
-  QString cmdline("gifsicle --multifile - > ");
-  cmdline += fname;
-    
-  gifanim = new QFile;
-  gifanim->open( IO_WriteOnly, 
-  popen((const char *)cmdline, "w") );
-    
-  */   /* QStringList cmdline;
-	  cmdline << "gifsicle" << "--multifile" << "-";
-	  gifanim = new QProcess( cmdline );
-       
-	  cmdline.clear();
-	  cmdline << "pngtopnm";
-	  pngtopnm = new QProcess( cmdline );
-	  pngtopnm->start();
-       
-	  cmdline.clear();
-	  cmdline << "ppmtogif";
-	  ppmtogif = new QProcess( cmdline );
-	  ppmtogif->start();*/
-       /*  }
-
-       }*/
-
-       /*void Main::EndGifAnim(void) {
-  
-       if (gifanim)
-       gifanim->close();
-
-       }*/
-
 
 void Main::FitCanvasToWindow(void) {
   
@@ -1495,8 +1208,6 @@ void Main::CleanMesh(void) {
 	Plot();
 	
 	editor->FullRedraw();
-	
-  //  repaint();
 }
 
 void Main::CleanMeshChemicals(void) {
@@ -1512,8 +1223,6 @@ void Main::CleanMeshChemicals(void) {
 	Plot();
 	
 	editor->FullRedraw();
-	
-	//  repaint();
 }
 
 void Main::CleanMeshTransporters(void) {
@@ -1528,8 +1237,6 @@ void Main::CleanMeshTransporters(void) {
 	Plot();
 	
 	editor->FullRedraw();
-	
-	//  repaint();
 }
 
 void Main::RandomizeMesh(void) {

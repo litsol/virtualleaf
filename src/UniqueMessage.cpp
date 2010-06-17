@@ -42,8 +42,6 @@ QDialog(parent, f) {
 	boxtext = text;
 	
 	show_again = new QCheckBox(tr("Do not show this message again"));
-	//addButton(show_again, QMessageBox::ActionRole);
-	//addButton(QMessageBox::Ok);
 	okButton = new QPushButton(tr("Ok"));
 		
 	if (issued_messages.contains(boxtext) ) {
@@ -51,8 +49,6 @@ QDialog(parent, f) {
 		cerr << "Saw message before\n";
 		display = false;
 	} else {
-		//cerr << "First time message\n";
-		//issued_messages << text;
 		display=true;
 	}
 	
