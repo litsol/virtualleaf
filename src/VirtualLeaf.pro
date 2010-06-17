@@ -35,7 +35,6 @@ DEFINES += REACTIONS_HEADER=$${REACTIONS}
 DEFINES += REACTIONS_HEADER_STRING=\"$${REACTIONS}\"
 DEFINES += FLEMING
 
-PERLDIR = ./perl
 BINDIR = ../bin
 DESTDIR = $$BINDIR
 TARGET = VirtualLeaf
@@ -54,7 +53,6 @@ win32 {
  LIBXML2DIR = C:\libxml2
  LIBICONVDIR = C:\libiconv
  LIBZDIR = C:\libz
- system(DEL parameter.cpp parameter.h) 
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
  QMAKE_CXXFLAGS += -DLIBXML_STATIC

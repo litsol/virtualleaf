@@ -30,7 +30,6 @@ QMAKE_CXXFLAGS_DEBUG -= -finstrument-functions
 
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
 DESTDIR = ../lib 
-PERLDIR = ./perl
 PARTMPL = VirtualLeafpar.tmpl
 QT += qt3support
 TARGET = vleaf
