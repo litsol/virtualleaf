@@ -27,17 +27,20 @@
 #include <QCheckBox>
 
 class OptionFileDialog : public Q3FileDialog {
-	Q_OBJECT
-public:
-	OptionFileDialog(QWidget *parent = 0, const char *name = 0, bool modal = false);
-	OptionFileDialog ( const QString & dirName, const QString & filter = QString(), QWidget * parent = 0, const char * name = 0, bool modal = false );
-	
-	bool readGeometryP(void) const { return geometrycheck->checkState()==Qt::Checked; }
-	bool readParametersP(void) const { return parcheck->checkState()==Qt::Checked; }
+  Q_OBJECT
+ public:
+  OptionFileDialog(QWidget *parent = 0, const char *name = 0, bool modal = false);
+  OptionFileDialog ( const QString & dirName, const QString & filter = QString(), 
+		     QWidget * parent = 0, const char * name = 0, bool modal = false );
 
-private:
-	QCheckBox *geometrycheck;	
-	QCheckBox *parcheck;
+  bool readGeometryP(void) const { return geometrycheck->checkState()==Qt::Checked; }
+  bool readParametersP(void) const { return parcheck->checkState()==Qt::Checked; }
+
+ private:
+  QCheckBox *geometrycheck;	
+  QCheckBox *parcheck;
 };
 
 #endif
+
+/* finis */

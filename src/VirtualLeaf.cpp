@@ -77,10 +77,10 @@ public:
 
 
 class EdgeSource {
-	
+
 public:
   void operator() (Cell &c) {
-		
+
     if (c.AtBoundaryP()) {
       cerr << "Cell " << c.Index() << " is a source cell.\n";
       c.SetSource(0,par.source);
@@ -118,7 +118,7 @@ public:
       if (!m.ShowBoundaryOnlyP() && !m.HideCellsP()) {
 	if (m.ShowToolTipsP()) {
 	  QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
-					
+
 	  info_string += "\n" + c.printednodelist();
 	  c.Draw(&canvas, info_string);
 	} else {
@@ -138,10 +138,11 @@ public:
 Mesh mesh;
 bool batch=false;
 
-void MainBase::Plot(int resize_stride) {
-	
+void MainBase::Plot(int resize_stride)
+{
+
   clear();
-	
+
   static int count=0;
   if (resize_stride) {
     if ( !((++count)%resize_stride) ) {
@@ -149,58 +150,58 @@ void MainBase::Plot(int resize_stride) {
     }
   }
   mesh.LoopCells(DrawCell(),canvas,*this);
-	
+
   if (ShowNodeNumbersP()) 
     mesh.LoopNodes( bind2nd (mem_fun_ref ( &Node::DrawIndex), &canvas ) ) ;
   if (ShowCellNumbersP()) 
     mesh.LoopCells( bind2nd (mem_fun_ref ( &Cell::DrawIndex), &canvas ) ) ;
-	
+
   if (ShowCellAxesP()) 
     mesh.LoopCells( bind2nd (mem_fun_ref ( &Cell::DrawAxis), &canvas ) );
-	
+
   if (ShowCellStrainP()) 
     mesh.LoopCells( bind2nd (mem_fun_ref ( &Cell::DrawStrain), &canvas ) );
-	
+
   if (ShowWallsP())
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::Draw ), &canvas ) );
-	
+
   if (ShowApoplastsP()) 
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
- 
+
   if (ShowMeshP()) 
     mesh.DrawNodes(&canvas);
-	
+
   if (ShowBoundaryOnlyP()) 
     mesh.DrawBoundary(&canvas);
 
   if ( ( batch || MovieFramesP() )) {
-		
+
     static int frame = 0;
     // frame numbers are sequential for the most frequently written file type.
     // for the less frequently written file type they match the other type
     if (!(count%par.storage_stride) )  {
-		
+
       stringstream fname;
       fname << par.datadir << "/leaf.";
       fname.fill('0');
       fname.width(6);
-	
+
       fname << frame << ".jpg";
       if (par.storage_stride <= par.xml_storage_stride) {
 	frame++;
       }
-			
+
       // Write high-res JPG snapshot every plot step
       Save(fname.str().c_str(), "JPEG",1024,768);
     }
-	
+
     if (!(count%par.xml_storage_stride)) {
       stringstream fname;
       fname << par.datadir << "/leaf.";
       fname.fill('0');
       fname.width(6);
       fname << frame << ".xml";
-	
+
       if (par.xml_storage_stride < par.storage_stride) {
 	frame++;
       }
@@ -213,81 +214,73 @@ void MainBase::Plot(int resize_stride) {
 
 
 INIT {
-	
+
   //mesh.SetSimPlugin(plugin);
   if (leaffile) { 
     xmlNode *settings;
     mesh.XMLRead(leaffile, &settings);
-		
+
     main_window->XMLReadSettings(settings);
     xmlFree(settings);
     main_window->UserMessage(QString("Ready. Time is %1").arg(mesh.getTimeHours().c_str()));
-		
+
   } else {
     mesh.StandardInit();
   }
 }
 
 TIMESTEP {
-	
+
   static int i=0;
   static int t=0;
   static int ncells;
-	
+
   if (!batch) {
     UserMessage(QString("Time: %1").arg(mesh.getTimeHours().c_str()),0);
   }
-			 
+
   ncells=mesh.NCells();
-		
-				
+
+
   double dh;
-  		
+
   if(DynamicCellsP()) {
     dh = mesh.DisplaceNodes();
-			
+
     // Only allow for node insertion, cell division and cell growth
     // if the system has equillibrized
     // i.e. cell wall tension equillibrization is much faster
     // than biological processes, including division, cell wall yielding
     // and cell expansion
     mesh.InsertNodes(); // (this amounts to cell wall yielding)
-			
+
     if ( (-dh) < par.energy_threshold) {
-				
+
       mesh.IncreaseCellCapacityIfNecessary();
       mesh.DoCellHouseKeeping();
       //mesh.LoopCurrentCells(mem_fun(&plugin->CellHouseKeeping)); // this includes cell division
-				
+
       // Reaction diffusion	
       mesh.ReactDiffuse(par.rd_dt);
-				
       t++;
-				
       Plot(par.resize_stride);
-		
     }
-		
   } else {
-			
     mesh.ReactDiffuse(par.rd_dt);
-		
     Plot(par.resize_stride);
-			
   }
-		
   i++;
   return mesh.getTime();
-		
 }
-		
-		
-				
+
+
+
 /* Called if a cell is clicked */
-void Cell::OnClick(QMouseEvent *e) {
+void Cell::OnClick(QMouseEvent *e)
+{
   e = NULL; // use assignment merely to obviate compilation warning
 }
-				
+
 
 /* Custom message handler - Default appends a newline character to the end of each line. */ 
 void vlMessageOutput(QtMsgType type, const char *msg)
@@ -311,23 +304,19 @@ void vlMessageOutput(QtMsgType type, const char *msg)
     abort();
   }
 }
-				
+
 
 Parameter par;
-				
+
 int main(int argc,char **argv) {
-					
+
   try {
-						
-
     int c;
-
-						
     char *leaffile=0;
     char *modelfile=0;
-						
+
     while (1) {
-							
+
       //int this_option_optind = optind ? optind : 1;
       int option_index = 0;
       static struct option long_options[] = {
@@ -335,30 +324,30 @@ int main(int argc,char **argv) {
 	{"leaffile", required_argument, NULL, 'l'},
 	{"model", required_argument, NULL, 'm'} 
       };
-		
+
       // short option 'p' creates trouble for non-commandline usage on MacOSX. Option -p changed to -P (capital)
       static char *short_options = "blm";
       c = getopt_long (argc, argv, "bl:m:",
 		       long_options, &option_index);
       if (c == -1)
 	break;
-		
-		
+
+
       if (c==0) {
 	printf ("option %s", long_options[option_index].name);
 	if (optarg)
 	  printf (" with arg %s", optarg);
 	printf ("\n");
-			
+
 	c = short_options[option_index];
       }
-		
+
       switch (c) {
       case 'b':
 	cerr << "Running in batch mode\n";
 	batch=true;
 	break;
-				
+
       case 'l':
 	leaffile=strdup(optarg);
 	if (!leaffile) {
@@ -373,16 +362,16 @@ int main(int argc,char **argv) {
 	  throw("Out of memory");
 	}
 	break;
-					
+
       case '?':
 	break;
-				
+
       default:
 	printf ("?? getopt returned character code 0%o ??\n", c);
       }
     }
-	  
-	  
+
+
     if (optind < argc) {
       printf ("non-option ARGV-elements: ");
       while (optind < argc)
@@ -393,9 +382,9 @@ int main(int argc,char **argv) {
     bool useGUI = !batch;
     qInstallMsgHandler(vlMessageOutput); // custom message handler
     QApplication app(argc,argv,useGUI);
-						
 
-    
+
+
     QPalette tooltippalette = QToolTip::palette();
     QColor transparentcolor = QColor(tooltippalette.brush(QPalette::Window).color());
 
@@ -404,7 +393,7 @@ int main(int argc,char **argv) {
 
     QGraphicsScene canvas(0,0,8000,6000);
 
-	  
+
     if (useGUI) {
       main_window=new Main(canvas, mesh);
       if ( QApplication::desktop()->width() > ((Main *)main_window)->width() + 10
@@ -417,11 +406,8 @@ int main(int argc,char **argv) {
       }
     } else {
       main_window=new MainBase(canvas, mesh);
-
     }
 
-    
-	  
     canvas.setSceneRect(QRectF());
     if (!batch) {
       QObject::connect( qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()) );
@@ -432,16 +418,15 @@ int main(int argc,char **argv) {
     if (useGUI)
       model_catalogue.PopulateModelMenu();
     model_catalogue.InstallFirstModel();
-    
 
     if (leaffile) 
       main_window->Init(leaffile);
-	  
+
     Cell::SetMagnification(1);
     Cell::setOffset(0,0);
-						
+
     main_window->FitLeafToCanvas();
-							
+
     main_window->Plot();
 
     if (batch) {
@@ -449,11 +434,9 @@ int main(int argc,char **argv) {
       do {
 	t = main_window->TimeStep();
       } while (t < par.maxt);
-							
     } else
       return app.exec();
-	  
-						
+
   } catch (const char *message) {
     if (batch) { 
       cerr << "Exception caught:" << endl;
@@ -477,3 +460,5 @@ int main(int argc,char **argv) {
     }
   }
 }
+
+/* finis */

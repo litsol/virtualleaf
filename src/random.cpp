@@ -44,7 +44,7 @@ double RANDOM(void)
   counter++;
   long mj,mk;
   int i,ii,k;
-  
+
   if (idum < 0 || iff == 0) {
     iff=1;
     mj=MSEED-(idum < 0 ? -idum : idum);
@@ -86,9 +86,9 @@ int Seed(int seed)
 {
   if (seed < 0) {
     int rseed=Randomize();
-    #ifdef QDEBUG
+#ifdef QDEBUG
     qDebug() << "Randomizing random generator, seed is " << rseed << endl;
-    #endif
+#endif
     return rseed;
   } else {
     int i;
@@ -106,12 +106,12 @@ int Seed(int seed)
 **/
 long RandomNumber(long max)
 {
-   return((long)(RANDOM()*max+1));
+  return((long)(RANDOM()*max+1));
 }
 
 /*! Interactively ask for the seed
-\param void
-\return void
+  \param void
+  \return void
 **/
 void AskSeed(void)
 {
@@ -127,18 +127,18 @@ int RandomCounter(void) {
 }
 
 /*! Make a random seed based on the local time
-\param void
-\return void
+  \param void
+  \return void
 **/
 
 int Randomize(void) {
-  
+
   // Set the seed according to the local time
   struct timeb t;
   int seed;
 
   ftime(&t);
-  
+
   seed=abs((int)((t.time*t.millitm)%655337));
   Seed(seed);
 #ifdef QDEBUG
@@ -147,3 +147,4 @@ int Randomize(void) {
   return seed;
 }
 
+/* finis */

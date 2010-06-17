@@ -38,7 +38,7 @@ const double ForwardEuler::Pshrnk = -0.25;
 const double ForwardEuler::Errcon = 1.89e-4;
 const double ForwardEuler::Maxstp = 10000000;
 const double ForwardEuler::Tiny = 1.0e-30;
-  
+
 
 
 /* User storage for intermediate results. Preset kmax and dxsav in the calling program. If kmax =
@@ -49,12 +49,12 @@ const double ForwardEuler::Tiny = 1.0e-30;
 
 void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double eps, double h1, double hmin, int *nok, int *nbad)
 /* Runge-Kutta driver with adaptive stepsize control. Integrate starting values ystart[1..nvar]
-  from x1 to x2 with accuracy eps, storing intermediate results in global variables. h1 should
-  be set as a guessed first stepsize, hmin as the minimum allowed stepsize (can be zero). On
-  output nok and nbad are the number of good and bad (but retried and fixed) steps taken, and
-  ystart is replaced byv alues at the end of the integration interval. derivs is the user-supplied
-  routine for calculating the right-hand side derivative, while rkqs is the name of the stepper
-  routine to be used. */
+   from x1 to x2 with accuracy eps, storing intermediate results in global variables. h1 should
+   be set as a guessed first stepsize, hmin as the minimum allowed stepsize (can be zero). On
+   output nok and nbad are the number of good and bad (but retried and fixed) steps taken, and
+   ystart is replaced byv alues at the end of the integration interval. derivs is the user-supplied
+   routine for calculating the right-hand side derivative, while rkqs is the name of the stepper
+   routine to be used. */
 {
   static bool warning_issued = false;
 
@@ -68,12 +68,12 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
   }
   // N.B. Not for serious use and not fully usage compatible with RungeKutta
   // simply for testing API of integrator.
-  
+
   double *y,*dydx;
   y=new double[nvar];
   dydx=new double[nvar];
   double x=x1;
-    
+
   for (int i=0;i<nvar;i++) y[i]=ystart[i];
 
   //if (kmax > 0) xsav=x-dxsav*2.0; //Assures storage of first step.
@@ -81,9 +81,9 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
   dydx=new double[nvar];
 
   for (int nstp=0;nstp<Maxstp;nstp++) {
-    
+
     derivs(x,y,dydx);
-    
+
     if (kmax > 0 && kount < kmax-1) {
       xp[kount]=x; //Store intermediate results.
       for (int i=0;i<nvar;i++) yp[i][kount]=y[i];
@@ -91,18 +91,15 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
       //xsav=x;
     }
 
-
     for (int i=0;i<nvar;i++) {
       y[i]=y[i] + h1 * dydx[i];
     }
-      
+
     x = x + h1;
 
     if ((x-x2)*(x2-x1) >= 0.0) { //Are we done?
       goto done;
     }
-
-
   }
 
  done:
@@ -110,11 +107,12 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
   if (kmax) {
     xp[kount]=x; //Save final step.
     for (int i=0;i<nvar;i++) yp[i][kount]=y[i];
-    
+
   }
-  
+
   delete[] dydx;
   delete[] y;
   return; //Normal exit.
-
 }
+
+/* finis */

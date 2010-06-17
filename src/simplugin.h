@@ -38,45 +38,44 @@ class Parameter;
 
 class SimPluginInterface {
 
-public:
-	virtual QString ModelID(void) = 0; 
-	
-	virtual ~SimPluginInterface() { }
+ public:
+  virtual QString ModelID(void) = 0; 
 
-	// Executed after the cellular mechanics steps have equillibrized
-	virtual void CellHouseKeeping(CellBase *c) = 0;
-	
-	// Differential equations describing transport of chemicals from cell to cell
-	virtual void CelltoCellTransport(Wall *, double *dchem_c1, double *dchem_c2) = 0;
-	
-	// Differential equations describing chemical reactions taking place at or near the cell walls
-	// (e.g. PIN accumulation)
-	virtual void WallDynamics(Wall *w, double *dw1, double *dw)  = 0;
-	
-	// Differential equations describing chemical reactions inside the cells
-	virtual void CellDynamics(CellBase *c, double *dchem) = 0;
+  virtual ~SimPluginInterface() { }
 
-	// to be executed after a cell division
-	virtual void OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) = 0;
-	
-	// to be executed for coloring a cell
-	virtual void SetCellColor(CellBase *c, QColor *color) = 0;
-	
-	// Number of chemicals
-	virtual int NChem(void) = 0;
-	
-	// For internal use; not to be redefined by end users
-	virtual void SetParameters(Parameter *pass_pars);// { par = pass_pars; }
-	virtual void SetCellsStaticDatamembers (CellsStaticDatamembers *cells_static_data_members_of_main);
+  // Executed after the cellular mechanics steps have equillibrized
+  virtual void CellHouseKeeping(CellBase *c) = 0;
 
-protected:
-	class Parameter *par;
-	
+  // Differential equations describing transport of chemicals from cell to cell
+  virtual void CelltoCellTransport(Wall *, double *dchem_c1, double *dchem_c2) = 0;
+
+  // Differential equations describing chemical reactions taking place at or near the cell walls
+  // (e.g. PIN accumulation)
+  virtual void WallDynamics(Wall *w, double *dw1, double *dw)  = 0;
+
+  // Differential equations describing chemical reactions inside the cells
+  virtual void CellDynamics(CellBase *c, double *dchem) = 0;
+
+  // to be executed after a cell division
+  virtual void OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) = 0;
+
+  // to be executed for coloring a cell
+  virtual void SetCellColor(CellBase *c, QColor *color) = 0;
+
+  // Number of chemicals
+  virtual int NChem(void) = 0;
+
+  // For internal use; not to be redefined by end users
+  virtual void SetParameters(Parameter *pass_pars);// { par = pass_pars; }
+  virtual void SetCellsStaticDatamembers (CellsStaticDatamembers *cells_static_data_members_of_main);
+
+ protected:
+  class Parameter *par;
 };
 
-Q_DECLARE_INTERFACE(SimPluginInterface, 
-                    "nl.cwi.VirtualLeaf.SimPluginInterface/1.2") 
+Q_DECLARE_INTERFACE(SimPluginInterface, "nl.cwi.VirtualLeaf.SimPluginInterface/1.2") 
 Q_DECLARE_METATYPE(SimPluginInterface *)
 
-
 #endif
+
+/* finis */

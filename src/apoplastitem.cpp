@@ -32,44 +32,44 @@
 static const std::string _module_id("$Id$");
 
 ApoplastItem::ApoplastItem( Wall *w, QGraphicsScene *canvas )
-: QGraphicsLineItem( 0, canvas ), SimItemBase( w, canvas){
-		
-	setColor();
-	
-	// line with "PIN1"is a bit inside the cell wall
-	Vector edgevec = (*(w->N2())) - (*(w->N1()));
-	Vector perp = edgevec.Normalised().Perp2D();
-	
-	Vector offs = Cell::Offset();
-	double factor = Cell::Factor();
-	
-	Vector from = ( offs + *(w->N1()) ) * factor;
-	Vector to = ( offs + *(w->N2()) ) *factor;
-	
-	
-	setLine(( from.x ),
-			( from.y ),
-			( to.x ),
-			( to.y ) );
-	setZValue(12);
+  : QGraphicsLineItem( 0, canvas ), SimItemBase( w, canvas){
+
+  setColor();
+
+  // line with "PIN1"is a bit inside the cell wall
+  Vector edgevec = (*(w->N2())) - (*(w->N1()));
+  Vector perp = edgevec.Normalised().Perp2D();
+
+  Vector offs = Cell::Offset();
+  double factor = Cell::Factor();
+
+  Vector from = ( offs + *(w->N1()) ) * factor;
+  Vector to = ( offs + *(w->N2()) ) *factor;
+
+
+  setLine(( from.x ),
+	  ( from.y ),
+	  ( to.x ),
+	  ( to.y ) );
+  setZValue(12);
 }
 
 
 void ApoplastItem::setColor(void) {
-	
-	QColor diffcolor;
-	static const QColor purple("Purple");
-	static const QColor blue("blue");
-	
-	Wall *w=&getWall();
-	double val = w->getApoplast(2);
 
-	diffcolor.setRgb( 0,0,(int)( ( val / (1 + val) )*255.));
-	setPen (QPen(diffcolor, 20) );
+  QColor diffcolor;
+  static const QColor purple("Purple");
+  static const QColor blue("blue");
 
+  Wall *w=&getWall();
+  double val = w->getApoplast(2);
+
+  diffcolor.setRgb( 0,0,(int)( ( val / (1 + val) )*255.));
+  setPen (QPen(diffcolor, 20) );
 }
 
 void ApoplastItem::OnClick(QMouseEvent *e) {
   e = NULL; // merely to obviate compilation warnings
 }
 
+/* finis*/

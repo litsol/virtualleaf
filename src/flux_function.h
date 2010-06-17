@@ -36,6 +36,8 @@
 #include "far_mem_5.h"
 
 #define SumFluxFromWalls( _vleafcellp_, _flux_function_ ) \
-(( _vleafcellp_->ReduceCellAndWalls<double>( far_3_arg_mem_fun( *this, &_flux_function_ ) ) ))
+  (( _vleafcellp_->ReduceCellAndWalls<double>( far_3_arg_mem_fun( *this, &_flux_function_ ))))
 
 #endif
+
+/* finis */

@@ -49,8 +49,8 @@
 extern Parameter par;
 
 class Edge {
-  
-public:
+
+ public:
 
   Edge(void) {
     first=0;
@@ -61,7 +61,7 @@ public:
     first=f;
     second=s;
   }
-  
+
   // Copy Constructor
   Edge(const Edge &src) {
     first=src.first;
@@ -73,12 +73,11 @@ public:
     return ( (first==e.first && second==e.second) ||
 	     (first==e.second && second==e.first) );
   }
-  
+
 
   // Output the Edge
   ostream &print(ostream &os) const;
-    
-  
+
   Node *first, *second;
 };
 
@@ -96,7 +95,7 @@ class Node : public Vector {
   friend class NodeSet;
   friend class FigureEditor;
 
-public:
+ public:
   Node(void);
 
   Node(int index); // if want to construct a node, and not increase nnodes
@@ -124,75 +123,62 @@ public:
   inline void toggleBoundary(void) {
     boundary = !boundary;
   }
-  
+
 
   Cell &getCell(const Neighbor &i);
-  
+
   ostream &print(ostream &os) const;
   void XMLAdd(xmlNodePtr nodes_node) const;
-  
+
 #ifdef QTGRAPHICS
   void Draw(QGraphicsScene &c, QColor color=QColor("black"), int size = 10) const;
   void DrawIndex(QGraphicsScene *c) const;
   void DrawOwners(QGraphicsScene *c) const;
 #endif
-  
+
   // temporary function for easier debugging
-  inline int CellsSize(void) const {
-    return owners.size();
-  }
+  inline int CellsSize(void) const { return owners.size(); }
 
-  inline int Value(void) const {
-    return owners.size();
-  }
+  inline int Value(void) const { return owners.size(); }
 
-  void Fix(void) {
-    fixed=true;
-  }
-  inline bool Fixed(void) const {
-    return fixed;
-  }
-  inline void Unfix(void) {
-    fixed=false;
-  }
-  inline void MarkDead(void) {
-    dead=true;
-  }
-  inline bool DeadP(void) {
-    return dead;
-  }
+  void Fix(void) { fixed=true; }
 
-  inline void Mark(void) {
-    marked=true;
-  }
-  inline void Unmark(void) {
-    marked=false;
-  }
-  inline bool Marked(void) const {
-    return marked;
-  }
-  
+  inline bool Fixed(void) const { return fixed; }
+
+  inline void Unfix(void) { fixed=false; }
+
+  inline void MarkDead(void) { dead=true; }
+
+  inline bool DeadP(void) { return dead; }
+
+  inline void Mark(void) { marked=true; }
+
+  inline void Unmark(void) { marked=false; }
+
+  inline bool Marked(void) const { return marked; }
+
   inline void setPos( Vector p ) { 
     x = p.x;
     y = p.y;
     z = p.z;
   }
+
   inline bool SamP(void) const { return sam; }
 
   //!\brief Calculate angles with neighboring vertices
   //! Sum of angles should be 2*Pi
   QVector<qreal> NeighbourAngles(void);
-private:
-  
+ private:
+
   // "owners" lists the cells to which this cell belong
   // and the two neighboring nodes relative to each cell
   list< Neighbor > owners;
-  
+
   Mesh *m;
   int index;
   static int nnodes;
   static double target_length;
-  
+
   // if the node belongs to a NodeSet, node_set contains the pointer. Otherwise it is 0.
   NodeSet *node_set; 
   // fixed nodes cannot move. E.g. to represent the petiole
@@ -210,5 +196,6 @@ inline ostream &operator<<(ostream &os, const Edge &e) {
   return os;
 }
 
-
 #endif
+
+/* finis */

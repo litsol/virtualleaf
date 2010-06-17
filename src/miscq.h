@@ -33,3 +33,4 @@ QString getExtension(const QString fn);
 
 #endif
 
+/* finis */

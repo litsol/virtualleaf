@@ -31,24 +31,26 @@
 #include <QLabel>
 
 class UniqueMessageBox : public QDialog {
-	Q_OBJECT
-	
-public:
-	UniqueMessageBox ( /* Icon icon,*/ 
-			  const QString & title, 
-			  const QString & text, 
-			  /* StandardButtons buttons = Ok, */
-			  QWidget * parent = 0 , Qt::WindowFlags f = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint );
-	~UniqueMessageBox();
-	int exec(void);
-	
-private:
-	static QStringList issued_messages;
-	bool display;
-	QCheckBox *show_again;
-	QPushButton *okButton;
-	QLabel *label;
-	QString boxtext;
+  Q_OBJECT
+
+ public:
+  UniqueMessageBox ( /* Icon icon,*/ 
+		    const QString & title, 
+		    const QString & text, 
+		    /* StandardButtons buttons = Ok, */
+		    QWidget * parent = 0 , Qt::WindowFlags f = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint );
+  ~UniqueMessageBox();
+  int exec(void);
+
+ private:
+  static QStringList issued_messages;
+  bool display;
+  QCheckBox *show_again;
+  QPushButton *okButton;
+  QLabel *label;
+  QString boxtext;
 };
 
 #endif
+
+/* finis */

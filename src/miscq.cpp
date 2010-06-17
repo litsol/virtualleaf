@@ -26,12 +26,13 @@
 static const std::string _module_id("$Id$");
 
 // Returns the extension of a filename
-QString getExtension(const QString fn) {
-  
+QString getExtension(const QString fn)
+{
   // split on dots
   QStringList parts = fn.split(".");
-  
+
   // return last part, this should be the extension
   return QString(parts.last());
-  
 }
+
+/* finis */

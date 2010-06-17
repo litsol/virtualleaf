@@ -44,3 +44,5 @@ void SkipLine(FILE *fp);
 char *bool_str(bool bool_var);
 
 #endif
+
+/* finis */

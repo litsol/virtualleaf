@@ -41,8 +41,9 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
 
   // compose a label for the dialog box
   std::stringstream label_text; 
-  label_text << "C("<< wall->C1()->Index() << "," << wall->C2()->Index() << "), N(" << wall->N1()->Index() << "," << wall->N2()->Index() << ")";
-	
+  label_text << "C("<< wall->C1()->Index() << "," << wall->C2()->Index() << "), N(" 
+	     << wall->N1()->Index() << "," << wall->N2()->Index() << ")";
+
   // retrieve the current transporters
   QVector <double> transporters;  // transporter vector
   ntransporters = cell->NChem(); // size of transporter vector
@@ -86,13 +87,13 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
   setWindowTitle(tr(label_text.str().c_str()));
 }
 
-void TransporterDialog::setTransporterValues(){
-
+void TransporterDialog::setTransporterValues()
+{
   // iterate over the editor widgets soliciting their values and setting the wall's transporters accordingly.
   for (int i=0; i<ntransporters; ++i){
-    #ifdef QDEBUG  
+#ifdef QDEBUG  
     qDebug() << "Transporter(" << i << "): " << editors[i]->text().toDouble() << endl;
-    #endif
+#endif
     if (wall_num == 1)
       wall->setTransporters1(i, editors[i]->text().toDouble());
     else 
@@ -102,5 +103,6 @@ void TransporterDialog::setTransporterValues(){
   close();
 }
 
-// finis
+/* finis */
+
 

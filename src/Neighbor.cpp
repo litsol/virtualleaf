@@ -29,11 +29,11 @@ Neighbor::Neighbor(void):
   cell(NULL), nb1(NULL), nb2(NULL){}
 
 Neighbor::Neighbor(Cell *c, Node *n1, Node *n2):
- cell(c), nb1(n1), nb2(n2){}
+  cell(c), nb1(n1), nb2(n2){}
 
 Neighbor::Neighbor(const Neighbor &src):
   cell(src.cell), nb1(src.nb1), nb2(src.nb2){} // copy constructor
-  
+
 bool Neighbor::CellEquals(int i) const { return cell->Index() == i; } 
 bool Neighbor::Cmp(Neighbor &c) const { return cell->Index() < c.cell->Index(); } // Compare cell indices not pointers.
 bool Neighbor::Eq(Neighbor &c) const { return cell->Index() == c.cell->Index(); }
@@ -42,5 +42,6 @@ Cell* Neighbor::getCell(void) const { return cell; }
 bool neighbor_cell_eq(const Neighbor &n1, const Neighbor &n2) {
   return (n1.getCell())->Index() == (n2.getCell())->Index(); // Compare cell indices not pointers.
 }
-  
-// finis
+
+/* finis */
+

@@ -29,7 +29,7 @@
 #include <cmath>
 #include "sqr.h"
 #ifdef QTGRAPHICS
- #include <QPointF>
+#include <QPointF>
 #endif
 
 // three dimensional vector
@@ -37,7 +37,7 @@ using namespace std;
 
 class Vector {
 
-public:
+ public:
   inline Vector(const double cx=0,const double cy=0,const double cz=0) {
     x=cx;
     y=cy;
@@ -57,16 +57,16 @@ public:
   /*   } */
 
   inline Vector(const Vector &source) { 
-    
+
     // copy constructor
-    
+
     x=source.x;
     y=source.y;
     z=source.z;
-    
+
   }
   // type conversion from and to QPointF (2D vector class from Qt library; we throw away "z" here!!)
-  #ifdef QTGRAPHICS
+#ifdef QTGRAPHICS
   inline operator QPointF() const {
     return QPointF( x, y );
   }
@@ -75,7 +75,7 @@ public:
     y = p.y();
     z = 0.;
   }
-  #endif
+#endif
   virtual ~Vector() {
 
   };
@@ -89,28 +89,26 @@ public:
   }
   Vector operator+(const Vector &v) const; // addition
   inline Vector operator-(const Vector &v) const { 
-    
+
     Vector result;
-    
+
     result.x=x-v.x;
     result.y=y-v.y;
     result.z=z-v.z;
-    
+
     return result;
-    
   }
   Vector &operator-=(const Vector &v);
-  
+
   inline Vector &operator+=(const Vector &v) {
-  
+
     x+=v.x;
     y+=v.y;
     z+=v.z;
-    
+
     return *this;
-    
   }
-  
+
   Vector operator/(const double divisor) const; // division by a double
   Vector operator*(const double multiplier) const; // multiply by a scalar (double)
   Vector &operator/=(const double divisor);
@@ -119,9 +117,8 @@ public:
   bool operator==(const Vector &v) const; // comparison
   bool operator< (const Vector &v) const; // order x,y,z
   inline double Norm(void) const {
-  
+
     return sqrt(DSQR(x)+DSQR(y)+DSQR(z));
-    
   }
 
   // Quick and dirty Norm (i.e. Manhattan distance)
@@ -129,7 +126,7 @@ public:
   inline double ManhattanNorm(void) const {
     return x+y+z;
   }
-  
+
   double SqrNorm(void) const; // gives the square of |v|
   void Normalise(void); // normalise myself
   Vector Normalised(void) const; // return me normalised
@@ -141,6 +138,7 @@ public:
   Vector Perp2D(void) const {
     return Vector(y,-x,0);
   }
+
   // data members
   double x,y,z;
 
@@ -150,8 +148,7 @@ public:
   void ReadDump(istream &is) {
     is >> x >> y >> z;
   }
-private:
-
+ private:
 };
 
 ostream &operator<<(ostream &os, const Vector &v);
@@ -159,3 +156,5 @@ Vector operator*(const double multiplier, const Vector &v);
 double InnerProduct(const Vector &v1, const Vector &v2);
 
 #endif
+
+/* finis */

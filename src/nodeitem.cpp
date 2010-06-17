@@ -34,17 +34,17 @@ extern Parameter par;
 
 NodeItem::NodeItem( Node *n, QGraphicsScene *canvas )
   : QGraphicsItem( 0, canvas ), SimItemBase( n, canvas) {
-  
+
   brush = Qt::darkGray;
-  
+
   const double mag = par.node_mag;
   ellipsesize=QRectF(-1*mag, -1*mag, 2*mag, 2*mag);
-
 }
 
-void NodeItem::userMove(double dx, double dy) {
+void NodeItem::userMove(double dx, double dy)
+{
   QGraphicsItem::moveBy( dx, dy );
-  
+
   class_cast<Node *>(obj)->x += (dx/Cell::Magnification());
   class_cast<Node *>(obj)->y += (dy/Cell::Magnification());
 }
@@ -53,9 +53,8 @@ void NodeItem::userMove(double dx, double dy) {
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
-
   option = NULL; // use assignment merely to obviate compilation warning
-  
+
   painter->setBrush(brush);
   painter->setPen(Qt::NoPen);
   painter->drawEllipse(ellipsesize);
@@ -64,9 +63,9 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 QPainterPath NodeItem::shape() const
 {
-    QPainterPath path;
-    path.addEllipse(ellipsesize);
-    return path;
+  QPainterPath path;
+  path.addEllipse(ellipsesize);
+  return path;
 }
 
 QRectF NodeItem::boundingRect() const
@@ -77,29 +76,30 @@ QRectF NodeItem::boundingRect() const
 }
 
 // polymorphic OnClick functions
-void NodeItem::OnClick(void) {
+void NodeItem::OnClick(void)
+{
   Node *n = &getNode();
   n->toggleBoundary();
   setColor();
   update();
 }
 
-void NodeItem::OnClick(const Qt::MouseButton &mb) {
+void NodeItem::OnClick(const Qt::MouseButton &mb)
+{
   if (mb == Qt::LeftButton) {
     Node *n = &getNode();
     n->toggleBoundary();
     setColor();
     update();
-
   }
 }
 
-void NodeItem::setColor(void) {
-
+void NodeItem::setColor(void)
+{
   static QColor indian_red("IndianRed");
   static QColor deep_sky_blue("DeepSkyBlue");
   static QColor purple("Purple");
-  
+
   Node &n=getNode();
 
   if (n.SamP()) {
@@ -113,3 +113,5 @@ void NodeItem::setColor(void) {
     }
   }
 }
+
+/* finis */

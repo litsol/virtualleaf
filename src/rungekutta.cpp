@@ -31,13 +31,13 @@ static const std::string _module_id("$Id$");
 // The value Errcon equals (5/Safety) raised to the power (1/PGrow), see use below.
 
 /*
-static float maxarg1,maxarg2;
-#define FMAX(a,b) (maxarg1=(a),maxarg2=(b),(maxarg1) > (maxarg2) ?\
-(maxarg1) : (maxarg2))
-static float minarg1,minarg2;
-#define FMIN(a,b) (minarg1=(a),minarg2=(b),(minarg1) < (minarg2) ?\
-(minarg1) : (minarg2))
-#define SIGN(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
+  static float maxarg1,maxarg2;
+  #define FMAX(a,b) (maxarg1=(a),maxarg2=(b),(maxarg1) > (maxarg2) ?\
+  (maxarg1) : (maxarg2))
+  static float minarg1,minarg2;
+  #define FMIN(a,b) (minarg1=(a),minarg2=(b),(minarg1) < (minarg2) ?\
+  (minarg1) : (minarg2))
+  #define SIGN(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
 */
 
 const double RungeKutta::Safety  = 0.9;
@@ -46,9 +46,9 @@ const double RungeKutta::Pshrnk = -0.25;
 const double RungeKutta::Errcon = 1.89e-4;
 const double RungeKutta::Maxstp = 10000;
 const double RungeKutta::Tiny = 1.0e-30;
-  
+
 void RungeKutta::rkqs(double *y, double *dydx, int n, double *x, double htry, double eps,
-			 double *yscal, double *hdid, double *hnext)
+		      double *yscal, double *hdid, double *hnext)
 /* Fifth-order Runge-Kutta step with monitoring of local truncation error to ensure accuracy and
    adjust stepsize. Input are the dependent variable vector y[1..n] and its derivative dydx[1..n]
    at the starting value of the independent variable x. Also input are the stepsize to be attempted
@@ -61,7 +61,7 @@ void RungeKutta::rkqs(double *y, double *dydx, int n, double *x, double htry, do
   double errmax,h,htemp,xnew,*yerr,*ytemp;
   yerr=new double[n];
   ytemp=new double[n];
-  
+
   h=htry; // Set stepsize to the initial trial value.
   for (;;) {
     rkck(y,dydx,n,*x,h,ytemp,yerr); // Take a step.
@@ -85,7 +85,6 @@ void RungeKutta::rkqs(double *y, double *dydx, int n, double *x, double htry, do
   for (i=0;i<n;i++) y[i]=ytemp[i];
   delete[] ytemp;
   delete[] yerr;
-
 }
 
 
@@ -133,7 +132,7 @@ void RungeKutta::rkck(double *y, double *dydx, int n, double x, double h, double
     yout[i]=y[i]+h*(c1*dydx[i]+c3*ak3[i]+c4*ak4[i]+c6*ak6[i]);
   for (i=0;i<n;i++)
     yerr[i]=h*(dc1*dydx[i]+dc3*ak3[i]+dc4*ak4[i]+dc5*ak5[i]+dc6*ak6[i]);
-  
+
   //Estimate error as difference between fourth and fifth order methods.
   delete[] ytemp;
   delete[] ak6;
@@ -184,7 +183,7 @@ void RungeKutta::odeint(double *ystart, int nvar, double x1, double x2, double e
       xsav=x;
     }
     if ((x+h-x2)*(x+h-x1) > 0.0) h=x2-x;// If stepsize can overshoot, decrease.
-    
+
     rkqs(y,dydx,nvar,&x,h,eps,yscal,&hdid,&hnext);
     if (hdid == h) ++(*nok); else ++(*nbad);
     if ((x-x2)*(x2-x1) >= 0.0) { //Are we done?
@@ -203,3 +202,5 @@ void RungeKutta::odeint(double *ystart, int nvar, double x1, double x2, double e
   }
   MyWarning::error("Too many steps in routine odeint");
 }
+
+/* finis */

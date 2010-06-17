@@ -33,15 +33,17 @@
 extern "C" { 
 #endif
   // namespace MyWarning needed because libxml2 also defines a warning token.
-    
+
   namespace MyWarning {
     void error(const char *, ...);
     void warning(const char *, ...);
     void unique_warning(const char *, ...);
   }
-  
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+
+/* finis */

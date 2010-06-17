@@ -39,22 +39,21 @@
 #include <QMenu>
 
 class ModelCatalogue : public QObject {
-Q_OBJECT
-public:
-	ModelCatalogue(Mesh *mesh, Main *mainwin, const char *model); 	
-	void LoadPlugins(); 
-	void LoadPlugin(const char *model);
-	
-	void InstallFirstModel();
-	void PopulateModelMenu();	
+  Q_OBJECT
+    public:
+  ModelCatalogue(Mesh *mesh, Main *mainwin, const char *model); 	
+  void LoadPlugins(); 
+  void LoadPlugin(const char *model);
 
-public slots:
-	void InstallModel(SimPluginInterface *model);	
-	void InstallModel(QAction *modelaction);
-private:
-	QVector<SimPluginInterface *> models;
-	Mesh *mesh;
-	Main *mainwin;
+  void InstallFirstModel();
+  void PopulateModelMenu();	
 
+  public slots:
+  void InstallModel(SimPluginInterface *model);	
+  void InstallModel(QAction *modelaction);
+ private:
+  QVector<SimPluginInterface *> models;
+  Mesh *mesh;
+  Main *mainwin;
 };
 #endif

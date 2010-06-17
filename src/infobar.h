@@ -32,26 +32,28 @@
 
 class InfoBar : public Q3DockWindow {
 
-	Q_OBJECT
-public:
+  Q_OBJECT
+    public:
 
-	InfoBar(void) : Q3DockWindow() { 
-		
-		virtleaf = new QLabel();
-		SetText("undefined");
-		
-		setHorizontalStretchable(true);
-		boxLayout()->addStretch();
-		boxLayout()->addWidget(virtleaf);//, Qt::AlignHCenter);
-		boxLayout()->addStretch();
-	}
-	
-	void SetText(QString text) {
-		virtleaf->setText(QString("<h1>The Virtual Leaf</h1>\n<center><b>Model:</b> <i>%1</i></center>").arg(text));
-	}
-	
-private:
-	QLabel *virtleaf;
+  InfoBar(void) : Q3DockWindow() { 
+
+    virtleaf = new QLabel();
+    SetText("undefined");
+
+    setHorizontalStretchable(true);
+    boxLayout()->addStretch();
+    boxLayout()->addWidget(virtleaf);//, Qt::AlignHCenter);
+    boxLayout()->addStretch();
+  }
+
+  void SetText(QString text) {
+    virtleaf->setText(QString("<h1>The Virtual Leaf</h1>\n<center><b>Model:</b> <i>%1</i></center>").arg(text));
+  }
+
+ private:
+  QLabel *virtleaf;
 };
 
 #endif
+
+/* finis */

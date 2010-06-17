@@ -35,21 +35,21 @@ class RungeKutta  {
     yp=0;
   }
   virtual ~RungeKutta() {}
-  
+
   void odeint(double ystart[], int nvar, double x1, double x2, double eps, double h1,
 	      double hmin, int *nok, int *nbad);
-  
+
 
  protected:
   // implement "derivs" in a derived class
   virtual void derivs(double x, double *y, double *dxdy) = 0;
   int kmax,kount;
   double *xp,**yp,dxsav;
-  
+
  private:
   void rkqs(double *y, double *dydx, int n, double *x, double htry, double eps,
-       double *yscal, double *hdid, double *hnext);
-  
+	    double *yscal, double *hdid, double *hnext);
+
   void rkck(double *y, double *dydx, int n, double x, double h, double yout[],
 	    double *yerr);
 
@@ -59,7 +59,7 @@ class RungeKutta  {
   static const double Errcon;
   static const double Maxstp;
   static const double Tiny;
-  
-
 };
 #endif
+
+/* finis */

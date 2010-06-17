@@ -42,21 +42,21 @@ void TestPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase
 
 void TestPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
-	static QStringList colors;
-	if (colors.size()==0) {
-		colors << "red" << "green" << "blue";
-	}
-	color->setNamedColor(colors[c->Index()%colors.size()]);
+  static QStringList colors;
+  if (colors.size()==0) {
+    colors << "red" << "green" << "blue";
+  }
+  color->setNamedColor(colors[c->Index()%colors.size()]);
 }
 
 
 
 void TestPlugin::CellHouseKeeping(CellBase *c) {
 	
-	c->EnlargeTargetArea(par->cell_expansion_rate);
-	if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
-		c->Divide();
-	}
+  c->EnlargeTargetArea(par->cell_expansion_rate);
+  if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
+    c->Divide();
+  }
 }
 
 void TestPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
@@ -75,3 +75,5 @@ void TestPlugin::CellDynamics(CellBase *c, double *dchem) {
 }
 
 Q_EXPORT_PLUGIN2(testplugin, TestPlugin)
+
+/* finis */

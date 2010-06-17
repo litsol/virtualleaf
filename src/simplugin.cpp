@@ -24,12 +24,14 @@
 
 static const std::string _module_id("$Id$");
 
-void SimPluginInterface::SetParameters(Parameter *pass_pars) {
-	par = pass_pars; 
+void SimPluginInterface::SetParameters(Parameter *pass_pars)
+{
+  par = pass_pars; 
 }
 
 void SimPluginInterface::SetCellsStaticDatamembers( CellsStaticDatamembers *cells_static_data_members_of_main)
 {
-	CellBase::static_data_members = cells_static_data_members_of_main;
+  CellBase::static_data_members = cells_static_data_members_of_main;
 }
 
+/* finis */

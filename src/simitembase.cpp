@@ -25,14 +25,18 @@
 
 static const std::string _module_id("$Id$");
 
-SimItemBase::SimItemBase( void *v, QGraphicsScene *canvas ) {
+SimItemBase::SimItemBase( void *v, QGraphicsScene *canvas )
+{
   canvas = NULL; // use assignment merely to obviate compilation warning
-    obj=v;
+  obj=v;
 };
 
 SimItemBase::~SimItemBase(void) {};
 
 
-void SimItemBase::userMove(double dx, double dy) {
+void SimItemBase::userMove(double dx, double dy)
+{
   dx = dy = 0.0; // use assignment merely to obviate compilation warning
 };
+
+/* finis */
