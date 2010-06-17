@@ -27,23 +27,24 @@ using namespace  std;
 
 static const std::string _module_id("$Id$");
 
-OptionFileDialog::OptionFileDialog(QWidget *parent, const char *name, bool modal) : Q3FileDialog(parent, name, modal) {
+OptionFileDialog::OptionFileDialog(QWidget *parent, const char *name, bool modal) : Q3FileDialog(parent, name, modal)
+{
+  //cerr << "This is an OptionFileDialog\n";
+  geometrycheck = new QCheckBox("geometry",this);
+  geometrycheck -> setCheckState(Qt::Checked);
 
-	//cerr << "This is an OptionFileDialog\n";
-	geometrycheck = new QCheckBox("geometry",this);
-	geometrycheck -> setCheckState(Qt::Checked);
-	
-	parcheck = new QCheckBox("parameters", this);
-	parcheck -> setCheckState(Qt::Checked);
-	
-	addToolButton(geometrycheck);
-	addToolButton(parcheck);
+  parcheck = new QCheckBox("parameters", this);
+  parcheck -> setCheckState(Qt::Checked);
 
+  addToolButton(geometrycheck);
+  addToolButton(parcheck);
 };
 
-OptionFileDialog::OptionFileDialog ( const QString & dirName, const QString & filter , QWidget * parent, const char * name , bool modal  ) :
-		Q3FileDialog(dirName, filter, parent, name, modal) {
-		
-			cerr << "This is an OptionFileDialog\n";
-					
-	};
+OptionFileDialog::OptionFileDialog ( const QString & dirName, const QString & filter , 
+				     QWidget * parent, const char * name , bool modal  ) :
+  Q3FileDialog(dirName, filter, parent, name, modal) {
+
+  cerr << "This is an OptionFileDialog\n";
+};
+
+/* finis */

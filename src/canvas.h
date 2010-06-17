@@ -53,9 +53,9 @@
 #include <libxml/xmlreader.h>
 
 #if defined(Q_OS_MAC)
-  #define PREFIX "cmd"
+#define PREFIX "cmd"
 #else
-  #define PREFIX "crtl"
+#define PREFIX "crtl"
 #endif
 
 
@@ -68,13 +68,13 @@ class FigureEditor : public QGraphicsView {
   Q_OBJECT
 
     friend class Main;
-    public:
+ public:
   FigureEditor(QGraphicsScene&, Mesh&, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
   void clear();
   void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
   void FullRedraw(void);
 
-protected:
+ protected:
   void mousePressEvent(QMouseEvent*);
   void mouseMoveEvent(QMouseEvent*);
   void mouseReleaseEvent(QMouseEvent*);
@@ -96,7 +96,7 @@ protected:
   //NodeItem* moving;
   SimItemBase *moving;
   QPointF moving_start;
-    
+
   QGraphicsLineItem *intersection_line;
   bool rotation_mode;
   bool insert_mode;
@@ -105,8 +105,8 @@ protected:
 
 class Main : public Q3MainWindow, public MainBase {
   Q_OBJECT
-	friend class ModelCatalogue; // needs to populate menu item models
-    public:
+    friend class ModelCatalogue; // needs to populate menu item models
+ public:
   Main(QGraphicsScene&, Mesh&, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
   ~Main();
   virtual bool ShowCentersP(void) {return view->isItemChecked(com_id);}
@@ -120,7 +120,7 @@ class Main : public Q3MainWindow, public MainBase {
   virtual bool MovieFramesP(void) {return view->isItemChecked(movie_frames_id);}
   virtual bool ShowBoundaryOnlyP(void) {return view->isItemChecked(only_boundary_id);}
   virtual bool ShowWallsP(void) {return view->isItemChecked(cell_walls_id);}
-	virtual bool ShowApoplastsP(void) { return view->isItemChecked(apoplasts_id);}
+  virtual bool ShowApoplastsP(void) { return view->isItemChecked(apoplasts_id);}
   virtual bool ShowFluxesP(void) { return view->isItemChecked(fluxes_id); }
   virtual bool DynamicCellsP(void) { return options->isItemChecked(dyn_cells_id); }
   virtual bool RotationModeP(void) { return options->isItemChecked(rotation_mode_id); }
@@ -128,10 +128,11 @@ class Main : public Q3MainWindow, public MainBase {
   virtual bool ShowToolTipsP(void) { return helpmenu->isItemChecked(tooltips_id); }
   virtual bool HideCellsP(void) { return view->isItemChecked(hide_cells_id); }
   void scale(double factor); 
-  virtual double getFluxArrowsize(void) {
+  virtual double getFluxArrowsize(void)
+  {
     return flux_arrow_size;
   }
-    
+
   void FitCanvasToWindow();
   void FitLeafToCanvas(void);
 
@@ -162,7 +163,8 @@ class Main : public Q3MainWindow, public MainBase {
   void stopSimulation(void);
   void RefreshInfoBar(void);
 
-  void EnterRotationMode(void) {
+  void EnterRotationMode(void)
+  {
 
     UserMessage("Rotation mode. Click mouse to exit.");
     if (editor) {
@@ -171,9 +173,10 @@ class Main : public Q3MainWindow, public MainBase {
       // Exit rotation mode if mouse is clicked
       connect(editor, SIGNAL(MousePressed()), this, SLOT(ExitRotationMode()));
     }
-  
+
   }
-  void ExitRotationMode(void) { 
+  void ExitRotationMode(void)
+  { 
     UserMessage("Exited rotation mode.",2000);
 
     options->setItemChecked(rotation_mode_id, false); 
@@ -186,7 +189,7 @@ class Main : public Q3MainWindow, public MainBase {
   void PauseIfRunning(void);
   void ContIfRunning(void);
   virtual void XMLReadSettings(xmlNode *settings);
-   
+
   private slots:
   void aboutQt();
   void newView();
@@ -209,27 +212,27 @@ class Main : public Q3MainWindow, public MainBase {
   void shrink();
   void zoomIn();
   void zoomOut();
-	
+
   void CleanMesh();
-	void CleanMeshChemicals(void);
-	void CleanMeshTransporters(void);
-	
+  void CleanMeshChemicals(void);
+  void CleanMeshTransporters(void);
+
   void RandomizeMesh();
 
  signals:
   void SimulationDone(void);
   void ParsChanged(void);
-  
+
  protected:
   Mesh &mesh;
-  
+
  private:
   NodeSet *node_set;
   FigureEditor *editor;
   Q3PopupMenu* options;
   Q3PopupMenu *view;
   Q3PopupMenu *run;
-	QMenu *modelmenu;
+  QMenu *modelmenu;
   Q3PopupMenu *helpmenu;
 
   QPrinter* printer;
@@ -247,7 +250,7 @@ class Main : public Q3MainWindow, public MainBase {
   int cell_strain_id; // view->Show cell strain
   int only_boundary_id; // view ->Show only leaf boundary
   int cell_walls_id; // view -> Show transporters
-	int apoplasts_id; // view -> Show apoplasts
+  int apoplasts_id; // view -> Show apoplasts
   int tooltips_id; // help -> Show Cell Info
   int hide_cells_id; // view->Hide Cells
   double flux_arrow_size;
@@ -262,10 +265,9 @@ class Main : public Q3MainWindow, public MainBase {
   virtual xmlNode *XMLSettingsTree(void);
   static const QString caption;
   static const QString caption_with_file;
-	InfoBar *infobar;
-
+  InfoBar *infobar;
 };
 
-
-
 #endif
+
+/* finis*/

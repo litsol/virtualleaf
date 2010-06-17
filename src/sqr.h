@@ -34,20 +34,22 @@
 // However, they seem to work, but it seems safer to redefine them.
 // Inline functions will behave like macros anyhow.
 inline double DSQR( double a ) {
-  
+
   if (a == 0.0) {
     return 0.0;
   } else {
     return a*a;
   }
-
 }
 
 inline float SQR( float a ) {
-   if (a == 0.0) {
+  if (a == 0.0) {
     return 0.0;
   } else {
     return a*a;
   }
 }
+
 #endif
+
+/* finis */

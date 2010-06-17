@@ -33,31 +33,29 @@
 
 class Wall : public WallBase {
 
-public:
-	Wall(Node *sn1, Node *sn2, CellBase *sc1, CellBase *sc2) : WallBase(sn1, sn2, sc1, sc2) {}
-	
-	
-	void XMLAdd(xmlNodePtr parent_node) const;
-	bool CorrectWall(void);
+ public:
+ Wall(Node *sn1, Node *sn2, CellBase *sc1, CellBase *sc2) : WallBase(sn1, sn2, sc1, sc2) {}
 
-	
-	// Graphics:
-	//! Visualize transport protein concentrations
-	void Draw(QGraphicsScene *c);
-	
-	//! Visualize contents of the apoplast
-	void DrawApoplast(QGraphicsScene *c); 
-	/*! \brief Visualize the structure of the wall (Cell ID's etc.). 
-	 Used for debugging purposes.
-	 */
-	void ShowStructure(QGraphicsScene *c);
 
-private:
-	string WallTypetoStr(const WallType &wt) const;
-	    
-	
-	
-	
+  void XMLAdd(xmlNodePtr parent_node) const;
+  bool CorrectWall(void);
+
+
+  // Graphics:
+  //! Visualize transport protein concentrations
+  void Draw(QGraphicsScene *c);
+
+  //! Visualize contents of the apoplast
+  void DrawApoplast(QGraphicsScene *c); 
+  /*! \brief Visualize the structure of the wall (Cell ID's etc.). 
+    Used for debugging purposes.
+  */
+  void ShowStructure(QGraphicsScene *c);
+
+ private:
+  string WallTypetoStr(const WallType &wt) const;
 };
 
 #endif
+
+/* finis */

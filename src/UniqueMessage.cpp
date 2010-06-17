@@ -32,54 +32,53 @@ static const std::string _module_id("$Id$");
 
 using namespace std;
 UniqueMessageBox::UniqueMessageBox ( /* Icon icon,*/ 
-									 const QString & title, 
-									 const QString & text, 
-									 QWidget * parent ,
-									 Qt::WindowFlags f ) : 
-QDialog(parent, f) {
-	
-	label = new QLabel(text);
-	boxtext = text;
-	
-	show_again = new QCheckBox(tr("Do not show this message again"));
-	okButton = new QPushButton(tr("Ok"));
-		
-	if (issued_messages.contains(boxtext) ) {
-		
-		cerr << "Saw message before\n";
-		display = false;
-	} else {
-		display=true;
-	}
-	
-	connect(okButton, SIGNAL(clicked()), this, SLOT(close()) );
-	QHBoxLayout *hlayout = new QHBoxLayout;
-	hlayout->addWidget(label);
-	hlayout->addWidget(okButton);
-	QVBoxLayout *layout = new QVBoxLayout;
-	layout->addLayout(hlayout);
-	layout->addWidget(show_again);
-	setLayout(layout);
-	setWindowTitle(title);
-};
-		
-UniqueMessageBox::~UniqueMessageBox(void)  {
-	
-	if (show_again->checkState() == Qt::Checked ) {
-		cerr << "Message won't be shown again\n";
-		issued_messages << boxtext;
+				    const QString & title, 
+				    const QString & text, 
+				    QWidget * parent ,
+				    Qt::WindowFlags f ) : 
+  QDialog(parent, f) {
 
-	}
+  label = new QLabel(text);
+  boxtext = text;
+
+  show_again = new QCheckBox(tr("Do not show this message again"));
+  okButton = new QPushButton(tr("Ok"));
+
+  if (issued_messages.contains(boxtext) ) {
+
+    cerr << "Saw message before\n";
+    display = false;
+  } else {
+    display=true;
+  }
+
+  connect(okButton, SIGNAL(clicked()), this, SLOT(close()) );
+  QHBoxLayout *hlayout = new QHBoxLayout;
+  hlayout->addWidget(label);
+  hlayout->addWidget(okButton);
+  QVBoxLayout *layout = new QVBoxLayout;
+  layout->addLayout(hlayout);
+  layout->addWidget(show_again);
+  setLayout(layout);
+  setWindowTitle(title);
+};
+
+UniqueMessageBox::~UniqueMessageBox(void)  {
+
+  if (show_again->checkState() == Qt::Checked ) {
+    cerr << "Message won't be shown again\n";
+    issued_messages << boxtext;
+  }
 }
 int UniqueMessageBox::exec(void)  {
-	
-	if (display)
-		return QDialog::exec();
-	else {
-		return 1;
-	}
 
+  if (display)
+    return QDialog::exec();
+  else {
+    return 1;
+  }
 }
-					   
+
 QStringList UniqueMessageBox::issued_messages;
-					   
+
+/* finis */

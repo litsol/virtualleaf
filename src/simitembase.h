@@ -40,28 +40,30 @@ TYPE class_cast(void * symbol)
     void * symbol;
     TYPE unknownclass;
   } cast;
-  
+
   cast.symbol = symbol;
   return cast.unknownclass;
 }
 
 class SimItemBase
 {
-public:
+ public:
   SimItemBase( void *v, QGraphicsScene *canvas );
   virtual ~SimItemBase(void);
   virtual void userMove(double dx, double dy);
-  
+
 
  protected:
 
   // I know which simulation object I represent, so if I am moved around
   // the canvas, the real object can be moved as well
-  
+
   // (both Cell and Node have Vector as base class...)
   // Not proper design... sorry.
- 
+
   void *obj; 
-  };
+};
 
 #endif
+
+/* finis */

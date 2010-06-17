@@ -42,8 +42,8 @@ using namespace std;
 class MainBase  {
 
  public:
-  MainBase(QGraphicsScene &c, Mesh &m) : mesh(m), canvas(c) {
-    
+ MainBase(QGraphicsScene &c, Mesh &m) : mesh(m), canvas(c) {
+
     // Standard options for batch version
     showcentersp =  false;
     showmeshp =  false;
@@ -60,71 +60,71 @@ class MainBase  {
     showtooltipsp = false;
     hidecellsp = false;
   }
-    virtual ~MainBase() {};
-    
-    virtual double TimeStep();
-    virtual void Init(char *leaffile=0);
-    
-    virtual bool ShowCentersP(void) {return showcentersp;}
-    virtual bool ShowMeshP(void) {return showmeshp; }
-    virtual bool ShowBorderCellsP(void) {return showbordercellp; }
-    virtual bool PausedP(void) {return false; }
-    virtual bool ShowNodeNumbersP(void) {return shownodenumbersp; }
-    virtual bool ShowCellNumbersP(void) {return showcellnumbersp;}
-    virtual bool ShowCellAxesP(void) {return showcellsaxesp;}
-    virtual bool ShowCellStrainP(void) {return showcellstrainp;}
-    virtual bool MovieFramesP(void) {return movieframesp;}
-    virtual bool ShowBoundaryOnlyP(void) {return showboundaryonlyp;}
-    virtual bool ShowToolTipsP(void) {return showtooltipsp;}
-    virtual bool ShowWallsP(void) {return showwallsp;}
-    virtual bool ShowApoplastsP(void) { return showapoplastsp;}
-    virtual bool ShowFluxesP(void) { return showfluxesp; }
-    virtual bool DynamicCellsP(void) { return dynamicscellsp; }
-    virtual void FitCanvasToWindow() {};
-    virtual void FitLeafToCanvas() {};
-    virtual bool HideCellsP(void) { return hidecellsp; }
-    virtual void clear(void) {
-      QList<QGraphicsItem *> list = canvas.items();
-      QList<QGraphicsItem *>::Iterator it = list.begin();
-      for (; it != list.end(); ++it) {
-	if ( *it )
-	  delete *it;
-      }
-    };
-    virtual void XMLReadSettings(xmlNode *settings);
-    virtual double getFluxArrowsize(void) { return 10.;}
-    
-    void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
-    void CutSAM(void);
-	
-    void Plot(int resize_stride=10);
+  virtual ~MainBase() {};
 
-    virtual void UserMessage(QString message, int timeout = 0) {
-      timeout = 0; // merely to obviate 'warning unused parameter' message
-      cerr << message.toAscii().constData() << endl;
+  virtual double TimeStep();
+  virtual void Init(char *leaffile=0);
+
+  virtual bool ShowCentersP(void) {return showcentersp;}
+  virtual bool ShowMeshP(void) {return showmeshp; }
+  virtual bool ShowBorderCellsP(void) {return showbordercellp; }
+  virtual bool PausedP(void) {return false; }
+  virtual bool ShowNodeNumbersP(void) {return shownodenumbersp; }
+  virtual bool ShowCellNumbersP(void) {return showcellnumbersp;}
+  virtual bool ShowCellAxesP(void) {return showcellsaxesp;}
+  virtual bool ShowCellStrainP(void) {return showcellstrainp;}
+  virtual bool MovieFramesP(void) {return movieframesp;}
+  virtual bool ShowBoundaryOnlyP(void) {return showboundaryonlyp;}
+  virtual bool ShowToolTipsP(void) {return showtooltipsp;}
+  virtual bool ShowWallsP(void) {return showwallsp;}
+  virtual bool ShowApoplastsP(void) { return showapoplastsp;}
+  virtual bool ShowFluxesP(void) { return showfluxesp; }
+  virtual bool DynamicCellsP(void) { return dynamicscellsp; }
+  virtual void FitCanvasToWindow() {};
+  virtual void FitLeafToCanvas() {};
+  virtual bool HideCellsP(void) { return hidecellsp; }
+  virtual void clear(void) {
+    QList<QGraphicsItem *> list = canvas.items();
+    QList<QGraphicsItem *>::Iterator it = list.begin();
+    for (; it != list.end(); ++it) {
+      if ( *it )
+	delete *it;
     }
-    Mesh &mesh;
-	
- protected:
-    QGraphicsScene &canvas;
-    virtual xmlNode *XMLSettingsTree(void) const;
+  };
+  virtual void XMLReadSettings(xmlNode *settings);
+  virtual double getFluxArrowsize(void) { return 10.;}
+
+  void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
+  void CutSAM(void);
+
+  void Plot(int resize_stride=10);
+
+  virtual void UserMessage(QString message, int timeout = 0) {
+    timeout = 0; // merely to obviate 'warning unused parameter' message
+    cerr << message.toAscii().constData() << endl;
+  }
+  Mesh &mesh;
 
  protected:
-    bool showcentersp;
-    bool showmeshp;
-    bool showbordercellp;
-    bool shownodenumbersp;
-    bool showcellnumbersp;
-    bool showcellsaxesp;
-    bool showcellstrainp;
-    bool movieframesp;
-    bool showboundaryonlyp;
-    bool showwallsp;
-    bool showapoplastsp;
-    bool showfluxesp;
-    bool dynamicscellsp;
-    bool showtooltipsp;
-    bool hidecellsp;
+  QGraphicsScene &canvas;
+  virtual xmlNode *XMLSettingsTree(void) const;
+
+ protected:
+  bool showcentersp;
+  bool showmeshp;
+  bool showbordercellp;
+  bool shownodenumbersp;
+  bool showcellnumbersp;
+  bool showcellsaxesp;
+  bool showcellstrainp;
+  bool movieframesp;
+  bool showboundaryonlyp;
+  bool showwallsp;
+  bool showapoplastsp;
+  bool showfluxesp;
+  bool dynamicscellsp;
+  bool showtooltipsp;
+  bool hidecellsp;
 };
 
 //#include <qapplication.h>
@@ -132,3 +132,5 @@ class MainBase  {
 #define INIT void MainBase::Init(char *leaffile)
 
 #endif
+
+/* finis */

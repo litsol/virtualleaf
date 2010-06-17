@@ -27,7 +27,8 @@ static const std::string _module_id("$Id$");
 
 int main() {
 
-   long rseed=Randomize();
-   std::cout << rseed << "\n";
-
+  long rseed=Randomize();
+  std::cerr << rseed << std::endl;
 }
+
+/* finis */

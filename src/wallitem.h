@@ -37,7 +37,7 @@
 
 class WallItem : public QGraphicsLineItem, public SimItemBase
 {
-public:
+ public:
   WallItem( Wall *n, int wallnumber, QGraphicsScene *canvas );
   virtual ~WallItem() {}
   Wall &getWall(void) const { return *class_cast<Wall*>(obj); }
@@ -48,3 +48,5 @@ public:
 };
 
 #endif
+
+/* finis */

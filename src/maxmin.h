@@ -33,3 +33,4 @@ inline double SIGN(double a, double b) { return b>=0.0 ? fabs(a) : -fabs(a); }
 
 #endif
 
+/* finis */

@@ -29,19 +29,22 @@ $binsize = ($max-$min)/$n_bins;
 
 
 for ($i=0;$i<$n_bins;$i++) {
-	$bins[$i]=0;
+    $bins[$i]=0;
 }
 
 while (<>) {
-  @line=split;
-  $num=$line[0];
-  $bin = int($num / $binsize);
-	# print "[$num, $bin] ";
-  $bins[$bin]++;
+    @line=split;
+    $num=$line[0];
+    $bin = int($num / $binsize);
+    # print "[$num, $bin] ";
+    $bins[$bin]++;
 }
 
 
 for ($bin=0;$bin<=$#bins;$bin++) {
-   $halfwaybin = $bin * $binsize + $binsize/2.;
-   print $halfwaybin." ".$bins[$bin]."\n";
+    $halfwaybin = $bin * $binsize + $binsize/2.;
+    print $halfwaybin." ".$bins[$bin]."\n";
 }
+
+# finis
+

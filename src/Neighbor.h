@@ -50,7 +50,7 @@ class Neighbor {
   Neighbor(void);
   Neighbor(Cell*, Node*, Node*);
   Neighbor(const Neighbor&);
-  
+
   bool CellEquals(int) const;
   bool Cmp(Neighbor&) const;
   bool Eq(Neighbor&) const;
@@ -68,4 +68,5 @@ bool neighbor_cell_eq(const Neighbor &n1, const Neighbor &n2);
 
 #endif
 
-// finis
+/* finis */
+

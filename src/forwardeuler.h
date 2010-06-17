@@ -22,7 +22,6 @@
  *
  */
 
-
 #ifndef _FORWARDEULER_H_
 #define _FORWARDEULER_H_
 
@@ -35,18 +34,18 @@ class ForwardEuler  {
     xp=0;
     yp=0;
   }
-  
+
   virtual ~ForwardEuler() {}
-  
+
   void odeint(double ystart[], int nvar, double x1, double x2, double eps, double h1,
 	      double hmin, int *nok, int *nbad);
-  
+
   // implement this function in a derived class
  protected:
   virtual void derivs(double x, double *y, double *dxdy) = 0;
   int kmax,kount;
   double *xp,**yp,dxsav;
-  
+
  private:
 
   static const double Safety;
@@ -55,7 +54,7 @@ class ForwardEuler  {
   static const double Errcon;
   static const double Maxstp;
   static const double Tiny;
-  
-
 };
 #endif
+
+/* finis */

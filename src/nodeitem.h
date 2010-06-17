@@ -33,12 +33,12 @@
 
 class NodeItem: public QGraphicsItem, public SimItemBase
 {
-public:
+ public:
   NodeItem( Node *n, QGraphicsScene *canvas );
   ~NodeItem() {}
   Node &getNode(void) const { return *class_cast<Node*>(obj); }
   virtual void userMove(double dx, double dy);  
-  
+
   QRectF boundingRect() const;
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   QPainterPath shape() const;
@@ -48,11 +48,13 @@ public:
     Simply put the property to be change upon clicking a node in this function. */
   void OnClick( const Qt::MouseButton &mb );
   void OnClick(void);
-protected:
+ protected:
   QBrush brush;
   QRectF ellipsesize;
 
-private:
+ private:
 };
 
 #endif
+
+/* finis */

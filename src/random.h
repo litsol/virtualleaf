@@ -42,25 +42,22 @@ int RandomCounter(void);
 // Class MyUrand, so we can pass the random generator to STL's random_shuffle,
 // and get identical simulations for a given random seed.
 class MyUrand {
- 
+
   long n;
  public:
   MyUrand(long nn) {
     n=nn;
   }
   MyUrand(void){};
- 
+
   void seed(long s) {
     Seed(s);
   }
-  
+
   long operator()(long nn) { return RandomNumber(nn)-1; }
   long operator()(void) { return RandomNumber(n); }
 };
 
-
-
-
-
-
 #endif
+
+/* finis */

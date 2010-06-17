@@ -30,7 +30,7 @@ class Vector;
 
 class Matrix {
 
-public:
+ public:
   Matrix(const Vector &v1,const Vector &v2, const Vector &v3); // constructor
   Matrix(void);
   ~Matrix(); // destructor
@@ -38,7 +38,7 @@ public:
   void print(ostream *os);
   Matrix(const Matrix &source); // copy constructor
   void operator=(const Matrix &source); // assignment operator
-  
+
   Vector operator*(const Vector &v) const; // matrix * vector
   bool operator==(Matrix &v) const; // comparison
   double Det(void) const; // gives the "determinant" (| m |) of m
@@ -47,7 +47,7 @@ public:
   // data members 
   double **mat;
 
-private:
+ private:
 
   void Alloc(void);
 };
@@ -55,3 +55,5 @@ private:
 ostream &operator<<(ostream &os, Matrix &v);
 
 #endif
+
+/* finis */

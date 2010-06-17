@@ -36,23 +36,23 @@ open prlist, "ls *.pro |";
 
 @projectfiles = ();
 while (<prlist>) {
-  chomp;
-  push @projectfiles, $_;
+    chomp;
+    push @projectfiles, $_;
 }
 
 if ($#projectfiles > 0) {
-  print stderr "Oops, I found several project files: ";
-  for $p (@projectfiles) {
-    print stderr "$p ";
-  }
-  print stderr "\n";
-  print stderr "Please make sure you have only one, and try again\n";
-  exit(1);
+    print stderr "Oops, I found several project files: ";
+    for $p (@projectfiles) {
+	print stderr "$p ";
+    }
+    print stderr "\n";
+    print stderr "Please make sure you have only one, and try again\n";
+    exit(1);
 }
 
 if ($#projectfiles < 0) {
-  print stderr "No project files found. Please add a project file.\n";
-  exit(1);
+    print stderr "No project files found. Please add a project file.\n";
+    exit(1);
 }
 
 $project = $projectfiles[0];
@@ -64,35 +64,35 @@ print stderr "Using project file \"$project\"\n";
 open pfile,"<$project";
 my @targets = ();
 while (<pfile>) {
-  if (/^[ \t]*TARGET/) {
-    my @line = split(/=/);
-    my $target = $line[1];
-    chomp $target;
-    $target =~ s/[ \t]//g;
-    push @targets, $target;
-  }
-  if (/^[ \t]*REACTIONS/) {
-    my @line = split(/=/);
-    my $reaction = $line[1];
-    chomp $reaction;
-    $reaction =~ s/[ \t]//g;
-    push @reactions, $reaction;
-  }
+    if (/^[ \t]*TARGET/) {
+	my @line = split(/=/);
+	my $target = $line[1];
+	chomp $target;
+	$target =~ s/[ \t]//g;
+	push @targets, $target;
+    }
+    if (/^[ \t]*REACTIONS/) {
+	my @line = split(/=/);
+	my $reaction = $line[1];
+	chomp $reaction;
+	$reaction =~ s/[ \t]//g;
+	push @reactions, $reaction;
+    }
 }
 
 
 if ($#targets > 0) {
-  print stderr "Too many targets found: ";
-  for $t (@targets) {
-    print stderr "$t ";
-  }
-  print stderr "\n";
-  exit(1);
+    print stderr "Too many targets found: ";
+    for $t (@targets) {
+	print stderr "$t ";
+    }
+    print stderr "\n";
+    exit(1);
 }
 
 if ($#targets < 0) {
-  print stderr "No targets found in project $project\n";
-  exit(1);
+    print stderr "No targets found in project $project\n";
+    exit(1);
 }
 
 $target = $targets[0];
@@ -100,17 +100,17 @@ $target = $targets[0];
 print "Target is $target\n";
 
 if ($#reactions > 0) {
-  print stderr "Too many reactions found: ";
-  for $t (@reactions) {
-    print stderr "$t ";
-  }
-  print stderr "\n";
-  exit(1);
+    print stderr "Too many reactions found: ";
+    for $t (@reactions) {
+	print stderr "$t ";
+    }
+    print stderr "\n";
+    exit(1);
 }
 
 if ($#reactions < 0) {
-  print stderr "No reactions found in project $project\n";
-  exit(1);
+    print stderr "No reactions found in project $project\n";
+    exit(1);
 }
 
 $reaction = $reactions[0];
@@ -171,53 +171,54 @@ print xmlsrc <<END_MARKER;
 #include "xmlwrite.h"
 
 
-void XMLIO::XMLWriteLeafSourceCode(xmlNode *parent) {
+    void XMLIO::XMLWriteLeafSourceCode(xmlNode *parent) {
 
-  // Embed the code in our xml file, so we can reconstruct the model we used
-  // to produce it... 
+	// Embed the code in our xml file, so we can reconstruct the model we used
+	    // to produce it... 
 
-END_MARKER
+	    END_MARKER
 
-sub construct_string_constant_from_file {
+	    sub construct_string_constant_from_file {
 
-  my $fname = shift;
-  my $str = "";
-  
-  open srcfile, "<$fname";
-  while (<srcfile>) {
-    chomp;      
-    s/\\/\\\\/g;
-    s/\"/\\\"/g;
-    s/\&/\&amp;/g;
-    $str.=$_."\\n";
-  }
-  $str .= "\";\n";
-  return $str;
-}
+		my $fname = shift;
+		my $str = "";
+		
+		open srcfile, "<$fname";
+		while (<srcfile>) {
+		    chomp;      
+		    s/\\/\\\\/g;
+		    s/\"/\\\"/g;
+		    s/\&/\&amp;/g;
+		    $str.=$_."\\n";
+		}
+		$str .= "\";\n";
+		return $str;
+	}
 
-print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$mainsource" );
-   print xmlsrc <<END_MARKER2;
-    xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
+	print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$mainsource" );
+	print xmlsrc <<END_MARKER2;
+	xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
 
-     {
-        xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$mainsource\");
-     }
-  
+	{
+	    xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$mainsource\");
+	}
+	
 }
 
 void XMLIO::XMLWriteReactionsCode(xmlNode *parent) {
 
-END_MARKER2
+    END_MARKER2
 
-print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$reaction" );
-   print xmlsrc <<END_MARKER3;
+	print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$reaction" );
+    print xmlsrc <<END_MARKER3;
     xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
 
-     {
+    {
         xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$reaction\");
-     }
-  
+    }
+    
 }
 
 END_MARKER3
 
+# finis

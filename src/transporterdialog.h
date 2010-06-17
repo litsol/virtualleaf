@@ -37,12 +37,12 @@ class CellBase;
 
 class TransporterDialog : public QDialog
 {
- Q_OBJECT
+  Q_OBJECT
 
  public:
   TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *parent = 0);
 
- private slots:
+  private slots:
   void setTransporterValues();
 
  private:
@@ -55,3 +55,5 @@ class TransporterDialog : public QDialog
 };
 
 #endif
+
+/* finis */

@@ -23,6 +23,7 @@
 
 #ifndef _APOPLASTITEM_H_
 #define _APOPLASTITEM_H_
+
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
 #include <QPainter>
@@ -35,14 +36,16 @@
 
 class ApoplastItem : public QGraphicsLineItem, public SimItemBase
 {
-public:
-	ApoplastItem( Wall *n, QGraphicsScene *canvas );
-	virtual ~ApoplastItem() {}
-	Wall &getWall(void) const { return *class_cast<Wall*>(obj); }
-	void OnClick(QMouseEvent *e);  
-	void setColor(void);
-private:
-	int wn;
+ public:
+  ApoplastItem( Wall *n, QGraphicsScene *canvas );
+  virtual ~ApoplastItem() {}
+  Wall &getWall(void) const { return *class_cast<Wall*>(obj); }
+  void OnClick(QMouseEvent *e);  
+  void setColor(void);
+ private:
+  int wn;
 };
 
 #endif
+
+/* finis*/

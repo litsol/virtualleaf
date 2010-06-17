@@ -30,47 +30,48 @@
 class QGraphicsArrowItem : public QGraphicsLineItem {
 
  public:
-  QGraphicsArrowItem(QGraphicsItem *parent, QGraphicsScene *c) : QGraphicsLineItem(parent, c) {
-  };
-    
-    void paint ( QPainter *p, const QStyleOptionGraphicsItem *option,
-		 QWidget *widget ) {
+ QGraphicsArrowItem(QGraphicsItem *parent, QGraphicsScene *c) : QGraphicsLineItem(parent, c) {};
 
-      widget = NULL; //use assignment merely to obviate compilation warning
-      option = NULL;
+  void paint ( QPainter *p, const QStyleOptionGraphicsItem *option,
+	       QWidget *widget ) {
 
-      // construct arrow head
-      QPointF start=line().p1();
-      QPointF end=line().p2();
-      QPointF mid=start + (3./4.)*(end-start);
-      
-      double vx=end.x()-start.x();
-      double vy=end.y()-start.y();
+    widget = NULL; //use assignment merely to obviate compilation warning
+    option = NULL;
 
-      double length = sqrt(vx*vx+vy*vy);
-      if (length==0) return;
-      
-      // perpendicular vector
-      double px=-vy/length;
-      double py=vx/length;
-      
-      // Arrow head lines go from end point
-      // to points about 3/4 of the total arrow, extending sideways about 1/4
-      // of the arrow length.
-      
-      
-      QPointF arwp1 = mid + QPointF( (int)( (length/4.)*px ),
+    // construct arrow head
+    QPointF start=line().p1();
+    QPointF end=line().p2();
+    QPointF mid=start + (3./4.)*(end-start);
+
+    double vx=end.x()-start.x();
+    double vy=end.y()-start.y();
+
+    double length = sqrt(vx*vx+vy*vy);
+    if (length==0) return;
+
+    // perpendicular vector
+    double px=-vy/length;
+    double py=vx/length;
+
+    // Arrow head lines go from end point
+    // to points about 3/4 of the total arrow, extending sideways about 1/4
+    // of the arrow length.
+
+
+    QPointF arwp1 = mid + QPointF( (int)( (length/4.)*px ),
 				   (int)( (length/4.)*py ) );
-      QPointF arwp2 = mid - QPointF( (int)( (length/4.)*px ),
+    QPointF arwp2 = mid - QPointF( (int)( (length/4.)*px ),
 				   (int)( (length/4.)*py ) );
-      
-      p->setPen(pen());
-      // Draw arrow head
-      p->drawLine( end, arwp1 );
-      p->drawLine( end, arwp2 );
-      // Draw arrow line
-      p->drawLine( start, end);
-    }
+
+    p->setPen(pen());
+    // Draw arrow head
+    p->drawLine( end, arwp1 );
+    p->drawLine( end, arwp2 );
+    // Draw arrow line
+    p->drawLine( start, end);
+  }
 };
 
 #endif
+
+/* finis */

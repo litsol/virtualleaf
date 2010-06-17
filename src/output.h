@@ -29,17 +29,17 @@
 extern "C" {
 #endif
 
-int OpenFileAndCheckExistance(FILE **fp,const char *fname,char *ftype);
-int YesNoP(const char *message);
-FILE *OpenWriteFile(const char *filename);
-FILE *OpenGZippedWriteFile(const char *filename);
-FILE *OpenReadFile(const char *filename);
-char *ReadLine(FILE *fp);
-void CheckFile(FILE *fp);
-int FileExistsP(const char *fname);
-char *Chext(char *filename);
-void MakeDir(const char *dirname);
-bool CanWeWriteP(char *filename);
+  int OpenFileAndCheckExistance(FILE **fp,const char *fname,char *ftype);
+  int YesNoP(const char *message);
+  FILE *OpenWriteFile(const char *filename);
+  FILE *OpenGZippedWriteFile(const char *filename);
+  FILE *OpenReadFile(const char *filename);
+  char *ReadLine(FILE *fp);
+  void CheckFile(FILE *fp);
+  int FileExistsP(const char *fname);
+  char *Chext(char *filename);
+  void MakeDir(const char *dirname);
+  bool CanWeWriteP(char *filename);
 
 #ifdef __cplusplus
 }
@@ -53,3 +53,5 @@ bool CanWeWriteP(char *filename);
 #endif
 
 #endif
+
+/* finis */

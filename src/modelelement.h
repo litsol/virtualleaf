@@ -30,7 +30,7 @@
 // pure virtual base class for all model elements
 
 class ModelElement {
-  
+
  public:
   virtual void Displace(void) {};
   virtual ~ModelElement() {};

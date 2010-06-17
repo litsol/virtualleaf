@@ -51,7 +51,7 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
 
   // Number of curves is number of names given
   ncurves = curvenames.size();
-  
+
   // allocate data and curves
   d_t = new double[PLOT_SIZE];
   d_x = new double *[ncurves];
@@ -59,15 +59,13 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
   for (int i=1;i<ncurves;i++) {
     d_x[i]=d_x[i-1]+PLOT_SIZE;
   }
-  
+
   // Disable polygon clipping
   QwtPainter::setDeviceClipping(false);
 
   alignScales();
-    
+
   //  Initialize data
-  
-  
   for (int i = 0; i< PLOT_SIZE; i++) {
     d_t[i] = 0.;     // time axis
   }
@@ -89,63 +87,61 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
     curves[i].setPen(QPen(curvecolors[i]));
     QString col(curvecolors[i]);
 
-    #ifdef QDEBUG
+#ifdef QDEBUG
     qDebug() << "Curvecolor " << col.toStdString() << endl;
-    #endif
+#endif
 
     curves[i].setRawData(d_t, d_x[i], PLOT_SIZE);
   }
-    
+
   // Axis 
   setAxisTitle(QwtPlot::xBottom, "Time");
-
   setAxisTitle(QwtPlot::yLeft, "Level");
   setAxisScale(QwtPlot::yLeft, 0, 10);
-
   data_pos = 0;
-
 }
 
-DataPlot::~DataPlot(void) {
+DataPlot::~DataPlot(void)
+{
   delete[] d_t ;
   delete[] d_x[0];
   delete[] d_x;
   delete[] curves;
 }
+
 //
 //  Set a plain canvas frame and align the scales to it
 //
 void DataPlot::alignScales()
 {
-    // The code below shows how to align the scales to
-    // the canvas frame, but is also a good example demonstrating
-    // why the spreaded API needs polishing.
+  // The code below shows how to align the scales to
+  // the canvas frame, but is also a good example demonstrating
+  // why the spreaded API needs polishing.
 
-    canvas()->setFrameStyle(QFrame::Box | QFrame::Plain );
-    canvas()->setLineWidth(1);
-    
-    for ( int i = 0; i < QwtPlot::axisCnt; i++ )
+  canvas()->setFrameStyle(QFrame::Box | QFrame::Plain );
+  canvas()->setLineWidth(1);
+
+  for ( int i = 0; i < QwtPlot::axisCnt; i++ )
     {
-        QwtScaleWidget *scaleWidget = (QwtScaleWidget *)axisWidget(i);
-        if ( scaleWidget )
-            scaleWidget->setMargin(0);
+      QwtScaleWidget *scaleWidget = (QwtScaleWidget *)axisWidget(i);
+      if ( scaleWidget )
+	scaleWidget->setMargin(0);
 
-        QwtScaleDraw *scaleDraw = (QwtScaleDraw *)axisScaleDraw(i);
-        if ( scaleDraw )
-            scaleDraw->enableComponent(QwtAbstractScaleDraw::Backbone, false);
+      QwtScaleDraw *scaleDraw = (QwtScaleDraw *)axisScaleDraw(i);
+      if ( scaleDraw )
+	scaleDraw->enableComponent(QwtAbstractScaleDraw::Backbone, false);
     }
 }
-
 
 //  Generate new values 
 void DataPlot::AddValue(double t,double *x)
 {
 
   //  std::cerr << "AddValue receives: " << t << ", " << y << ", " << z << std::endl;
-  
+
   // Plot slowly fills up, then shifts to the left
   if ( data_pos >= PLOT_SIZE ) {
-    
+
     for ( int j = 0; j < PLOT_SIZE - 1; j++ )
       d_t[j] = d_t[j+1];
 
@@ -154,7 +150,6 @@ void DataPlot::AddValue(double t,double *x)
 	d_x[i][j] = d_x[i][j+1];
     }
     data_pos = PLOT_SIZE - 1;
-    
   } 
 
   d_t[data_pos] = t;
@@ -163,31 +158,26 @@ void DataPlot::AddValue(double t,double *x)
     curves[i].setRawData(d_t, d_x[i], data_pos);
     d_x[i][data_pos] = x[i];
   }
-					       
+
   setAxisScale(QwtPlot::xBottom, d_t[0], t);
-  
   data_pos++;
+
   // update the display
   replot();
-  
-
 }
 
 
 PlotDialog::PlotDialog(QWidget *parent, const QString title, const QStringList curvenames):
   QDialog(parent) 
 {
-  
   plot = new DataPlot(this,title,curvenames);
-  
   plot->resize(400,300);
-  
   show();
-
 }
 
-PlotDialog::~PlotDialog(void) {
-  
+PlotDialog::~PlotDialog(void)
+{
   delete plot;
 }
 
+/* finis */

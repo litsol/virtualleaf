@@ -175,3 +175,5 @@ class CurveColors {
   QStringList colors;
 };
 #endif
+
+/* finis */

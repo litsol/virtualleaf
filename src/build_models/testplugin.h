@@ -30,31 +30,33 @@
 
 
 class TestPlugin : public QObject, SimPluginInterface {
-	Q_OBJECT
-	Q_INTERFACES(SimPluginInterface);
+  Q_OBJECT
+  Q_INTERFACES(SimPluginInterface);
 
-public:
-	virtual QString ModelID(void) { return QString( "Test model" ); }
+ public:
+  virtual QString ModelID(void) { return QString( "Test model" ); }
 	
-	// Executed after the cellular mechanics steps have equillibrized
-	virtual void CellHouseKeeping (CellBase *c);
-	// Differential equations describing transport of chemicals from cell to cell
-	virtual void CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2);
+  // Executed after the cellular mechanics steps have equillibrized
+  virtual void CellHouseKeeping (CellBase *c);
+  // Differential equations describing transport of chemicals from cell to cell
+  virtual void CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2);
     
-	// Differential equations describing chemical reactions taking place at or near the cell walls
-	// (e.g. PIN accumulation)
-	virtual void WallDynamics(Wall *w, double *dw1, double *dw2);
+  // Differential equations describing chemical reactions taking place at or near the cell walls
+  // (e.g. PIN accumulation)
+  virtual void WallDynamics(Wall *w, double *dw1, double *dw2);
 	
-	// Differential equations describing chemical reactions inside the cells
-	virtual void CellDynamics(CellBase *c, double *dchem);
+  // Differential equations describing chemical reactions inside the cells
+  virtual void CellDynamics(CellBase *c, double *dchem);
 	
-	// to be executed after a cell division
-	virtual void OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2);
+  // to be executed after a cell division
+  virtual void OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2);
 	
-	// to be executed for coloring a cell
-	virtual void SetCellColor(CellBase *c, QColor *color);	
-	// return number of chemicals
-	virtual int NChem(void) { return 0; }
+  // to be executed for coloring a cell
+  virtual void SetCellColor(CellBase *c, QColor *color);	
+  // return number of chemicals
+  virtual int NChem(void) { return 0; }
 };
 
 #endif
+
+/* finis */

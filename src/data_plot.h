@@ -36,40 +36,39 @@ const int PLOT_SIZE = 1000;
 
 class DataPlot : public QwtPlot
 {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
+ public:
   DataPlot(QWidget *parent, const QString title, const QStringList curvenames);
   virtual ~DataPlot(void);
-public slots:
-    void AddValue(double t, double *x);
+  public slots:
+  void AddValue(double t, double *x);
 
-private:
-    void alignScales();
+ private:
+  void alignScales();
 
-    double *d_t; 
-    double **d_x; 
+  double *d_t; 
+  double **d_x; 
 
-    int d_interval; // timer in ms
-    int d_timerId;
-    
-    QwtPlotCurve *curves;
-    int data_pos;
-    int ncurves;
-    
-    CurveColors curvecolors;
+  int d_interval; // timer in ms
+  int d_timerId;
+
+  QwtPlotCurve *curves;
+  int data_pos;
+  int ncurves;
+
+  CurveColors curvecolors;
 
  protected:
-    // to write contents of DataPlot to a file
-    QFile *datfile;
-    QTextStream datstream;
-
+  // to write contents of DataPlot to a file
+  QFile *datfile;
+  QTextStream datstream;
 };
 
 class PlotDialog : public QDialog {
 
-Q_OBJECT
- public:
+  Q_OBJECT
+    public:
   PlotDialog(QWidget *parent, const QString title, const QStringList curvenames);
   ~PlotDialog(void);
   public slots:
@@ -82,3 +81,5 @@ Q_OBJECT
 };
 
 #endif
+
+/* finis */

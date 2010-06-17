@@ -31,9 +31,9 @@
 
 namespace XMLIO {
 
-	std::vector <double> XMLReadValArray(xmlNode *cur);
+  std::vector <double> XMLReadValArray(xmlNode *cur);
   template<class For, class E> long list_index (For beg, For end, E *elem) {
-    
+
     long n = 0;
     for (For i=beg;
 	 i!=end;
@@ -45,7 +45,6 @@ namespace XMLIO {
     }
     return -1;
   }
- 	
 }
 
 
@@ -66,3 +65,5 @@ inline bool strtobool(const char *str) {
 }
 
 #endif
+
+/* finis */

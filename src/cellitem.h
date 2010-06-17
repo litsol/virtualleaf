@@ -34,7 +34,7 @@
 
 class CellItem : public QGraphicsPolygonItem, public SimItemBase
 {
-public:
+ public:
   CellItem( Cell *n, QGraphicsScene *canvas );
   virtual ~CellItem() {}
   Cell &getCell(void) const { return *class_cast<Cell*>(obj); }
@@ -43,7 +43,8 @@ public:
   QRectF boundingRect() const;
 
  private:
-
 };
 
 #endif
+
+/* finis */

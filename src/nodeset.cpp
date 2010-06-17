@@ -29,3 +29,5 @@ ostream &operator<<(ostream &os, const NodeSet &ns)  {
   ns.print(os);
   return os;
 }
+
+/* finis */

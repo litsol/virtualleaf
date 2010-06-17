@@ -42,14 +42,14 @@ int Quiet=0;
 #ifndef QTGRAPHICS
 void MyWarning::error(char * fmt, ...)
 {
-    va_list ap;
+  va_list ap;
 
-    va_start(ap, fmt);
-    vfprintf(stderr, fmt, ap);		/* invoke interface to printf       */
-    fprintf(stderr,"\n");     /* automatic \n by Roeland */
-    fflush(stderr);			/* drain std error buffer 	    */
-    va_end(ap);
-    exit(1);				/* quit with error status	    */
+  va_start(ap, fmt);
+  vfprintf(stderr, fmt, ap);		/* invoke interface to printf       */
+  fprintf(stderr,"\n");     /* automatic \n by Roeland */
+  fflush(stderr);			/* drain std error buffer 	    */
+  va_end(ap);
+  exit(1);				/* quit with error status	    */
 }
 #else
 //#include <qmessagebox.h>
@@ -59,29 +59,28 @@ void MyWarning::error(const char *fmt, ...)
   va_list ap;
   if (Quiet) return;
   char *message = new char[1000];
- 
+
   va_start(ap, fmt);
   vsnprintf(message, 999, fmt, ap);		/* invoke interface to printf       */
   va_end(ap);
-  
+
   QString qmess(message);
-  
+
   if (qApp->type()==QApplication::Tty) {
     // batch mode: print the message to stderr
     fprintf(stderr, "Fatal error: %s\n",qmess.toStdString().c_str());
     exit(1);
   } else { // issue a dialog box
     /* Solve this with signal and slot...! */
-	  //extern MainBase *main_window;
+    //extern MainBase *main_window;
     //((Main *)main_window)->stopSimulation();
-    
-	QMessageBox::critical( 0 , "Fatal error", qmess, QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
+
+    QMessageBox::critical( 0 , "Fatal error", qmess, QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
     fprintf(stderr, "Error: %s\n",qmess.toStdString().c_str());
     QCoreApplication::exit(1);
     std::exit(1);
   }
   delete[] message;
-  
 }
 #endif
 
@@ -97,7 +96,7 @@ void MyWarning::warning(const char * fmt, ...)
 {
   va_list ap;
   if (Quiet) return;
-  
+
   va_start(ap, fmt);
   vfprintf(stderr, fmt, ap);		/* invoke interface to printf       */
   fprintf(stderr,"\n");     /* automatic \n by Roeland */
@@ -114,53 +113,52 @@ void MyWarning::warning(const char *fmt, ...)
   va_list ap;
   if (Quiet) return;
   char *message = new char[1000];
- 
+
   va_start(ap, fmt);
   vsnprintf(message, 999, fmt, ap);		/* invoke interface to printf       */
   va_end(ap);
-  
+
   QString qmess(message);
-  
+
   //  bool batch = false;
-  
+
   if (qApp->type()==QApplication::Tty) {
     // batch mode: print the message to stderr
     fprintf(stderr, "Warning: %s\n",qmess.toStdString().c_str());
   } else { // issue a dialog box
-	  UniqueMessageBox msgBox( QString("Warning"), qmess );
-	  msgBox.exec();
+    UniqueMessageBox msgBox( QString("Warning"), qmess );
+    msgBox.exec();
   }
   delete[] message;
-
 }
 #endif
 
 /*! Issues a warning only once,
   by comparing it to a list of warnings issued previously. */
 void MyWarning::unique_warning(const char *fmt, ...) {
-  
+
   va_list ap;
   if (Quiet) return;
   char *message = new char[1000];
- 
+
   va_start(ap, fmt);
   vsnprintf(message, 999, fmt, ap);		/* invoke interface to printf       */
   va_end(ap);
 
   static vector<string> previous_warnings;
-  
+
   // search warning in list
   if (find(
 	   previous_warnings.begin(),previous_warnings.end(), 
 	   string(message)) 
       ==previous_warnings.end()) {
-    
+
     // new warning, store in list
     previous_warnings.push_back(string(message));
-    
+
     // issue warning
     warning("%s", message);
-   
+
   } else {
     // don't issue warning
     return;
@@ -172,8 +170,10 @@ void MyWarning::unique_warning(const char *fmt, ...) {
 
 main(int argc, char * argv[])
 {
-    eprintf("warning: foo=%f\tbar=%d\tfum=\"%s\"\n", 3.1415, 32768, "waldo");
-    error("error: foo=%f\tbar=%d\tfum=\"%s\"\n", 3.1415, 32768, "waldo");
+  eprintf("warning: foo=%f\tbar=%d\tfum=\"%s\"\n", 3.1415, 32768, "waldo");
+  error("error: foo=%f\tbar=%d\tfum=\"%s\"\n", 3.1415, 32768, "waldo");
 }
 
 #endif
+
+/* finis */
