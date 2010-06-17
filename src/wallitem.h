@@ -42,8 +42,6 @@ public:
   virtual ~WallItem() {}
   Wall &getWall(void) const { return *class_cast<Wall*>(obj); }
   void OnClick(QMouseEvent *e);  
-  //virtual void userMove(double dx, double dy);  
-  //virtual void paint( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
   void setColor(void);
  private:
   int wn;

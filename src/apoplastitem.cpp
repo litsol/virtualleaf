@@ -43,8 +43,8 @@ ApoplastItem::ApoplastItem( Wall *w, QGraphicsScene *canvas )
 	Vector offs = Cell::Offset();
 	double factor = Cell::Factor();
 	
-	Vector from = ( offs + *(w->N1()) ) * factor;// + (wn==1?-1:1) * par.outlinewidth;// * 0.2 * factor * perp;
-	Vector to = ( offs + *(w->N2()) ) *factor;// + (wn==1?-1:1) * par.outlinewidth;// * 0.2 * factor * perp;
+	Vector from = ( offs + *(w->N1()) ) * factor;
+	Vector to = ( offs + *(w->N2()) ) *factor;
 	
 	
 	setLine(( from.x ),
@@ -70,6 +70,6 @@ void ApoplastItem::setColor(void) {
 }
 
 void ApoplastItem::OnClick(QMouseEvent *e) {
-  e = NULL; // merely to obviate compile time warning
+  e = NULL; // merely to obviate compilation warnings
 }
 

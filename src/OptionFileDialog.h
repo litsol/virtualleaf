@@ -20,6 +20,9 @@
  *
  */
 
+#ifndef _OPTIONFILEDIALOG_H_
+#define _OPTIONFILEDIALOG_H_
+
 #include <Q3FileDialog>
 #include <QCheckBox>
 
@@ -35,7 +38,6 @@ public:
 private:
 	QCheckBox *geometrycheck;	
 	QCheckBox *parcheck;
-	//QCheckBox *timecheck;
-	
-
 };
+
+#endif

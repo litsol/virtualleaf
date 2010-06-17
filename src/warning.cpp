@@ -66,8 +66,6 @@ void MyWarning::error(const char *fmt, ...)
   
   QString qmess(message);
   
-  //  bool batch = false;
-  
   if (qApp->type()==QApplication::Tty) {
     // batch mode: print the message to stderr
     fprintf(stderr, "Fatal error: %s\n",qmess.toStdString().c_str());

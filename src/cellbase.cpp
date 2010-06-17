@@ -40,9 +40,7 @@
 #endif
 #include "nodeset.h"
 
-//#include "cond_operator.h"
 #include "cellbase.h"
-//#include "node.h"
 #include "wall.h"
 #include "random.h"
 #include "parameter.h" 
@@ -55,12 +53,6 @@ static const std::string _module_id("$Id$");
 extern Parameter par;
 
 const char* CellBase::boundary_type_names[4] = {"None", "NoFlux", "SourceSink", "SAM"};
-
-// These statics have moved to class "CellsStaticDatamembers"
-
-//double CellBase::static_base_area = 0.;
-//int CellBase::ncells=0;
-//int CellBase::NChem()=0;
 
 #ifndef VLEAFPLUGIN
 CellsStaticDatamembers *CellBase::static_data_members = new CellsStaticDatamembers();
@@ -188,7 +180,7 @@ CellBase::CellBase(const CellBase &src) :  Vector(src), QObject()
 
 CellBase CellBase::operator=(const CellBase &src) {
 	Vector::operator=(src);
-	//  QObject::operator=(src);
+
 	for (int i=0;i<NChem();i++) {
 		chem[i]=src.chem[i];
 	}
@@ -351,13 +343,6 @@ Vector CellBase::Centroid(void) const {
 	return centroid;
 }
 
-/*Node &CellBase::getNode(list<Node *>::const_iterator i) const {
-
-if (i==
-	return m->getNode(i);
-  }*/
-
-
 
 
 void CellBase::SetIntegrals(void) const {
@@ -408,16 +393,8 @@ void CellBase::SetIntegrals(void) const {
 			 (*nb)->x*(*i)->y);
 	}
 	
-	//area/=2.0;
+
 	area = fabs(area)/2.0;
-	
-	/* intgrl_x/=6.;
-	intgrl_y/=6.;
-	
-	intgrl_xx/=12.;
-	intgrl_xy/=24.;
-	intgrl_yy/=12.;*/
-	
 	
 }
 
@@ -447,9 +424,6 @@ double CellBase::Length(Vector *long_axis, double *width)  const {
 	// see: http://scienceworld.wolfram.com/physics/MomentofInertiaEllipse.html
 	//    cerr << "n = " << n << "\n";
 	
-	// Vector eigenvectors[2];
-	// eigenvectors[0] = Vector(-(-ixx + iyy ) + rhs2, ixy, 0);
-	// eigenvectors[1] = Vector(-(-ixx + iyy ) - rhs2, ixy, 0);
 	if (long_axis) {
 		*long_axis = Vector(-ixy, lambda_b - ixx, 0);
 		//   cerr << "ixx = " << ixx << ", ixy = " << ixy << ", iyy = " << iyy << ", area = " << area << endl;
@@ -531,9 +505,6 @@ double CellBase::CalcLength(Vector *long_axis, double *width)  const {
 	// see: http://scienceworld.wolfram.com/physics/MomentofInertiaEllipse.html
 	//    cerr << "n = " << n << "\n";
 	
-	// Vector eigenvectors[2];
-	// eigenvectors[0] = Vector(-(-ixx + iyy ) + rhs2, ixy, 0);
-	// eigenvectors[1] = Vector(-(-ixx + iyy ) - rhs2, ixy, 0);
 	if (long_axis) {
 		*long_axis = Vector(-ixy, lambda_b - ixx, 0);
 		//   cerr << "ixx = " << ixx << ", ixy = " << ixy << ", iyy = " << iyy << ", my_area = " << my_area << endl;
@@ -550,15 +521,6 @@ double CellBase::CalcLength(Vector *long_axis, double *width)  const {
 }
 
 
-// void CellBase::NodeRemoved(int n) {
-//   for (list<Node *>::iterator i=nodes.begin();
-//        i!=nodes.end();
-//        i++) {
-//     if ((*i)->Index()>n) {
-//       (*i)->index--;
-//     }
-//   }
-// }
 
 void CellBase::ConstructNeighborList(void) {
 	
@@ -567,7 +529,7 @@ void CellBase::ConstructNeighborList(void) {
 		 list<Wall *>::const_iterator wit=walls.begin();
 		 // somehow the reverse_iterator returns by walls needs to be casted to const to let this work.
 		 // it seems to me it is a bug in the STL implementation...
-		 //wit!=(list<Wall *>::const_reverse_iterator)walls.rend();
+
 		 wit!=walls.end();
 		 wit++) {
 		
@@ -580,20 +542,7 @@ void CellBase::ConstructNeighborList(void) {
 	}
 	
 	
-	/*
-	 for (list<CellBase *>::iterator e=neighbors.begin();
-		  e!=neighbors.end();
-		  e++) {
-		 cerr << (*e)->Index() << " ";
-		 if ((*e)->CellBase::BoundaryPolP()) {
-			 cerr << " b ";
-		 }
-	 }
-	 */
 	// remove all boundary_polygons from the list
-	
-	
-    
 	list <CellBase *>::iterator e=neighbors.begin();
 	at_boundary=false;
 	
@@ -614,334 +563,6 @@ void CellBase::ConstructNeighborList(void) {
   } while(1);
 	
 }
-
-// CellBase constructs its neighbor list from its node lists
-// Assumes, obviously, that the node lists are up to date
-// (i.e. call ConstructConnections before calling this method)
-// We'll keep this one private, anyway.
-/* void CellBase::ConstructNeighborList(void) {
-
-//  extern ofstream debug_stream;
-
-neighbors.clear();
-
-//  debug_stream << "Nodes: ";
-//  copy(nodes.begin(),nodes.end(),ostream_iterator<Node>(debug_stream, " "));
-//debug_stream << endl;
-
-for (list<Node *>::const_iterator i=nodes.begin();
-	 i!=nodes.end();
-	 i++) {
-    
-    // collect all cells to which my nodes are connected on one list
-    //transform((*i)->cells.begin(),(*i)->cells.end(), back_inserter(neighbors), mem_fun_ref(&Neighbor::CellBase));
-	
-    // index of next node 
-    list<Node *>::const_iterator nn=i;
-    ++nn;
-    if (nn==nodes.end()) 
-		nn=nodes.begin();
-	
-    //    debug_stream << "Node " << *i << ", Neighbor " << *nn << endl;
-    // debug_stream << "Owners: ";
-    //    copy((*i)->cells.begin(),(*i)->cells.end(),ostream_iterator<Neighbor>(debug_stream, " "));
-    // debug_stream << endl;
-    
-    for (list<Neighbor>::const_iterator nb=(*i)->owners.begin();
-		 nb!=(*i)->owners.end();
-		 nb++) {
-		
-		// collect info about neighboring cells, not about myself
-		if (nb->CellBase!=this) {
-			
-			// make sure the whole edge touches this putative neighbor
-			// if (*nn == nb->nb1 || *nn == nb->nb2) {
-			//walls.push_back( new Wall(*i,*nn,this,nb->CellBase) );
-			//debug_stream << "Adding edge " << walls.back() << " to CellBase " << index << endl;
-			//}
-			
-			neighbors.push_back( nb->CellBase );
-		} 
-    }
-
-
-}
-
-neighbors.sort();
-
-list<CellBase *>::iterator e=unique(neighbors.begin(),neighbors.end());
-
-// iterator e point to the end of the subsequence of unique elements
-// remove every thing that comes after it
-
-neighbors.erase(e, neighbors.end());
-
-// okay, now neighbors contains all neighbors of this CellBase, including itself
-
-// A future optimization for the diffusion algorithm: now we list
-// each of the edges of a (curved) CellBase boundary separately.  We
-// could keep track just of the total length per CellBase boundary
-
-// the following is not necessary anymore. Is
-// checked at earlier stage
-// // remove myself from the list
-//   e = find(neighbors.begin(),neighbors.end(),index);
-//   if (e!=neighbors.end())
-//   neighbors.erase(e);
-//    
-
-// remove boundary_polygon from the list (CellBase identity <0 )
-e=neighbors.begin();
-at_boundary=false;
-do { 
-    e = find_if(neighbors.begin(),neighbors.end(),mem_fun(&CellBase::BoundaryPolP));
-    if (e!=neighbors.end()) {
-		e=neighbors.erase(e);
-		at_boundary=true;
-    } else {
-		break;
-    }
-} while(1);
-
-
-}*/
-
-
-/*void Cell::print_nblist(void) const {
-//  cerr << "{ ";
-
-for (list<Neighbor>::const_iterator i=nb_list.begin();
-	 i!=nb_list.end();
-	 i++) {
-	//    cerr << "(" << i->c->index << " " << i->Dij << ")";
-	
-}
-//  cerr << "}" << endl;
-}
-*/
-
-
-// Tests whether Cell p (given as Vector, remember that Cell is a
-// Vector) is within polygon formed by nearest neighbor cells
-// 
-// Based on algorithm and code by Paul Bourke, see
-// http://astronomy.swin.edu.au/~pbourke/geometry/insidepoly/
-//
-// Note: works for 2D only; projects everything on z=0;
-/*
-#define MIN(x,y) (x < y ? x : y)
-#define MAX(x,y) (x > y ? x : y)
- */
-/*bool Cell::CellInsidePolygonP(Vector &p)
-{
-    int counter = 0;
-    double xinters;
-    Vector p1,p2;
-	
-    //p1 = polygon[0];
-    p1 = *(nb_list.begin()->c);
-	
-    int N=nb_list.size();
-    list<Neighbor>::const_iterator nb=nb_list.begin();
-	
-    for (int i=1;i<=N;i++) {
-		
-		nb++;
-		
-		if (nb!=nb_list.end()) {
-			p2 = *(nb->c);
-		} else {
-			p2 = *(nb_list.begin()->c);
-		}
-		
-		if (p.y > MIN(p1.y,p2.y)) {
-			if (p.y <= MAX(p1.y,p2.y)) {
-				if (p.x <= MAX(p1.x,p2.x)) {
-					if (p1.y != p2.y) {
-						xinters = (p.y-p1.y)*(p2.x-p1.x)/(p2.y-p1.y)+p1.x;
-						if (p1.x == p2.x || p.x <= xinters)
-							counter++;
-					}
-				}
-			}
-		}
-		p1 = p2;
-    }
-	
-    if (counter % 2 == 0)
-		return false;
-    else
-		return true;
-	
-}*/
-
-
-/* // at new position cell should be able to "see" all polygon sides
-bool Cell::NewPointValidP(Vector &p) {
-	
-	//int ninvtri=0;
-	for (list<Neighbor>::const_iterator nb=nb_list.begin();
-		 nb!=nb_list.end();
-		 nb++) {
-		
-		Vector p1=*(nb->c); // first neighbor
-		list<Neighbor>::const_iterator nextv=nb; nextv++;
-		
-		
-		if (nextv==nb_list.end()) {
-			if (Boundary()==None) {
-				nextv=nb_list.begin();
-			} else continue;
-		}
-		
-		Vector p2=*(nextv->c);
-		
-		Vector v1=(p1-p);
-		Vector v2=(p2-p1);
-		
-		Vector cross=v1*v2;
-		//    //cerr << "[" << cross << "]" << endl;
-		
-		if (cross.z<0) {
-			// One of the triangles has "inverted".
-			//if (Boundary()==None || ninvtri) 
-			return false;
-			//else 
-			// accept one "inverted" triangle
-			//ninvtri++;
-		}
-	}
-	return true;
-    
-}*/
-
-
-
-
-// void Cell::CheckForDivision(void) {
-//  //  if (/* Chemical(0)<0.4 && */ /* differentiated cells do not divide */ area > 2*base_area /* || Length()>50 */) {
-
-//  if (area > par.rel_cell_div_threshold * base_area ) {
-//    /* remark no longer valid? //m->IncreaseCellCapacityIfNecessary();
-//      // Note that calling Divide as follows prevents trouble if cell
-//      // vector is relocated */
-//      Divide();
-//  }
-//}
-
-/* void Cell::CheckForGFDrivenDivision(void) {
-if (area > base_area && chem[0]>par.gf_div_threshold) {
-    //int ind=index;
-    if (index==1) return; // petiole does not divide
-	
-    // remark no longer valid?
-    //m->IncreaseCellCapacityIfNecessary();
-    // Note that calling Divide as follows prevents trouble if cell
-    // vector is relocated
-    Vector horizontal(1,0,0);
-    Vector vertical(0,1,0);
-    double r; 
-    if ((r=RANDOM())>par.vertdivprob) {
-		DivideOverAxis(horizontal);
-    } else {
-		cerr << "[" << r << "]";
-		DivideOverAxis(vertical);
-    }
-}
-}
-*/
-
-
-
-// return (a measure of) the strain of this cell
-/*Vector CellBase::Strain(void) const {
-	
-	cerr << "Sorry, CellBase::strain currently not implemented" << endl;
-	std::exit(1);
-	
-	// Reason: we do not want to include "Node" in the plugins (Node::target_length below), and we do need Strain anyway...
-	
-	
-	// go over all wall elements of the cell
-	 Vector Fvec;
-	
-	for (list<Node *>::const_iterator n=nodes.begin();
-		 n!=nodes.end();
-		 n++) {
-		
-		list<Node *>::const_iterator nn=n; nn++;
-		if (nn==nodes.end()) nn=nodes.begin();
-		
-		Vector wall_element = *(*n) - *(*nn);
-		
-		// assume k=1 (Hooke's constant), for now
-		double Fscal  = (Node::target_length - wall_element.Norm())/Node::target_length;
-		
-		
-		Fvec += Fscal * wall_element.Normalised();
-		
-	}
-	
-	return Fvec; 
-} */
-
-
-
-/* void Cell::Flux(double *flux, double D)  {
-
-// Algorithm according to Rudge & Haseloff 2005
-// (will we need to take cell area into account?)
-// For the time being, we don't: assume cell area is 
-// mainly determined by vacuole.
-
-// Currently implements Rolland-Lagan-Mitchison algorithm
-// Rolland-Lagan and Prusinkiewicz, The Plant Journal (2005), 44, 854-865
-
-// currently I only implemented passive, diffusive transport 
-// active transport will be added later
-
-// loop over cell edges
-
-for (int c=0;c<Cell::NChem();c++) flux[c]=0.;
-
-for (list<Wall>::iterator i=walls.begin();
-	 i!=walls.end();
-	 i++) {
-    
-    
-	// leaf cannot take up chemicals from environment ("no flux boundary")
-	if (i->c2 < 0) continue;
-    
-	// calculate edge length 
-	// (will later be updated during node displacement for efficiency)
-	double edge_length = (m->nodes[i->n1]-m->nodes[i->n2]).Norm();
-    
-	// D is "background diffusion coefficient" (Rolland-Lagan)
-	
-	
-	// flux depends on edge length and concentration difference */
-	// i->phi = edge_length * ( /* i->D +*/ D ) * ( m->cells[i->c2].chem[0] - chem[0] );
-	/*
-	 if (m->cells[i->c1].index!=index) {
-		 cerr << "Warning, bad cells boundary: " << m->cells[i->c1].index << ", " << index << endl;
-	 }
-	 
-	 flux[0] += i->phi;
-	 //double deltaD = par.alpha * (i->phi*i->phi) - par.gamma * i->D; // Note beta=0
-	 //i->D += par.dt*deltaD; 
-	 
-	 //cerr << "[ i->D = " << i->D << ", deltaD = " << deltaD << "]";
-	 //if (i->D > par.Dmax) i->D=par.Dmax;
-	 
-	 // first calculate all fluxes, we update diffusion coefficient afterwards.
-	 
-	 // cerr << "[ " << edge_length << ", " << m->cells[i->c2].chem[0] << " - " << chem[0] << "]";
-	 
-}
-
-
-}
-*/
 	
 	// Save the cell to a stream so we can reconstruct its state later
 	void CellBase::Dump(ostream &os) const {

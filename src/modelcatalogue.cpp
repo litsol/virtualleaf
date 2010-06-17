@@ -104,9 +104,6 @@ void ModelCatalogue::LoadPlugin(const char *model) {
     MyWarning::error("Directory 'models' not found!");
   }
 	
-	
-  //QVector<SimPluginInterface *> plugins;
-	
   QStringList modelnames=pluginDir.entryList(QDir::Files);
   if (modelnames.empty()) {
     MyWarning::error("Model %s not found - hint: do not include path in filename.",model);
@@ -160,6 +157,4 @@ void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
     mainwin->RefreshInfoBar();
     mainwin->Init(0);
   }
-  //	mesh->StandardInit();
-	
 }

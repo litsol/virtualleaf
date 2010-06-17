@@ -71,8 +71,7 @@ char *ParsePar(FILE *fp, char *parameter, bool wrapflag)
 int igetpar(FILE *fp,char *parameter, bool wrapflag) {
   
   // overloaded compatibility function. Doesn't need default parameter
-  // default = 0
-  
+
   return igetpar(fp, parameter, 0, wrapflag);
 }
 
@@ -102,10 +101,7 @@ int igetpar(FILE *fp,char *parameter, int default_val, bool wrapflag)
 float fgetpar(FILE *fp,char *parameter, bool wrapflag) {
    
   // overloaded compatibility function. Doesn't need default parameter
-  // default = 0
-  
   return fgetpar(fp, parameter, 0., wrapflag);
-
 }
 
 float fgetpar(FILE *fp, char *parameter, double default_val, bool wrapflag) 
@@ -296,8 +292,6 @@ char *SearchToken(FILE *fp, char *token,bool wrapflag)
   int wrapped=false;
   long initial_position;
   
-  /*  rewind(fp); */
-
   char *tokenplusspace = (char *)malloc( (strlen(token)+3)*sizeof(char));
   strcpy(tokenplusspace, token);
   strcat(tokenplusspace," ");

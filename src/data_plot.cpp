@@ -63,10 +63,6 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
   // Disable polygon clipping
   QwtPainter::setDeviceClipping(false);
 
-  // We don't need the cache here
-  //canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
-  //canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
-
   alignScales();
     
   //  Initialize data
@@ -105,24 +101,8 @@ DataPlot::DataPlot(QWidget *parent, const QString title, const QStringList curve
 
   setAxisTitle(QwtPlot::yLeft, "Level");
   setAxisScale(QwtPlot::yLeft, 0, 10);
-    
-  //    setTimerInterval(0.0); 
 
   data_pos = 0;
-  
-
-  // open file for writing
-  /* QString fname(title);
-  fname.replace(QString(" "),QString());
-  fname.append(".dat");
-  std::cerr << "Writing to file " << fname.toStdString() << std::endl;
-  
-  datfile = new QFile(fname);
-  if (!datfile->open(QIODevice::WriteOnly | QIODevice::Text))
-    return;
-  
-  datstream.setDevice(datfile);
-  */
 
 }
 
@@ -156,19 +136,6 @@ void DataPlot::alignScales()
     }
 }
 
-/* void DataPlot::setTimerInterval(double ms)
-{
-    d_interval = qRound(ms);
-
-    if ( d_timerId >= 0 )
-    {
-        killTimer(d_timerId);
-        d_timerId = -1;
-    }
-    if (d_interval >= 0 )
-        d_timerId = startTimer(d_interval);
-}
-*/
 
 //  Generate new values 
 void DataPlot::AddValue(double t,double *x)
@@ -192,16 +159,11 @@ void DataPlot::AddValue(double t,double *x)
 
   d_t[data_pos] = t;
 
-  // datstream << t;
-
   for ( int i=0;i<ncurves;i++) {
     curves[i].setRawData(d_t, d_x[i], data_pos);
     d_x[i][data_pos] = x[i];
-    //datstream << " " << x[i];
   }
 					       
-  //datstream << "\n";
-  
   setAxisScale(QwtPlot::xBottom, d_t[0], t);
   
   data_pos++;

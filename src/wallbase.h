@@ -191,57 +191,11 @@ public:
 	 */
 	Vector VizFlux(void);
 	bool IntersectsWithDivisionPlaneP(const Vector &p1, const Vector &p2);
-	
-	/*! Function to be defined in leaf.cpp */
-	//void OnWallInsert(void);
-	
-	
-
 	void SetTransToNewTrans( void );
 	
-	// implemented in xmlwrite.cpp
-	//void XMLAdd(xmlNode *parent) const;
 private:
 	
 };
-
-/* class TransportFunction {
-	
-	friend class Mesh;
-public:
-	TransportFunction( void );
-	virtual ~TransportFunction() {
-		//delete[] chem_change_c1;
-		//delete[] chem_change_c2;
-	}
-	virtual void operator()(WallBase *w, double *dchem_c1, double *dchem_c2) = 0;// { cerr << "This is base class TransportFunction.\n"; }
-	//virtual void operator()(WallBase *w, double *dchem_c1, double *dchem_c2, double *dapo) =0;
-protected:
-	int wall_index; //double *chem_change_c1;
-	//double *chem_change_c2;
-};
-
-class CellReaction {
-	
-public:
-	CellReaction(void) {};
-	virtual ~CellReaction() {};
-	
-	//! Implements the actual, intracellular chemical reactions.
-	virtual void operator()(CellBase * c, double *dchem ) = 0;
-	
-};
-
-class WallReaction {
-	
-public:
-	WallReaction(void) {};
-	virtual ~WallReaction() {};
-	
-	//! Implements the actual, biochemical reactions occuring at the wall.
-	virtual void operator()(WallBase *, double *dw1, double *dw2) = 0;
-	
-};*/
 
 ostream &operator<<(ostream &os, const WallBase &w);
 #endif

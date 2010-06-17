@@ -37,22 +37,7 @@ WallItem::WallItem( Wall *w, int wallnumber, QGraphicsScene *canvas )
   wn = wallnumber;
 
   extern Parameter par;
-  //Wall *w=&getWall();
-  
-  // Draw amount of "PIN1"
-  //double val = wn==1?(w->Transporters1(1)/par.Pi_tot)*255.:(w->Transporters2(1)/par.Pi_tot)*255.;
-  
-  /* if (val > 255 || val < 0 ) { 
-     std::cerr << "val = " << val << endl;
-     if (wn == 1) {
-     std::cerr << "Transporters1(1) = " << w->Transporters1(1) << endl;
-     } else {
-     std::cerr << "Transporters2(1) = " << w->Transporters2(1) << endl;
-     }
-    
-     }*/
-  
-  
+
 	  setColor();
   
 	  // line with "PIN1"is a bit inside the cell wall
@@ -70,18 +55,6 @@ WallItem::WallItem( Wall *w, int wallnumber, QGraphicsScene *canvas )
 	  Vector centroid = ( offs + tmp_centroid ) * factor;
 	  
 	  QString text=QString("%1").arg(w->Index());
-
-	  /*  if (0) {
-		  QGraphicsSimpleTextItem *ctext = new QGraphicsSimpleTextItem ( text, 0, canvas );
-		  ctext->setPen( QPen(QColor("orange")) );
-		  ctext->setZValue(20);
-		  ctext->setFont( QFont( "Helvetica", par.nodenumsize, QFont::Bold) );
-		  //ctext->setTextFlags(Qt::AlignCenter);
-		  ctext->show();
-		  ctext ->setPos(centroid.x,
-						 centroid.y );
-	  }*/
-	  
 	  setLine(( from.x ),
 			  ( from.y ),
 			  ( to.x ),
@@ -100,13 +73,6 @@ void WallItem::setColor(void) {
   double tr = wn==1?w->Transporters1(1):w->Transporters2(1);
   CellBase *c = wn==1?w->C1():w->C2();
   diffcolor.setRgb( (int)( ( tr / (1 + tr) )*255.), 0, 0);
-  //diffcolor.setRgb( (int)( ((wn==1?w->Transporters1(1):w->Transporters2(1)))*255.), 0, 0);
-  /* if (wn==1) {
-     cerr << "Transporter: " << w->Transporters1(1) << endl;
-     } else {
-     cerr << "Transporter: " << w->Transporters2(1) << endl;
-     }*/
-  
   if (w->AuxinSource() && c->BoundaryPolP()) {
     setPen( QPen(purple , par.outlinewidth) );
   } else {
@@ -116,10 +82,6 @@ void WallItem::setColor(void) {
       setPen (QPen(diffcolor, par.outlinewidth) );
     }
   }
-  
-//   if (c->BoundaryPolP()) {
-//     setPen(QPen(QColor("red"), 20));
-//   }
 }
 
 void WallItem::OnClick(QMouseEvent *e) {
@@ -132,7 +94,6 @@ void WallItem::OnClick(QMouseEvent *e) {
 	qDebug() << "C1 = " << w->C1()->Index() << ", C2 = " << w->C2()->Index() << endl;
 	qDebug() << "N1 = " << w->N1()->Index() << ", N2 = " << w->N2()->Index() << endl;
 	#endif
-	//double tr = wn==1?w->Transporters1(1):w->Transporters2(1);
 	CellBase *c = wn==1?w->C1():w->C2();
 
 	TransporterDialog dialog(w, c, wn);
@@ -147,7 +108,6 @@ void WallItem::OnClick(QMouseEvent *e) {
 		}
 		
 		//extern MainBase *main_window;
-		//((Main *)main_window)->UserMessage(message);
 		
 	} else {
 		if (e->button() == Qt::LeftButton) {
@@ -166,11 +126,5 @@ void WallItem::OnClick(QMouseEvent *e) {
 			setColor();
 			update(boundingRect());
 		} 
-		/* else {
-			if (e->button() == Qt::MidButton && (e->modifiers == Qt::ShiftModifier & Qt::ControlModifier)) {
-				// hidden feature for correcting 
-			}*/
-		
-	
 	}
 }

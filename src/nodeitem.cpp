@@ -54,29 +54,10 @@ void NodeItem::userMove(double dx, double dy) {
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
 
-  // from Qt4.2 example: "elastic nodes"
-  //painter->setPen(Qt::NoPen);
-  //painter->setBrush(Qt::darkGray);
-  //painter->drawEllipse(-70, -70, 200, 200);
-  
-  /* QRadialGradient gradient(-30, -30, 100);
-     
-  if (option->state & QStyle::State_Sunken) {
-  gradient.setCenter(30, 30);
-  gradient.setFocalPoint(30, 30);
-  gradient.setColorAt(1, QColor(Qt::yellow).light(120));
-  gradient.setColorAt(0, QColor(Qt::darkYellow).light(120));
-  } else {
-  gradient.setColorAt(0, Qt::yellow);
-  gradient.setColorAt(1, Qt::darkYellow);
-  }
-  
-  painter->setBrush(gradient); */
   option = NULL; // use assignment merely to obviate compilation warning
   
   painter->setBrush(brush);
   painter->setPen(Qt::NoPen);
-  // const static double mag=20.;
   painter->drawEllipse(ellipsesize);
 }
 

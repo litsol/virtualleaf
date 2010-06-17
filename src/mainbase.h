@@ -58,7 +58,7 @@ class MainBase  {
     showfluxesp = false;
     dynamicscellsp = true;
     showtooltipsp = false;
-	hidecellsp = false;
+    hidecellsp = false;
   }
     virtual ~MainBase() {};
     
@@ -77,12 +77,12 @@ class MainBase  {
     virtual bool ShowBoundaryOnlyP(void) {return showboundaryonlyp;}
     virtual bool ShowToolTipsP(void) {return showtooltipsp;}
     virtual bool ShowWallsP(void) {return showwallsp;}
-	virtual bool ShowApoplastsP(void) { return showapoplastsp;}
+    virtual bool ShowApoplastsP(void) { return showapoplastsp;}
     virtual bool ShowFluxesP(void) { return showfluxesp; }
     virtual bool DynamicCellsP(void) { return dynamicscellsp; }
     virtual void FitCanvasToWindow() {};
     virtual void FitLeafToCanvas() {};
-	virtual bool HideCellsP(void) { return hidecellsp; }
+    virtual bool HideCellsP(void) { return hidecellsp; }
     virtual void clear(void) {
       QList<QGraphicsItem *> list = canvas.items();
       QList<QGraphicsItem *>::Iterator it = list.begin();
@@ -94,26 +94,6 @@ class MainBase  {
     virtual void XMLReadSettings(xmlNode *settings);
     virtual double getFluxArrowsize(void) { return 10.;}
     
-    /* void Save(const char *fname, const char *format, int width=640) {
-      
-    //cerr << "Initializing Pixmap\n";
-      
-    cerr << "Saving to file " << fname << endl;
-    QPixmap *image=new QPixmap(width, (int) (((double)canvas.height()/
-    (double)canvas.width())*((double)width)));
-
-    //QPicture *image = new QPicture();
-      
-    //cerr << "Done initializing QPixmap image(640, " << (((double)canvas.height()/(double)canvas.width())*640.) << ")\n";
-    QPainter im(image);
-    //cerr << "Done initializing image\n";
-    im.scale((double)width/canvas.width(),(double)width/canvas.width());
-    canvas.render(&im, QRectF(0,0,canvas.width(),canvas.height()) );
-    //im.end();      
-    image->save(QString(fname), format);
-    }*/
-    
-
     void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
     void CutSAM(void);
 	
@@ -140,11 +120,11 @@ class MainBase  {
     bool movieframesp;
     bool showboundaryonlyp;
     bool showwallsp;
-	bool showapoplastsp;
+    bool showapoplastsp;
     bool showfluxesp;
     bool dynamicscellsp;
     bool showtooltipsp;
-	bool hidecellsp;
+    bool hidecellsp;
 };
 
 //#include <qapplication.h>

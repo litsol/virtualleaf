@@ -31,8 +31,6 @@
 #include <iterator>
 #include "node.h"
 
-//class xmlNode;
-
 class NodeSet : public list<Node *> {
   
  public:
@@ -47,10 +45,6 @@ class NodeSet : public list<Node *> {
     push_back(n);
     n->node_set = this;
   }
-
-  //  list <Node *? getNodes(void) {
-  //  return set;
-  //}
 
   list <Cell *> getCells(void) {
     
@@ -156,7 +150,6 @@ class NodeSet : public list<Node *> {
 	
 	(*n)->x-=rx;
 	(*n)->y-=ry;
-	// (*n)->z -= rz;
 	  }
       
       
@@ -166,7 +159,6 @@ class NodeSet : public list<Node *> {
   void XMLAdd(xmlNode *root) const;
   void XMLRead(xmlNode *root, Mesh *m);
  private:
-  // list<Node *> set;
   bool done;
 };
 

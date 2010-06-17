@@ -57,18 +57,11 @@
 #include <QDir>
 #include "modelcatalogue.h"
 
-/* #define _xstr_(s) _str_(s)
-   #define _str_(s) #s
-   #include _xstr_(REACTIONS_HEADER)
-*/
-
 static const std::string _module_id("$Id$");
 
 extern Parameter par;
 
 MainBase *main_window = 0;
-//double auxin_account = 0.;
-
 
 #ifdef XFIGGRAPHICS
 #define TIMESTEP double Graphics::TimeStep(void)
@@ -192,16 +185,6 @@ void MainBase::Plot(int resize_stride) {
       fname.fill('0');
       fname.width(6);
 	
-      /* 
-	 fname << frame << ".pdf";
-	 if (par.storage_stride <= par.xml_storage_stride) {
-	 frame++;
-	 }
-			
-	 // Write high-res JPG snapshot every plot step
-	 Save(fname.str().c_str(), "PDF");
-      */
-			
       fname << frame << ".jpg";
       if (par.storage_stride <= par.xml_storage_stride) {
 	frame++;
@@ -277,36 +260,16 @@ TIMESTEP {
       //mesh.LoopCurrentCells(mem_fun(&plugin->CellHouseKeeping)); // this includes cell division
 				
       // Reaction diffusion	
-      /*CelltoCellTransport *transport_f = &TestPlugin::CelltoCellTransport;
-	CellReaction *cellreaction_f = new plugin->CellDynamics();
-	WallReaction *wall_f = new WallDynamics();*/
-				
       mesh.ReactDiffuse(par.rd_dt);
 				
       t++;
 				
       Plot(par.resize_stride);
 		
-      /*QVector< QPair<double, int> > angles=mesh.VertexAnglesValues();
-	QString afname=QString("Angles/anglesvalues%1.dat").arg(t,6,10,QChar('0'));
-	ofstream af(afname.toStdString().c_str());
-      */
-		
-      /*for (QVector< QPair<qreal, int> >::const_iterator v=angles.begin();
-	v!=angles.end();
-	v++) {
-	af << v->first << " " << v->second << endl;
-	}
-      */
     }
 		
   } else {
 			
-    /*  TransportFunction *transport_f = new CelltoCellTransport();
-	CellReaction *cellreaction_f = new CellDynamics();
-	WallReaction *wall_f = new WallDynamics();
-			
-	mesh.ReactDiffuse_New(transport_f, cellreaction_f, wall_f, par.rd_dt);*/
     mesh.ReactDiffuse(par.rd_dt);
 		
     Plot(par.resize_stride);
@@ -322,21 +285,7 @@ TIMESTEP {
 				
 /* Called if a cell is clicked */
 void Cell::OnClick(QMouseEvent *e) {
-
   e = NULL; // use assignment merely to obviate compilation warning
-
-  /* #ifdef HAVE_QWT
-  // Launch DataPlot window
-  QStringList curvenames;
-  for (int i=0;i<NChem();i++) {
-  curvenames += QString("Chem #%1").arg(i);
-  }
-  PlotDialog *plot = new PlotDialog((Main *)main_window, QString("Monitor for Cell %1").arg(Index()), curvenames);
-  QObject::connect(this, SIGNAL(ChemMonValue(double, double *)),
-  plot, SLOT(AddValue(double,double *)));
-  #endif
-  */
-  //getMesh().plugin->OnClick(*this);
 }
 				
 
@@ -478,17 +427,6 @@ int main(int argc,char **argv) {
       QObject::connect( qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()) );
     }
 
-    // Load plugins
-    /*QVector<SimPluginInterface *> plugins = LoadPlugins();
-      InstallPlugin(plugins[0], main_window);
-	  
-      cerr << "List of models:" << endl;
-      foreach (SimPluginInterface *p, plugins) {
-      cerr << p->ModelID().toStdString() << endl;
-      }
-    */
-
-	 	  
     // Install model or read catalogue of models
     ModelCatalogue model_catalogue(&mesh, useGUI?(Main *)main_window:0,modelfile);
     if (useGUI)

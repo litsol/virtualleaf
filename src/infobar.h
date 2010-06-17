@@ -41,12 +41,9 @@ public:
 		SetText("undefined");
 		
 		setHorizontalStretchable(true);
-		//dockwindow->boxLayout()->addWidget(viblab);//,Qt::AlignLeft);
 		boxLayout()->addStretch();
 		boxLayout()->addWidget(virtleaf);//, Qt::AlignHCenter);
 		boxLayout()->addStretch();
-	
-		//dockwindow->boxLayout()->addWidget(psblab);//, Qt::AlignRight);
 	}
 	
 	void SetText(QString text) {
@@ -54,7 +51,6 @@ public:
 	}
 	
 private:
-	//Q3DockWindow *dockwindow;
 	QLabel *virtleaf;
 };
 

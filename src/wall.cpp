@@ -49,13 +49,6 @@ bool Wall::CorrectWall( void ) {
 	duplicates_copy( owners.begin(), owners.end(), back_inserter(wall_owners) );
 	
 	// duplicates are the cells to which the Wall belongs
-	/* cerr << "Wall belongs to Cells: ";
-     transform(wall_owners.begin(), wall_owners.end(), ostream_iterator<int>(cerr, ", "), mem_fun(&Cell::Index));
-	 cerr << endl;
-	 */
-	
-	//list<Cell *>::iterator f = adjacent_find (++e,owners.end());
-	
 	// For the first division, wall finds three "owners", including the boundary_polygon.
 	// Remove that one from the list.
 	//cerr << "wall_owners.size() = " << wall_owners.size() << endl;
@@ -214,9 +207,6 @@ void Wall::ShowStructure(QGraphicsScene *c) {
     
 	text1->setPen ( QColor(par.textcolor) );
 	text2->setPen ( text1->pen() );
-    
-	//text1->setTextFlags(Qt::AlignCenter);
-	//text2->setTextFlags(Qt::AlignCenter);
 	text1->show(); text2->show();
 	
 }

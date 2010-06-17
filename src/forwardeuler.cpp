@@ -32,16 +32,6 @@ static const string _module_id("$Id$");
 
 // The value Errcon equals (5/Safety) raised to the power (1/PGrow), see use below.
 
-/* static float maxarg1,maxarg2;
-   #define FMAX(a,b) (maxarg1=(a),maxarg2=(b),(maxarg1) > (maxarg2) ?	\
-   (maxarg1) : (maxarg2))
-   static float minarg1,minarg2;
-   #define FMIN(a,b) (minarg1=(a),minarg2=(b),(minarg1) < (minarg2) ?	\
-   (minarg1) : (minarg2))
-   #define SIGN(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
-*/
-
-
 const double ForwardEuler::Safety  = 0.9;
 const double ForwardEuler::PGrow = -0.2;
 const double ForwardEuler::Pshrnk = -0.25;

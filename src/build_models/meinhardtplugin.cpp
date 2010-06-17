@@ -117,19 +117,13 @@ void MeinhardtPlugin::CellDynamics(CellBase *c, double *dchem) {
 	double A = c->Chemical(1);
 	double H = c->Chemical(2);
 	double S = c->Chemical(3);
-	//double expansin = c->Chemical(4);
+
 	
 	
     dchem[0] = ( par->d * A - par->e * Y + Y*Y/(1 + par->f * Y*Y ) );
 	dchem[1] = ( par->c * A*A*S/H - par->mu * A + par->rho0*Y );
 	dchem[2] = ( par->c * A*A*S - par->nu*H + par->rho1*Y );
 	dchem[3] = ( par->c0 - par->gamma*S - par->eps * Y * S );
-	//dchem[4] = ( -par->expansindecay * expansin );
-	//for (int i=0;i<4;i++) { cerr << "[ " << dchem[i] << " ]"; } cerr << endl;
-	 
-//	cerr << "Chemicals: "; for (int i=0;i<NChem();i++) { cerr << c->Chemical(i) << " "; } cerr << endl; 
-	
-// test:	dchem[0] = 0.01 * c->Chemical(0) * ( 1. - c->Chemical(0));
 }
 
 

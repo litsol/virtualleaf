@@ -59,7 +59,6 @@ public:
 	}
 };
 
-//template<class P> P& deref_ptr<P>( P *obj) { return *obj; }
 template<class P> P& deref_ptr ( P *obj) { return *obj; }
 
 
@@ -80,19 +79,14 @@ public:
 		cells.reserve(2);
 		nodes.reserve(500);
 		
-		//boundary_polygon = new BoundaryPolygon();
-		
 		time = 0.;
 		plugin = 0;
 	};
 	~Mesh(void) {
 		delete boundary_polygon;
-		/* if (plugin)
-			delete plugin;*/
 	};
 	
 	void Clean(void);
-	//void Plane(int xwidth, int ywidth, int nx, int ny, bool randomP=false);
 	Cell &EllipticCell(double xc, double yc, double ra, double rb, int nnodes=10, double rotation=0);
 	Cell &CircularCell(double xc, double yc, double r, int nnodes=10) {
 		return EllipticCell(xc, yc, r, r, nnodes, 0);
@@ -101,11 +95,6 @@ public:
 	Cell &LeafPrimordium2(int n);
 	Cell *RectangularCell(const Vector ll, const Vector ur, double rotation = 0);
 	void CellFiles(const Vector ll, const Vector ur);
-	
-	/*  void GMVoutput(ostream &os, 
-	 const char *codename=0, const char *codever=0,
-	 const char *comments=0);*/
-	//void RandPoints(int npoints);
 	
 	inline Cell &getCell(int i) {
 		if ((unsigned)i<cells.size())
@@ -116,14 +105,10 @@ public:
                         qDebug() << "size is " << cells.size() << endl;
                         #endif
 			abort();
-			//	throw("Index out of range in Mesh::getCell");
 		}
 	}
 	
 	inline Node &getNode(int i) {
-		//if (i >= nodes.size() || i < 0) {
-		//  cerr << "Mesh::getNode: Warning. Index " << i << " out of range.\n";
-		// }
 		return *nodes[i];    
 	}
 	
@@ -134,35 +119,13 @@ public:
 	inline int nnodes(void) {
 		return nodes.size();
 	}
-	//void SortNBLists(void);
-	
-	/*template<class Op> void LoopCells(Op f) {
-	 for (vector<Cell>::iterator i=cells.begin();
-	 i!=cells.end();
-	 i++) {
-	 f(*i); 
-	 }
-	 }*/
-	
-	/*! \brief Calls function f for all Cells f.
-	 
-	 Using this template requires some fiddling with function adaptors bind2nd and mem_fun_ref.
-	 
-	 Example usage for calling a member function on each cell:
-	 
-	 mesh.LoopCells( bind2nd (mem_fun_ref( &Cell::DrawDiffEdges), &canvas ) );
-	 
-	 This calls Cell's member function DrawDiffEdges, taking one
-	 argument canvas, on all Cell objects in the current Mesh.
-	 
-	 */
+
 	template<class Op> void LoopCells(Op f) {
 		for (vector <Cell *>::iterator i=cells.begin();
 			 i!=cells.end();
 			 i++) {
 			f(**i);
 		}
-		//for_each(cells.begin(),cells.end(),f);
 	}
 	
 	template<class Op> void LoopWalls(Op f) {
@@ -182,7 +145,6 @@ public:
 			f(**i);
 			
 		}
-		//for_each(cells.begin(),cells.end(),f);
 	}
 	
 	template<class Op> void LoopNodes(Op f) {
@@ -256,13 +218,6 @@ public:
 			}
 		}
 	}
-/*	template<class Op1, class Cont> void ExtractFromCells(Op1 f, Cont res) {
-		for (vector<Cell>::iterator i=cells.begin();
-			 i!=cells.end();
-			 i++) {
-			*(res++) = ( f(*i) );
-		}
-	}*/
 	
 	// Apply "f" to cell i
 	// i.e. this is an adapter which allows you to call a function
@@ -335,7 +290,6 @@ public:
 			os << node_insertion_queue.front() << endl;
 			node_insertion_queue.pop();
 		}
-		//copy (node_insertion_queue.begin(),node_insertion_queue.end(),ostream_iterator<Edge>(cerr, " "));
 	}
 	
 	void InsertNodes(void) {
@@ -351,9 +305,7 @@ public:
 	
 	void Clear(); 
 	
-	//  template<class ReactFunction> ReactDiffuse(const double D, ReactFunction& react) {
 	void ReactDiffuse( double delta_t = 1 );
-	//void Diffuse(const double D);
 	double SumChemical(int ch);
 	void SetChemical(int ch, double value) {
 		for (vector<Cell *>::iterator c=cells.begin();
@@ -427,8 +379,6 @@ public:
 	QVector<qreal> VertexAngles(void);
 	QVector< QPair<qreal,int> > VertexAnglesValues(void);
 	void SetSimPlugin(SimPluginInterface *new_plugin) {
-		/* if (plugin) 
-			delete plugin;*/
 		plugin=new_plugin;
 	}
 	QString ModelID(void) { return plugin?plugin->ModelID():QString("undefined"); }
@@ -473,12 +423,7 @@ private:
 		return c;
 	}
 	
-	//int Delaunay(void);
 	void CircumCircle(double x1,double y1,double x2,double y2,double x3,double y3,
 					  double *xc,double *yc,double *r);
-	
-	
-	// void RenumberCells(void);
-	
 };
 #endif

@@ -75,9 +75,6 @@ class FigureEditor : public QGraphicsView {
   void FullRedraw(void);
 
 protected:
-  /* void contentsMousePressEvent(QMouseEvent*);
-  void contentsMouseMoveEvent(QMouseEvent*);
-  void contentsMouseReleaseEvent(QMouseEvent*);*/
   void mousePressEvent(QMouseEvent*);
   void mouseMoveEvent(QMouseEvent*);
   void mouseReleaseEvent(QMouseEvent*);
@@ -134,10 +131,6 @@ class Main : public Q3MainWindow, public MainBase {
   virtual double getFluxArrowsize(void) {
     return flux_arrow_size;
   }
-  //void Save(const char *fname, const char *format);
-  /*void StartGifAnim(QString fname);
-    void SaveToGifAnim(void);
-    void EndGifAnim(void);*/
     
   void FitCanvasToWindow();
   void FitLeafToCanvas(void);
@@ -147,12 +140,9 @@ class Main : public Q3MainWindow, public MainBase {
 
   void help();
   void TimeStepWrap();
-  //void scrollBy(int dx, int dy);
   void togglePaused();
   void setFluxArrowSize(int size);
-  //void Divide(void);
   void RestartSim(void);
-  //void toggleDoubleBuffer(void);
   void toggleShowCellCenters(void);
   void toggleShowNodes(void);
   void toggleShowBorderCells(void);
@@ -162,7 +152,7 @@ class Main : public Q3MainWindow, public MainBase {
   void toggleCellAxes(void);
   void toggleCellStrain(void);
   void toggleShowWalls(void);
-	void toggleShowApoplasts(void);
+  void toggleShowApoplasts(void);
   void toggleDynCells(void);
   void toggleMovieFrames(void);
   void toggleLeafBoundary(void);
@@ -214,13 +204,6 @@ class Main : public Q3MainWindow, public MainBase {
   void clear();
   void init();
   virtual void CutSAM() { MainBase::CutSAM(); Refresh();}
-/*   void cellmonitor() { */
-/*     PlotDialog *plot = new PlotDialog(this); */
-/*     cerr << "Attempting to launch a cell monitor\n"; */
-/*   } */
-  
-  //void addPolygon();
-  //void addLine();
 
   void enlarge();
   void shrink();
@@ -243,7 +226,6 @@ class Main : public Q3MainWindow, public MainBase {
  private:
   NodeSet *node_set;
   FigureEditor *editor;
-  //QCanvas& canvas;
   Q3PopupMenu* options;
   Q3PopupMenu *view;
   Q3PopupMenu *run;

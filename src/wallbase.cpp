@@ -78,7 +78,6 @@ WallBase::WallBase(Node *sn1, Node *sn2, CellBase *sc1, CellBase *sc2) {
 	
 	apoplast = new double[CellBase::NChem()]; // not yet in use.
     
-	//length = 0;
 	SetLength();
 	
 	// to visualize flux through WallBase
@@ -170,10 +169,6 @@ bool WallBase::SAM_P(void) {
 
 #include <fstream>
 
-/* double WallBase::Length(void){ 
- return (*n2 - *n1).Norm();
- }*/
-
 void WallBase::SetLength(void) {
 	
 	//static bool show_nodes = true;
@@ -203,11 +198,6 @@ void WallBase::SetLength(void) {
 		 n!=second_node_edge_plus_1;
 		 (++n == c1->nodes.end()) ? (n=c1->nodes.begin()):n  ) {
 		
-		/* if (n==c1->nodes.end()) { 
-		 
-		 n=c1->nodes.begin(); // wrap around
-		 }*/
-		
 		list<Node *>::const_iterator prev_n = n; 
 		if (prev_n==c1->nodes.begin()) prev_n=c1->nodes.end();
 		--prev_n;
@@ -222,25 +212,12 @@ void WallBase::SetLength(void) {
 		length += (*(*prev_n) - *(*n)).Norm(); 
 		
 	}
-	
-	/*  if (length > 100) {
-	 ostringstream warn;
-	 warn << "Strange, length is " << length << "...: " << deb_str.str() << endl;
-	 warn << "Strangeness in WallBase: " << *this << endl << endl << deb_str.str() << endl;
-	 MyWarning::warning (warn.str().c_str());
-	 }*/
-	
-	//cerr << deb_str .str() << ", length is " << length << endl;
-	//of << length << " " << ((*n2)-(*n1)).Norm() << endl;
-	
-	
 }
 
 void WallBase::CorrectTransporters(double orig_length) {
 	
 	double length_factor = length / orig_length;
-	// cerr << "[ lf = " << length_factor << "]";
-	//cerr << "Correcting amount of transporters on WallBase "  << *this << ", length factor is "  << orig_length << " / " << length << endl;
+
 	for (int ch=0;ch<CellBase::NChem();ch++) {
 		transporters1[ch] *= length_factor;
 		transporters2[ch] *= length_factor;
@@ -253,18 +230,7 @@ void WallBase::CorrectTransporters(double orig_length) {
 
 Vector WallBase::VizFlux(void) {
 	return viz_flux * ( (*n2) - (*n1) ).Normalised().Perp2D();    
-	//return transporters1[1] * ( (*n2) - (*n1) ).Normalised().Perp2D();    
 }
-
-/* TransportFunction::TransportFunction( void ) {  
-	
-	//chem_change_c1 = new double[Cell::NChem()];
-	//chem_change_c2 = new double[Cell::NChem()];
-	
-	//for (int i=0;i<Cell::NChem();i++) {
-	// chem_change_c1[i] = chem_change_c2[i] = 0.;
-	//}
-}*/
 
 
 void WallBase::SetTransToNewTrans( void ){ 
@@ -301,13 +267,10 @@ bool WallBase::IntersectsWithDivisionPlaneP(const Vector &p1, const Vector &p2) 
 	double x4 = p2.x, y4 = p2.y;
 	
 	double ua = ( (x4 - x3) * (y1-y3) - (y4 - y3)*(x1-x3) ) / ( (y4 -y3) * (x2 -x1) - (x4-x3)*(y2-y1));
-	//	double ub = ( (x2 - x1) * (y1 - y3)  - (y2 - y1) * (x1 -x3) ) / ( ( y4-y3) * (x2-x1) - (x4-x3)*(y2-y1)) ;
 	
 	// If ua is between 0 and 1, line p1 intersects the line segment
 	if ( ua >=0. && ua <=1.) return true;
 	else return false;
 	
 }
-
-
 

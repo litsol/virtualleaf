@@ -58,16 +58,6 @@ void AuxinGrowthPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, C
 		w->setTransporter(daughter1, 1, 0.);
 	}
 	
-	//daughter1.LoopWalls(Wall::setTransporter(&daughter1, 1, 0.));
-	
-	
-	/* for (list<Wall *>::const_iterator w=daughter2.walls.begin();
-		 w!=daughter2.walls.end();
-		 w++) {
-		// reset transporter value
-		(*w)->setTransporter(&daughter2, 1, 0.);
-	}
-	*/
 }
 
 void AuxinGrowthPlugin::SetCellColor(CellBase *c, QColor *color) { 
@@ -106,7 +96,6 @@ void AuxinGrowthPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *d
 		if (w->AuxinSource()) {
 			double aux_flux = par->leaf_tip_source * w->Length();
 			dchem_c1[0]+= aux_flux;
-			// dchem_c2 is undefined..!
 			return;
 		} else {
 			return;
@@ -119,7 +108,6 @@ void AuxinGrowthPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *d
 		if (w->AuxinSource()) {
 			double aux_flux = par->leaf_tip_source * w->Length();
 			dchem_c2[0] += aux_flux;
-			// dchem_c1 is undefined...!
 			return;
 		} else {
 			
@@ -167,7 +155,6 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
 		if (w->AuxinSink()) {
 			
 			dw1[0] = 0.; dw2[0] = 0.;
-			//dw1[2] = 0.; dw2[2] = 0.;
             
 			// assume high auxin concentration in SAM, to convince PIN1 to polarize to it
 			// exocytosis regulated0
@@ -180,7 +167,7 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
 			return;
 			
 		} else {
-			dw1[0]=dw2[0]=dw1[1]=dw2[1];//=dw1[2]=dw2[2];
+			dw1[0]=dw2[0]=dw1[1]=dw2[1];
 			return;
 		}
     }
@@ -189,7 +176,6 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
 		if (w->AuxinSink())  {
 			
 			dw1[0] = 0.; dw2[0] = 0.;
-			//dw1[2] = 0.; dw2[2] = 0.;
 			
 			// assume high auxin concentration in SAM, to convince PIN1 to polarize to it
 			// exocytosis regulated
@@ -201,7 +187,7 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
 			return;
 			
 		}  else {
-			dw1[0]=dw2[0]=dw1[1]=dw2[1];//=dw1[2]=dw2[2];
+			dw1[0]=dw2[0]=dw1[1]=dw2[1];
 			return;
 		}
     }
@@ -237,8 +223,6 @@ void AuxinGrowthPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
     /* PIN1 of neighboring vascular cell inhibits PIN1 endocytosis */
     
     dw1[0] = 0.; dw2[0] = 0.;
-    //dw1[2] = 0.; dw2[2] = 0.;
-    
     dw1[1] = dPijdt1;
     dw2[1] = dPijdt2;
 }
@@ -264,14 +248,6 @@ void AuxinGrowthPlugin::CellDynamics(CellBase *c, double *dchem) {
 		// exocytosis regulated:
 	
 	dPidt = -par->k1 * c->ReduceCellAndWalls<double>( far_3_arg_mem_fun( *this, &AuxinGrowthPlugin::complex_PijAj ) ) + par->k2 * sum_Pij;
-	/*for ( list<Wall *>::const_iterator w = c->walls.begin();
-		 w!=walls.end();
-		 w++) {
-		if ((*w)->C1() == c)
-			dPidt +=  complex_PijAj( (*w)->C1(), (*w)->C2(), *w );
-		else
-			dPidt +=  complex_PijAj( (*w)->C2(), (*w)->C1(), *w );
-	}*/
 	
 	// production of PIN depends on auxin concentration
 	dPidt +=  (c->AtBoundaryP()?par->pin_prod_in_epidermis:par->pin_prod) * c->Chemical(0) - c->Chemical(1) * par->pin_breakdown;

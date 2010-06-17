@@ -118,7 +118,6 @@ public:
   Vector operator*(const Vector &v) const; // cross product
   bool operator==(const Vector &v) const; // comparison
   bool operator< (const Vector &v) const; // order x,y,z
-  //double Norm(void) const; // gives the "norm" (| v |) of v
   inline double Norm(void) const {
   
     return sqrt(DSQR(x)+DSQR(y)+DSQR(z));

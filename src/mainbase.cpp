@@ -220,14 +220,11 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 	// give the leaf some space
 	Vector border = ((ur-ll)/5.);
 	
-	//QRectF bb( ll.x - border.x, ll.y - border.y, ur.x-ll.x + 2*border.x, ur.y-ll.y + 2*border.y );
-	
 	if (!QString(format).contains("pdf", Qt::CaseInsensitive)) {
 	
 		QImage *image = new QImage(QSize(sizex, sizey), QImage::Format_RGB32);
 		image->fill(QColor(Qt::white).rgb());
 		QPainter *painter=new QPainter(image);
-		//canvas.render(painter,QRectF(),QRectF(-5000,-5000, 10000, 10000));
 		canvas.render(painter);
 		if (!image->save(QString(fname))) {
 			MyWarning::warning("Image not saved successfully. Is the disk full or the extension not recognized?");
@@ -238,15 +235,7 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 		QPrinter pdf(QPrinter::HighResolution);
 		pdf.setOutputFileName(fname);
 		pdf.setOutputFormat(QPrinter::PdfFormat);
-		//pdf.setPageSize(QPrinter::Custom);
 		QPainter painter(&pdf);
-		//	cerr << "Cell::Magnification() = " << Cell::Magnification() << endl;
-		//if (sizex==0 || sizey==0) {
-			// always fit to page
-		//	canvas.render(&painter);
-		//} else {
-		//	canvas.render(&painter,QRectF(),QRectF(-5000,-5000, 10000, 10000));
-		//}
 		canvas.render(&painter, QRectF(), QRectF(-5000,-5000, 10000, 10000));
 		
 		cerr << "Rendering to printer\n";

@@ -36,11 +36,7 @@ OptionFileDialog::OptionFileDialog(QWidget *parent, const char *name, bool modal
 	parcheck = new QCheckBox("parameters", this);
 	parcheck -> setCheckState(Qt::Checked);
 	
-	//timecheck = new QCheckBox("time",this);
-	//timecheck -> setCheckState(Qt::Checked);
-	
 	addToolButton(geometrycheck);
-	//addToolButton(timecheck);
 	addToolButton(parcheck);
 
 };
