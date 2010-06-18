@@ -68,9 +68,9 @@ unix {
 }
 
 win32 {
- LIBXML2DIR = C:\libxml2
- LIBICONVDIR = C:\libiconv
- LIBZDIR = C:\libz
+ LIBXML2DIR = ..\lib\libxml2
+ LIBICONVDIR = ..\lib\libiconv
+ LIBZDIR = ..\lib\libz
  QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }

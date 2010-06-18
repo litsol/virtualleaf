@@ -2,28 +2,33 @@
 
 QMAKE = qmake
 
+# Set $(MAKE) to the name of the make command on your machine, e.g. 'make' on Linux and 'mingw32-make' on windows.
+MAKE =  make # mingw32-make
+
 all: VirtualLeaf libplugin plugins
 
 VirtualLeaf: Makefile.VirtualLeaf
-	make -f Makefile.VirtualLeaf
+	$(MAKE) -f Makefile.VirtualLeaf
 
 Makefile.VirtualLeaf: VirtualLeaf.pro
 	$(QMAKE) -makefile -o $@ $< 
 
 libplugin: Makefile.libplugin
-	make -f Makefile.libplugin
+	$(MAKE) -f Makefile.libplugin
 
 Makefile.libplugin: libplugin.pro
 	$(QMAKE) -makefile -o $@ $< 
 
 plugins:
-	make -C build_models
+	$(MAKE) -C build_models
 
 clean:
-	make -f Makefile.libplugin clean
-	make -f Makefile.VirtualLeaf clean
-	make -C build_models clean
+	$(MAKE) -f Makefile.libplugin clean
+	$(MAKE) -f Makefile.VirtualLeaf clean
+	$(MAKE) -C build_models clean
+ifeq ($(MAKE),make)
 	touch VirtualLeaf.pro
 	touch libplugin.pro
+endif
 
 #finis

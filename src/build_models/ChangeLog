@@ -1,3 +1,12 @@
+2010-06-18    <guravage@caterpie.sen.cwi.nl>
+
+	* plugin_auxingrowth.pro: Changed default LIBXML2DIR, LIBICONVDIR and LIBZDIR to corresponding distribution lib directories.
+	* plugin_meinhardt.pro: Ditto.
+	* plugin_test.pro: Ditto.
+
+	* Makefile (clean): add if stmt not to `touch` on windows.
+
+
 2010-06-15    <guravage@caterpie.sen.cwi.nl>
 
 
