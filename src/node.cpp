@@ -173,10 +173,7 @@ void Node::DrawOwners(QGraphicsScene *c) const {
 QVector<qreal> Node::NeighbourAngles(void)
 {
   QVector<qreal> angles;
-  for (list<Neighbor>::iterator i=owners.begin();
-       i!=owners.end();
-       i++) {
-
+  for (list<Neighbor>::iterator i=owners.begin(); i!=owners.end(); i++) {
     Vector v1 = (*this - *i->nb1).Normalised();
     Vector v2 = (*this - *i->nb2).Normalised();	
 
@@ -193,9 +190,7 @@ QVector<qreal> Node::NeighbourAngles(void)
   }
 
   double sum=0.;
-  for (QVector<qreal>::iterator i=angles.begin();
-       i!=angles.end();
-       i++) {
+  for (QVector<qreal>::iterator i=angles.begin(); i!=angles.end(); i++) {
     sum+=*i;
   }
   //cerr << "Angle sum = " << sum << endl;

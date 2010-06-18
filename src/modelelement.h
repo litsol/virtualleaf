@@ -35,4 +35,7 @@ class ModelElement {
   virtual void Displace(void) {};
   virtual ~ModelElement() {};
 };
+
 #endif
+
+/* finis */

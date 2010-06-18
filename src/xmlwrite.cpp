@@ -750,9 +750,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
     xmlNewProp(xmlnodes, BAD_CAST "target_length", BAD_CAST text.str().c_str());
   }
 
-  for (vector<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (vector<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
     (*i)->XMLAdd(xmlnodes) ;
   }
 
@@ -797,9 +795,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
     xmlNewProp(xmlcells, BAD_CAST "nchem", BAD_CAST text.str().c_str());
   }
 
-  for (vector<Cell *>::const_iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::const_iterator i=cells.begin(); i!=cells.end(); i++) {
     (*i)->XMLAdd(xmlcells) ;
   }
 
@@ -813,9 +809,7 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
   }
 
 
-  for (list<Wall *>::const_iterator i=walls.begin();
-       i!=walls.end();
-       i++) {
+  for (list<Wall *>::const_iterator i=walls.begin(); i!=walls.end(); i++) {
     (*i)->XMLAdd(xmlwalls) ;
   }
 
@@ -985,13 +979,9 @@ void Mesh::XMLReadGeometry(const xmlNode * a_node)
   boundary_polygon->ConstructNeighborList();
   boundary_polygon->ConstructConnections();
 
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     (*c)->ConstructNeighborList();
     (*c)->ConstructConnections();
-
   }
 
   shuffled_cells.clear();
@@ -1018,9 +1008,7 @@ void Mesh::XMLReadNodes(xmlNode *root)
   xmlNode *cur = root;
   cur = cur->xmlChildrenNode;
 
-  for (vector<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (vector<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
     delete *i;
   }
 
@@ -1108,9 +1096,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls)
   xmlNode *cur = root;
   cur = cur->xmlChildrenNode;
 
-  for (list<Wall *>::iterator i=walls.begin();
-       i!=walls.end();
-       i++) {
+  for (list<Wall *>::iterator i=walls.begin(); i!=walls.end(); i++) {
     delete *i;
   }
 
@@ -1425,9 +1411,7 @@ void Mesh::XMLReadNodeSetsToNodes(xmlNode *root)
 void Mesh::XMLReadNodeSets(xmlNode *root)
 {
 
-  for (vector<NodeSet *>::iterator i=node_sets.begin();
-       i!=node_sets.end();
-       i++) {
+  for (vector<NodeSet *>::iterator i=node_sets.begin(); i!=node_sets.end(); i++) {
     delete *i;
   }
 
@@ -1455,10 +1439,7 @@ void Mesh::XMLReadNodeSets(xmlNode *root)
 
 void Mesh::XMLReadCells(xmlNode *root)
 {
-
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     delete *i;
   }
 
@@ -1466,7 +1447,6 @@ void Mesh::XMLReadCells(xmlNode *root)
   Cell::NCells() = 0;
 
   delete boundary_polygon;
-
 
   xmlNode *cur = root->xmlChildrenNode;
 

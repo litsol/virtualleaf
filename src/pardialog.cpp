@@ -803,3 +803,5 @@ void ParameterDialog::Reset(void) {
   dir2_edit->setText( QString("%1").arg(par.dir2) );
 }
 
+
+/* finis */

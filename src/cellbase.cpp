@@ -234,9 +234,7 @@ void CellBase::SetTransporters(int ch, double conc)
     error << "SetChemical: value ch = " << ch << " is out of range\n";
     throw error.str().c_str();
   }
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     (*w)->setTransporter(this, ch, conc);
   }
 }
@@ -269,9 +267,7 @@ ostream &CellBase::print(ostream &os) const
   os << " [ area = " << area << " ]";
   os << " [ walls = ";
 
-  for (list<Wall *>::const_iterator i= walls.begin();
-       i!=walls.end();
-       i++) {
+  for (list<Wall *>::const_iterator i= walls.begin(); i!=walls.end(); i++) {
     os << (*i)->n1->Index() << " -> " << (*i)->n2->Index() << ", " <<  (*i)->c1->Index() << " | " << (*i)->c2->Index() << ", ";
   }
   os << " ] ";
@@ -293,9 +289,7 @@ double CellBase::CalcArea(void) const
 
   double loc_area=0.;
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=(nodes.end());
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=(nodes.end()); i++) {
 
     list<Node *>::const_iterator i_plus_1=i; i_plus_1++;
     if (i_plus_1==nodes.end())
@@ -315,9 +309,7 @@ Vector CellBase::Centroid(void) const
   double area=0.;
   double integral_x_dxdy=0.,integral_y_dxdy=0.;
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=(nodes.end());
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=(nodes.end()); i++) {
 
     list<Node *>::const_iterator i_plus_1=i; i_plus_1++;
     if (i_plus_1==nodes.end())
@@ -362,9 +354,7 @@ void CellBase::SetIntegrals(void) const
   list<Node *>::const_iterator nb;
   list<Node *>::const_iterator i=nodes.begin();
 
-  for (;
-       i!=(nodes.end());
-       i++) {
+  for (; i!=(nodes.end()); i++) {
 
     nb = i; nb++; if (nb==nodes.end()) nb=nodes.begin();
 
@@ -452,9 +442,7 @@ double CellBase::CalcLength(Vector *long_axis, double *width)  const
   list<Node *>::const_iterator nb;
   list<Node *>::const_iterator i=nodes.begin();
 
-  for (;
-       i!=(nodes.end());
-       i++) {
+  for (; i!=(nodes.end()); i++) {
 
     nb = i; nb++; if (nb==nodes.end()) nb=nodes.begin();
 
@@ -603,31 +591,22 @@ void CellBase::Dump(ostream &os) const
 
   os << " " << source_conc << " " << source_chem;
   os << endl;
-
 }
 
 
 void CellBase::UnfixNodes(void)
 {
-
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
     (*i)->Unfix();
   }
-
 }
 
 
 void CellBase::FixNodes(void)
 {
-
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) { 
     (*i)->Fix();
   }
-
 }
 
 // returns true if cell is at border

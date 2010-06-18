@@ -145,5 +145,6 @@ class Parameter {
 ostream &operator<<(ostream &os, Parameter &p);
 const char *sbool(const bool &p);
 
-
 #endif
+
+/* finis */

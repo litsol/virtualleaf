@@ -97,9 +97,7 @@ public:
   void operator() (Cell &c,std::ostream &os) const {
     os << "Cell " << c.index << " says: " << endl;
     os << "c.nodes.size() = " << c.nodes.size() << endl;
-    for (list<Node *>::iterator i=c.nodes.begin();
-	 i!=c.nodes.end();
-	 i++) {
+    for (list<Node *>::iterator i=c.nodes.begin(); i!=c.nodes.end(); i++) {
       cerr << (*i)->Index() << " ";
     }
     cerr << endl;

@@ -295,12 +295,9 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
 
       NodeSet *node_set = new NodeSet;
 
-      for (vector<CellItem *>::iterator it = intersected_cells.begin();
-	   it != intersected_cells.end();
-	   it++) {
-
+      for (vector<CellItem *>::iterator it = intersected_cells.begin(); it != intersected_cells.end(); it++) {
 	(*it)->setBrush(QBrush("purple"));
-
+	
 	Cell &c=(*it)->getCell();
 
 	// sometimes the cell hasn't properly divided yet before the
@@ -330,10 +327,7 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
 	mesh.CutAwayBelowLine( startpoint, endpoint ); 
 
 	// Correct flags of nodeset
-	for (
-	     NodeSet::iterator i = node_set->begin(); 
-	     i != node_set->end();
-	     i++) {
+	for (NodeSet::iterator i = node_set->begin(); i != node_set->end(); i++) {
 	  (*i)->SetSAM();
 	  (*i)->SetBoundary();
 	}
@@ -344,9 +338,7 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
 	//   we must insert a new node into the node set.
 	// For now, we add a layer of "virtual cells" inbetween. 
 	list<Cell *> cells_attached_to_nodeset = node_set->getCells();
-	for ( list<Cell *>::iterator c = cells_attached_to_nodeset.begin();
-	      c != cells_attached_to_nodeset.end(); 
-	      c++) {
+	for ( list<Cell *>::iterator c = cells_attached_to_nodeset.begin(); c != cells_attached_to_nodeset.end(); c++) {
 	  (*c)->SetBoundary(Cell::SAM);
 	}
 
