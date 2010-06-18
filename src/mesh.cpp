@@ -65,9 +65,7 @@ void Mesh::AddNodeToCell(Cell *c, Node *n, Node *nb1, Node *nb2) {
 
 void Mesh::PerturbChem(int chemnum, double range) {
 
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     (*i)->chem[chemnum] += range*(RANDOM()-0.5);
     if ((*i)->chem[chemnum]<0.) (*i)->chem[chemnum]=0.;
   }
@@ -90,8 +88,7 @@ void Mesh::CellFiles(const Vector ll, const Vector ur) {
     IncreaseCellCapacityIfNecessary();
 
     vector <Cell *> current_cells = cells;
-    for (vector<Cell *>::iterator j=current_cells.begin();
-	 j!=current_cells.end();j++) {
+    for (vector<Cell *>::iterator j=current_cells.begin(); j!=current_cells.end();j++) {
       (*j)->DivideOverAxis(axis);
     }
     axis=axis.Perp2D();
@@ -103,16 +100,13 @@ void Mesh::CellFiles(const Vector ll, const Vector ur) {
   axis=axis.Perp2D();
 
   vector <Cell *> current_cells = cells;
-  for (vector<Cell *>::iterator j=current_cells.begin();
-       j!=current_cells.end();j++) {
+  for (vector<Cell *>::iterator j=current_cells.begin(); j!=current_cells.end();j++) {
     (*j)->DivideOverAxis(axis);
   }
 
 
   double sum_l=0; int n_l=0;
-  for (list<Node *>::const_iterator i=cell->nodes.begin();
-       i!=cell->nodes.end();
-       i++) {
+  for (list<Node *>::const_iterator i=cell->nodes.begin(); i!=cell->nodes.end(); i++) {
     list<Node *>::const_iterator nb=i; nb++; 
     if (nb==cell->nodes.end()) 
       nb=cell->nodes.begin();
@@ -244,37 +238,7 @@ Cell &Mesh::EllipticCell(double xc, double yc, double ra, double rb,  int nnodes
   // a bit more tension
   Node::target_length/=2;
 
-  //boundary_polygon = c;
-  /*  list<int>::iterator nb;
-      for (list<int>::iterator i=c->nodes.begin();
-      i!=c->nodes.end();
-      i++) {
-
-      nb = i; nb++;
-      if (nb==c->nodes.end()) {
-      nb=c->nodes.begin();
-      }
-      int next = *nb;
-
-      nb = i; 
-      if (nb==c->nodes.begin()) {
-      nb=c->nodes.end();
-      } 
-      nb--;
-      int previous = *nb;
-
-
-      getNode(*i).cells.push_back( Neighbor(boundary_polygon->index, next, previous) );
-      }*/
-
   c->SetIntegrals(); 
-  //c->ConstructNeighborList();
-
-  //c->ConstructWalls();
-
-  // initial cell has one wall with the outside world
-  //c->walls.push_back( new Wall ( nodes.front(), nodes.front(), c, boundary_polygon )); 
-
   c->at_boundary=true;
 
   return *c;
@@ -331,13 +295,11 @@ Cell &Mesh::LeafPrimordium(int nnodes, double pet_length) {
   // get position of the (n/4)'th and (3*(n/4))'th node.
 
   list<Node *>::reverse_iterator it_n1=circle->nodes.rbegin();
-  for (int i=0;i<nnodes/2;i++)
+  for (int i=0; i<nnodes/2; i++) 
     it_n1++;
   it_n1--;
 
   list<Node *>::reverse_iterator it_n2=--circle->nodes.rend();
-  /* for (int i=0;i<n/2;i++)
-     it_n2++;*/
 
   Cell *petiole=AddCell(new Cell());
 
@@ -358,35 +320,18 @@ Cell &Mesh::LeafPrimordium(int nnodes, double pet_length) {
 
 
   list<Node *>::reverse_iterator i=it_n1; i++;
-  for (;
-       i!=it_n2; 
-       //(++i) == circle->nodes.rend() ? i : i=circle->nodes.rbegin() ) {
-       ++i) {
-    AddNodeToCell(petiole,
-		  *i,
+  for (; i!=it_n2; ++i) {
+    AddNodeToCell(petiole, *i,
 		  nodes[(*it_n2)->Index() + (((*i)->Index()-(*it_n2)->Index()) + 1)%nnodes],
 		  nodes[(*it_n2)->Index() + (((*i)->Index()-(*it_n2)->Index())-1+nnodes)%nnodes]);
-
   }
 
-
-  AddNodeToCell(petiole, *it_n2, 
-		*it_n2 + 1,
-		n3);
-
+  AddNodeToCell(petiole, *it_n2, *it_n2 + 1, n3);
 
   (*it_n2)->boundary=true;
 
-  //petiole.nodes.push_back(n3.Index());
-  //petiole.nodes.push_back(n4.Index());
-  AddNodeToCell(petiole,
-		n3,
-		n2,
-		n4);
-  AddNodeToCell(petiole,
-		n4,
-		n3,
-		n1);
+  AddNodeToCell(petiole, n3, n2, n4);
+  AddNodeToCell(petiole, n4, n3, n1);
 
 
 #ifdef QDEBUG  
@@ -394,9 +339,7 @@ Cell &Mesh::LeafPrimordium(int nnodes, double pet_length) {
   qDebug() << petiole << endl;
 #endif
 
-  AddNodeToCell(boundary_polygon, *it_n1, 
-		n4,
-		*it_n2 + ((*it_n1-*it_n2)+1)%nnodes); // is this gonna work?
+  AddNodeToCell(boundary_polygon, *it_n1, n4, *it_n2 + ((*it_n1-*it_n2)+1)%nnodes); // is this gonna work?
 
   (*it_n1)->boundary=true;
 
@@ -412,23 +355,12 @@ Cell &Mesh::LeafPrimordium(int nnodes, double pet_length) {
     }
   }
 
-  AddNodeToCell(boundary_polygon, *it_n2, 
-		nodes[(nnodes+(*it_n2)->Index() - 1)%nnodes],
-		n3);
-
-  AddNodeToCell(boundary_polygon,
-		n3,
-		n2,
-		n4);
-  AddNodeToCell(boundary_polygon,
-		n4,
-		n3,
-		n1);
+  AddNodeToCell(boundary_polygon, *it_n2, nodes[(nnodes+(*it_n2)->Index() - 1)%nnodes], n3);
+  AddNodeToCell(boundary_polygon, n3, n2, n4);
+  AddNodeToCell(boundary_polygon, n4, n3, n1);
 
   // make petiole solid
-  for (list<Node *>::iterator i=petiole->nodes.begin();
-       i!=petiole->nodes.end();
-       i++) {
+  for (list<Node *>::iterator i=petiole->nodes.begin(); i!=petiole->nodes.end(); i++) {
     (*i)->Fix();
   }
   petiole->Fix();
@@ -454,9 +386,7 @@ void Mesh::BoundingBox(Vector &LowerLeft, Vector &UpperRight) {
 
   LowerLeft = **nodes.begin();
   UpperRight = **nodes.begin();
-  for (vector<Node *>::iterator c=nodes.begin();
-       c!=nodes.end();
-       c++) {
+  for (vector<Node *>::iterator c=nodes.begin(); c!=nodes.end(); c++) {
     if ((*c)->x < LowerLeft.x)
       LowerLeft.x = (*c)->x;
     if ((*c)->y < LowerLeft.y)
@@ -512,9 +442,7 @@ public:
 void Mesh::Clear(void) {
 
   // clear nodes
-  for (vector<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (vector<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
     delete *i;
   }
 
@@ -523,9 +451,7 @@ void Mesh::Clear(void) {
 
   node_insertion_queue.clear();
   // Clear NodeSets
-  for (vector<NodeSet *>::iterator i=node_sets.begin();
-       i!=node_sets.end();
-       i++) {
+  for (vector<NodeSet *>::iterator i=node_sets.begin(); i!=node_sets.end(); i++) {
     delete *i;
   }
 
@@ -534,9 +460,7 @@ void Mesh::Clear(void) {
 
   // clear cells
 
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     delete *i;
   }
 
@@ -546,9 +470,7 @@ void Mesh::Clear(void) {
   delete boundary_polygon;
 
   // Clear walls
-  for (list<Wall *>::iterator i=walls.begin();
-       i!=walls.end();
-       i++) {
+  for (list<Wall *>::iterator i=walls.begin(); i!=walls.end(); i++) {
     delete *i;
   }
 
@@ -589,9 +511,7 @@ double Mesh::DisplaceNodes(void) {
 
   for_each( node_sets.begin(), node_sets.end(), mem_fun( &NodeSet::ResetDone ) );
 
-  for (vector<Node *>::const_iterator i=shuffled_nodes.begin();
-       i!=shuffled_nodes.end();
-       i++) {
+  for (vector<Node *>::const_iterator i=shuffled_nodes.begin(); i!=shuffled_nodes.end(); i++) {
 
     //int n=shuffled_nodes[*i];
     Node &node(**i);
@@ -642,9 +562,7 @@ double Mesh::DisplaceNodes(void) {
       double sum_stiff=0.;
       double dh=0.;
 
-      for (list<Neighbor>::const_iterator cit=node.owners.begin();
-	   cit!=node.owners.end();
-	   cit++) {
+      for (list<Neighbor>::const_iterator cit=node.owners.begin(); cit!=node.owners.end(); cit++) {
 
 	//Cell &c=m->getCell(cit->cell);
 	//Cell &c=cit->cell->BoundaryPolP()?*boundary_polygon:*(cit->cell);
@@ -960,9 +878,7 @@ double Mesh::DisplaceNodes(void) {
 	// search the fixed cell to which this node belongs
 	// and displace these cells as a whole
 	// WARNING: undefined things will happen for connected fixed cells...
-	for (list<Neighbor>::iterator c=node.owners.begin();
-	     c!=node.owners.end();
-	     c++) {
+	for (list<Neighbor>::iterator c=node.owners.begin(); c!=node.owners.end(); c++) {
 	  if (!c->cell->BoundaryPolP() && c->cell->FixedP()) {
 	    sum_dh+=c->cell->Displace(rx,ry,0);
 	  }
@@ -974,11 +890,7 @@ double Mesh::DisplaceNodes(void) {
 
 	  // update areas of cells
 	  list<DeltaIntgrl>::const_iterator di_it = delta_intgrl_list.begin();
-	  for (list<Neighbor>::iterator cit=node.owners.begin();
-	       cit!=node.owners.end();
-	       ( cit++) ) {
-	    //m->getCell(cit->cell).area -= *da_it;
-	    //if (cit->cell>=0) {
+	  for (list<Neighbor>::iterator cit=node.owners.begin(); cit!=node.owners.end(); ( cit++) ) {
 	    if (!cit->cell->BoundaryPolP()) {
 	      cit->cell->area -= di_it->area;
 	      if (par.lambda_celllength) {
@@ -1235,10 +1147,7 @@ void Mesh::CircumCircle(double x1,double y1,double x2,double y2,double x3,double
 double Mesh::SumChemical(int ch) {
 
   double sum=0.;
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
-
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     sum+=(*i)->chem[ch];
   }
   return sum;
@@ -1256,10 +1165,7 @@ void Mesh::CleanUpCellNodeLists(void) {
   // Start of by removing all stale walls.
   //DeleteLooseWalls();
   // collect all dead cells that need to be removed from the simulation
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
-
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     if ((*i)->DeadP()) {
       // collect the iterators
       cellstoberemoved.push_back(i);
@@ -1268,9 +1174,7 @@ void Mesh::CleanUpCellNodeLists(void) {
       cellind.push_back((*i)->index);
     } else {
       // Remove pointers to dead Walls
-      for (list<Wall *>::iterator w=(*i)->walls.begin();
-	   w!=(*i)->walls.end();
-	   w++) {
+      for (list<Wall *>::iterator w=(*i)->walls.begin(); w!=(*i)->walls.end(); w++) {
 	if ((*w)->DeadP()) {
 	  (*w)=0;
 	}
@@ -1280,9 +1184,7 @@ void Mesh::CleanUpCellNodeLists(void) {
   }
 
   // Remove pointers to dead Walls from BoundaryPolygon
-  for (list<Wall *>::iterator w=boundary_polygon->walls.begin();
-       w!=boundary_polygon->walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=boundary_polygon->walls.begin(); w!=boundary_polygon->walls.end(); w++) {
     if ((*w)->DeadP()) {
       (*w)=0;
     }
@@ -1295,26 +1197,16 @@ void Mesh::CleanUpCellNodeLists(void) {
 
 
   // Reindexing of Cells
-  for (vector<int>::reverse_iterator j=cellind.rbegin();
-       j!=cellind.rend();
-       j++) {
-
-    for (vector<Cell *>::reverse_iterator i=cells.rbegin();
-	 i!=cells.rend();
-	 i++) {
-
+  for (vector<int>::reverse_iterator j=cellind.rbegin(); j!=cellind.rend(); j++) {
+    for (vector<Cell *>::reverse_iterator i=cells.rbegin(); i!=cells.rend(); i++) {
       if (*j < (*i)->index) (*i)->index--;
-
     }
-
   }
 
 
   // Actual deleting of Cells
   // We must delete in reverse order, otherwise the iterators become redefined
-  for ( CellItVect::reverse_iterator i=cellstoberemoved.rbegin();
-	i!=cellstoberemoved.rend();
-	i++) {
+  for ( CellItVect::reverse_iterator i=cellstoberemoved.rbegin(); i!=cellstoberemoved.rend(); i++) {
     Cell::NCells()--;
     cells.erase(*i);
   }
@@ -1327,14 +1219,10 @@ void Mesh::CleanUpCellNodeLists(void) {
   vector<int> nodeindlist;
 
   // collect iterators and indices of dead nodes
-  for (vector<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
-
+  for (vector<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
     if ((*i)->DeadP()) {
       nodestoberemoved.push_back( i );
       nodeindlist.push_back((*i)->index);
-
     }
   }
 
@@ -1343,38 +1231,24 @@ void Mesh::CleanUpCellNodeLists(void) {
 
 
   // Reindicing of Nodes
-  for (vector<int>::reverse_iterator j=nodeindlist.rbegin();
-       j!=nodeindlist.rend();
-       j++) {
-
-    for (vector<Node *>::reverse_iterator i=nodes.rbegin();
-	 i!=nodes.rend();
-	 i++) {
-
+  for (vector<int>::reverse_iterator j=nodeindlist.rbegin(); j!=nodeindlist.rend(); j++) {
+    for (vector<Node *>::reverse_iterator i=nodes.rbegin(); i!=nodes.rend(); i++) {
       if (*j < (*i)->index) { 
-
 	(*i)->index--;
       } 
-
-
     }
-
   }
 
   // Actual deleting of nodes
   // We must delete in reverse order, otherwise the iterators become redefined
-  for ( NodeItVect::reverse_iterator i=nodestoberemoved.rbegin();
-	i!=nodestoberemoved.rend();
-	i++) {
+  for ( NodeItVect::reverse_iterator i=nodestoberemoved.rbegin(); i!=nodestoberemoved.rend(); i++) {
     Node::nnodes--;
     nodes.erase(*i);
   }
 
 
 
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     if ((*w)->DeadP()) {
       Wall::nwalls--;
       delete *w;
@@ -1387,38 +1261,15 @@ void Mesh::CleanUpCellNodeLists(void) {
 
 
   // Clean up all intercellular connections and redo everything
-  for (vector<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
-
+  for (vector<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
     (*i)->owners.clear();
   }
 
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
-
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     (*i)->ConstructConnections();
-
   }
 
   boundary_polygon->ConstructConnections();
-
-  /* for (list<Wall *>::iterator w=walls.begin();
-     w!=walls.end();
-     w++) {
-     delete *w;    
-     }
-
-     walls.clear(); 
-     cerr << "Cleared walls\n"; 
-     for (vector<Cell *>::iterator i=cells.begin();
-     i!=cells.end();
-     i++) {
-
-     (*i)->ConstructWalls();
-     }
-  */
 
   // remake shuffled_nodes and shuffled cells
   shuffled_nodes.clear();
@@ -1439,9 +1290,7 @@ void Mesh::CutAwayBelowLine( Vector startpoint, Vector endpoint) {
 #endif
 
   TestIllegalWalls();
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
 
     // do some vector geometry to check whether the cell is below the cutting line
     Vector cellvec = ((*i)->Centroid()-startpoint);
@@ -1462,25 +1311,18 @@ void Mesh::CutAwayBelowLine( Vector startpoint, Vector endpoint) {
 
 void Mesh::CutAwaySAM(void) {
 
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
-
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     if( (*i)->Boundary() == Cell::SAM ) {
-
       (*i)->Apoptose();
     }
   }
-
   TestIllegalWalls();
-
   CleanUpCellNodeLists();
 }
+
 void Mesh::TestIllegalWalls(void) {
 
-  for (list<Wall *>::iterator w = walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::iterator w = walls.begin(); w!=walls.end(); w++) {
     if ((*w)->IllegalP() ) {
 #ifdef QDEBUG
       qDebug() << "Wall " << **w << " is illegal." << endl;
@@ -1596,9 +1438,7 @@ void Mesh::RepairBoundaryPolygon(void) {
   }
 
   boundary_polygon->ConstructConnections();
-  for (list<Wall *>::iterator w=boundary_polygon->walls.begin();
-       w!=boundary_polygon->walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=boundary_polygon->walls.begin(); w!=boundary_polygon->walls.end(); w++) {
     if ((*w)->DeadP()) {
       (*w)=0;
     }
@@ -1702,10 +1542,7 @@ Node* Mesh::findNextBoundaryNode(Node* boundary_node) {
 
 
 void Mesh::CleanUpWalls(void) {
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     if ((*w)->DeadP()) {
       delete *w;
       (*w)=0;      
@@ -1722,12 +1559,8 @@ void Mesh::Rotate(double angle, Vector center) {
 
   rotmat.Rot2D(angle);
 
-  for (vector<Node *>::iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
-
+  for (vector<Node *>::iterator n=nodes.begin(); n!=nodes.end(); n++) {
     (*n)->setPos ( rotmat * ( *(*n) - center ) + center );  
-
   }
 }
 
@@ -1768,17 +1601,6 @@ protected:
     m->setValues(x,y);
     m->Derivatives(dydx);
 
-    /*static int c=0;
-      QString fname("derivs%1.dat");
-
-      ofstream of(fname.arg(++c).ascii());
-
-      for (int i=0;i<m->NEqs();i++) {
-      of << x << " " << dxdy[i] << endl;
-      }
-      of.close();
-    */
-
     //cerr << "Calculated derivatives at " << x << "\n";    
   }
 
@@ -1813,14 +1635,9 @@ void Mesh::ReactDiffuse(double delta_t) {
 Vector Mesh::FirstConcMoment(int chem) {
 
   Vector moment;
-  for (vector<Cell *>::const_iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-
+  for (vector<Cell *>::const_iterator c=cells.begin(); c!=cells.end(); c++) {
     moment += (*c)->Chemical(chem) * (*c)->Centroid();
-
   }
-
   return moment / (double)cells.size();
 }
 
@@ -1880,15 +1697,11 @@ void Mesh::CleanChemicals(const vector<double> &clean_chem) {
   if (clean_chem.size()!=(unsigned)Cell::NChem()) {
     throw "Run time error in Mesh::CleanChemicals: size of clean_chem should be equal to Cell::NChem()";
   }
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     for (int i=0;i<Cell::NChem();i++) {
       (*c)->SetChemical(i,clean_chem[i]);
     }
     (*c)->SetNewChemToChem();
-
   }
 }
 
@@ -1901,10 +1714,7 @@ void Mesh::CleanTransporters(const vector<double> &clean_transporters) {
 
 
   // clean transporters
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     for (int i=0;i<Cell::NChem();i++) {
       (*w)->setTransporters1(i,clean_transporters[i]); (*w)->setNewTransporters1(i,clean_transporters[i]);
       (*w)->setTransporters2(i,clean_transporters[i]); (*w)->setNewTransporters2(i,clean_transporters[i]);
@@ -1919,22 +1729,15 @@ void Mesh::RandomizeChemicals(const vector<double> &max_chem, const vector<doubl
     throw "Run time error in Mesh::CleanChemicals: size of max_chem and max_transporters should be equal to Cell::NChem()";
   }
 
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     for (int i=0;i<Cell::NChem();i++) {
       (*c)->SetChemical(i,max_chem[i]*RANDOM());
     }
     (*c)->SetNewChemToChem();
-
   }
 
   // randomize transporters
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     for (int i=0;i<Cell::NChem();i++) {
       (*w)->setTransporters1(i,max_transporters[i] * RANDOM()); (*w)->setNewTransporters1(i, (*w)->Transporters1(i) );
       (*w)->setTransporters2(i,max_transporters[i] * RANDOM()); (*w)->setNewTransporters2(i, (*w)->Transporters1(i) );
@@ -1958,23 +1761,20 @@ void Mesh::Derivatives(double *derivs) {
   //static double *derivs = 0; 
   // derivs is allocated by RungeKutta class.
 
-  for (int i=0;i<neqs;i++) { derivs[i]=0.;}
+  for (int i=0;i<neqs;i++) {
+    derivs[i]=0.;
+  }
 
   // Layout of derivatives: cells [ chem1 ... chem n]  walls [ [ w1(chem 1) ... w1(chem n) ] [ w2(chem 1) ... w2(chem n) ] ]
 
   int i=0;
 
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-    //(*cr)(*c, &(derivs[i]));
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     plugin->CellDynamics(*c, &(derivs[i]));
     i+=nchems;
   }
 
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     // (*wr)(*w, &(derivs[i]), &(derivs[i+nchems]));
     plugin->WallDynamics(*w,  &(derivs[i]), &(derivs[i+nchems]));
     // Transport function adds to derivatives of cell chemicals
@@ -2015,9 +1815,7 @@ void Mesh::setValues(double x, double *y) {
   int i=0;
   static int emit_count=0;
   const int stride = 100;
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     for (int ch=0;ch<nchems;ch++) {
       (*c)->SetChemical(ch, y[i+ch]);
     }
@@ -2027,10 +1825,7 @@ void Mesh::setValues(double x, double *y) {
     i+=nchems;
   }
 
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     for (int ch=0;ch<nchems;ch++) {
       (*w)->setTransporters1(ch,y[i+ch]);
     }
@@ -2040,9 +1835,7 @@ void Mesh::setValues(double x, double *y) {
       (*w)->setTransporters2(ch,y[i+ch]);
     }
     i+=nchems;
-
   }
-
   emit_count++;
 }
 
@@ -2065,19 +1858,14 @@ double *Mesh::getValues(int *neqs) {
   values = new double[*neqs];
 
   int i=0;
-  for (vector<Cell *>::iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
+  for (vector<Cell *>::iterator c=cells.begin(); c!=cells.end(); c++) {
     for (int ch=0;ch<nchems;ch++) {
       values[i+ch]=(*c)->Chemical(ch);
     }
     i+=nchems;
   }
 
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
-
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
     for (int ch=0;ch<nchems;ch++) {
       values[i+ch]=(*w)->Transporters1(ch);
     }
@@ -2087,18 +1875,13 @@ double *Mesh::getValues(int *neqs) {
       values[i+ch]=(*w)->Transporters2(ch);
     }
     i+=nchems;
-
   }
-
   return values;
 }
 
 void Mesh::DrawNodes(QGraphicsScene *c) const {
 
-  for (vector<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
-
+  for (vector<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     Node *i=*n;
 
     NodeItem *item = new NodeItem ( &(*i), c );
@@ -2118,21 +1901,15 @@ double Mesh::CalcProtCellsWalls(int ch) const {
   double sum_prot=0.;
 
   // At membranes
-  for (list<Wall *>::const_iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::const_iterator w=walls.begin(); w!=walls.end(); w++) {
     sum_prot += (*w)->Transporters1(ch);
     sum_prot += (*w)->Transporters2(ch);
   }
 
   // At cells
-  for (vector<Cell *>::const_iterator c=cells.begin();
-       c!=cells.end();
-       c++) {
-
+  for (vector<Cell *>::const_iterator c=cells.begin(); c!=cells.end(); c++) {
     sum_prot += (*c)->Chemical(ch);
   }
-
   return sum_prot;
 }
 
@@ -2164,9 +1941,7 @@ string Mesh::getTimeHours(void) const {
 
 QVector<qreal> Mesh::VertexAngles(void) {
   QVector<qreal> angles;
-  for (vector<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (vector<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     if ((*n)->Value()>2 && !(*n)->BoundaryP() ) {
       angles+=(*n)->NeighbourAngles();
     }
@@ -2177,17 +1952,11 @@ QVector<qreal> Mesh::VertexAngles(void) {
 QVector< QPair<qreal,int> > Mesh::VertexAnglesValues(void) {
 
   QVector< QPair<qreal,int> > anglesvalues;
-  for (vector<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (vector<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     if ((*n)->Value()>2 && !(*n)->BoundaryP() ) {
-
       QVector<qreal> angles = (*n)->NeighbourAngles();
       int value_vertex = angles.size();
-      for (QVector<qreal>::ConstIterator i=angles.begin();
-	   i!=angles.end();
-	   i++) {
-
+      for (QVector<qreal>::ConstIterator i=angles.begin(); i!=angles.end(); i++) {
 	anglesvalues += QPair< qreal, int > (*i, value_vertex);
       }
     }
@@ -2199,9 +1968,7 @@ void Mesh::Clean(void) {
 #ifdef QDEBUG
   qDebug() << "Freeing nodes" << endl;
 #endif
-  for (vector<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (vector<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
     delete *i;
   }
   nodes.clear();
@@ -2210,9 +1977,7 @@ void Mesh::Clean(void) {
 #ifdef QDEBUG
   qDebug() << "Freeing node sets" << endl;
 #endif
-  for (vector<NodeSet *>::iterator i=node_sets.begin();
-       i!=node_sets.end();
-       i++) {
+  for (vector<NodeSet *>::iterator i=node_sets.begin(); i!=node_sets.end(); i++) {
     delete *i;
   }
   node_sets.clear();
@@ -2222,9 +1987,7 @@ void Mesh::Clean(void) {
   qDebug() << "Freeing cells" << endl;
 #endif	
   //CellsStaticDatamembers *old_static_data_mem = Cell::GetStaticDataMemberPointer();
-  for (vector<Cell *>::iterator i=cells.begin();
-       i!=cells.end();
-       i++) {
+  for (vector<Cell *>::iterator i=cells.begin(); i!=cells.end(); i++) {
     delete *i;
   }
   //Cell::static_data_members = old_static_data_mem;
@@ -2237,9 +2000,7 @@ void Mesh::Clean(void) {
 #ifdef QDEBUG
   qDebug() << "Freeing walls" << endl;
 #endif
-  for (list<Wall *>::iterator i=walls.begin();
-       i!=walls.end();
-       i++) {
+  for (list<Wall *>::iterator i=walls.begin(); i!=walls.end(); i++) {
     delete *i;
   }
   walls.clear();
@@ -2266,4 +2027,4 @@ void Mesh::StandardInit(void) {
   }
 }
 
-
+/* finis */

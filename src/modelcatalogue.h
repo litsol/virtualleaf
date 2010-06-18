@@ -56,4 +56,7 @@ class ModelCatalogue : public QObject {
   Mesh *mesh;
   Main *mainwin;
 };
+
 #endif
+
+/* finis */

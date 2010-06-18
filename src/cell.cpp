@@ -82,9 +82,7 @@ void Cell::DivideOverAxis(Vector axis)
 
   ItList new_node_locations;
 
-  for (list<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
 
     // cross product to detect position of division
     Vector cross = axis * (centroid - *(*i));
@@ -119,9 +117,7 @@ void Cell::Apoptose(void)
 	     << (*w)->c1->Index() << ", c2 = " << (*w)->c2->Index() << endl;
 #endif
   }
-  for (list<Wall *>::iterator w=walls.begin();
-       w!=walls.end();
-       w++) {
+  for (list<Wall *>::iterator w=walls.begin(); w!=walls.end(); w++) {
 
     bool illegal_flag = false;
     if ((*w)->c1 == (*w)->c2 ) 
@@ -173,17 +169,13 @@ void Cell::Apoptose(void)
 
   // Unregister me from my nodes, and delete the node if it no longer belongs to any cells
   list<Node *> superfluous_nodes;
-  for (list<Node *>::iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (list<Node *>::iterator n=nodes.begin(); n!=nodes.end(); n++) {
 
     Node &no(*(*n));
     // locate myself in the node's owner list
     list<Neighbor>::iterator cellpos;
     bool cell_found=false;
-    for (list<Neighbor>::iterator nb=no.owners.begin();
-	 nb!=no.owners.end();
-	 nb++) {
+    for (list<Neighbor>::iterator nb=no.owners.begin(); nb!=no.owners.end(); nb++) {
       if (nb->cell == this) {
 	cellpos = nb;
 	cell_found = true;
@@ -224,9 +216,7 @@ void Cell::ConstructConnections(void)
 
   //cerr << "Constructing connections of cell " << index << endl;
 
-  for (list<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
 
     //cerr << "Connecting node " << *i << endl;
     //cerr << "Node " << *i << endl << " = " << *(*i) << endl;
@@ -272,9 +262,7 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
 #ifdef QDEBUG
   qDebug() << "Cell " << Index() << " is doing DivideOverGivenLine" << endl;
 #endif
-  for (list<Node *>::iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::iterator i=nodes.begin(); i!=nodes.end(); i++) {
 
     Vector v3 = *(*i);
     list<Node *>::iterator nb=i;
@@ -300,7 +288,7 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
       new_node_locations.push_back(nb);
 
     } 
-}
+  }
 
 #ifdef QDEBUG
   if (new_node_locations.size()<2) { 
@@ -309,27 +297,27 @@ bool Cell::DivideOverGivenLine(const Vector v1, const Vector v2, bool fix_cellwa
     return false;
   }
 
-ItList::iterator i = new_node_locations.begin();
-list< Node *>::iterator j;
-qDebug() << "-------------------------------" << endl;
-qDebug() << "Location of new nodes: " << (**i)->Index() << " and ";
+  ItList::iterator i = new_node_locations.begin();
+  list< Node *>::iterator j;
+  qDebug() << "-------------------------------" << endl;
+  qDebug() << "Location of new nodes: " << (**i)->Index() << " and ";
 
-++i;
-j = *i; 
-if (j==nodes.begin()) j=nodes.end(); j--;
+  ++i;
+  j = *i; 
+  if (j==nodes.begin()) j=nodes.end(); j--;
 
-qDebug() << (*j)->Index() << endl;
-qDebug() << "-------------------------------" << endl;
+  qDebug() << (*j)->Index() << endl;
+  qDebug() << "-------------------------------" << endl;
 
-if ( **new_node_locations.begin() == *j ) {
-  qDebug() << "Rejecting proposed division (cutting off zero area)." << endl;
-  return false;
- }
+  if ( **new_node_locations.begin() == *j ) {
+    qDebug() << "Rejecting proposed division (cutting off zero area)." << endl;
+    return false;
+  }
 #endif
 
-DivideWalls(new_node_locations, v1, v2, fix_cellwall, node_set);
+  DivideWalls(new_node_locations, v1, v2, fix_cellwall, node_set);
 
-return true;
+  return true;
 }
 
 // Core division procedure
@@ -417,9 +405,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 
   // construct new Nodes at the intersection points
   // unless they coincide with existing points
-  for ( ItList::const_iterator i=new_node_locations.begin();
-	i!=new_node_locations.end();
-	i++) {
+  for ( ItList::const_iterator i=new_node_locations.begin(); i!=new_node_locations.end(); i++) {
 
     // intersection between division axis
     // and line from this node to its predecessor
@@ -694,9 +680,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
       owners.sort( mem_fun_ref( &Neighbor::Cmp ) );
 
       list<Neighbor>::iterator c;
-      for (c=owners.begin();
-	   c!=owners.end();
-	   c++) {
+      for (c=owners.begin(); c!=owners.end(); c++) {
 	c=adjacent_find(c,owners.end(),neighbor_cell_eq);
 	if (c->cell->Index() != this->Index() || c==owners.end()) break;
       }
@@ -977,9 +961,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 
   // Move Walls to daughter cell
   list <Wall *> copy_walls = walls;
-  for (list<Wall *>::iterator w = copy_walls.begin();
-       w!=copy_walls.end();
-       w++) {
+  for (list<Wall *>::iterator w = copy_walls.begin(); w!=copy_walls.end(); w++) {
 
     //cerr << "Doing wall, before:  " << **w << endl;
 
@@ -1002,8 +984,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 
   // now reconstruct neighbor list for all "broken" neighbors
 
-  for (list<CellBase *>::iterator i=broken_neighbors.begin();
-       i!=broken_neighbors.end();i++) {
+  for (list<CellBase *>::iterator i=broken_neighbors.begin(); i!=broken_neighbors.end(); i++) {
     ((Cell *)(*i))->ConstructNeighborList();
   }
 
@@ -1018,9 +999,7 @@ void Cell::DivideWalls(ItList new_node_locations, const Vector from, const Vecto
 // Move the whole cell
 void Cell::Move(const Vector T) {
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
     *(*i)+=T;
   }
 }
@@ -1052,15 +1031,8 @@ double Cell::Displace(double dx, double dy, double dh)
   // the length of these edges will change
 
   double old_length=0.;
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
-
-
-    for (list<Neighbor>::const_iterator n=(*i)->owners.begin();
-	 n!=(*i)->owners.end();
-	 n++) {
-
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
+    for (list<Neighbor>::const_iterator n=(*i)->owners.begin(); n!=(*i)->owners.end(); n++) {
       if (n->getCell()!=this) {
 	length_edges.push_back( pair <Node *,Node *> (*i, n->nb1) );
 	length_edges.push_back( pair <Node *,Node *> (*i, n->nb2) );
@@ -1074,9 +1046,7 @@ double Cell::Displace(double dx, double dy, double dh)
   // calculate area energy difference of neighboring cells
   // (this cells' shape remains unchanged)
   double old_area_energy=0., old_length_energy=0.;
-  for (list<CellBase *>::const_iterator i=neighbors.begin();
-       i!=neighbors.end();
-       i++) {
+  for (list<CellBase *>::const_iterator i=neighbors.begin(); i!=neighbors.end(); i++) {
     old_area_energy += DSQR((*i)->Area()-(*i)->TargetArea());
     old_length_energy += DSQR((*i)->Length()-(*i)->TargetLength());
   }
@@ -1084,20 +1054,15 @@ double Cell::Displace(double dx, double dy, double dh)
   Move(movement);
 
   double new_area_energy=0., new_length_energy=0.;
-  for (list<CellBase *>::const_iterator i=neighbors.begin();
-       i!=neighbors.end();
-       i++) {
+  for (list<CellBase *>::const_iterator i=neighbors.begin(); i!=neighbors.end(); i++) {
     cellareas.push_back((*i)->CalcArea());
     new_area_energy += DSQR(cellareas.back()-(*i)->TargetArea());
     new_length_energy += DSQR((*i)->CalcLength()-(*i)->TargetLength());
   }
 
   double new_length=0;
-  for ( vector< pair< Node *, Node * > >::const_iterator e = length_edges.begin();
-	e != length_edges.end();
-	e++) {
-    new_length +=  DSQR(Node::target_length-
-			(*(e->first)-*(e->second)).Norm());
+  for ( vector< pair< Node *, Node * > >::const_iterator e = length_edges.begin(); e != length_edges.end(); e++) {
+    new_length +=  DSQR(Node::target_length - (*(e->first) - *(e->second)).Norm());
   }
 
 
@@ -1109,9 +1074,7 @@ double Cell::Displace(double dx, double dy, double dh)
     // update areas of cells
     //cerr << "neighbors: ";
     list<CellBase *>::const_iterator nb_it = neighbors.begin();
-    for (vector<double>::const_iterator ar_it = cellareas.begin();
-	 ar_it!=cellareas.end();
-	 ( ar_it++, nb_it++) ) {
+    for (vector<double>::const_iterator ar_it = cellareas.begin(); ar_it!=cellareas.end(); ( ar_it++, nb_it++) ) {
       ((Cell *)(*nb_it))->area = *ar_it;
       (*nb_it)->SetIntegrals(); 
     }
@@ -1139,20 +1102,12 @@ double Cell::Energy(void) const
   double energy = 0.;
   double length_contribution = 0.;
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
-
-    for (list<Neighbor>::const_iterator n=(*i)->owners.begin();
-	 n!=(*i)->owners.end();
-	 n++) {
-
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
+    for (list<Neighbor>::const_iterator n=(*i)->owners.begin(); n!=(*i)->owners.end(); n++) {
       if (n->getCell()==this) {
-
 	length_contribution += 
-	  DSQR(Node::target_length-(*(*i)-*(n->nb1)).Norm())+
+	  DSQR(Node::target_length-(*(*i)-*(n->nb1)).Norm()) +
 	  DSQR(Node::target_length-(*(*i)-*(n->nb2)).Norm());
-
       }
     }
   }
@@ -1187,15 +1142,11 @@ bool Cell::SelfIntersect(void)
 
   // method used: http://astronomy.swin.edu.au/~pbourke/geometry/lineline2d/
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
 
     list<Node *>::const_iterator j=i; 
     ++j;
-    for (;
-	 j!=nodes.end();
-	 j++) 
+    for (; j!=nodes.end(); j++) 
       {
 	
 	Vector v1 = *(*i);
@@ -1269,10 +1220,7 @@ bool Cell::MoveSelfIntersectsP(Node *moving_node_ind, Vector new_pos)
   neighbor_of_moving_node[1]=*( *nb ); 
 
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();
-       i++) {
-
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end(); i++) {
     for (int j=0;j<2;j++) { // loop over the two neighbors of moving node
       list<Node *>::const_iterator nb=i;
       nb++;
@@ -1355,8 +1303,7 @@ void Cell::ConstructWalls(void)
   // Get "corner points; i.e. nodes where more than 2 cells are connected
   list<Node *> corner_points;
 
-  for (list<Node *>::const_iterator i=nodes.begin();
-       i!=nodes.end();i++) {
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=nodes.end();i++) {
 
     // look for nodes belonging to >2 cells
     if ((*i)->owners.size()>2) {
@@ -1372,24 +1319,19 @@ void Cell::ConstructWalls(void)
   list<Node *>::const_iterator nb = (--corner_points.end());
 
   // loop over list, 
-  for (list<Node *>::const_iterator i=corner_points.begin();
-       i!=corner_points.end(); ( i++, nb++) ) {
+  for (list<Node *>::const_iterator i=corner_points.begin(); i!=corner_points.end(); ( i++, nb++) ) {
 
     if (nb==corner_points.end()) nb=corner_points.begin();
     // add owning cells to a list
     list<Cell *> owning_cells;
     Node &n(*(*i));
 
-    for (list<Neighbor>::const_iterator j=n.owners.begin();
-	 j!=n.owners.end();
-	 j++) {
+    for (list<Neighbor>::const_iterator j=n.owners.begin(); j!=n.owners.end(); j++) {
       owning_cells.push_back(j->cell);
     }
 
     Node &n2(*(*nb));
-    for (list<Neighbor>::const_iterator j=n2.owners.begin();
-	 j!=n2.owners.end();
-	 j++) {
+    for (list<Neighbor>::const_iterator j=n2.owners.begin(); j!=n2.owners.end(); j++) {
       owning_cells.push_back(j->cell);
     }
 
@@ -1399,15 +1341,12 @@ void Cell::ConstructWalls(void)
     // find duplicates
     vector<Cell *> duplicates;
     list<Cell *>::const_iterator prevj = (--owning_cells.end());
-    for (list<Cell *>::const_iterator j=owning_cells.begin();
-	 j!=owning_cells.end();
-	 ( j++, prevj++) ) {
-
-      if (prevj==owning_cells.end()) prevj=owning_cells.begin();
-      if (*j==*prevj) duplicates.push_back(*j);
-
+    for (list<Cell *>::const_iterator j=owning_cells.begin(); j!=owning_cells.end(); ( j++, prevj++) ) {
+      if (prevj==owning_cells.end())
+	prevj=owning_cells.begin();
+      if (*j==*prevj) 
+	duplicates.push_back(*j);
     }
-
 
     if (duplicates.size()==3) { // ignore cell boundary (this occurs only after the first division, I think)
       vector<Cell *>::iterator dup_it = find_if(duplicates.begin(),duplicates.end(),mem_fun(&Cell::BoundaryPolP) );
@@ -1447,13 +1386,9 @@ void BoundaryPolygon::Draw(QGraphicsScene *c, QString tooltip)
   QPolygonF pa(nodes.size());
   int cc=0;
 
-  for (list<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (list<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     Node *i=*n;
-
-    pa[cc++] = QPoint((int)((Offset().x+i->x)*Factor()),
-		      (int)((Offset().y+i->y)*Factor()) );
+    pa[cc++] = QPoint((int)((Offset().x+i->x)*Factor()), (int)((Offset().y+i->y)*Factor()) );
   }
 
   p->setPolygon(pa);
@@ -1471,12 +1406,10 @@ void Cell::Flux(double *flux, double *D)
 {
   // loop over cell edges
 
-  for (int c=0;c<NChem();c++) flux[c]=0.;
+  for (int c=0;c<NChem();c++)
+    flux[c]=0.;
 
-  for (list<Wall *>::iterator i=walls.begin();
-       i!=walls.end();
-       i++) {
-
+  for (list<Wall *>::iterator i=walls.begin(); i!=walls.end(); i++) {
 
     // leaf cannot take up chemicals from environment ("no flux boundary")
     if ((*i)->c2->BoundaryPolP()) continue;
@@ -1520,9 +1453,7 @@ void Cell::Draw(QGraphicsScene *c, QString tooltip)
   QPolygonF pa(nodes.size());
   int cc=0;
 
-  for (list<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (list<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     Node *i=*n;
 
     pa[cc++] = QPoint((int)((offset[0]+i->x)*factor),
@@ -1562,18 +1493,14 @@ void Cell::DrawCenter(QGraphicsScene *c) const {
 
 void Cell::DrawNodes(QGraphicsScene *c) const {
 
-  for (list<Node *>::const_iterator n=nodes.begin();
-       n!=nodes.end();
-       n++) {
+  for (list<Node *>::const_iterator n=nodes.begin(); n!=nodes.end(); n++) {
     Node *i=*n;
-
 
     NodeItem *item = new NodeItem ( &(*i), c );
     item->setColor();
     item->setZValue(5);
     item->show();
-    item ->setPos(((offset[0]+i->x)*factor),
-		  ((offset[1]+i->y)*factor) );
+    item ->setPos(((offset[0]+i->x)*factor), ((offset[1]+i->y)*factor) );
   }
 }
 
@@ -1683,9 +1610,7 @@ void Cell::DrawValence(QGraphicsScene *c) const {
 void Cell::SetWallLengths(void)
 {
 
-  for (list<Wall *>::iterator de=walls.begin();
-       de!=walls.end();
-       de++) {
+  for (list<Wall *>::iterator de=walls.begin(); de!=walls.end(); de++) {
 
     // Step 1: find the path of nodes leading along the Wall.
     // A Wall often represents a curved cell wall: we want the total
@@ -1699,17 +1624,13 @@ void Cell::SetWallLengths(void)
     double sum_length = 0.;
 
     // Now, walk to the second node of the edge in the list of nodes
-    for (list<Node *>::const_iterator n=++first_node_edge;
-	 n!=second_node_edge_plus_1;
-	 ++n ) {
-
-      if (n==nodes.end()) n=nodes.begin(); /* wrap around */ 
-
-
+    for (list<Node *>::const_iterator n=++first_node_edge; n!=second_node_edge_plus_1; ++n ) {
+      if (n==nodes.end())
+	n=nodes.begin(); /* wrap around */ 
       list<Node *>::const_iterator prev_n = n; 
-      if (prev_n==nodes.begin()) prev_n=nodes.end();
+      if (prev_n==nodes.begin())
+	prev_n=nodes.end();
       --prev_n;
-
 
       // Note that Node derives from a Vector, so we can do vector calculus as defined in vector.h 
       sum_length += (*(*prev_n) - *(*n)).Norm(); 
@@ -1741,12 +1662,7 @@ void Cell::AddWall( Wall *w )
   walls.push_back( w );
 
   // Add wall to Mesh's list if it isn't there yet
-
-  if (find (
-	    m->walls.begin(), m->walls.end(),
-	    w )
-      == m->walls.end() ) {
-    m->walls.push_back(w);
+  if (find ( m->walls.begin(), m->walls.end(), w ) == m->walls.end() ) { m->walls.push_back(w);
   }
 }
 
@@ -1755,11 +1671,7 @@ list<Wall *>::iterator Cell::RemoveWall( Wall *w )
 {
 
   // remove wall from Mesh's list
-  m->walls.erase(
-		 find(
-		      m->walls.begin(), m->walls.end(),
-		      w )
-		 );
+  m->walls.erase( find( m->walls.begin(), m->walls.end(), w ) );
 
   // remove wall from Cell's list
   return walls.erase (find( walls.begin(), walls.end(), w ));
@@ -1768,7 +1680,6 @@ list<Wall *>::iterator Cell::RemoveWall( Wall *w )
 
 void Cell::EmitValues(double t)
 {
-
   //  cerr << "Attempting to emit " << t << ", " << chem[0] << ", " << chem[1] << endl;
   emit ChemMonValue(t, chem);
 }

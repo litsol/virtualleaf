@@ -142,4 +142,7 @@ class ParameterDialog : public QDialog {
   QLineEdit *dir1_edit;
   QLineEdit *dir2_edit;
 };
+
 #endif
+
+/* finis */
