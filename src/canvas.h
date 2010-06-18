@@ -140,6 +140,7 @@ class Main : public Q3MainWindow, public MainBase {
   public slots:
 
   void help();
+  void gpl();
   void TimeStepWrap();
   void togglePaused();
   void setFluxArrowSize(int size);
