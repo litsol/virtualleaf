@@ -1,5 +1,7 @@
 2010-06-18    <guravage@caterpie.sen.cwi.nl>
 
+	* canvas.cpp (gpl): Added gpl slot to display GPL license.
+
 	* VirtualLeaf.pro: Changed default LIBXML2DIR, LIBICONVDIR and LIBZDIR to corresponding distribution lib directories.
 	* libplugin.pro: Ditto.
 

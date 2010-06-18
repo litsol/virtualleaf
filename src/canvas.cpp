@@ -554,8 +554,9 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   tooltips_id = helpmenu->insertItem("Show Cell&Info", this, SLOT(Refresh()));
   helpmenu->setItemChecked(tooltips_id, true);
   helpmenu->insertSeparator();
-
   helpmenu->insertItem("&About", this, SLOT(help()) ); //, Key_F1);
+  helpmenu->insertSeparator();
+  helpmenu->insertItem("&GPL", this, SLOT(gpl()) );
   menu->insertItem("&Help",helpmenu);
   statusBar();
   setCentralWidget(editor);
@@ -939,6 +940,35 @@ void Main::help()
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
   about->setButtonText( 1, "Dismiss" );
   about->show();
+}
+
+
+#include <string>
+#include <fstream>
+#include <streambuf>
+void Main::gpl()
+{
+  static QMessageBox* gpl = new QMessageBox ( "License", "", 
+      QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
+
+  std::ifstream t("../doc/GPL");
+  std::string str;
+
+  t.seekg(0, std::ios::end);   
+  str.reserve(t.tellg());
+  t.seekg(0, std::ios::beg);
+
+  str.assign((std::istreambuf_iterator<char>(t)),
+              std::istreambuf_iterator<char>());
+  gpl->setText(QString("<h2>GNU GENERAL PUBLIC LICENSE</h2>"
+		       "<h3>Version 2, June 1991</h3>"
+                       "<p> Copyright (C) 1989, 1991 Free Software Foundation, Inc. "
+                       "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA: "
+                       "Everyone is permitted to copy and distribute verbatim copies "
+                       "of this license document, but changing it is not allowed.</p>"));
+  gpl->setDetailedText(QString(str.c_str()));
+  gpl->setButtonText( 1, "Dismiss" );
+  gpl->show();
 }
 
 void Main::aboutQt(){
