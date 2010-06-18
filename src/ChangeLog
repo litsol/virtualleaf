@@ -1,3 +1,10 @@
+2010-06-18    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Changed default LIBXML2DIR, LIBICONVDIR and LIBZDIR to corresponding distribution lib directories.
+	* libplugin.pro: Ditto.
+
+	* Makefile (clean): add if stmt not to `touch` on windows.
+
 2010-06-17    <guravage@caterpie.sen.cwi.nl>
 
 	* VirtualLeaf.pro: Removed perl references.
