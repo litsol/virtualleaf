@@ -554,7 +554,7 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   tooltips_id = helpmenu->insertItem("Show Cell&Info", this, SLOT(Refresh()));
   helpmenu->setItemChecked(tooltips_id, true);
   helpmenu->insertSeparator();
-  helpmenu->insertItem("&About", this, SLOT(help()) ); //, Key_F1);
+  helpmenu->insertItem("&About", this, SLOT(about()) ); //, Key_F1);
   helpmenu->insertSeparator();
   helpmenu->insertItem("&GPL", this, SLOT(gpl()) );
   menu->insertItem("&Help",helpmenu);
@@ -924,19 +924,22 @@ void Main::clear()
   editor->clear();
 }
 
-void Main::help()
+void Main::about()
 {
   static QMessageBox* about = new QMessageBox
     ( "About",
-      "<h3>Virtual Leaf</h3>"
+      "<h3>Virtual Leaf V1.0</h3>"
       "<p>"
-      "Leaf growth computer model <br>"
-      "(c) 2005-2007, Roeland Merks <br>"
-      "VIB Department Plant Systems Biology <br>"
+      "An Open Source framework for cell-based modeling of plant tissue growth and development <br>"
+      "(c) 2005-2008, Roeland Merks <i>et al.</i><br>"
+      "    <a href=\"http://www.psb.vib-ugent.be\">VIB Department Plant Systems Biology</a>, "
       "Ghent, Belgium <br>"
-      "(c) 2008-2009, Roeland Merks <br>"
-      "CWI/NCSB, Amsterdam, Netherlands <br>"
-      "Pilot release for WUR/Biometris, 21-10-2009 <br>", 
+      "(c) 2008-2010, <a href=\"http://www.cwi.nl/~merks\">Roeland Merks <i>et al.</i></a> <br>"
+      "    <a href=\"http://www.cwi.nl\">Centrum Wiskunde & Informatica</a> and <a href=\"http://www.ncsb.nl\">Netherlands Consortium for Systems Biology</a>, Amsterdam, Netherlands <br>"
+"<br>The Virtual Leaf is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
+      "<br>If you use this code for your projects, please cite our paper:"
+"<br>Merks, Guravage, Inze, and Beemster. An Open Source framework for cell-based modeling of plant tissue growth and development. <i>Plant Physiology,</i> submitted.<br> . <br>"
+      "<br>Please share your model plugins and extensions at <a href=\"http://virtualleaf.googlecode.com\">http://virtualleaf.googlecode.com</a>.", 
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
   about->setButtonText( 1, "Dismiss" );
   about->show();
