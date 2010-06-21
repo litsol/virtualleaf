@@ -139,7 +139,7 @@ class Main : public Q3MainWindow, public MainBase {
 
   public slots:
 
-  void help();
+  void about();
   void gpl();
   void TimeStepWrap();
   void togglePaused();

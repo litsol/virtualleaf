@@ -1,6 +1,6 @@
 # $Id$
 
-QMAKE = qmake
+QMAKE = $(HOME)/Trolltech/Qt-4.4.1/bin/qmake
 
 # Set $(MAKE) to the name of the make command on your machine, e.g. 'make' on Linux and 'mingw32-make' on windows.
 MAKE = make # mingw32-make

@@ -402,6 +402,9 @@ int main(int argc,char **argv) {
       } else {
         ((Main *)main_window)->showMaximized();
       }
+      
+      // show "About" window at start up
+      ((Main *)main_window)->about();
     } else {
       main_window=new MainBase(canvas, mesh);
     }
