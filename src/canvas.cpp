@@ -927,7 +927,7 @@ void Main::clear()
 void Main::about()
 {
   static QMessageBox* about = new QMessageBox
-    ( "About",
+    ( "Virtual Leaf V1.0",
       "<h3>Virtual Leaf V1.0</h3>"
       "<p>"
       "An Open Source framework for cell-based modeling of plant tissue growth and development <br>"
