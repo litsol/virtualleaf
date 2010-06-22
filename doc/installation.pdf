@@ -1,0 +1,436 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R
+ /F3 5 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFType1Font 
+3 0 obj
+% Font Helvetica-Bold
+<< /BaseFont /Helvetica-Bold
+ /Encoding /WinAnsiEncoding
+ /Name /F2
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Annot.NUMBER1': class PDFDictionary 
+4 0 obj
+<< /A << /S /URI
+ /Type /Action
+ /URI (http://qt.nokia.com/downloads/downloads#lgpl/) >>
+ /Border [ 0
+ 0
+ 0 ]
+ /Rect [ 332.4149
+ 657.5936
+ 411.372
+ 669.5936 ]
+ /Subtype /Link
+ /Type /Annot >>
+endobj
+% 'F3': class PDFType1Font 
+5 0 obj
+% Font Courier
+<< /BaseFont /Courier
+ /Encoding /WinAnsiEncoding
+ /Name /F3
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+6 0 obj
+% Page dictionary
+<< /Annots [ 4 0 R ]
+ /Contents 17 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 16 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'Page2': class PDFPage 
+7 0 obj
+% Page dictionary
+<< /Contents 18 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 16 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R8': class PDFCatalog 
+8 0 obj
+% Document Root
+<< /Outlines 10 0 R
+ /PageLabels 19 0 R
+ /PageMode /UseNone
+ /Pages 16 0 R
+ /Type /Catalog >>
+endobj
+% 'R9': class PDFInfo 
+9 0 obj
+<< /Author ()
+ /CreationDate (D:20100622164642-01'00')
+ /Keywords ()
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (\(unspecified\))
+ /Title (Installation Instructions) >>
+endobj
+% 'R10': class PDFOutlines 
+10 0 obj
+<< /Count 5
+ /First 11 0 R
+ /Last 15 0 R
+ /Type /Outlines >>
+endobj
+% 'Outline.0': class OutlineEntryObject 
+11 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 717.0236
+ 0 ]
+ /Next 12 0 R
+ /Parent 10 0 R
+ /Title (Requirements) >>
+endobj
+% 'Outline.1': class OutlineEntryObject 
+12 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 618.0236
+ 0 ]
+ /Next 13 0 R
+ /Parent 10 0 R
+ /Prev 11 0 R
+ /Title (All Platforms) >>
+endobj
+% 'Outline.2': class OutlineEntryObject 
+13 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 507.0236
+ 0 ]
+ /Next 14 0 R
+ /Parent 10 0 R
+ /Prev 12 0 R
+ /Title (Linux) >>
+endobj
+% 'Outline.3': class OutlineEntryObject 
+14 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 260.4236
+ 0 ]
+ /Next 15 0 R
+ /Parent 10 0 R
+ /Prev 13 0 R
+ /Title (Windows) >>
+endobj
+% 'Outline.4': class OutlineEntryObject 
+15 0 obj
+<< /Dest [ 7 0 R
+ /XYZ
+ 62.69291
+ 753.0236
+ 0 ]
+ /Parent 10 0 R
+ /Prev 14 0 R
+ /Title (MacOS) >>
+endobj
+% 'R16': class PDFPages 
+16 0 obj
+% page tree
+<< /Count 2
+ /Kids [ 6 0 R
+ 7 0 R ]
+ /Type /Pages >>
+endobj
+% 'R17': class PDFStream 
+17 0 obj
+% page stream
+<< /Length 5681 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 729.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 9.64 Tm /F2 20 Tf 24 TL 122.1449 0 Td (Installation Instructions) Tj T* -122.1449 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 696.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Requirements) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 630.0236 cm
+q
+BT 1 0 0 1 0 52.82 Tm .076098 Tw 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf is written with the QT Cross platform application and UI framework, and can run on Linux,) Tj T* 0 Tw 1.85686 Tw (Apple Macintosh and Windows machines. To compile the Virtual Leaf you will need to install the QT) Tj T* 0 Tw .573555 Tw (software development kit which you can download from the ) Tj 0 0 .501961 rg (QT download site) Tj 0 0 0 rg (. Whether installed globally) Tj T* 0 Tw .669986 Tw (by a system administrator our locally in your own user space, make sure the QT bin directory containing) Tj T* 0 Tw (qmake is in your execution path.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 597.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (All Platforms) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 519.0236 cm
+q
+BT 1 0 0 1 0 64.82 Tm 4.093984 Tw 12 TL /F1 10 Tf 0 0 0 rg (Compilation is effected with make, either the native ) Tj /F3 10 Tf (make ) Tj /F1 10 Tf (on UNIX and MAC systems or the) Tj T* 0 Tw .268735 Tw /F3 10 Tf (mingw32-make ) Tj /F1 10 Tf (distributed with the windows version of QT. In the Virtual Leaf ) Tj /F3 10 Tf (src ) Tj /F1 10 Tf (directory you will find) Tj T* 0 Tw 1.243516 Tw (a ) Tj /F3 10 Tf (Makefile) Tj /F1 10 Tf (, the root of a hierarchy of makefiles, that will guide the compilation and installation of the) Tj T* 0 Tw 4.280814 Tw (VirtualLeaf executable, its default plugins and the tutorial examples. To facilitate cross platform) Tj T* 0 Tw .276651 Tw (compatibility, the makefiles expect an environment variable named ) Tj /F3 10 Tf (MAKE ) Tj /F1 10 Tf (to name the make utility to use.) Tj T* 0 Tw (The fallback default is 'make.' Platform specific instructions follow.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 486.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Linux) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 468.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Prepend the QT bin directory to your path, for example:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 434.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 24 re B*
+Q
+q
+BT 1 0 0 1 0 5.71 Tm 12 TL /F3 10 Tf 0 0 0 rg (>) Tj ( PATH=/opt/QT/qt/bin:$PATH) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 402.8236 cm
+q
+BT 1 0 0 1 0 16.82 Tm .87686 Tw 12 TL /F1 10 Tf 0 0 0 rg (If you wish to use some other make utility than make, instantiate an environment variable named ) Tj /F3 10 Tf (MAKE) Tj /F1 10 Tf (,) Tj T* 0 Tw (for example:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 369.6236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 24 re B*
+Q
+q
+BT 1 0 0 1 0 5.71 Tm 12 TL /F3 10 Tf 0 0 0 rg (>) Tj ( export MAKE=gmake.) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 349.6236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Go to the ) Tj /F3 10 Tf (src ) Tj /F1 10 Tf (directory and invoke make, for example:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 304.4236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 36 re B*
+Q
+q
+BT 1 0 0 1 0 17.71 Tm 12 TL /F3 10 Tf 0 0 0 rg (>) Tj ( cd /home/michael/VirtualLeaf/v1.0/src) Tj T* (>) Tj ( make) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 272.4236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 6.059213 Tw 12 TL /F1 10 Tf 0 0 0 rg (When complete, you will find the ) Tj /F3 10 Tf (VirtualLeaf ) Tj /F1 10 Tf (binary in ) Tj /F3 10 Tf (v1.0/bin ) Tj /F1 10 Tf (and the plugins in) Tj T* 0 Tw /F3 10 Tf (v1.0/bin/models) Tj /F1 10 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 239.4236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Windows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 185.4236 cm
+q
+BT 1 0 0 1 0 40.82 Tm 2.017984 Tw 12 TL /F1 10 Tf 0 0 0 rg (For convenience sake the libiconv, libxml2 and libz header files and libraries are distributed with the) Tj T* 0 Tw .669986 Tw (Virtual Leaf code, and Virtual Leaf will compile correctly with them. If, however, you wish to compile with) Tj T* 0 Tw 3.246136 Tw (other versions of these libraries, you will need to reassign the ) Tj /F3 10 Tf (LIBZML2DIR) Tj /F1 10 Tf (, ) Tj /F3 10 Tf (LIBICONVDIR ) Tj /F1 10 Tf (and) Tj T* 0 Tw /F3 10 Tf (LIBZDIR ) Tj /F1 10 Tf (variables in all the project files.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 143.4236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 28.82 Tm /F1 10 Tf 12 TL .878876 Tw (After installing QT you should be able to invoke a QT command window from the start menu. This shell) Tj T* 0 Tw .456412 Tw (automatically includes the necessary QT folder in your execution PATH. Within this command window go) Tj T* 0 Tw (to the Virtual Leaf's src directory. The) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 113.4236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL 1.927765 Tw (In the start menu, right click on My Computer and choose properties from the drop down list. In the) Tj T* 0 Tw (advanced tab click on environment variables. Append the QT) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 773.1969 cm
+q
+BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-22) Tj T* -160.0749 0 Td ET
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 238.1649 0 Td (1) Tj T* -238.1649 0 Td ET
+Q
+Q
+ 
+endstream
+
+endobj
+% 'R18': class PDFStream 
+18 0 obj
+% page stream
+<< /Length 452 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 732.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (MacOS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 773.1969 cm
+q
+BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-22) Tj T* -160.0749 0 Td ET
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 238.1649 0 Td (2) Tj T* -238.1649 0 Td ET
+Q
+Q
+ 
+endstream
+
+endobj
+% 'R19': class PDFPageLabels 
+19 0 obj
+% Document Root
+<< /Nums [ 0
+ 20 0 R
+ 1
+ 21 0 R ] >>
+endobj
+% 'R20': class PDFPageLabel 
+20 0 obj
+% None
+<< /S /D
+ /St 1 >>
+endobj
+% 'R21': class PDFPageLabel 
+21 0 obj
+% None
+<< /S /D
+ /St 2 >>
+endobj
+xref
+0 22
+0000000000 65535 f
+0000000113 00000 n
+0000000233 00000 n
+0000000398 00000 n
+0000000585 00000 n
+0000000835 00000 n
+0000000994 00000 n
+0000001293 00000 n
+0000001572 00000 n
+0000001729 00000 n
+0000001965 00000 n
+0000002090 00000 n
+0000002262 00000 n
+0000002450 00000 n
+0000002630 00000 n
+0000002812 00000 n
+0000002961 00000 n
+0000003076 00000 n
+0000008858 00000 n
+0000009414 00000 n
+0000009520 00000 n
+0000009597 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(>z\325b\242\314%\325\301\315\254\356\270\004a\252) (>z\325b\242\314%\325\301\315\254\356\270\004a\252)] 
+
+ /Info 9 0 R
+ /Root 8 0 R
+ /Size 22 >>
+startxref
+9644
+%%EOF

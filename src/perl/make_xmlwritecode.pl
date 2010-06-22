@@ -171,52 +171,51 @@ print xmlsrc <<END_MARKER;
 #include "xmlwrite.h"
 
 
-    void XMLIO::XMLWriteLeafSourceCode(xmlNode *parent) {
+void XMLIO::XMLWriteLeafSourceCode(xmlNode *parent) {
 
-	// Embed the code in our xml file, so we can reconstruct the model we used
-	    // to produce it... 
+// Embed the code in our xml file, so we can reconstruct the model we used to produce it ... 
 
-	    END_MARKER
+END_MARKER
 
-	    sub construct_string_constant_from_file {
+sub construct_string_constant_from_file {
 
-		my $fname = shift;
-		my $str = "";
+    my $fname = shift;
+    my $str = "";
 		
-		open srcfile, "<$fname";
-		while (<srcfile>) {
-		    chomp;      
-		    s/\\/\\\\/g;
-		    s/\"/\\\"/g;
-		    s/\&/\&amp;/g;
-		    $str.=$_."\\n";
-		}
-		$str .= "\";\n";
-		return $str;
-	}
+    open srcfile, "<$fname";
+    while (<srcfile>) {
+	chomp;      
+	s/\\/\\\\/g;
+	s/\"/\\\"/g;
+	s/\&/\&amp;/g;
+	$str.=$_."\\n";
+    }
+    $str .= "\";\n";
+    return $str;
+}
 
-	print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$mainsource" );
-	print xmlsrc <<END_MARKER2;
-	xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
+print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$mainsource" );
+print xmlsrc <<END_MARKER2;
+xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
 
-	{
-	    xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$mainsource\");
-	}
-	
+{
+    xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$mainsource\");
+}
+
 }
 
 void XMLIO::XMLWriteReactionsCode(xmlNode *parent) {
 
-    END_MARKER2
+END_MARKER2
 
-	print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$reaction" );
-    print xmlsrc <<END_MARKER3;
-    xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
+print xmlsrc "xmlChar *sourcecode = (xmlChar *)\"".construct_string_constant_from_file( "$reaction" );
+print xmlsrc <<END_MARKER3;
+xmlNodePtr xmlcode = xmlNewChild(parent, NULL, BAD_CAST \"code\", sourcecode);
 
-    {
-        xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$reaction\");
-    }
-    
+{
+    xmlNewProp(xmlcode, BAD_CAST "name", BAD_CAST \"$reaction\");
+}
+
 }
 
 END_MARKER3

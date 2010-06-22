@@ -31,6 +31,8 @@
 #include "xmlwrite.h"
 #include "warning.h"
 #include <QLocale>
+#include <QDir>
+#include <QStringList>
 
 using namespace std;
 
@@ -45,7 +47,7 @@ Parameter::Parameter() {
   node_mag = 1.0;
   outlinewidth = 1.0;
   cell_outline_color = strdup("forestgreen");
-  resize_stride = 10;
+  resize_stride = 0;
   T = 1.0;
   lambda_length = 100.;
   lambda_celllength = 0.;
@@ -180,14 +182,19 @@ Parameter::Parameter() {
   b4 = false;
   dir1 = strdup(".");
   dir2 = strdup(".");
+  // reassign datadir outside the loop
+  QDir dataDir(datadir);
+  if (dataDir.isRelative()){
+    QStringList path;
+    path << QDir::homePath() << dataDir.dirName();
+    datadir = strdup((char *) path.join("/").toStdString().c_str());
+  }
 }
 
 Parameter::~Parameter() {
-
+    
   // destruct parameter object
-
   // free string parameter
-
   CleanUp();
 }
 
@@ -216,17 +223,18 @@ void Parameter::CleanUp(void) {
     free(dir1);
   if (dir2) 
     free(dir2);
+
 }
 
 void Parameter::Read(const char *filename) {
-
+    
   static bool ReadP=false;
 
   if (ReadP) {
 
     //throw "Run Time Error in parameter.cpp: Please Read parameter file only once!!";
     CleanUp();
-
+	
   } else
     ReadP=true;
 
@@ -241,7 +249,7 @@ void Parameter::Read(const char *filename) {
   node_mag = fgetpar(fp, "node_mag", 1.0, true);
   outlinewidth = fgetpar(fp, "outlinewidth", 1.0, true);
   cell_outline_color = sgetpar(fp, "cell_outline_color", "forestgreen", true);
-  resize_stride = igetpar(fp, "resize_stride", 10, true);
+  resize_stride = igetpar(fp, "resize_stride", 0, true);
   T = fgetpar(fp, "T", 1.0, true);
   lambda_length = fgetpar(fp, "lambda_length", 100., true);
   lambda_celllength = fgetpar(fp, "lambda_celllength", 0., true);
@@ -468,6 +476,7 @@ void Parameter::Write(ostream &os) const {
   if (dir2) 
     os << " dir2 = " << dir2 << endl;
 }
+
 void Parameter::XMLAdd(xmlNode *root) const {
   xmlNode *xmlparameter = xmlNewChild(root, NULL, BAD_CAST "parameter", NULL);
   {
@@ -1838,42 +1847,17 @@ void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) 
       k[i++]=*(v++);
     }
   }
+  // reassign datadir outside the loop
+  if (!strcmp(namec, "datadir")) {
+    if (datadir) { free(datadir); }
+    QDir dataDir(datadir);
+    if (dataDir.isRelative()){
+      QStringList path;
+      path << QDir::homePath() << dataDir.dirName();
+      datadir = strdup((char *) path.join("/").toStdString().c_str());
+    }
+  }
 }
-
-/* void Parameter::XMLRead(xmlNode *root) {
-
-   xmlNode *cur = root->xmlChildrenNode;
-   while (cur!=NULL) {
-   if ((!xmlStrcmp(cur->name, (const xmlChar *)"parameter"))){
-   xmlNode *par_node = cur->xmlChildrenNode;
-   while (par_node!=NULL) {
-   {
-   if (!xmlStrcmp(par_node->name, (const xmlChar *)"par")) {
-   xmlChar *namec = xmlGetProp(par_node, BAD_CAST "name");
-   xmlChar *valc = xmlGetProp(par_node, BAD_CAST "val");
-   if (valc) {
-   AssignValToPar((const char*)namec,(const char*)valc);
-   } else {
-   // Probably a valarray
-   xmlNode *sub_par_node = par_node->xmlChildrenNode;
-   vector<double> valarray; 
-   while (sub_par_node != NULL) {
-   if (!xmlStrcmp(sub_par_node->name, (const xmlChar *)"valarray")) {
-   valarray = XMLIO::XMLReadValArray(sub_par_node);
-   }
-   sub_par_node = sub_par_node->next;
-   }
-   AssignValArrayToPar((const char*)namec, valarray);
-   }
-   }
-   }	  
-   par_node = par_node->next;
-   }
-
-   }
-   cur=cur->next;
-   }
-   }*/
 
 ostream &operator<<(ostream &os, Parameter &p) {
   p.Write(os);

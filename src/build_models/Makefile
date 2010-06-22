@@ -2,8 +2,13 @@
 
 QMAKE = $(HOME)/Trolltech/Qt-4.4.1/bin/qmake
 
-# Set $(MAKE) to the name of the make command on your machine, e.g. 'make' on Linux and 'mingw32-make' on windows.
-MAKE = make # mingw32-make
+# Set an environment varible $(MAKE) to the name of the make command
+# on your machine, e.g. 'make' on UNIX and 'mingw32-make' on windows.
+# Fallback default is UNIX make.
+
+ifeq ($(MAKE),)
+	MAKE=make
+endif
 
 all: plugin_auxingrowth plugin_meinhardt plugin_test
 
@@ -33,6 +38,11 @@ ifeq ($(MAKE),make)
 	touch plugin_auxingrowth.pro
 	touch plugin_meinhardt.pro
 	touch plugin_test.pro
+else
+	copy /b plugin_auxingrowth.pro +,,
+	copy /b plugin_meinhardt.pro +,,
+	copy /b plugin_test.pro +,,
+
 endif
 
 #finis

@@ -137,7 +137,7 @@ ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFl
   dir2_edit = new QLineEdit( QString("%1").arg(par.dir2), this, "dir2_edit" );
   // make a 1x1 grid; it will auto-expand
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
-
+    
   // add the first four widgets with (row, column) addressing
   setWindowTitle( QString( " Parameter values for The Virtual Leaf") );
   grid->addWidget( new QLabel( "<h3> Parameter values for The Virtual Leaf</h3>",this), 0, 0, 1, -1, Qt::AlignCenter);
@@ -463,7 +463,7 @@ ParameterDialog::~ParameterDialog(void) {
 }
 
 void ParameterDialog::write(void) {
-
+    
   extern Parameter par;
   QString tmpval;
   par.arrowcolor = strdup((const char *)arrowcolor_edit->text());
@@ -694,6 +694,7 @@ void ParameterDialog::write(void) {
   par.dir1 = strdup((const char *)dir1_edit->text());
   par.dir2 = strdup((const char *)dir2_edit->text());
   Reset();
+
 }
 void ParameterDialog::Reset(void) {
   extern Parameter par;
@@ -802,6 +803,5 @@ void ParameterDialog::Reset(void) {
   dir1_edit->setText( QString("%1").arg(par.dir1) );
   dir2_edit->setText( QString("%1").arg(par.dir2) );
 }
-
 
 /* finis */

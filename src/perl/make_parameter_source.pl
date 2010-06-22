@@ -103,293 +103,273 @@ print cppfile <<END_HEADER;
 #include "xmlwrite.h"
 #include "warning.h"
 #include <QLocale>
+#include <QDir>
+#include <QStringList>
 
-    using namespace std;
-
+using namespace std;
 
 Parameter::Parameter() {
-    END_HEADER
+END_HEADER
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
-		if ($convtype[$i] eq "char *") {
-		    print cppfile "  $param[$i] = strdup($value[$i]);\n";
-		} else {
-		    if ($convtype[$i] eq "double *") {
-			#comma separated list expected
-			@paramlist = split(/,/, $value[$i]);
-			$length = $#paramlist+1;
-			print cppfile "  $param[$i] = new double\[$length\];\n";
-			for ($j=0;$j<=$#paramlist;$j++) {
-			    print cppfile "  $param[$i]\[$j\] = $paramlist[$j];\n";
-			}
-		    } else {
-			print cppfile "  $param[$i] = $value[$i];\n";
-		    }
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
+	if ($convtype[$i] eq "char *") {
+	    print cppfile "  $param[$i] = strdup($value[$i]);\n";
+	} else {
+	    if ($convtype[$i] eq "double *") {
+                #comma separated list expected
+		@paramlist = split(/,/, $value[$i]);
+		$length = $#paramlist+1;
+		print cppfile "  $param[$i] = new double\[$length\];\n";
+		for ($j=0;$j<=$#paramlist;$j++) {
+		    print cppfile "  $param[$i]\[$j\] = $paramlist[$j];\n";
 		}
+	    } else {
+		print cppfile "  $param[$i] = $value[$i];\n";
 	    }
+	}
     }
+}
 
 
-    print cppfile <<END_HEADER3;
+print cppfile <<END_HEADER3;
+  // reassign datadir outside the loop
+  QDir dataDir(datadir);
+  if (dataDir.isRelative()){
+    QStringList path;
+    path << QDir::homePath() << dataDir.dirName();
+    datadir = strdup((char *) path.join("/").toStdString().c_str());
+  }
 }
 
 Parameter::~Parameter() {
     
-    // destruct parameter object
-
-	// free string parameter
-
-	CleanUp();
-
+// destruct parameter object
+// free string parameter
+CleanUp();
 }
 
 void Parameter::CleanUp(void) {
-    END_HEADER3
+END_HEADER3
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] eq "char *" || $convtype[$i] eq "double *") {
-		print cppfile "  if ($param[$i]) \n";
-		print cppfile "     free($param[$i]);\n";
-	    }
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] eq "char *" || $convtype[$i] eq "double *") {
+	print cppfile "  if ($param[$i]) \n";
+	print cppfile "     free($param[$i]);\n";
     }
-    print cppfile <<END_HEADER4;
+}
+print cppfile <<END_HEADER4;
 
 }
 
 void Parameter::Read(const char *filename) {
     
-    static bool ReadP=false;
+  static bool ReadP=false;
 
-    if (ReadP) {
+  if (ReadP) {
 
-	//throw "Run Time Error in parameter.cpp: Please Read parameter file only once!!";
-	CleanUp();
+    //throw "Run Time Error in parameter.cpp: Please Read parameter file only once!!";
+    CleanUp();
 	
-    } else
-	ReadP=true;
+  } else
+    ReadP=true;
 
-    FILE *fp=OpenReadFile(filename);
+  FILE *fp=OpenReadFile(filename);
 
 
-    END_HEADER4
+END_HEADER4
 
-	for ($i=0;$i<$lines;$i++) {
+for ($i=0;$i<$lines;$i++) {
 
-	    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
-		next;
-	    }
-	    if ($convtype[$i] eq "double *") {
-		@paramlist = split(/,/,$value[$i]);
-		$length = $#paramlist+1;
-		print cppfile "  $param[$i] = $funname{$convtype[$i]}(fp, \"$param[$i]\", $length, true);\n";
-	    } else {
-		print cppfile "  $param[$i] = $funname{$convtype[$i]}(fp, \"$param[$i]\", $value[$i], true);\n";
-	    }
-	    if ($type[$i] eq "directory") {
-
-		print cppfile "  if (strcmp($param[$i], \".\"))\n";
-		print cppfile "    MakeDir($param[$i]);\n";
-	    }
+    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
+	next;
     }
+    if ($convtype[$i] eq "double *") {
+	@paramlist = split(/,/,$value[$i]);
+	$length = $#paramlist+1;
+	print cppfile "  $param[$i] = $funname{$convtype[$i]}(fp, \"$param[$i]\", $length, true);\n";
+    } else {
+	print cppfile "  $param[$i] = $funname{$convtype[$i]}(fp, \"$param[$i]\", $value[$i], true);\n";
+    }
+    if ($type[$i] eq "directory") {
+	print cppfile "  if (strcmp($param[$i], \".\"))\n";
+	print cppfile "    MakeDir($param[$i]);\n";
+    }
+}
 
-
-
-    print cppfile <<END_MIDPART;
-
+  print cppfile <<END_MIDPART;
 }
 
 const char *sbool(const bool &p) {
 
-    const char *true_str="true";
-    const char *false_str="false";
-    if (p)
-	return true_str;
-    else
-	return false_str;
+  const char *true_str="true";
+  const char *false_str="false";
+  if (p)
+    return true_str;
+  else
+    return false_str;
 }
 
 void Parameter::Write(ostream &os) const {
 
-    END_MIDPART
+END_MIDPART
 
-	for ($i=0;$i<$lines;$i++) {
+for ($i=0;$i<$lines;$i++) {
 	    
-	    if ($convtype[$i] eq "label"  || $convtype[$i] eq "title") {
-		next;
-	    }
-	    if ($convtype[$i] eq "double *") {
-		print cppfile "  os << \" $param[$i] = \"";
-		@paramlist = split(/,/,$value[$i]);
-		for ($j=0;$j<$#paramlist;$j++) {
-		    print cppfile "<< $param[$i]\[$j\] << \", \" ";
-		}
-		print cppfile "<< $param[$i]\[$#paramlist\] << endl;\n";
-	    } else {
-		if ($convtype[$i] eq "bool") {
-		    print cppfile "  os << \" $param[$i] = \" << sbool($param[$i]) << endl;\n";
-		} else {
-		    if ($convtype[$i] eq "char *") {
-			print cppfile "\n  if ($param[$i]) \n";
-			print cppfile "  ";
-		    }
-		    print cppfile "  os << \" $param[$i] = \" << $param[$i] << endl;\n";
-		}
-	    }
+    if ($convtype[$i] eq "label"  || $convtype[$i] eq "title") {
+	next;
     }
+    if ($convtype[$i] eq "double *") {
+	print cppfile "  os << \" $param[$i] = \"";
+	@paramlist = split(/,/,$value[$i]);
+	for ($j=0;$j<$#paramlist;$j++) {
+	    print cppfile "<< $param[$i]\[$j\] << \", \" ";
+	}
+	print cppfile "<< $param[$i]\[$#paramlist\] << endl;\n";
+    } else {
+	if ($convtype[$i] eq "bool") {
+	    print cppfile "  os << \" $param[$i] = \" << sbool($param[$i]) << endl;\n";
+	} else {
+	    if ($convtype[$i] eq "char *") {
+		print cppfile "\n  if ($param[$i]) \n";
+		print cppfile "  ";
+	    }
+	    print cppfile "  os << \" $param[$i] = \" << $param[$i] << endl;\n";
+	}
+    }
+}
 
+print cppfile "}\n";
+
+print cppfile <<END_TRAIL2;
+
+void Parameter::XMLAdd(xmlNode *root) const {
+    xmlNode *xmlparameter = xmlNewChild(root, NULL, BAD_CAST "parameter", NULL);
+END_TRAIL2
+
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
+	next;
+    }
+    print cppfile "{\n";
+    print cppfile "  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST \"par\", NULL);\n";
+    print cppfile "  xmlNewProp(xmlpar, BAD_CAST \"name\", BAD_CAST \"$param[$i]\" );\n";
+    if ($convtype[$i] eq "double *") {
+	@paramlist = split(/,/,$value[$i]);
+	print cppfile "  xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST \"valarray\", NULL);\n";
+	for ($j=0;$j<=$#paramlist;$j++) {
+	    print cppfile "  {\n";
+	    print cppfile "    ostringstream text;\n";
+	    print cppfile "    text << $param[$i]\[$j\];\n";
+	    print cppfile "    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST \"val\", NULL);\n";
+	    print cppfile "    xmlNewProp(xmlval, BAD_CAST \"v\", BAD_CAST text.str().c_str());\n";
+	    print cppfile "  }\n";
+	}
+	print cppfile "}\n";
+	next;
+    } else {
+	print cppfile "  ostringstream text;\n";
+	if ($convtype[$i] eq "bool") {
+	    print cppfile "text << sbool($param[$i]);\n";
+	} else {
+	    if ($convtype[$i] eq "char *") {
+		print cppfile "\n  if ($param[$i]) \n";
+		print cppfile "  ";
+	    }
+	    print cppfile "  text << $param[$i];\n";
+	}
+    }
+    print cppfile "xmlNewProp(xmlpar, BAD_CAST \"val\", BAD_CAST text.str().c_str());\n";
     print cppfile "}\n";
+}
 
-    print cppfile <<END_TRAIL2;
-    void Parameter::XMLAdd(xmlNode *root) const {
-	xmlNode *xmlparameter = xmlNewChild(root, NULL, BAD_CAST "parameter", NULL);
-	END_TRAIL2
+print cppfile "}\n";
+    
+print cppfile "void Parameter::AssignValToPar(const char *namec, const char *valc) {\n";
+print cppfile;
+print cppfile "  QLocale standardlocale(QLocale::C);\n";
+print cppfile "  bool ok;\n";
+for ($i=0;$i<$lines;$i++) {
 
-	    for ($i=0;$i<$lines;$i++) {
-		if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
-		    next;
-		}
-		print cppfile "{\n";
-		print cppfile "  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST \"par\", NULL);\n";
-		print cppfile "  xmlNewProp(xmlpar, BAD_CAST \"name\", BAD_CAST \"$param[$i]\" );\n";
-		if ($convtype[$i] eq "double *") {
-		    @paramlist = split(/,/,$value[$i]);
-		    print cppfile "  xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST \"valarray\", NULL);\n";
-		    for ($j=0;$j<=$#paramlist;$j++) {
-			print cppfile "  {\n";
-			print cppfile "    ostringstream text;\n";
-			print cppfile "    text << $param[$i]\[$j\];\n";
-			print cppfile "    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST \"val\", NULL);\n";
-			print cppfile "    xmlNewProp(xmlval, BAD_CAST \"v\", BAD_CAST text.str().c_str());\n";
-			print cppfile "  }\n";
-		    }
-		    print cppfile "}\n";
-		    next;
-		} else {
-		    print cppfile "  ostringstream text;\n";
-		    if ($convtype[$i] eq "bool") {
-			print cppfile "text << sbool($param[$i]);\n";
-		    } else {
-			if ($convtype[$i] eq "char *") {
-			    print cppfile "\n  if ($param[$i]) \n";
-			    print cppfile "  ";
-			}
-			print cppfile "  text << $param[$i];\n";
-		    }
-		}
-		print cppfile "xmlNewProp(xmlpar, BAD_CAST \"val\", BAD_CAST text.str().c_str());\n";
-		print cppfile "}\n";
-	}
-	print cppfile "}\n";
-
-	print cppfile "void Parameter::AssignValToPar(const char *namec, const char *valc) {\n";
-	print cppfile;
-	print cppfile "  QLocale standardlocale(QLocale::C);\n";
-	print cppfile "  bool ok;\n";
-	for ($i=0;$i<$lines;$i++) {
-
-	    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
-		next;
-	    }
-	    if ($convtype[$i] eq "double *") {
-		next;
+    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
+	next;
+    }
+    if ($convtype[$i] eq "double *") {
+	next;
+    } else {
+	print cppfile "if (!strcmp(namec, \"$param[$i]\")) {\n";
+	if ($convtype[$i] eq "bool") {
+	    print cppfile "$param[$i] = strtobool(valc);\n";
+	} else {
+	    if ($convtype[$i] eq "char *") {
+		print cppfile "  if ($param[$i]) { free($param[$i]); }\n";
+		print cppfile "  $param[$i]=strdup(valc);\n";
 	    } else {
-		print cppfile "if (!strcmp(namec, \"$param[$i]\")) {\n";
-		if ($convtype[$i] eq "bool") {
-		    print cppfile "$param[$i] = strtobool(valc);\n";
+		if ($convtype[$i] eq "int") {
+		    print cppfile "  $param[$i] = standardlocale.toInt(valc, &ok);\n";
+		    print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to integer while reading parameter '$param[$i]' from XML file.\",valc); }\n";
+		    # print cppfile "  $param[$i] = (int)strtol(valc, 0, 10);\n";
 		} else {
-		    if ($convtype[$i] eq "char *") {
-			print cppfile "  if ($param[$i]) { free($param[$i]); }\n";
-			print cppfile "  $param[$i]=strdup(valc);\n";
-		    } else {
-			if ($convtype[$i] eq "int") {
-			    print cppfile "  $param[$i] = standardlocale.toInt(valc, &ok);\n";
-			    print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to integer while reading parameter '$param[$i]' from XML file.\",valc); }\n";
-			    # print cppfile "  $param[$i] = (int)strtol(valc, 0, 10);\n";
-			} else {
-			    # print cppfile "  $param[$i] = strtod(valc, 0);\n";
-			    print cppfile "  $param[$i] = standardlocale.toDouble(valc, &ok);\n";
-			    print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to double while reading parameter '$param[$i]' from XML file.\",valc); }\n";
-			}
-		    }
+		    # print cppfile "  $param[$i] = strtod(valc, 0);\n";
+		    print cppfile "  $param[$i] = standardlocale.toDouble(valc, &ok);\n";
+		    print cppfile "  if (!ok) { MyWarning::error(\"Read error: cannot convert string \\\"%s\\\" to double while reading parameter '$param[$i]' from XML file.\",valc); }\n";
 		}
 	    }
-	    print cppfile "}\n";
 	}
+    }
+    print cppfile "}\n";
+}
+print cppfile "}\n";
+
+print cppfile "void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) {\n";
+print cppfile;
+
+for ($i=0;$i<$lines;$i++) {
+
+    if ($convtype[$i] eq "double *") {
+	@paramlist = split(/,/,$value[$i]);
+	print cppfile "if (!strcmp(namec, \"$param[$i]\")) {\n";
+	print cppfile "  int i=0;\n";
+	print cppfile "  vector<double>::const_iterator v=valarray.begin();\n";
+	print cppfile "  while (v!=valarray.end() && i <= $#paramlist ) {\n";
+	print cppfile "     $param[$i]\[i++\]=*(v++);\n";
+	print cppfile "  }\n";
 	print cppfile "}\n";
+    }
+}
 
-	print cppfile "void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) {\n";
-	print cppfile;
+print cppfile <<END_DATADIR;
+// reassign datadir outside the loop
+if (!strcmp(namec, "datadir")) {
+  if (datadir) { free(datadir); }
+  QDir dataDir(datadir);
+  if (dataDir.isRelative()){
+    QStringList path;
+    path << QDir::homePath() << dataDir.dirName();
+    datadir = strdup((char *) path.join("/").toStdString().c_str());
+  }
+ }
+END_DATADIR
 
-	for ($i=0;$i<$lines;$i++) {
+print cppfile "}\n";
 
-	    if ($convtype[$i] eq "double *") {
-		@paramlist = split(/,/,$value[$i]);
-		print cppfile "if (!strcmp(namec, \"$param[$i]\")) {\n";
-		print cppfile "  int i=0;\n";
-		print cppfile "  vector<double>::const_iterator v=valarray.begin();\n";
-		print cppfile "  while (v!=valarray.end() && i <= $#paramlist ) {\n";
-		print cppfile "     $param[$i]\[i++\]=*(v++);\n";
-		print cppfile "  }\n";
-		print cppfile "}\n";
-	    }
-	}
-	print cppfile "}\n";
+print cppfile <<END_TRAILER;
 
+ostream &operator<<(ostream &os, Parameter &p) {
+    p.Write(os);
+    return os;
+}
 
-	print cppfile <<END_TRAILER;
-
-	/* void Parameter::XMLRead(xmlNode *root) {
-	    
-	    xmlNode *cur = root->xmlChildrenNode;
-	    while (cur!=NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"parameter"))){
-		    xmlNode *par_node = cur->xmlChildrenNode;
-		    while (par_node!=NULL) {
-			{
-			    if (!xmlStrcmp(par_node->name, (const xmlChar *)"par")) {
-				xmlChar *namec = xmlGetProp(par_node, BAD_CAST "name");
-				xmlChar *valc = xmlGetProp(par_node, BAD_CAST "val");
-				if (valc) {
-				    AssignValToPar((const char*)namec,(const char*)valc);
-				} else {
-				    // Probably a valarray
-					xmlNode *sub_par_node = par_node->xmlChildrenNode;
-				    vector<double> valarray; 
-				    while (sub_par_node != NULL) {
-					if (!xmlStrcmp(sub_par_node->name, (const xmlChar *)"valarray")) {
-					    valarray = XMLIO::XMLReadValArray(sub_par_node);
-					}
-					sub_par_node = sub_par_node->next;
-				    }
-				    AssignValArrayToPar((const char*)namec, valarray);
-				}
-			    }
-			}	  
-			par_node = par_node->next;
-		    }
-
-		}
-		cur=cur->next;
-	    }
-	    
-	}*/
-
-	    ostream &operator<<(ostream &os, Parameter &p) {
-		p.Write(os);
-		return os;
-	}
-
-	END_TRAILER
+END_TRAILER
 
 
 
 # parameter.h
 
-	    open hfile, ">parameter.h";
-	print hfile <<END_HEADER2;
-	// WARNING: This file is automatically generated by make_parameter_source.pl. Do not edit.
-	    // All edits will be discarded.
+open hfile, ">parameter.h";
+print hfile <<END_HEADER2;
+// WARNING: This file is automatically generated by make_parameter_source.pl. Do not edit.
+// All edits will be discarded.
 
 #ifndef _PARAMETER_H_
 #define _PARAMETER_H_
@@ -399,46 +379,46 @@ void Parameter::Write(ostream &os) const {
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-	    class Parameter {
+ class Parameter {
 		
-	      public: 
-		Parameter();
-		~Parameter();
-		void CleanUp(void);
-		void Read(const char *filename);
-		void Write(ostream &os) const;
-		void XMLAdd(xmlNode *root) const;
-		void XMLRead(xmlNode *root);
-		void AssignValToPar(const char *namec, const char *valc);
-		void AssignValArrayToPar(const char *namec, vector<double> valarray);
-		END_HEADER2
+ public: 
+   Parameter();
+   ~Parameter();
+   void CleanUp(void);
+   void Read(const char *filename);
+   void Write(ostream &os) const;
+   void XMLAdd(xmlNode *root) const;
+   void XMLRead(xmlNode *root);
+   void AssignValToPar(const char *namec, const char *valc);
+   void AssignValArrayToPar(const char *namec, vector<double> valarray);
+END_HEADER2
 
-		    for ($i=0;$i<$lines;$i++) {
-			if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
-			    print hfile "  $convtype[$i] $param[$i];\n";
-			}
-		}
+   for ($i=0;$i<$lines;$i++) {
+     if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
+       print hfile "  $convtype[$i] $param[$i];\n";
+     }
+   }
 
-		print hfile <<END_TRAILER2;
-	      private:
-	};
+   print hfile <<END_TRAILER2;
+ private:
+ };
 
-	ostream &operator<<(ostream &os, Parameter &p);
-	const char *sbool(const bool &p);
+ ostream &operator<<(ostream &os, Parameter &p);
+ const char *sbool(const bool &p);
 
 
 #endif
-	END_TRAILER2
+END_TRAILER2
 
 # finally, a parameter file with the default values, based on the template
 
-	    open parfile,">default.par";
+open parfile,">default.par";
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($type[$i] ne "title" && $type[$i] ne "label") {
-		$value[$i] =~ s/\"//g;
-		print parfile "  $param[$i] = $value[$i]\n";
-	    }
-	}
+for ($i=0;$i<$lines;$i++) {
+  if ($type[$i] ne "title" && $type[$i] ne "label") {
+    $value[$i] =~ s/\"//g;
+      print parfile "  $param[$i] = $value[$i]\n";
+  }
+}
 
 # finis
