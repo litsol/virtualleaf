@@ -92,6 +92,8 @@ class MainBase  {
     }
   };
   virtual void XMLReadSettings(xmlNode *settings);
+  virtual void XMLReadViewport(xmlNode *viewport);
+
   virtual double getFluxArrowsize(void) { return 10.;}
 
   void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
@@ -104,11 +106,13 @@ class MainBase  {
     cerr << message.toAscii().constData() << endl;
   }
   Mesh &mesh;
+  QTransform viewport;
 
  protected:
   QGraphicsScene &canvas;
   virtual xmlNode *XMLSettingsTree(void) const;
-
+  virtual xmlNode *XMLViewportTree(QTransform &transform) const;
+  
  protected:
   bool showcentersp;
   bool showmeshp;

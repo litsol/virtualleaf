@@ -173,6 +173,9 @@ class Main : public Q3MainWindow, public MainBase {
 
       // Exit rotation mode if mouse is clicked
       connect(editor, SIGNAL(MousePressed()), this, SLOT(ExitRotationMode()));
+      
+      editor->setMouseTracking(true);
+
     }
 
   }
@@ -183,6 +186,8 @@ class Main : public Q3MainWindow, public MainBase {
     options->setItemChecked(rotation_mode_id, false); 
     if (editor)
       disconnect(editor, SIGNAL(MousePressed()), this, SLOT(ExitRotationMode()));
+    editor->setMouseTracking(false);
+ 
   }
 
   virtual void UserMessage(QString message, int timeout=0);

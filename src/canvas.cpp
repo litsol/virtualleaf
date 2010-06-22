@@ -211,7 +211,7 @@ void FigureEditor::mousePressEvent(QMouseEvent* e)
 void FigureEditor::mouseMoveEvent(QMouseEvent* e)
 {
 
-  // User choose "rotation mode" and we can rotate the object around its center of mass
+  // User chooses "rotation mode" and we can rotate the object around its center of mass
   if (dynamic_cast<Main *>(parent())->RotationModeP()) {
 
     QPointF p = mapToScene(e->pos());
@@ -236,6 +236,8 @@ void FigureEditor::mouseMoveEvent(QMouseEvent* e)
     FullRedraw();
     return;
   }
+ 
+  
   if ( moving ) {
 
     QPointF p = mapToScene(e->pos());
@@ -786,7 +788,7 @@ int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simt
     Cell::setOffset(0,0);
 
     FitLeafToCanvas();
-
+    
     currentFile =  QString(filename);
 
     Plot();
@@ -1224,7 +1226,9 @@ void Main::FitLeafToCanvas(void)
 
 
   // cerr << ur << ", " << ll << endl;
-  editor->fitInView(bb, Qt::KeepAspectRatio);
+  // editor->fitInView(bb, Qt::KeepAspectRatio);
+  editor->ensureVisible(bb);
+  //editor->setTransform(viewport);
 }
 
 void Main::CleanMesh(void) 
@@ -1300,7 +1304,7 @@ void Main::XMLReadSettings(xmlNode *settings)
 {
 
   MainBase::XMLReadSettings(settings);
-
+  
   view->setItemChecked(com_id, showcentersp);
   view->setItemChecked(mesh_id, showmeshp);
   view->setItemChecked(border_id, showbordercellp);
@@ -1315,6 +1319,8 @@ void Main::XMLReadSettings(xmlNode *settings)
   options->setItemChecked(dyn_cells_id, dynamicscellsp);
   view->setItemChecked( cell_walls_id, showwallsp);
   view->setItemChecked( apoplasts_id, showapoplastsp);
+  
+  editor->setTransform(viewport);
 }
 
 xmlNode *Main::XMLSettingsTree(void) 
@@ -1335,7 +1341,10 @@ xmlNode *Main::XMLSettingsTree(void)
   showapoplastsp = view->isItemChecked( apoplasts_id);
   hidecellsp = view->isItemChecked( hide_cells_id);
 
-  return MainBase::XMLSettingsTree();
+  xmlNode *settings = MainBase::XMLSettingsTree();
+  QTransform viewport(editor->transform());
+  xmlAddChild(settings, XMLViewportTree(viewport));
+  return settings;
 }
 
 /* finis */

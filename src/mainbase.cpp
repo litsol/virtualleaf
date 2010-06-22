@@ -28,7 +28,27 @@
 #include <sstream>
 #include <string>
 
+#include <QLocale>
+
 static const std::string _module_id("$Id$");
+
+xmlNode *MainBase::XMLViewportTree(QTransform &transform) const {
+  
+  QLocale standardlocale(QLocale::C);
+  
+
+  xmlNode *xmlviewport = xmlNewNode(NULL, BAD_CAST "viewport");
+  {
+    xmlNewProp(xmlviewport, BAD_CAST "m11", BAD_CAST standardlocale.toString(transform.m11()).toStdString().c_str() );
+    xmlNewProp(xmlviewport, BAD_CAST "m12", BAD_CAST standardlocale.toString(transform.m12()).toStdString().c_str() );    
+    xmlNewProp(xmlviewport, BAD_CAST "m21", BAD_CAST standardlocale.toString(transform.m21()).toStdString().c_str() );    
+    xmlNewProp(xmlviewport, BAD_CAST "m22", BAD_CAST standardlocale.toString(transform.m22()).toStdString().c_str() );    
+    xmlNewProp(xmlviewport, BAD_CAST "dx", BAD_CAST standardlocale.toString(transform.dx()).toStdString().c_str() );    
+    xmlNewProp(xmlviewport, BAD_CAST "dy", BAD_CAST standardlocale.toString(transform.dy()).toStdString().c_str() );    
+ }
+  
+  return xmlviewport;
+}
 
 xmlNode *MainBase::XMLSettingsTree(void) const {
 
@@ -134,6 +154,98 @@ xmlNode *MainBase::XMLSettingsTree(void) const {
   return xmlsettings;
 }
 
+void MainBase::XMLReadViewport(xmlNode *settings) {
+
+  if (settings == 0) {
+    return;
+  }
+
+  qreal m11=25,m12=0,m21=0,m22=25,dx=0,dy=0;
+  QLocale standardlocale(QLocale::C);
+  xmlNode *cur = settings->xmlChildrenNode;
+
+  while (cur!=NULL) {
+    
+    if (!xmlStrcmp(cur->name,(const xmlChar *)"viewport")) {
+      bool ok;
+      {
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "m11");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  m11=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+      {
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "m12");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  m12=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+      { 
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "m21");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  m21=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+      {
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "m22");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  m22=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+      {
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "dx");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  dx=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+      {
+	xmlChar *v_str = xmlGetProp(cur, BAD_CAST "dy");
+	
+	if (v_str==0) {
+	  MyWarning::unique_warning("Error reading viewport in mainbase.cpp");
+	}
+	if (v_str != NULL) {
+	  dy=standardlocale.toDouble((char *)v_str, &ok);
+	  if (!ok) MyWarning::error("Could Not Convert \"%S\" To Double In XMLRead.",(char *)v_str);
+	  xmlFree(v_str);
+	}
+      }
+    }
+    cur=cur->next;
+  }
+  viewport = QTransform(m11,m12,m21,m22,dx,dy);
+}
+
 void MainBase::XMLReadSettings(xmlNode *settings)
 {
 
@@ -143,6 +255,7 @@ void MainBase::XMLReadSettings(xmlNode *settings)
     return;
   }
 
+  XMLReadViewport(settings);
   xmlNode *cur = settings->xmlChildrenNode;
 
   while (cur!=NULL) {
@@ -150,6 +263,7 @@ void MainBase::XMLReadSettings(xmlNode *settings)
     if ((!xmlStrcmp(cur->name, (const xmlChar *)"setting"))){
 
       xmlChar *name = xmlGetProp(cur, BAD_CAST "name");
+    
       xmlChar *val = xmlGetProp(cur, BAD_CAST "val");
       if (!xmlStrcmp(name, (const xmlChar *)"show_cell_centers")) {
 	showcentersp = strtobool( (const char *)val );
@@ -193,7 +307,9 @@ void MainBase::XMLReadSettings(xmlNode *settings)
       if (!xmlStrcmp(name,(const xmlChar *)"hide_cells")) {
 	hidecellsp = strtobool( (const char *)val ); 
       }
-
+    
+	
+  
       xmlFree(name);
       xmlFree(val);
     }

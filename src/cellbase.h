@@ -64,9 +64,6 @@ class CellsStaticDatamembers {
     ncells = 0;
     nchem = 0;
     base_area = 0.;
-#ifdef QDEBUG
-    qDebug() << "Constructor of CellsStaticDatamembers" << endl;
-#endif
   }
   ~CellsStaticDatamembers() {
 #ifdef QDEBUG
