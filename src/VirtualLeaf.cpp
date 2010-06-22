@@ -147,6 +147,7 @@ void MainBase::Plot(int resize_stride)
       FitLeafToCanvas();
     }
   }
+
   mesh.LoopCells(DrawCell(),canvas,*this);
 
   if (ShowNodeNumbersP()) 
