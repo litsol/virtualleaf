@@ -1,3 +1,8 @@
+2010-06-22    <guravage@caterpie.sen.cwi.nl>
+
+	* Makefile (clean): Add windows equivalent of UNIX touch.
+
+
 2010-06-18    <guravage@caterpie.sen.cwi.nl>
 
 	* plugin_auxingrowth.pro: Changed default LIBXML2DIR, LIBICONVDIR and LIBZDIR to corresponding distribution lib directories.

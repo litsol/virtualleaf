@@ -1,26 +1,3 @@
-/*
- *
- *  $Id$
- *
- *  This file is part of the Virtual Leaf.
- *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with the Virtual Leaf.  If not, see <http://www.gnu.org/licenses/>.
- *
- *  Copyright 2010 Roeland Merks.
- *
- */
-
 #ifndef PARAMETER_DIALOG_H
 #define PARAMETER_DIALOG_H
 #include <qdialog.h>
@@ -31,18 +8,18 @@
 #include <iostream>
 
 class ParameterDialog : public QDialog {
-  Q_OBJECT
+    Q_OBJECT
+	
+      public:
+	ParameterDialog(QWidget *parent=0, const char *name = 0, Qt::WindowFlags f = 0);
+    virtual ~ParameterDialog(void);
+    public slots:
+    void Reset(void);
 
-    public:
-  ParameterDialog(QWidget *parent=0, const char *name = 0, Qt::WindowFlags f = 0);
-  virtual ~ParameterDialog(void);
-  public slots:
-  void Reset(void);
+    private slots:
+    void write(void);
 
-  private slots:
-  void write(void);
-
- private:
+  private:
   QLineEdit *arrowcolor_edit;
   QLineEdit *arrowsize_edit;
   QLineEdit *textcolor_edit;
@@ -142,7 +119,4 @@ class ParameterDialog : public QDialog {
   QLineEdit *dir1_edit;
   QLineEdit *dir2_edit;
 };
-
 #endif
-
-/* finis */

@@ -30,7 +30,7 @@
 #include <libxml/tree.h>
 
 class Parameter {
-
+		
  public: 
   Parameter();
   ~Parameter();

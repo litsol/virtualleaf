@@ -33,7 +33,6 @@
 
 #include "wallbase.h"
 #include "cellbase.h"
-#include "mymodel.h"
 #include "flux_function.h"
 
 #endif

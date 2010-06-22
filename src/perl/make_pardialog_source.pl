@@ -98,140 +98,139 @@ print cppfile <<END_HEADER;
 
 ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFlags f) : QDialog(parent,name,false,f) {
     extern Parameter par;
-    END_HEADER
+END_HEADER
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
-		next;
-	    }
-	    if ($convtype[$i] eq "double *") {
-		print cppfile  "  QString $param[$i]_string(\"";
-		@paramlist = split(/,/,$value[$i]);
-		for ($j=1;$j<=$#paramlist;$j++) {
-		    print cppfile "%$j,";
-		}
-		print cppfile "%$j\");\n";
-		print cppfile "  $param[$i]_string = $param[$i]_string";
-		for ($j=0;$j<=$#paramlist;$j++) {
-		    print cppfile ".arg(par.$param[$i]\[$j\])";
-		}
-		print cppfile ";\n";
-		print cppfile "  $param[$i]_edit = new QLineEdit( $param[$i]_string, this, \"$param[$i]_edit\" );\n";
-	    } else {
-		if ($convtype[$i] eq "bool") {
-		    print cppfile "  $param[$i]_edit = new QLineEdit( QString(\"%1\").arg(sbool(par.$param[$i])), this, \"$param[$i]_edit\" );\n";
-		} else {
-		    print cppfile "  $param[$i]_edit = new QLineEdit( QString(\"%1\").arg(par.$param[$i]), this, \"$param[$i]_edit\" );\n";
-		}
-	    }
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
+	next;
     }
-
-
-    print cppfile <<END_HEADER3;
-    // make a 1x1 grid; it will auto-expand
-	QGridLayout *grid = new QGridLayout( this, 1, 1 );
-    
-    // add the first four widgets with (row, column) addressing
-	END_HEADER3
-
-	$numrows = 30;
-    $c = 0;
-    for ($i=0;$i<$lines;$i++) {
-	$col = 2*int($c/($numrows-3));
-	$row = $c % ($numrows-3) + $ntitles * 3;
-	if ($convtype[$i] eq "label") {
-	    print cppfile "  grid->addWidget( new QLabel( \"$value[$i]\", this), $row, $col, 1, 2 );\n";
-	    $c++;
+    if ($convtype[$i] eq "double *") {
+	print cppfile  "  QString $param[$i]_string(\"";
+	@paramlist = split(/,/,$value[$i]);
+	for ($j=1;$j<=$#paramlist;$j++) {
+	    print cppfile "%$j,";
+	}
+	print cppfile "%$j\");\n";
+	print cppfile "  $param[$i]_string = $param[$i]_string";
+	for ($j=0;$j<=$#paramlist;$j++) {
+	    print cppfile ".arg(par.$param[$i]\[$j\])";
+	}
+	print cppfile ";\n";
+	print cppfile "  $param[$i]_edit = new QLineEdit( $param[$i]_string, this, \"$param[$i]_edit\" );\n";
+    } else {
+	if ($convtype[$i] eq "bool") {
+	    print cppfile "  $param[$i]_edit = new QLineEdit( QString(\"%1\").arg(sbool(par.$param[$i])), this, \"$param[$i]_edit\" );\n";
 	} else {
-	    if ($convtype[$i] eq "title") {
-		if ($ntitles) {
-		    print stderr "Sorry, only one title allowed. Aborting source construction...\n";
-		    exit(1);
-		}
-		print cppfile "  setWindowTitle( QString( \"$value[$i]\") );\n";
-		print cppfile "  grid->addWidget( new QLabel( \"<h3>$value[$i]</h3>\",this), $row, $col, 1, -1, Qt::AlignCenter);\n";
-		print cppfile "  grid->addWidget( new QLabel( \"\", this), $row+1, $col, 1, -1);\n";
-		$ntitles++;
-	    } else {
-		print cppfile "  grid->addWidget( new QLabel( \"$param[$i]\", this ),$row, $col );\n";
-		print cppfile "  grid->addWidget( $param[$i]_edit, $row, $col+1  );\n";
-		$c++;
-	    }
+	    print cppfile "  $param[$i]_edit = new QLineEdit( QString(\"%1\").arg(par.$param[$i]), this, \"$param[$i]_edit\" );\n";
 	}
     }
+}
 
-    $row = $numrows+1;
-    $col = 2*int($i/$numrows);
 
-    print cppfile <<ANOTHER_LABEL;
-    QPushButton *pb = new QPushButton( \"&Write\", this );
-    grid->addWidget(pb, $row, $col );
-    connect( pb, SIGNAL( clicked() ), this, SLOT( write() ) );
-    QPushButton *pb2 = new QPushButton( \"&Close\", this );
-    grid->addWidget(pb2,$row, $col+1 );
-    connect( pb2, SIGNAL( clicked() ), this, SLOT( close() ) );
-    QPushButton *pb3 = new QPushButton( \"&Reset\", this );
-    grid->addWidget(pb3, $row, $col+2 );
-    connect( pb3, SIGNAL( clicked() ), this, SLOT( Reset() ) );
-    show();
+print cppfile <<END_HEADER3;
+// make a 1x1 grid; it will auto-expand
+QGridLayout *grid = new QGridLayout( this, 1, 1 );
+    
+// add the first four widgets with (row, column) addressing
+END_HEADER3
+
+$numrows = 30;
+$c = 0;
+for ($i=0;$i<$lines;$i++) {
+    $col = 2*int($c/($numrows-3));
+    $row = $c % ($numrows-3) + $ntitles * 3;
+    if ($convtype[$i] eq "label") {
+	print cppfile "  grid->addWidget( new QLabel( \"$value[$i]\", this), $row, $col, 1, 2 );\n";
+	$c++;
+    } else {
+	if ($convtype[$i] eq "title") {
+	    if ($ntitles) {
+		print stderr "Sorry, only one title allowed. Aborting source construction...\n";
+		exit(1);
+	    }
+	    print cppfile "  setWindowTitle( QString( \"$value[$i]\") );\n";
+	    print cppfile "  grid->addWidget( new QLabel( \"<h3>$value[$i]</h3>\",this), $row, $col, 1, -1, Qt::AlignCenter);\n";
+	    print cppfile "  grid->addWidget( new QLabel( \"\", this), $row+1, $col, 1, -1);\n";
+	    $ntitles++;
+	} else {
+	    print cppfile "  grid->addWidget( new QLabel( \"$param[$i]\", this ),$row, $col );\n";
+	    print cppfile "  grid->addWidget( $param[$i]_edit, $row, $col+1  );\n";
+	    $c++;
+	}
+    }
+}
+
+$row = $numrows+1;
+$col = 2*int($i/$numrows);
+
+print cppfile <<ANOTHER_LABEL;
+QPushButton *pb = new QPushButton( \"&Write\", this );
+grid->addWidget(pb, $row, $col );
+connect( pb, SIGNAL( clicked() ), this, SLOT( write() ) );
+QPushButton *pb2 = new QPushButton( \"&Close\", this );
+grid->addWidget(pb2,$row, $col+1 );
+connect( pb2, SIGNAL( clicked() ), this, SLOT( close() ) );
+QPushButton *pb3 = new QPushButton( \"&Reset\", this );
+grid->addWidget(pb3, $row, $col+2 );
+connect( pb3, SIGNAL( clicked() ), this, SLOT( Reset() ) );
+show();
 };
 
 ParameterDialog::~ParameterDialog(void) {
-    ANOTHER_LABEL
+ANOTHER_LABEL
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
-		print cppfile "delete $param[$i]_edit;\n";
-	    }
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
+	print cppfile "delete $param[$i]_edit;\n";
     }
-
-    print cppfile <<END_HEADER4;
+}
+print cppfile <<END_HEADER4;
 }
 
 void ParameterDialog::write(void) {
     
-    extern Parameter par;
-    QString tmpval;
-    END_HEADER4
+extern Parameter par;
+QString tmpval;
+END_HEADER4
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
-		next;
+    for ($i=0;$i<$lines;$i++) {
+	if ($convtype[$i] eq "label" || $convtype[$i] eq "title") {
+	    next;
+	}
+	if ($convtype[$i] eq "double *") {
+	    @paramlist = split(/,/,$value[$i]);
+	    for ($j=0;$j<=$#paramlist;$j++) {
+		print cppfile "  tmpval = $param[$i]_edit->text().section(',', $j, $j);\n";
+		print cppfile "  par.$param[$i]\[$j\] = tmpval.toDouble();\n";
 	    }
-	    if ($convtype[$i] eq "double *") {
-		@paramlist = split(/,/,$value[$i]);
-		for ($j=0;$j<=$#paramlist;$j++) {
-		    print cppfile "  tmpval = $param[$i]_edit->text().section(',', $j, $j);\n";
-		    print cppfile "  par.$param[$i]\[$j\] = tmpval.toDouble();\n";
-		}
+	} else {
+	    if ($convtype[$i] eq "bool") {
+		print cppfile "  tmpval = $param[$i]_edit->text().stripWhiteSpace();\n";
+		print cppfile "  if (tmpval == \"true\" || tmpval == \"yes\" ) par.$param[$i] = true;\n";
+		print cppfile "  else if (tmpval == \"false\" || tmpval == \"no\") par.$param[$i] = false;\n";
+		print cppfile "  else {\n";
+		print cppfile "    if (QMessageBox::question(this, \"Syntax error\", tr(\"Value %1 of parameter %2 is not recognized as Boolean.\\nDo you mean TRUE or FALSE?\").arg(tmpval).arg(\"$param[$i]\"),\"True\",\"False\", QString::null, 0, 1)==0) par.$param[$i]=true;\n";
+		print cppfile "      else par.$param[$i]=false;\n";
+		print cppfile "  }\n";
 	    } else {
-		if ($convtype[$i] eq "bool") {
-		    print cppfile "  tmpval = $param[$i]_edit->text().stripWhiteSpace();\n";
-		    print cppfile "  if (tmpval == \"true\" || tmpval == \"yes\" ) par.$param[$i] = true;\n";
-		    print cppfile "  else if (tmpval == \"false\" || tmpval == \"no\") par.$param[$i] = false;\n";
-		    print cppfile "  else {\n";
-		    print cppfile "    if (QMessageBox::question(this, \"Syntax error\", tr(\"Value %1 of parameter %2 is not recognized as Boolean.\\nDo you mean TRUE or FALSE?\").arg(tmpval).arg(\"$param[$i]\"),\"True\",\"False\", QString::null, 0, 1)==0) par.$param[$i]=true;\n";
-		    print cppfile "      else par.$param[$i]=false;\n";
-		    print cppfile "  }\n";
+		if ($convtype[$i] eq "char *") {
+		    print cppfile "  par.$param[$i] = strdup((const char *)$param[$i]_edit->text());\n";
 		} else {
-		    if ($convtype[$i] eq "char *") {
-			print cppfile "  par.$param[$i] = strdup((const char *)$param[$i]_edit->text());\n";
-		    } else {
-			print cppfile "  par.$param[$i] = $param[$i]_edit->text().$funname{$convtype[$i]}();\n";
-		    }
+		    print cppfile "  par.$param[$i] = $param[$i]_edit->text().$funname{$convtype[$i]}();\n";
 		}
 	    }
-    }
+	}
+}
 
 
 
-    print cppfile <<END_MIDPART;
-    Reset();
+print cppfile <<END_MIDPART;
+Reset();
 
 }
 END_MIDPART
 
-    print cppfile "void ParameterDialog::Reset(void) {\n";
+print cppfile "void ParameterDialog::Reset(void) {\n";
 print cppfile "  extern Parameter par;\n";
 
 for ($i=0;$i<$lines;$i++) {
@@ -288,15 +287,15 @@ class ParameterDialog : public QDialog {
     void write(void);
 
   private:
-    END_HEADER2
+END_HEADER2
 
-	for ($i=0;$i<$lines;$i++) {
-	    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
-		print hfile "  QLineEdit *$param[$i]_edit;\n";
-	    }
+for ($i=0;$i<$lines;$i++) {
+    if ($convtype[$i] ne "label" && $convtype[$i] ne "title") {
+	print hfile "  QLineEdit *$param[$i]_edit;\n";
     }
+}
 
-    print hfile <<END_TRAILER2;
+print hfile <<END_TRAILER2;
 };
 #endif
 END_TRAILER2
