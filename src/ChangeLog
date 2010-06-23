@@ -1,5 +1,18 @@
 2010-06-23    <guravage@caterpie.sen.cwi.nl>
 
+	* simitembase.cpp: Removed NULL assignments to unused variables.
+	* VirtualLeaf.cpp: Ditto.
+	* apoplastitem.cpp: Ditto.
+	* canvas.cpp: Ditto.
+	* cell.cpp: Ditto.
+	* cellbase.h: Ditto.
+	* forwardeuler.cpp: Ditto.
+	* mainbase.h: Ditto.
+	* nodeitem.cpp: Ditto.
+	* qcanvasarrow.h: Ditto.
+	* simitembase.cpp: Ditto.
+
+
 	* Makefile (clean): Add -f Makefile argument to each make invocation.
 
 	* VirtualLeaf-install.nsi: New gpl license text.

@@ -275,10 +275,7 @@ TIMESTEP {
 
 
 /* Called if a cell is clicked */
-void Cell::OnClick(QMouseEvent *e)
-{
-  e = NULL; // use assignment merely to obviate compilation warning
-}
+void Cell::OnClick(QMouseEvent *e){}
 
 
 /* Custom message handler - Default appends a newline character to the end of each line. */ 

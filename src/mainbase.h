@@ -102,9 +102,9 @@ class MainBase  {
   void Plot(int resize_stride=10);
 
   virtual void UserMessage(QString message, int timeout = 0) {
-    timeout = 0; // merely to obviate 'warning unused parameter' message
     cerr << message.toAscii().constData() << endl;
   }
+
   Mesh &mesh;
   QTransform viewport;
 

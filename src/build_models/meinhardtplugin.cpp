@@ -34,10 +34,7 @@ static const std::string _module_id("$Id$");
 bool batch = false;
 
 // To be executed after cell division
-void MeinhardtPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
-  parent_info = NULL;
-  daughter1 = daughter2 = NULL;
-}
+void MeinhardtPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {}
 
 void MeinhardtPlugin::SetCellColor(CellBase *c, QColor *color) { 
 
@@ -101,7 +98,6 @@ void MeinhardtPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dch
 }
 
 void MeinhardtPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
-  w = NULL;
   for (int c = 0;c<NChem();c++) {
     dw1[c] = 0.; dw2[c] = 0.;
   }

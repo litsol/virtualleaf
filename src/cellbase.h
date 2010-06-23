@@ -453,7 +453,6 @@ ostream &operator<<(ostream &os, const CellBase &v);
 
 inline Vector PINdir(CellBase *here, CellBase *nb, Wall *w)
 {
-  nb = NULL; // assignment merely to obviate compilation warning
   return w->getTransporter( here, 1)  *  w->getInfluxVector(here);
 }
 

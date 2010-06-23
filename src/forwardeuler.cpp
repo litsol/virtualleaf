@@ -58,9 +58,6 @@ void ForwardEuler::odeint(double *ystart, int nvar, double x1, double x2, double
 {
   static bool warning_issued = false;
 
-  eps = hmin = 0.0; // use assignment merely to obviate compilation warning
-  nbad = nok = NULL;
-
   if (!warning_issued) {
     cerr << "Using inaccurate method ForwardEuler\n";
     warning_issued=true;

@@ -103,9 +103,6 @@ FigureEditor::FigureEditor(
 			   const char* name, Qt::WindowFlags f) :
   QGraphicsView(&c,parent), mesh(m)
 {
-  name = NULL; // use these two assignments merely to obviate compile time warnings
-  f = Qt::Widget;
-
   intersection_line = 0;
   //angle_line = 0;
   setInteractive(true);

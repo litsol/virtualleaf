@@ -68,8 +68,6 @@ void ApoplastItem::setColor(void) {
   setPen (QPen(diffcolor, 20) );
 }
 
-void ApoplastItem::OnClick(QMouseEvent *e) {
-  e = NULL; // merely to obviate compilation warnings
-}
+void ApoplastItem::OnClick(QMouseEvent *e) {}
 
 /* finis*/
