@@ -33,8 +33,6 @@
 
 static const std::string _module_id("$Id$");
 
-bool batch = false;
-
 
 // To be executed after cell division
 void AuxinGrowthPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2)
@@ -64,10 +62,7 @@ void AuxinGrowthPlugin::SetCellColor(CellBase *c, QColor *color)
 
   // Red: PIN1
   // Green: Auxin
-  if (c->CellType()==1)
-    color->setNamedColor("Blue"); 
-  else 
-    color->setRgb(c->Chemical(1)/(1+c->Chemical(1)) * 255.,(c->Chemical(0)/(1+c->Chemical(0)) * 255.), 0);
+  color->setRgb(c->Chemical(1)/(1+c->Chemical(1)) * 255.,(c->Chemical(0)/(1+c->Chemical(0)) * 255.), 0);
 }
 
 
@@ -79,9 +74,6 @@ void AuxinGrowthPlugin::CellHouseKeeping(CellBase *c)
       c->SetChemical(0,0);
       c->Divide();
     }		
-    if (c->Chemical(0)>0.6) {
-      c->SetCellType(1);
-    } 
     // expand according to auxin concentration
     c->EnlargeTargetArea(par->auxin_dependent_growth?(c->Chemical(0)/(1.+c->Chemical(0)))*par->cell_expansion_rate:par->cell_expansion_rate);
   }  
