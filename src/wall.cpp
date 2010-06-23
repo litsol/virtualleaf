@@ -83,9 +83,9 @@ bool Wall::CorrectWall( void ) {
 
 #ifdef QDEBUG
       qDebug() << "Wall::CorrectWall says: Wall has three owners, but none of them is the BoundaryPolygon. I have no clue what to do with this case... Sorry!" << endl;
-      qDebug() << "Wall: " << *this << endl;
+      cerr << "Wall: " << *this << endl;
       qDebug() << "Owners are: ";
-      transform(wall_owners.begin(), wall_owners.end(), ostream_iterator<int>(qDebug(), "  "), mem_fun (&CellBase::Index) );
+      transform(wall_owners.begin(), wall_owners.end(), ostream_iterator<int>(cerr, "  "), mem_fun (&CellBase::Index) );
       qDebug() << endl;
       qDebug() << "Owners node " << n1->Index() << ": ";
 

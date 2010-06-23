@@ -19,7 +19,7 @@ Requirements
 The Virtual Leaf is written with the QT Cross platform application and
 UI framework, and can run on Linux, Apple Macintosh and Windows
 machines. To compile the Virtual Leaf you will need to install the QT
-software development kit which you can download from the `QT download
+software development kit (SDK) which you can download from the `QT download
 site <http://qt.nokia.com/downloads/downloads#lgpl/>`_. Whether
 installed globally by a system administrator our locally in your own
 user space, make sure the QT bin directory containing qmake is in your

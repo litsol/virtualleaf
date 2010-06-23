@@ -142,7 +142,7 @@ int Randomize(void) {
   seed=abs((int)((t.time*t.millitm)%655337));
   Seed(seed);
 #ifdef QDEBUG
-  qdebug() << "Random seed is " << seed << endl;
+  qDebug() << "Random seed is " << seed << endl;
 #endif
   return seed;
 }

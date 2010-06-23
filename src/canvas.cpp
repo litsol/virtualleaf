@@ -369,7 +369,7 @@ void FigureEditor::mouseReleaseEvent(QMouseEvent* e)
       dynamic_cast<Main *>(parent())->Plot();
 
 #ifdef QDEBUG
-      qDebug() << "NodeSet of cutting line: " << *node_set << endl;
+      cerr << "NodeSet of cutting line: " << *node_set << endl;
 #endif
     }
   } else 

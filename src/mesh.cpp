@@ -495,8 +495,8 @@ void Mesh::Clear(void) {
 
 #ifdef QDEBUG
   qDebug() << "cells.size() = " << cells.size() << endl;
-  qDebug << "walls.size() = " << walls.size() << endl;
-  qDebug << "nodes.size() = " << nodes.size() << endl;
+  qDebug() << "walls.size() = " << walls.size() << endl;
+  qDebug() << "nodes.size() = " << nodes.size() << endl;
 #endif
 }
 
@@ -1325,7 +1325,7 @@ void Mesh::TestIllegalWalls(void) {
   for (list<Wall *>::iterator w = walls.begin(); w!=walls.end(); w++) {
     if ((*w)->IllegalP() ) {
 #ifdef QDEBUG
-      qDebug() << "Wall " << **w << " is illegal." << endl;
+      cerr << "Wall " << **w << " is illegal." << endl;
 #endif
     }
   }
