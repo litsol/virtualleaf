@@ -49,7 +49,7 @@ QT += qt3support
 }
 
 win32 {
- CONFIG += console
+ CONFIG -= console
  LIBXML2DIR = ..\lib\libxml2
  LIBICONVDIR = ..\lib\libiconv
  LIBZDIR = ..\lib\libz

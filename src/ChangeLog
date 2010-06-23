@@ -1,5 +1,9 @@
 2010-06-23    <guravage@caterpie.sen.cwi.nl>
 
+	* VirtualLeaf-install.nsi: New gpl license text.
+
+	* VirtualLeaf.pro: Disabled console mode.
+
 	* mesh.cpp (Clear): Added parentheses to qDebug statments.
 	(TestIllegalWalls): Replaced qDebug().
 
