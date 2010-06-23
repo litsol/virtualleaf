@@ -44,6 +44,13 @@ respectively. The fallback defaults are ``make`` and
 Linux
 -----
 
+Open the terminal window and unpack the VirtualLeaf source package
+into your home folder, by typing::
+
+ > cd 
+ > tar xzf VirtualLeaf-V1.0.tgz
+
+
 So the Makefiles can find ``qmake``, prepend the QT bin directory to
 your execution path, for example::
 
@@ -60,7 +67,7 @@ To compile the VirtualLeaf, go to the VirtualLeaf ``src`` directory
 and invoke ``make``, for example::
 
  > cd /home/michael/VirtualLeaf/v1.0/src
- > make
+ > make -f Makefile
 
 Once the compilation is complete, you will find the ``VirtualLeaf``
 binary in ``v1.0/bin`` and the plugins in ``v1.0/bin/models``.
@@ -68,6 +75,10 @@ binary in ``v1.0/bin`` and the plugins in ``v1.0/bin/models``.
 
 Windows
 -------
+
+Unpack the VirtualLeaf source package somewhere in your folder
+hierarchy. The result might be in, for example: ``c:\Documents and
+Settings\michael\VirtualLeaf\v1.0``.
 
 For convenience sake, three required development libraries:
 ``libiconv``, ``libxml2`` and ``libz`` are distributed with the
@@ -82,17 +93,18 @@ across platforms, the ``QMAKE`` default value, ``QMAKE=qmake``, will
 work fine. You will have to create an environment named ``MAKE``
 though.
 
-To add an environment variable call up the *system tool*, either with a
-left click on the *start menu* then a right click on *My Computer* and
-choosing *properties* from the drop down list, or by choosing *control
-panel* from the *start menu* and then double clicking on the *system
-tool* itself. Once in the *system tool*, choose the *advanced* tab and
-then click the *environment variables* button. The environment
-variables screen is split in two with *User* variables above and *System*
-variables below. Add a new users variable named ``Make`` with the
-value, e.g. ``mingw32-make``. the QT(SDK) contains the *minimum gnu
-for windows* (mingw) compiler; commonly installed in:
-``c:\QT\qt-version\mingw\bin``. Look there for the make utility name.
+To add an environment variable call up the *system tool*, either with
+a left click on the *start menu* then a right click on *My Computer*
+and choosing *properties* from the drop down list, or by choosing
+*control panel* from the *start menu* and then double clicking on the
+*system tool* itself. Once in the *system tool*, choose the *advanced*
+tab and then click the *environment variables* button. The environment
+variables screen is split in two with *User* variables above and
+*System* variables below. Add a new users variable named ``MAKE`` with
+the value, e.g. ``mingw32-make``. the QT(SDK) contains the *minimum
+gnu for windows* (mingw) compiler; commonly installed in:
+``c:\QT\qt-version\mingw\bin``. Look there for the ``MAKE`` utility
+name.
 
 After installing QT and setting the ``MAKE`` environment variable, you
 should be able to invoke a QT command window from the *start
@@ -101,7 +113,7 @@ your execution PATH. Within this command window, go to the VirtualLeaf
 ``src`` folder and invoke make, for example::
 
  > c:\Documents and Settings\michael\VirtualLeaf\v1.0\src
- > mingw32-make
+ > mingw32-make -f Makefile
 
 When complete, you will find the ``VirtualLeaf.exe`` binary in
 ``v1.0/bin`` and the plugins in ``v1.0/bin/models``.
@@ -121,12 +133,12 @@ by typing::
  > cd 
  > tar xzf VirtualLeaf-V1.0.tgz
 
-Now go to the ``src`` directory, set the right options for qmake,
+Now go to the VirtualLeaf ``src`` directory, set the right options for qmake,
 and invoke make, by typing, for example::
 
  > cd 
  > cd VirtualLeaf/v1.0/src
- > export QMAKESPEC=macx-g++; make
+ > export QMAKESPEC=macx-g++; make -f Makefile
 
 When complete, you will find the ``VirtualLeaf`` binary in
 ``v1.0/bin`` and the plugins in ``v1.0/bin/models``.

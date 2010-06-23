@@ -28,17 +28,17 @@ Makefile.libplugin: libplugin.pro
 	$(QMAKE) -makefile -o $@ $< 
 
 plugins:
-	$(MAKE) -C build_models
+	$(MAKE) -C build_models -f Makefile
 
 tutorials:
-	$(MAKE) -C build_models
-	$(MAKE) -C TutorialCode
+	$(MAKE) -C build_models -f Makefile
+	$(MAKE) -C TutorialCode -f Makefile
 
 clean:
 	$(MAKE) -f Makefile.libplugin clean
 	$(MAKE) -f Makefile.VirtualLeaf clean
-	$(MAKE) -C build_models clean
-	$(MAKE) -C TutorialCode clean
+	$(MAKE) -C build_models -f Makefile clean
+	$(MAKE) -C TutorialCode -f Makefile clean
 ifeq ($(MAKE),make)
 	touch VirtualLeaf.pro
 	touch libplugin.pro
