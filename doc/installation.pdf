@@ -33,9 +33,9 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 332.4149
+ /Rect [ 367.7599
  657.5936
- 411.372
+ 447.6713
  669.5936 ]
  /Subtype /Link
  /Type /Annot >>
@@ -100,7 +100,7 @@ endobj
 % 'R9': class PDFInfo 
 9 0 obj
 << /Author ()
- /CreationDate (D:20100622164642-01'00')
+ /CreationDate (D:20100623080642-01'00')
  /Keywords ()
  /Producer (ReportLab http://www.reportlab.com)
  /Subject (\(unspecified\))
@@ -182,7 +182,7 @@ endobj
 % 'R17': class PDFStream 
 17 0 obj
 % page stream
-<< /Length 5681 >>
+<< /Length 5687 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
@@ -201,7 +201,7 @@ Q
 q
 1 0 0 1 62.69291 630.0236 cm
 q
-BT 1 0 0 1 0 52.82 Tm .076098 Tw 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf is written with the QT Cross platform application and UI framework, and can run on Linux,) Tj T* 0 Tw 1.85686 Tw (Apple Macintosh and Windows machines. To compile the Virtual Leaf you will need to install the QT) Tj T* 0 Tw .573555 Tw (software development kit which you can download from the ) Tj 0 0 .501961 rg (QT download site) Tj 0 0 0 rg (. Whether installed globally) Tj T* 0 Tw .669986 Tw (by a system administrator our locally in your own user space, make sure the QT bin directory containing) Tj T* 0 Tw (qmake is in your execution path.) Tj T* ET
+BT 1 0 0 1 0 52.82 Tm .076098 Tw 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf is written with the QT Cross platform application and UI framework, and can run on Linux,) Tj T* 0 Tw 1.85686 Tw (Apple Macintosh and Windows machines. To compile the Virtual Leaf you will need to install the QT) Tj T* 0 Tw 1.050697 Tw (software development kit \(SDK\) which you can download from the ) Tj 0 0 .501961 rg (QT download site) Tj 0 0 0 rg (. Whether installed) Tj T* 0 Tw 1.357045 Tw (globally by a system administrator our locally in your own user space, make sure the QT bin directory) Tj T* 0 Tw (containing qmake is in your execution path.) Tj T* ET
 Q
 Q
 q
@@ -323,7 +323,7 @@ q
 1 0 0 1 62.69291 143.4236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 28.82 Tm /F1 10 Tf 12 TL .878876 Tw (After installing QT you should be able to invoke a QT command window from the start menu. This shell) Tj T* 0 Tw .456412 Tw (automatically includes the necessary QT folder in your execution PATH. Within this command window go) Tj T* 0 Tw (to the Virtual Leaf's src directory. The) Tj T* ET
+BT 1 0 0 1 0 28.82 Tm /F1 10 Tf 12 TL .878876 Tw (After installing QT you should be able to invoke a QT command window from the start menu. This shell) Tj T* 0 Tw .25784 Tw (automatically includes the necessary QT folder in your execution PATH. Within this command window, go) Tj T* 0 Tw (to the Virtual Leaf's src directory,) Tj T* ET
 Q
 Q
 q
@@ -336,7 +336,7 @@ Q
 q
 1 0 0 1 56.69291 773.1969 cm
 q
-BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-22) Tj T* -160.0749 0 Td ET
+BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-23) Tj T* -160.0749 0 Td ET
 Q
 Q
 q
@@ -365,7 +365,7 @@ Q
 q
 1 0 0 1 56.69291 773.1969 cm
 q
-BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-22) Tj T* -160.0749 0 Td ET
+BT 1 0 0 1 0 4.82 Tm 160.0749 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Installation Instructions - 2010-06-23) Tj T* -160.0749 0 Td ET
 Q
 Q
 q
@@ -406,31 +406,31 @@ xref
 0000000233 00000 n
 0000000398 00000 n
 0000000585 00000 n
-0000000835 00000 n
-0000000994 00000 n
-0000001293 00000 n
-0000001572 00000 n
-0000001729 00000 n
-0000001965 00000 n
-0000002090 00000 n
-0000002262 00000 n
-0000002450 00000 n
-0000002630 00000 n
-0000002812 00000 n
-0000002961 00000 n
-0000003076 00000 n
-0000008858 00000 n
-0000009414 00000 n
-0000009520 00000 n
-0000009597 00000 n
+0000000836 00000 n
+0000000995 00000 n
+0000001294 00000 n
+0000001573 00000 n
+0000001730 00000 n
+0000001966 00000 n
+0000002091 00000 n
+0000002263 00000 n
+0000002451 00000 n
+0000002631 00000 n
+0000002813 00000 n
+0000002962 00000 n
+0000003077 00000 n
+0000008865 00000 n
+0000009421 00000 n
+0000009527 00000 n
+0000009604 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(>z\325b\242\314%\325\301\315\254\356\270\004a\252) (>z\325b\242\314%\325\301\315\254\356\270\004a\252)] 
+ [(\030\0369*\371\251A7q\357\344\306\204\322.\262) (\030\0369*\371\251A7q\357\344\306\204\322.\262)] 
 
  /Info 9 0 R
  /Root 8 0 R
  /Size 22 >>
 startxref
-9644
+9651
 %%EOF

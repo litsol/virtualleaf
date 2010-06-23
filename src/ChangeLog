@@ -1,3 +1,12 @@
+2010-06-23    <guravage@caterpie.sen.cwi.nl>
+
+	* mesh.cpp (Clear): Added parentheses to qDebug statments.
+	(TestIllegalWalls): Replaced qDebug().
+
+	* canvas.cpp (mouseReleaseEvent): Replaced qDebug() with cerr since qDebug complains about *node_set.
+
+	* wall.cpp (CorrectWall): Rplaced gDebug() with cerr in transform call and when printing *this.
+
 2010-06-22    <guravage@caterpie.sen.cwi.nl>
 
 	* Makefile (tutorials): Add tutorials target.
