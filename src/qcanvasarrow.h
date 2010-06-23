@@ -35,9 +35,6 @@ class QGraphicsArrowItem : public QGraphicsLineItem {
   void paint ( QPainter *p, const QStyleOptionGraphicsItem *option,
 	       QWidget *widget ) {
 
-    widget = NULL; //use assignment merely to obviate compilation warning
-    option = NULL;
-
     // construct arrow head
     QPointF start=line().p1();
     QPointF end=line().p2();

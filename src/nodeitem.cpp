@@ -53,8 +53,6 @@ void NodeItem::userMove(double dx, double dy)
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
-  option = NULL; // use assignment merely to obviate compilation warning
-
   painter->setBrush(brush);
   painter->setPen(Qt::NoPen);
   painter->drawEllipse(ellipsesize);

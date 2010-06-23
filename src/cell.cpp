@@ -1552,7 +1552,6 @@ void Cell::DrawAxis(QGraphicsScene *c) const {
 }
 
 void Cell::DrawStrain(QGraphicsScene *c) const {
-  c = NULL; // assignment merely to obviate compilation warning
   MyWarning::warning("Sorry, Cell::DrawStrain temporarily not implemented.");
 }
 

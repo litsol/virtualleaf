@@ -1,3 +1,10 @@
+2010-06-23    <guravage@caterpie.sen.cwi.nl>
+
+	* auxingrowthplugin.cpp: Removed NULL assignments to unused variables.
+	* meinhardtplugin.cpp: Ditto.
+	* testplugin.cpp: Ditto.
+
+
 2010-06-22    <guravage@caterpie.sen.cwi.nl>
 
 	* Makefile (clean): Add windows equivalent of UNIX touch.

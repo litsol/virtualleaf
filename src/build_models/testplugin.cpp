@@ -35,13 +35,9 @@ static const std::string _module_id("$Id$");
 bool batch = false;
 
 // To be executed after cell division
-void TestPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {
-  parent_info = NULL;
-  daughter1 = daughter2 = NULL;
-}
+void TestPlugin::OnDivide(ParentInfo *parent_info, CellBase *daughter1, CellBase *daughter2) {}
 
 void TestPlugin::SetCellColor(CellBase *c, QColor *color) { 
-
   static QStringList colors;
   if (colors.size()==0) {
     colors << "red" << "green" << "blue";
@@ -49,30 +45,18 @@ void TestPlugin::SetCellColor(CellBase *c, QColor *color) {
   color->setNamedColor(colors[c->Index()%colors.size()]);
 }
 
-
-
 void TestPlugin::CellHouseKeeping(CellBase *c) {
-	
   c->EnlargeTargetArea(par->cell_expansion_rate);
   if (c->Area() > par->rel_cell_div_threshold * c->BaseArea() ) {
     c->Divide();
   }
 }
 
-void TestPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
-  w = NULL;
-  dchem_c1 = dchem_c2 = NULL;
-}
+void TestPlugin::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {}
 
-void TestPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {
-  w = NULL;
-  dw1 = dw2 = NULL;
-}
+void TestPlugin::WallDynamics(Wall *w, double *dw1, double *dw2) {}
 
-void TestPlugin::CellDynamics(CellBase *c, double *dchem) {
-  c = NULL;
-  dchem=NULL;
-}
+void TestPlugin::CellDynamics(CellBase *c, double *dchem) {}
 
 Q_EXPORT_PLUGIN2(testplugin, TestPlugin)
 
