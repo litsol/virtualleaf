@@ -1,0 +1,131 @@
+2010-06-24    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.cpp (DrawCell): Iterate over NChem to construct info_string.
+
+2010-06-23    <guravage@caterpie.sen.cwi.nl>
+
+	* simitembase.cpp: Removed NULL assignments to unused variables.
+	* VirtualLeaf.cpp: Ditto.
+	* apoplastitem.cpp: Ditto.
+	* canvas.cpp: Ditto.
+	* cell.cpp: Ditto.
+	* cellbase.h: Ditto.
+	* forwardeuler.cpp: Ditto.
+	* mainbase.h: Ditto.
+	* nodeitem.cpp: Ditto.
+	* qcanvasarrow.h: Ditto.
+	* simitembase.cpp: Ditto.
+
+
+	* Makefile (clean): Add -f Makefile argument to each make invocation.
+
+	* VirtualLeaf-install.nsi: New gpl license text.
+
+	* VirtualLeaf.pro: Disabled console mode.
+
+	* mesh.cpp (Clear): Added parentheses to qDebug statments.
+	(TestIllegalWalls): Replaced qDebug().
+
+	* canvas.cpp (mouseReleaseEvent): Replaced qDebug() with cerr since qDebug complains about *node_set.
+
+	* wall.cpp (CorrectWall): Rplaced gDebug() with cerr in transform call and when printing *this.
+
+2010-06-22    <guravage@caterpie.sen.cwi.nl>
+
+	* Makefile (tutorials): Add tutorials target.
+
+2010-06-21    <guravage@caterpie.sen.cwi.nl>
+
+	* parameter.cpp: Added particular reassignment of datadir.
+
+	* canvas.cpp (gpl): Added GPL3 License text. Display detail text only if the source text file exists.
+
+2010-06-18    <guravage@caterpie.sen.cwi.nl>
+
+	* canvas.cpp (gpl): Added gpl slot to display GPL license.
+
+	* VirtualLeaf.pro: Changed default LIBXML2DIR, LIBICONVDIR and LIBZDIR to corresponding distribution lib directories.
+	* libplugin.pro: Ditto.
+
+	* Makefile (clean): add if stmt not to `touch` on windows.
+
+2010-06-17    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Removed perl references.
+	* libplugin.pro: Ditto.
+
+2010-06-15    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Removed xmlwritecode.cpp from SOURCES list.
+
+	* xmlwrite.cpp (XMLSave): Removed references to XMLWriteLeafSourceCode and XMLWriteReactionsCode.
+	* xmlwrite.h (XMLIO): Ditto!
+
+	* mesh.cpp (findNextBoundaryNode): Initialize Node *next_boundary_node = NULL;
+
+	* xmlwrite.cpp (XMLReadSimtime): Removed unused variable cur
+	(XMLReadWalls): viz_flux need not be declared twice; default value of 0.0.
+	(XMLReadCells): Removed unused count variable.
+	(XMLReadSimtime): Removed unused cur variable.
+	(XMLRead): Removed unused v_str variable.
+
+	* simitembase.cpp (userMove): Use assignment merely to obviate compilation warning.
+	(SimItemBase) Ditto.
+
+	* qcanvasarrow.h (QGraphicsLineItem): Use assignment merely to obviate compilation warning.
+
+	* output.cpp (OpenWriteFile): Removed unused par variable.
+
+	* nodeitem.cpp (paint): Use assignment merely to obviate compilation warning.
+
+	* forwardeuler.cpp (odeint): Use assignment merely to obviate compilation warning.
+
+	* cell.cpp (DivideOverGivenLine): Use assignment merely to obviate compilation warning.
+
+	* canvas.cpp (FigureEditor): Use assignments merely to obviate compilation errors.
+	(mousePressEvent): Removed unused item variable.
+
+	* apoplastitem.cpp
+	(ApoplastItem): Removed unused par variable.
+	(OnClick): Use NULL assignment merely to obviate compilation warning.
+
+	* mainbase.h (MainBase): Use assignment merely to obviate compilation warning.
+
+	* cellbase.h (CellsStaticDatamembers): Use assignment merely to obviate compilation warning.
+
+
+	* cell.cpp: Wrapped diagnostic output in QDEBUG blocks.
+	* VirtualLeaf.cpp ditto.
+	* canvas.cpp ditto.
+	* cell.cpp ditto.
+	* data_plot.cpp ditto.
+	* forwardeuler.cpp ditto.
+	* mesh.cpp ditto.
+	* mesh.h
+	* random.cpp ditto.
+	* wall.cpp ditto.
+	* wallbase.cpp ditto.
+	* wallitem.cpp ditto.
+
+
+2010-06-07    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Removed explicit perl invocation to regerenerate parameter files.
+	* libplugin.pro: ditto.
+
+2010-06-03    <guravage@caterpie.sen.cwi.nl>
+
+	* pardialog.h: Added default versions of this automatically generated file.
+	* pardialog.cpp: ditto.
+	* parameter.h: ditto.
+	* parameter.cpp: ditto.
+
+	* VirtualLeaf.pro: delete/generate  parameter.{h,cpp}and pardialog.{h,cpp} only if perl is installed.
+ 	* libplugin.pro: dito.
+
+	* Makefile: Added top-level Makefile
+
+2010-05-10    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.pro: Added -fPIC option to QMAKE_CXXFLAGS.
+

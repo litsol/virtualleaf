@@ -1,0 +1,26 @@
+# use glob syntax.
+syntax: glob
+
+*~
+*.a
+*.exe
+*.cache
+*.Debug
+*.o
+*.orig
+*.out
+*.Release
+*.so
+*.vars
+*Makefile.*
+*make.out
+*moc_*.cpp
+src/default.par
+bin*
+TAGS
+BROWSE
+
+# switch to regexp syntax.
+syntax: regexp
+
+# finis
