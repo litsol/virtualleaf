@@ -24,6 +24,7 @@ CONFIG -= debug
 CONFIG += staticlib
 
 QMAKE_CXXFLAGS += -fexceptions
+win32:QMAKE_CXXFLAGS -= O2
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 QMAKE_CXXFLAGS_DEBUG -= -finstrument-functions
@@ -68,10 +69,10 @@ unix {
 }
 
 win32 {
- LIBXML2DIR = ..\lib\libxml2
- LIBICONVDIR = ..\lib\libiconv
- LIBZDIR = ..\lib\libz
- QMAKE_CXXFLAGS += -DLIBXML_STATIC
+ LIBXML2DIR = C:
+ LIBICONVDIR = C:
+ LIBZDIR = C:
+# QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }
 

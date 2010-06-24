@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -655,7 +655,7 @@ void Wall::XMLAdd(xmlNode *parent) const {
     }
   }
 
-  if (apoplast) {
+/*  if (apoplast) {
     xmlNodePtr apo_xml = xmlNewChild(xmlwall, NULL, BAD_CAST "apoplast", NULL); 
 
     for (int i=0;i<Cell::NChem();i++) {
@@ -666,7 +666,7 @@ void Wall::XMLAdd(xmlNode *parent) const {
 	xmlNewProp(apo_val_xml, BAD_CAST "v", BAD_CAST text.str().c_str());
       }
     }
-  } 
+  } */
 }
 
 
@@ -1279,7 +1279,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls)
 	    }
 	  } 
 
-	  if ((!xmlStrcmp(w_node->name, (const xmlChar *)"apoplast"))) {
+	/*  if ((!xmlStrcmp(w_node->name, (const xmlChar *)"apoplast"))) {
 
 	    xmlNode *v_node = w_node->xmlChildrenNode;
 	    int nv=0;
@@ -1309,7 +1309,7 @@ void Mesh::XMLReadWalls(xmlNode *root, vector<Wall *> *tmp_walls)
 	      }
 	      v_node = v_node->next; 
 	    }
-	  }
+	  }*/
 	  w_node=w_node->next;
 	}
       }

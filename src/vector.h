@@ -4,12 +4,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -49,12 +49,6 @@ class Vector {
     z=m[2];
   }
 
-  // should be taken over by default arguments of Vector constructor
-  /*  inline Vector(void) { */
-  /*     x=0.; */
-  /*     y=0.; */
-  /*     z=0.; */
-  /*   } */
 
   inline Vector(const Vector &source) { 
 

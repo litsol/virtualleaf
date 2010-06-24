@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -116,13 +116,13 @@ xmlNode *MainBase::XMLSettingsTree(void) const {
     text << bool_name(showwallsp);
     xmlNewProp(xmloption, BAD_CAST "val", BAD_CAST text.str().c_str());
   }
-  {
+ /* {
     xmlNode *xmloption = xmlNewChild(xmlsettings, NULL, BAD_CAST "setting", NULL);
     xmlNewProp(xmloption, BAD_CAST "name", BAD_CAST "show_apoplasts");
     ostringstream text;
     text << bool_name(showapoplastsp);
     xmlNewProp(xmloption, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
+  }*/
   {
     xmlNode *xmloption = xmlNewChild(xmlsettings, NULL, BAD_CAST "setting", NULL);
     xmlNewProp(xmloption, BAD_CAST "name", BAD_CAST "save_movie_frames");
@@ -292,9 +292,9 @@ void MainBase::XMLReadSettings(xmlNode *settings)
       if (!xmlStrcmp(name, (const xmlChar *)"show_walls")) {
 	showwallsp = strtobool( (const char *)val );
       }
-      if (!xmlStrcmp(name, (const xmlChar *)"show_apoplasts")) {
+     /* if (!xmlStrcmp(name, (const xmlChar *)"show_apoplasts")) {
 	showapoplastsp = strtobool( (const char *)val );
-      }
+      }*/
       if (!xmlStrcmp(name, (const xmlChar *)"save_movie_frames")) {
 	movieframesp = strtobool( (const char *)val );
       }

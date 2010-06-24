@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -115,9 +115,14 @@ public:
     if (m.ShowBorderCellsP() || c.Boundary()==Cell::None) {
       if (!m.ShowBoundaryOnlyP() && !m.HideCellsP()) {
 	if (m.ShowToolTipsP()) {
-	  QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
-
-	  info_string += "\n" + c.printednodelist();
+	  //QString info_string=QString("Cell %1, chemicals: ( %2, %3, %4, %5, %6)\n %7 of PIN1 at walls.\n Area is %8\n PIN sum is %9\n Circumference is %10\n Boundary type is %11").arg(c.Index()).arg(c.Chemical(0)).arg(c.Chemical(1)).arg(c.Chemical(2)).arg(c.Chemical(3)).arg(c.Chemical(4)).arg(c.SumTransporters(1)).arg(c.Area()).arg(PINSum(c)).arg(c.Circumference()).arg(c.BoundaryStr());
+		QString info_string=QString("Cell %1, chemicals(%2): ").arg(c.Index()).arg(Cell::NChem());
+		for (int i=0;i<Cell::NChem();i++) {
+			info_string += QString("%1 ").arg(c.Chemical(i));
+		}
+		info_string += QString("\nArea is %1\n Circumference is %2\n Boundary type is %3").arg(c.Area()).arg(c.Circumference()).arg(c.BoundaryStr());
+		
+	  info_string += "\nNodes: " + c.printednodelist();
 	  c.Draw(&canvas, info_string);
 	} else {
 	  c.Draw(&canvas);
@@ -143,7 +148,7 @@ void MainBase::Plot(int resize_stride)
 
   static int count=0;
   if (resize_stride) {
-    if ( !((++count)%resize_stride) ) {
+    if ( !((count)%resize_stride) ) {
       FitLeafToCanvas();
     }
   }
@@ -164,9 +169,9 @@ void MainBase::Plot(int resize_stride)
   if (ShowWallsP())
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::Draw ), &canvas ) );
 
-  if (ShowApoplastsP()) 
+/*  if (ShowApoplastsP()) 
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
-
+*/
   if (ShowMeshP()) 
     mesh.DrawNodes(&canvas);
 
@@ -208,6 +213,7 @@ void MainBase::Plot(int resize_stride)
       mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
     }
   }
+ count++;
 }
 
 

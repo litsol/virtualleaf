@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -480,19 +480,7 @@ void Mesh::Clear(void) {
 
   shuffled_cells.clear();
   shuffled_nodes.clear();
-  //Cell::ncells=0;
-  /*    Cell::ClearNCells();
-	Node::nnodes=0;
-
-	cells.clear();
-	nodes.clear();
-	shuffled_cells.clear();
-	shuffled_nodes.clear();
-	node_insertion_queue.empty();
-
-	cerr << "Meshed cleared: cells: " << cells.size() << ", nodes: " << nodes.size() << endl;
-  */
-
+ 
 #ifdef QDEBUG
   qDebug() << "cells.size() = " << cells.size() << endl;
   qDebug() << "walls.size() = " << walls.size() << endl;
@@ -564,11 +552,11 @@ double Mesh::DisplaceNodes(void) {
 
       for (list<Neighbor>::const_iterator cit=node.owners.begin(); cit!=node.owners.end(); cit++) {
 
-	//Cell &c=m->getCell(cit->cell);
-	//Cell &c=cit->cell->BoundaryPolP()?*boundary_polygon:*(cit->cell);
+	
 	Cell &c=*((Cell *)(cit->cell));
-	//Cell &c=cells[cit->cell];
+
 	if (c.MoveSelfIntersectsP(&node,  new_p )) {
+		
 	  // reject if move results in self intersection
 	  //
 	  // I know: using goto's is bad practice... except when jumping out
@@ -580,8 +568,7 @@ double Mesh::DisplaceNodes(void) {
 	// summing stiffnesses of cells. Move has to overcome this minimum required energy.
 	sum_stiff += c.stiffness;
 	// area - (area after displacement): see notes for derivation
-	//Vector i_min_1 = m->getNode(cit->nb1);
-
+	
 	Vector i_min_1 = *(cit->nb1);
 	//Vector i_plus_1 = m->getNode(cit->nb2);
 	Vector i_plus_1 = *(cit->nb2);
@@ -777,37 +764,11 @@ double Mesh::DisplaceNodes(void) {
 	      node_insertion_queue.push( Edge(&node, cit->nb2 ) );
 	    }
 	    count++;
-	    /*length_dh += 2*Node::target_length * (old_l1 + old_l2 - new_l1 - new_l2) 
-	      + DSQR(new_l1) - DSQR(old_l1) + DSQR(new_l2) - DSQR(old_l2);*/
+
 	  }
-	  /* length_dh += 2*Node::target_length * ( w1*(old_l1 - new_l1) + 
-	     w2*(old_l2 - new_l2) ) +
-	     w1*(DSQR(new_l1) 
-	     - DSQR(old_l1)) 
-	     + w2*(DSQR(new_l2) 
-	     - DSQR(old_l2)); */
 
 
-	  /*	if (c.cellvec.ManhattanNorm()!=0) { 
-
-	  // wall element length constraint
-	  double old_aniso1, old_aniso2;
-	  double new_aniso1, new_aniso2;
-
-	  // anisotropic expansion?
-	  old_aniso1 = 1 + par.lambda_aniso*(1 - fabs(InnerProduct((old_p-i_min_1), c.cellvec))/old_l1);
-	  old_aniso2 = 1 + par.lambda_aniso*(1 - fabs(InnerProduct((old_p-i_plus_1), c.cellvec))/old_l2);
-	  new_aniso1 = 1 + par.lambda_aniso*(1 - fabs(InnerProduct((new_p-i_min_1),  c.cellvec))/new_l1);
-	  new_aniso2 = 1 + par.lambda_aniso*(1 - fabs(InnerProduct((new_p-i_plus_1), c.cellvec))/new_l2);
-
-
-	  length_dh += w1 * ( new_aniso1 * DSQR(new_l1 - Node::target_length) -
-	  old_aniso1 * DSQR(old_l1 - Node::target_length) )
-	  +  w2 * ( new_aniso2 * DSQR(new_l2 - Node::target_length) -
-	  old_aniso2 * DSQR(old_l2 - Node::target_length) );
-
-	  } else {
-	  */	  
+	
 	  length_dh += 2*Node::target_length * ( w1*(old_l1 - new_l1) + 
 						 w2*(old_l2 - new_l2) ) +
 	    w1*(DSQR(new_l1) 
@@ -816,8 +777,7 @@ double Mesh::DisplaceNodes(void) {
 		  - DSQR(old_l2));
 
 
-	  //}
-
+	 
 
 
 	}
@@ -826,8 +786,7 @@ double Mesh::DisplaceNodes(void) {
 	// first implementation. Can probably be done more efficiently
 	// calculate circumcenter radius (gives local curvature)
 	// the ideal bending state is flat... (K=0)
-	// if (cit->cell==-1 && node.cells.size()>2 /* boundary_pol, cell and a second cell */)  {
-	{
+		  {
 	  // strong bending energy to resist "cleaving" by division planes
 	  double r1, r2, xc, yc;
 	  CircumCircle(i_min_1.x, i_min_1.y, old_p.x, old_p.y, i_plus_1.x, i_plus_1.y,
@@ -839,39 +798,19 @@ double Mesh::DisplaceNodes(void) {
 	    MyWarning::warning("r1 = %f, r2 = %f",r1,r2);
 	  }
 	  bending_dh += DSQR(1/r2 - 1/r1);
-	  //bending_dh += ( DSQR(1/r2) - DSQR(1/r1) );
-
-	  //cerr << "bending_dh = " << par.bend_lambda*bending_dh << endl;
 
 	}
-	/*cerr << "Bending = " <<  ( DSQR(1/r2) - DSQR(1/r1))  << endl;
-	  cerr << node.index << ": " << bending_dh << " (" << r1 << ", " << r2 << ") " << cit->nb1 << ", " << cit->nb2 << ")" << endl;
-	  }*/
-	/*else
-	  bending_dh += ( DSQR(1/r2) - DSQR(1/r1) );*/
 
-
-	/*if (cit->cell==-1) {
-	  cerr << node.index << ": " << bending_dh << " (" << r1 << ", " << r2 << ") " << cit->nb1 << ", " << cit->nb2 << ")" << endl;
-	  }*/
-
-	//bending_dh += r1 - r2;
 
       }
 
-      //const double bend_lambda = 100000;
-      //const double bend_lambda = 0;
+     
+		
 
-      /* double dh = //(area_dev_sum_after - area_dev_sum_before) +
-	 area_dh + par.lambda_celllength * cell_length_dh +
-	 par.lambda_length * length_dh + par.bend_lambda * bending_dh + par.alignment_lambda * alignment_dh;*/
-
-      dh = //(area_dev_sum_after - area_dev_sum_before) +
-	area_dh + cell_length_dh +
+      dh = 	area_dh + cell_length_dh +
 	par.lambda_length * length_dh + par.bend_lambda * bending_dh + par.alignment_lambda * alignment_dh;
 
-      //cerr << "cell_length_dh = " << par.lambda_celllength * cell_length_dh << endl;
-      //(length_constraint_after - length_constraint_before);
+         //(length_constraint_after - length_constraint_before);
 
       if (node.fixed) {
 
@@ -1013,8 +952,7 @@ void Mesh::InsertNode(Edge &e) {
 
       //      debug_stream << "Cell " << c->cell << " owns Edge " << e << endl;
 
-      //if (c->cell>=0) {
-      //if (!c->cell->BoundaryPolP()) {
+ 
       // find the position of the edge's first node in cell c...
       list<Node *>::iterator ins_pos = find
 	(c->cell->nodes.begin(),
@@ -1082,14 +1020,14 @@ void Mesh::InsertNode(Edge &e) {
   while (c!=owners.end()) {
     c=adjacent_find(c,owners.end(),  neighbor_cell_eq);
     // repair neighborhood lists of cell and Wall lists
-    //if (c->cell>=0) {
+
     if (!c->cell->BoundaryPolP()) {
       c->cell->ConstructNeighborList();
-      //      debug_stream << "Repairing NeighborList of " << c->cell << endl;
+    
     }
     c++;
   }
-  //  debug_stream.flush();
+
 }
 
 
@@ -1478,7 +1416,7 @@ void Mesh::RepairBoundaryPolygon(void) {
 
 Node* Mesh::findNextBoundaryNode(Node* boundary_node) {
   bool found_next_boundary_node = false;
-  Node *next_boundary_node = NULL;
+  Node *next_boundary_node = 0;
   set<int> boundary_node_owners; // This is a list of the current boundary node's owners' Ids
   vector<int> neighborIds; // A list of the current boundary node's owners' 2nd neighbor Ids
   vector<set<int> *>  nodeOwners; // A vector of set pointers where each set contains the owner Ids of the nodes in the neighborIds list.
@@ -1922,9 +1860,6 @@ void Mesh::SettoInitVals(void) {
     clean_transporters[i]=0.;
     clean_chem[i]=par.initval[i];
   }
-
-  // Amount of PIN1
-  //clean_chem[1] = 0.;
 
   CleanChemicals(clean_chem);
   CleanTransporters(clean_transporters);

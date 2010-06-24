@@ -24,6 +24,7 @@ CONFIG -= debug
 CONFIG += qt
 
 QMAKE_CXXFLAGS += -fexceptions
+QMAKE_CXXFLAGS += -Wall
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 
@@ -50,12 +51,12 @@ QT += qt3support
 
 win32 {
  CONFIG -= console
- LIBXML2DIR = ..\lib\libxml2
- LIBICONVDIR = ..\lib\libiconv
- LIBZDIR = ..\lib\libz
+ LIBXML2DIR = C:
+ LIBICONVDIR = C:
+ LIBZDIR = C:
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
- QMAKE_CXXFLAGS += -DLIBXML_STATIC
+# QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
  LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib -L$${LIBZDIR}\lib  -lz -lm -lwsock32 -liconv
 }
@@ -76,7 +77,7 @@ unix {
 
 # Input
 HEADERS += \
- apoplastitem.h \
+# apoplastitem.h \
  canvas.h \
  cellbase.h \
  cell.h \
@@ -117,7 +118,7 @@ HEADERS += \
  $${PARTMPL}
 
 SOURCES += \
- apoplastitem.cpp \
+# apoplastitem.cpp \
  canvas.cpp \
  cellbase.cpp \
  cell.cpp \

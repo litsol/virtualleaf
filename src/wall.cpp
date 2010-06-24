@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -24,7 +24,7 @@
 #include "cell.h"
 #include "wallitem.h"
 #include "node.h"
-#include "apoplastitem.h"
+//#include "apoplastitem.h"
 #include <algorithm>
 #include <QGraphicsScene>
 
@@ -162,10 +162,10 @@ void Wall::Draw(QGraphicsScene *c) {
   wi2->show();
 }
 
-void Wall::DrawApoplast(QGraphicsScene *c) {
+/* void Wall::DrawApoplast(QGraphicsScene *c) {
   ApoplastItem *apo = new ApoplastItem(this, c);
   apo->show();
-}
+}*/
 
 void Wall::ShowStructure(QGraphicsScene *c) {
 

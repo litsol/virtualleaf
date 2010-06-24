@@ -4,12 +4,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -66,7 +66,7 @@ class WallBase {
   bool IllegalP(void) { return c1 == c2; }
 
   //! The chemicals in the apoplast at this position
-  double *apoplast;
+  //double *apoplast;
 
   //! Pointers to the wall's corner nodes 
   Node *n1, *n2;
@@ -100,7 +100,7 @@ class WallBase {
     transporters2 = src.transporters2;
     new_transporters1 = src.new_transporters1;
     new_transporters2 = src.new_transporters2;
-    apoplast = src.apoplast;
+    //apoplast = src.apoplast;
     n1 = src.n1;
     n2 = src.n2;
     length = src.length;
@@ -167,8 +167,8 @@ class WallBase {
 	throw "WallBase::setTransporter called with wrong cell"; 
       }
   }
-  inline double getApoplast(int ch) const { return apoplast[ch]; }
-  inline void setApoplast(int ch, double val) { apoplast[ch] = val; }
+  //inline double getApoplast(int ch) const { return apoplast[ch]; }
+  //inline void setApoplast(int ch, double val) { apoplast[ch] = val; }
   inline CellBase *getOtherCell(CellBase *c) { return c1 == c ? c2 : c1; }
   Vector getInfluxVector(CellBase *c);
   Vector getWallVector(CellBase *c);

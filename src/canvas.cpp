@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -523,8 +523,8 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   view->setItemChecked(fluxes_id, FALSE);
   cell_walls_id = view->insertItem("Show transporters", this, SLOT(toggleShowWalls()));
   view->setItemChecked(cell_walls_id, FALSE);
-  apoplasts_id = view->insertItem("Show apoplasts", this, SLOT(toggleShowApoplasts()));
-  view->setItemChecked(apoplasts_id, FALSE);
+ // apoplasts_id = view->insertItem("Show apoplasts", this, SLOT(toggleShowApoplasts()));
+ // view->setItemChecked(apoplasts_id, FALSE);
   view->insertSeparator();
   only_boundary_id = view->insertItem("Show only leaf &boundary", this, SLOT(toggleLeafBoundary()));
   view->insertSeparator();
@@ -557,10 +557,11 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   tooltips_id = helpmenu->insertItem("Show Cell&Info", this, SLOT(Refresh()));
   helpmenu->setItemChecked(tooltips_id, true);
   helpmenu->insertSeparator();
-  helpmenu->insertItem("&About", this, SLOT(about()) ); //, Key_F1);
-  helpmenu->insertSeparator();
+    //helpmenu->insertSeparator();
   helpmenu->insertItem("&LICENSE", this, SLOT(gpl()) );
-  menu->insertItem("&Help",helpmenu);
+  helpmenu->insertItem("About", this, SLOT(about()) ); //, Key_F1);
+	
+	menu->insertItem("&Help",helpmenu);
   statusBar();
   setCentralWidget(editor);
   printer = 0;
@@ -928,8 +929,8 @@ void Main::clear()
 void Main::about()
 {
   static QMessageBox* about = new QMessageBox
-    ( "Virtual Leaf V1.0",
-      "<h3>Virtual Leaf V1.0</h3>"
+    ( "VirtualLeaf V1.0",
+      "<h3>VirtualLeaf V1.0</h3>"
       "<p>"
       "An Open Source framework for cell-based modeling of plant tissue growth and development <br>"
       "(c) 2005-2008, Roeland Merks <i>et al.</i><br>"
@@ -937,7 +938,7 @@ void Main::about()
       "Ghent, Belgium <br>"
       "(c) 2008-2010, <a href=\"http://www.cwi.nl/~merks\">Roeland Merks <i>et al.</i></a> <br>"
       "    <a href=\"http://www.cwi.nl\">Centrum Wiskunde & Informatica</a> and <a href=\"http://www.ncsb.nl\">Netherlands Consortium for Systems Biology</a>, Amsterdam, Netherlands <br>"
-"<br>The Virtual Leaf is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
+"<br>VirtualLeaf is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
       "<br>If you use this code for your projects, please cite our paper:"
 "<br>Merks, Guravage, Inze, and Beemster. An Open Source framework for cell-based modeling of plant tissue growth and development. <i>Plant Physiology,</i> submitted.<br> . <br>"
       "<br>Please share your model plugins and extensions at <a href=\"http://virtualleaf.googlecode.com\">http://virtualleaf.googlecode.com</a>.", 
@@ -1324,7 +1325,7 @@ void Main::XMLReadSettings(xmlNode *settings)
   view->setItemChecked(hide_cells_id, hidecellsp);
   options->setItemChecked(dyn_cells_id, dynamicscellsp);
   view->setItemChecked( cell_walls_id, showwallsp);
-  view->setItemChecked( apoplasts_id, showapoplastsp);
+ // view->setItemChecked( apoplasts_id, showapoplastsp);
   
   editor->setTransform(viewport);
 }
@@ -1344,7 +1345,7 @@ xmlNode *Main::XMLSettingsTree(void)
   showfluxesp = view->isItemChecked(fluxes_id);
   dynamicscellsp = options->isItemChecked(dyn_cells_id);
   showwallsp = view->isItemChecked( cell_walls_id);
-  showapoplastsp = view->isItemChecked( apoplasts_id);
+  //showapoplastsp = view->isItemChecked( apoplasts_id);
   hidecellsp = view->isItemChecked( hide_cells_id);
 
   xmlNode *settings = MainBase::XMLSettingsTree();

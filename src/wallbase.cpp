@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -34,7 +34,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
 #include "wallitem.h"
-#include "apoplastitem.h"
+//#include "apoplastitem.h"
 #endif
 
 static const std::string _module_id("$Id$");
@@ -77,7 +77,7 @@ WallBase::WallBase(Node *sn1, Node *sn2, CellBase *sc1, CellBase *sc2)
     transporters1[i] = transporters2[i] = new_transporters1[i] = new_transporters2[i] = 0.;
   }
 
-  apoplast = new double[CellBase::NChem()]; // not yet in use.
+//  apoplast = new double[CellBase::NChem()]; // not yet in use.
 
   SetLength();
 
@@ -105,9 +105,9 @@ void WallBase::CopyWallContents(const WallBase &src)
       new_transporters2[i]=src.new_transporters2[i];
     }
 
-    if (apoplast) {
+  /*  if (apoplast) {
       apoplast[i]=src.apoplast[i];
-    }
+    }*/
   }
   dead = src.dead;
   wall_type = src.wall_type;
@@ -144,12 +144,12 @@ void WallBase::SwapWallContents(WallBase *src)
       new_transporters2[i]=tmp;			
     }
 
-    if (apoplast) {
+  /*  if (apoplast) {
       double tmp;
       tmp=src->apoplast[i];
       src->apoplast[i]=apoplast[i];
       apoplast[i]=tmp;		
-    }
+    }*/
   }
   bool tmp_bool;
   tmp_bool = src->dead;

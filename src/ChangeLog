@@ -1,3 +1,7 @@
+2010-06-24    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.cpp (DrawCell): Iterate over NChem to construct info_string.
+
 2010-06-23    <guravage@caterpie.sen.cwi.nl>
 
 	* simitembase.cpp: Removed NULL assignments to unused variables.

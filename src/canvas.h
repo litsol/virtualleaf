@@ -4,12 +4,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -120,7 +120,7 @@ class Main : public Q3MainWindow, public MainBase {
   virtual bool MovieFramesP(void) {return view->isItemChecked(movie_frames_id);}
   virtual bool ShowBoundaryOnlyP(void) {return view->isItemChecked(only_boundary_id);}
   virtual bool ShowWallsP(void) {return view->isItemChecked(cell_walls_id);}
-  virtual bool ShowApoplastsP(void) { return view->isItemChecked(apoplasts_id);}
+ // virtual bool ShowApoplastsP(void) { return view->isItemChecked(apoplasts_id);}
   virtual bool ShowFluxesP(void) { return view->isItemChecked(fluxes_id); }
   virtual bool DynamicCellsP(void) { return options->isItemChecked(dyn_cells_id); }
   virtual bool RotationModeP(void) { return options->isItemChecked(rotation_mode_id); }
@@ -256,7 +256,7 @@ class Main : public Q3MainWindow, public MainBase {
   int cell_strain_id; // view->Show cell strain
   int only_boundary_id; // view ->Show only leaf boundary
   int cell_walls_id; // view -> Show transporters
-  int apoplasts_id; // view -> Show apoplasts
+  //int apoplasts_id; // view -> Show apoplasts
   int tooltips_id; // help -> Show Cell Info
   int hide_cells_id; // view->Hide Cells
   double flux_arrow_size;

@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -28,7 +28,7 @@
 static const std::string _module_id("$Id$");
 
 TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *parent)
-  : wall(w), cell(c), wall_num(wn), QDialog(parent)
+  :  QDialog(parent), wall(w), cell(c), wall_num(wn)
 {
   int frameStyle = QFrame::Plain | QFrame::NoFrame;
   QPushButton *ok = new QPushButton(tr("Ok"));

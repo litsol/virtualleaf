@@ -2,12 +2,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -139,8 +139,8 @@ ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFl
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
     
   // add the first four widgets with (row, column) addressing
-  setWindowTitle( QString( " Parameter values for The Virtual Leaf") );
-  grid->addWidget( new QLabel( "<h3> Parameter values for The Virtual Leaf</h3>",this), 0, 0, 1, -1, Qt::AlignCenter);
+  setWindowTitle( QString( " Parameter values for VirtualLeaf") );
+  grid->addWidget( new QLabel( "<h3> Parameter values for VirtualLeaf</h3>",this), 0, 0, 1, -1, Qt::AlignCenter);
   grid->addWidget( new QLabel( "", this), 0+1, 0, 1, -1);
   grid->addWidget( new QLabel( " <b>Visualization</b>", this), 3, 0, 1, 2 );
   grid->addWidget( new QLabel( "arrowcolor", this ),4, 0 );

@@ -4,12 +4,12 @@
  *
  *  This file is part of the Virtual Leaf.
  *
- *  The Virtual Leaf is free software: you can redistribute it and/or modify
+ *  VirtualLeaf is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The Virtual Leaf is distributed in the hope that it will be useful,
+ *  VirtualLeaf is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -55,7 +55,7 @@ struct ParentInfo {
 
 // We need a little trick here, to make sure the plugin and the main application will see the same static datamembers
 // otherwise each have their own instantation.
-// My solution is as follow. I collect all original statics in a class. The main application instantiates it and
+// My solution is as follows. I collect all original statics in a class. The main application instantiates it and
 // has a static pointer to it. After loading the plugin I set a static pointer to the same class 
 class CellsStaticDatamembers {
 
