@@ -1,5 +1,8 @@
 2010-06-24    <guravage@caterpie.sen.cwi.nl>
 
+	* libplugin.pro: Use correct library path.
+	* VirtualLeaf.pro: Ditto.
+
 	* VirtualLeaf.cpp (DrawCell): Iterate over NChem to construct info_string.
 
 2010-06-23    <guravage@caterpie.sen.cwi.nl>
