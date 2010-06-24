@@ -37,6 +37,7 @@ DEFINES += REACTIONS_HEADER_STRING=\"$${REACTIONS}\"
 DEFINES += FLEMING
 
 BINDIR = ../bin
+LIBDIR = ../lib
 DESTDIR = $$BINDIR
 TARGET = VirtualLeaf
 TEMPLATE = app
@@ -51,12 +52,12 @@ QT += qt3support
 
 win32 {
  CONFIG -= console
- LIBXML2DIR = C:
- LIBICONVDIR = C:
- LIBZDIR = C:
+ LIBXML2DIR = $${LIBDIR}\libxml2
+ LIBICONVDIR = $${LIBDIR}\libiconv
+ LIBZDIR = $${LIBDIR}\libz
  GRAPHICS = qt 
  RC_FILE = VirtualLeaf.rc
-# QMAKE_CXXFLAGS += -DLIBXML_STATIC
+ QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
  LIBS += -L$${LIBXML2DIR}\lib -lxml2 -L$${LIBICONVDIR}\lib -L$${LIBZDIR}\lib  -lz -lm -lwsock32 -liconv
 }

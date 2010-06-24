@@ -30,7 +30,8 @@ QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 QMAKE_CXXFLAGS_DEBUG -= -finstrument-functions
 
 DEFINES = QTGRAPHICS # VLEAFPLUGIN
-DESTDIR = ../lib 
+DESTDIR = ../lib
+LIBDIR = ../lib
 PARTMPL = VirtualLeafpar.tmpl
 QT += qt3support
 TARGET = vleaf
@@ -69,10 +70,10 @@ unix {
 }
 
 win32 {
- LIBXML2DIR = C:
- LIBICONVDIR = C:
- LIBZDIR = C:
-# QMAKE_CXXFLAGS += -DLIBXML_STATIC
+ LIBXML2DIR = $${LIBDIR}\libxml2
+ LIBICONVDIR = $${LIBDIR}\libiconv
+ LIBZDIR = $${LIBDIR}\libz
+ QMAKE_CXXFLAGS += -DLIBXML_STATIC
  QMAKE_CXXFLAGS += -I$${LIBXML2DIR}\include -I$${LIBICONVDIR}\include -I$${LIBZDIR}\include
 }
 
