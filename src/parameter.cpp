@@ -132,6 +132,7 @@ Parameter::Parameter() {
   dt = 0.1;
   rd_dt = 1.0;
   datadir = strdup(".");
+  datadir = AppendHomeDirIfPathRelative(datadir);
   movie = false;
   nit = 100000;
   maxt = 1000.;
@@ -182,13 +183,6 @@ Parameter::Parameter() {
   b4 = false;
   dir1 = strdup(".");
   dir2 = strdup(".");
-  // reassign datadir outside the loop
-  QDir dataDir(datadir);
-  if (dataDir.isRelative()){
-    QStringList path;
-    path << QDir::homePath() << dataDir.dirName();
-    datadir = strdup((char *) path.join("/").toStdString().c_str());
-  }
 }
 
 Parameter::~Parameter() {
@@ -304,6 +298,7 @@ void Parameter::Read(const char *filename) {
   dt = fgetpar(fp, "dt", 0.1, true);
   rd_dt = fgetpar(fp, "rd_dt", 1.0, true);
   datadir = sgetpar(fp, "datadir", ".", true);
+  datadir = AppendHomeDirIfPathRelative(datadir);
   if (strcmp(datadir, "."))
     MakeDir(datadir);
   movie = bgetpar(fp, "movie", false, true);
@@ -427,9 +422,13 @@ void Parameter::Write(ostream &os) const {
   os << " k2van3 = " << k2van3 << endl;
   os << " dt = " << dt << endl;
   os << " rd_dt = " << rd_dt << endl;
-
-  if (datadir) 
-    os << " datadir = " << datadir << endl;
+  if (datadir) {
+    QDir dataDir = QDir::home().relativeFilePath(datadir);
+    os << " datadir = " << dataDir.dirName().toStdString() << endl;
+  }
+  else {
+    os << "datadir = ." << endl;
+  }
   os << " movie = " << sbool(movie) << endl;
   os << " nit = " << nit << endl;
   os << " maxt = " << maxt << endl;
@@ -1100,8 +1099,10 @@ void Parameter::XMLAdd(xmlNode *root) const {
     xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "datadir" );
     ostringstream text;
 
-    if (datadir) 
-      text << datadir;
+    if (datadir) {
+      QDir dataDir = QDir::home().relativeFilePath(datadir);
+      text << dataDir.dirName().toStdString();
+    }
     xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
   }
   {
@@ -1692,6 +1693,7 @@ void Parameter::AssignValToPar(const char *namec, const char *valc) {
   if (!strcmp(namec, "datadir")) {
     if (datadir) { free(datadir); }
     datadir=strdup(valc);
+    datadir = AppendHomeDirIfPathRelative(datadir);
   }
   if (!strcmp(namec, "movie")) {
     movie = strtobool(valc);
@@ -1845,16 +1847,6 @@ void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) 
     vector<double>::const_iterator v=valarray.begin();
     while (v!=valarray.end() && i <= 14 ) {
       k[i++]=*(v++);
-    }
-  }
-  // reassign datadir outside the loop
-  if (!strcmp(namec, "datadir")) {
-    if (datadir) { free(datadir); }
-    QDir dataDir(datadir);
-    if (dataDir.isRelative()){
-      QStringList path;
-      path << QDir::homePath() << dataDir.dirName();
-      datadir = strdup((char *) path.join("/").toStdString().c_str());
     }
   }
 }

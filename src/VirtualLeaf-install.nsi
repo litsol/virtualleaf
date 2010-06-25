@@ -124,10 +124,11 @@ section "Virtual Leaf executable"
   # Required DLLs
   setOutPath $INSTDIR\bin
 
-  file C:\libiconv\bin\libiconv-2.dll
-  file C:\libxml2\lib\libxml2.dll
-  file C:\libz\bin\zlib1.dll
+  file ..\lib\libiconv\bin\libiconv-2.dll
+  file ..\lib\libxml2\lib\libxml2.dll
+  file ..\lib\libz\bin\zlib1.dll
 
+  # Is the pegging of these DLLs to a specific QT version a problem?
   file C:\Qt\2010.02.1\mingw\bin\mingwm10.dll
   file C:\Qt\2010.02.1\mingw\bin\libgcc_s_dw2-1.dll
 

@@ -954,7 +954,6 @@ void Main::gpl()
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
 
   QDir docDir(QApplication::applicationDirPath());
-  docDir.cd("../doc");
   QString path = docDir.filePath("gpl3.txt");
 
   std::ifstream file(path.toStdString().c_str());
