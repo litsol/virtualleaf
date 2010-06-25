@@ -2,23 +2,27 @@
 syntax: glob
 
 *~
-*.a
-*.exe
 *.cache
 *.Debug
 *.o
 *.orig
 *.out
 *.Release
-*.so
 *.vars
 *Makefile.*
 *make.out
 *moc_*.cpp
-src/default.par
-bin*
+
 TAGS
 BROWSE
+bin/VitualLeaf
+bin/models
+bin/VirtualLeaf.exe
+
+lib/libvleaf.a
+
+src/default.par
+src/VirtualLeaf-install.exe
 
 # switch to regexp syntax.
 syntax: regexp
