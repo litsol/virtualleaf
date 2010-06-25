@@ -1,3 +1,10 @@
+2010-06-25    <guravage@caterpie.sen.cwi.nl>
+
+	* plugin_auxingrowth.pro: Added -Wno-write-strings and -Wno-unused-parameter to QMAKE_CXXFLAGS.
+	* plugin_test.pro: Ditto.
+	* plugin_meinhardt.pro: Ditto.
+
+
 2010-06-24    <guravage@caterpie.sen.cwi.nl>
 
 	* plugin_auxingrowth.pro: Use correct library path.

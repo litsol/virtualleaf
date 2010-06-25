@@ -39,6 +39,7 @@ extern "C" {
   int FileExistsP(const char *fname);
   char *Chext(char *filename);
   void MakeDir(const char *dirname);
+  char *AppendHomeDirIfPathRelative(char *datadir);
   bool CanWeWriteP(char *filename);
 
 #ifdef __cplusplus

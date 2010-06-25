@@ -29,18 +29,18 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-class Parameter {
+ class Parameter {
 		
  public: 
-  Parameter();
-  ~Parameter();
-  void CleanUp(void);
-  void Read(const char *filename);
-  void Write(ostream &os) const;
-  void XMLAdd(xmlNode *root) const;
-  void XMLRead(xmlNode *root);
-  void AssignValToPar(const char *namec, const char *valc);
-  void AssignValArrayToPar(const char *namec, vector<double> valarray);
+   Parameter();
+   ~Parameter();
+   void CleanUp(void);
+   void Read(const char *filename);
+   void Write(ostream &os) const;
+   void XMLAdd(xmlNode *root) const;
+   void XMLRead(xmlNode *root);
+   void AssignValToPar(const char *namec, const char *valc);
+   void AssignValArrayToPar(const char *namec, vector<double> valarray);
   char * arrowcolor;
   double arrowsize;
   char * textcolor;
@@ -140,10 +140,11 @@ class Parameter {
   char * dir1;
   char * dir2;
  private:
-};
+ };
 
-ostream &operator<<(ostream &os, Parameter &p);
-const char *sbool(const bool &p);
+ ostream &operator<<(ostream &os, Parameter &p);
+ const char *sbool(const bool &p);
+
 
 #endif
 

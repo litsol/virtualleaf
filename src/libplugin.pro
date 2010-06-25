@@ -24,6 +24,9 @@ CONFIG -= debug
 CONFIG += staticlib
 
 QMAKE_CXXFLAGS += -fexceptions
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Wno-write-strings
+QMAKE_CXXFLAGS += -Wno-unused-parameter
 win32:QMAKE_CXXFLAGS -= O2
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG

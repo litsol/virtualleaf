@@ -25,6 +25,8 @@ CONFIG += qt
 
 QMAKE_CXXFLAGS += -fexceptions
 QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Wno-write-strings
+QMAKE_CXXFLAGS += -Wno-unused-parameter
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 
@@ -199,6 +201,7 @@ ICON = leaficon.icns
 QMAKE_POST_LINK = "\
 	#install_name_tool -change libqwt.5.dylib $$QWTDIR/lib/libqwt.dylib $${TARGET}.app/Contents/MacOS/$${TARGET}; \
 	cp leaficon.icns $${DESTDIR}/$${TARGET}.app; \
+	cp gpl3.txt $${DESTDIR}/$${TARGET}.app/Contents/MacOS/.                                    ; \
 	mkdir $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
 	cp -R /Library/Frameworks/QtCore.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
 	cp -R /Library/Frameworks/QtGui.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \

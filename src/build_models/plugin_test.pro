@@ -30,6 +30,8 @@ DESTDIR = $${BINDIR}/models
 TARGET = test
 HEADERS = ../simplugin.h $${TARGET}plugin.h  
 QMAKE_CXXFLAGS += -fexceptions -I..
+QMAKE_CXXFLAGS += -Wno-write-strings
+QMAKE_CXXFLAGS += -Wno-unused-parameter
 QMAKE_CXXFLAGS_DEBUG += -g3
 QMAKE_CXXFLAGS_DEBUG += -DQDEBUG
 

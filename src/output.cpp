@@ -319,4 +319,16 @@ void MakeDir(const char *dirname) {
 }
 
 
+char* AppendHomeDirIfPathRelative(char *datadir) {
+  QDir dataDir(datadir);
+  if (dataDir.isRelative()){
+    if (datadir) { 
+      free(datadir); 
+    }
+    QStringList path;
+    path << QDir::homePath() << dataDir.dirName();
+    return strdup((char *) path.join("/").toStdString().c_str());
+  } else return datadir;
+}
+
 /* finis */
