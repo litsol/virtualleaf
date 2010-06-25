@@ -1,5 +1,6 @@
 2010-06-25    <guravage@caterpie.sen.cwi.nl>
 
+
 	* gpl3.txt: Moved gpl3.txt from doc to src directory.
 
 	* VirtualLeaf.pro: Added -Wno-write-strings and -Wno-unused-parameter to QMAKE_CXXFLAGS.
@@ -15,7 +16,8 @@
 
 	* canvas.cpp (gpl): Moving gpl3.txt from doc to src obviates the need to docDir.cd("../doc").
 
-	* VirtualLeaf-install.nsi: Add missing libiconv/bin directory.
+	* VirtualLeaf-install.nsi: Grab gpl3.txt from src directory.
+	Add missing libiconv/bin, libxml2bin and libz/bin directories.
 	Copy libiconv-2.dll, libxml2.dll and zlib1.dll from relative paths.
 
 	* VirtualLeaf.pro: copy gpl3.txt as part of QMAKE_POST_LINK.
