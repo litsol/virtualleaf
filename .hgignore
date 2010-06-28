@@ -15,7 +15,7 @@ syntax: glob
 
 TAGS
 BROWSE
-bin/VitualLeaf
+bin/VirtualLeaf
 bin/models
 bin/VirtualLeaf.exe
 

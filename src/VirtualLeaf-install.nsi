@@ -155,6 +155,12 @@ section "Virtual Leaf data"
   file ..\data\leaves\*
 sectionEnd
 
+section "Virtual Leaf documentation"
+  # define the output path for the Virtual Leaf documentation
+  setOutPath $INSTDIR\doc
+  file ..\doc\*
+sectionEnd
+
 # create a section to define what the uninstaller does.
 # the section will always be named "Uninstall"
 section "Uninstall"
