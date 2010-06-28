@@ -84,6 +84,8 @@
 
 static const std::string _module_id("$Id$");
 
+using namespace std;
+
 // We use a global variable to save memory - all the brushes and pens in
 // the mesh are shared.
 
@@ -954,8 +956,17 @@ void Main::gpl()
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
 
   QDir docDir(QApplication::applicationDirPath());
-  docDir.cd("../doc");
+  docDir.cd("../doc"); // Where Linux expects gpl3.txt
   QString path = docDir.filePath("gpl3.txt");
+  if (!docDir.exists("gpl3.txt")){
+    docDir = QApplication::applicationDirPath();
+    docDir.cd("doc"); // Where Windows expects gpl3.txt
+    path = docDir.filePath("gpl3.txt");
+  }
+
+  // At this point path points either to the linux variant, which
+  // exists, or the windows variant, which may exist. Testing the
+  // ifstream object will determine whether we've found gpl3.txt.
 
   std::ifstream file(path.toStdString().c_str());
   std::string str;
