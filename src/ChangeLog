@@ -1,8 +1,11 @@
 2010-06-28    <guravage@caterpie.sen.cwi.nl>
 
+
 	* VirtualLeaf-install.nsi: Grab gpl3.txt from doc directory.
 
-	* canvas.cpp (gpl): move gpl3.txt back to the doc directory.
+	* canvas.cpp (gpl): gpl3.txt can be either in an ancestor doc
+	directory (Linux) or a decedent doc directory (Windows, via the
+	binary installer).
 
 	* VirtualLeaf-install.nsi: Add VirtualLeaf doc directory.
 
