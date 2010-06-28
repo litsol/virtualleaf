@@ -78,7 +78,7 @@ ${Index_RemoveFilesAndSubDirs}-done:
 !insertmacro MUI_PAGE_WELCOME
 
 # License page
-!insertmacro MUI_PAGE_LICENSE "..\src\gpl3.txt"
+!insertmacro MUI_PAGE_LICENSE "..\doc\gpl3.txt"
 
 # Components page
 !insertmacro MUI_PAGE_COMPONENTS
@@ -155,7 +155,7 @@ section "Virtual Leaf data"
   file ..\data\leaves\*
 sectionEnd
 
-section "Virtual Leaf documentation"
+section "Virtual Leaf docs"
   # define the output path for the Virtual Leaf documentation
   setOutPath $INSTDIR\doc
   file ..\doc\*
