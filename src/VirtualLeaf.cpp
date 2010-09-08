@@ -232,6 +232,13 @@ INIT {
   } else {
     mesh.StandardInit();
   }
+  
+  Cell::SetMagnification(1);
+  Cell::setOffset(0,0);
+  
+  FitLeafToCanvas();
+  Plot();
+
 }
 
 TIMESTEP {
@@ -418,22 +425,25 @@ int main(int argc,char **argv) {
       QObject::connect( qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()) );
     }
 
+    //    main_window->Init(leaffile);
+
     // Install model or read catalogue of models
     ModelCatalogue model_catalogue(&mesh, useGUI?(Main *)main_window:0,modelfile);
+
+
     if (useGUI)
       model_catalogue.PopulateModelMenu();
     model_catalogue.InstallFirstModel();
+    
+    
 
-    if (leaffile) 
-      main_window->Init(leaffile);
-
-    Cell::SetMagnification(1);
+    /*    Cell::SetMagnification(1);
     Cell::setOffset(0,0);
 
     main_window->FitLeafToCanvas();
 
     main_window->Plot();
-
+    */
     if (batch) {
       double t=0.;
       do {

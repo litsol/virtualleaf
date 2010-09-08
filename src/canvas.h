@@ -206,6 +206,7 @@ class Main : public Q3MainWindow, public MainBase {
   void readPrevStateXML();
   void readFirstStateXML();
   void readLastStateXML();
+  void exportCellData();
   void saveStateXML();
   void snapshot();
   void savePars();

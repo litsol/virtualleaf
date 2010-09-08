@@ -41,6 +41,7 @@
 #include <QVector>
 #include <QPair>
 #include <QDebug>
+#include <QTextStream>
 
 using namespace std;
 // new queue which rejects duplicate elements
@@ -81,9 +82,13 @@ class Mesh {
 
     time = 0.;
     plugin = 0;
+    boundary_polygon=0;
   };
   ~Mesh(void) {
-    delete boundary_polygon;
+    if (boundary_polygon) {
+      delete boundary_polygon;
+      boundary_polygon=0;
+    }
   };
 
   void Clean(void);
@@ -380,7 +385,10 @@ class Mesh {
   }
   QString ModelID(void) { return plugin?plugin->ModelID():QString("undefined"); }
   void StandardInit(void);	
-
+  double Compactness(double *res_compactness=0, double *res_area=0, double *res_cell_area=0);
+  void CSVExportCellData(QTextStream &csv_stream) const;
+  void CSVExportMeshData(QTextStream &csv_stream);
+  
   Node* findNextBoundaryNode(Node*);
 
  private:

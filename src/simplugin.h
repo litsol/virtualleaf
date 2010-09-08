@@ -65,6 +65,9 @@ class SimPluginInterface {
   // Number of chemicals
   virtual int NChem(void) = 0;
 
+  // Default LeafML-file to be read after model startup
+  virtual QString DefaultLeafML(void);
+  
   // For internal use; not to be redefined by end users
   virtual void SetParameters(Parameter *pass_pars);// { par = pass_pars; }
   virtual void SetCellsStaticDatamembers (CellsStaticDatamembers *cells_static_data_members_of_main);
@@ -73,7 +76,7 @@ class SimPluginInterface {
   class Parameter *par;
 };
 
-Q_DECLARE_INTERFACE(SimPluginInterface, "nl.cwi.VirtualLeaf.SimPluginInterface/1.2") 
+Q_DECLARE_INTERFACE(SimPluginInterface, "nl.cwi.VirtualLeaf.SimPluginInterface/1.3") 
 Q_DECLARE_METATYPE(SimPluginInterface *)
 
 #endif

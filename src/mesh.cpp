@@ -46,6 +46,7 @@
 #include <set>
 #include <iostream>
 #include <iterator>
+#include <QTextStream>
 
 static const std::string _module_id("$Id$");
 
@@ -467,7 +468,10 @@ void Mesh::Clear(void) {
   cells.clear();
   Cell::NCells() = 0;
 
-  delete boundary_polygon;
+  if (boundary_polygon) {
+    delete boundary_polygon;
+    boundary_polygon=0;
+  }
 
   // Clear walls
   for (list<Wall *>::iterator i=walls.begin(); i!=walls.end(); i++) {
@@ -1930,8 +1934,10 @@ void Mesh::Clean(void) {
   cells.clear();
   Cell::NCells()=0;
 
-  delete boundary_polygon; // (already deleted during cleaning of cells?)
-
+  if (boundary_polygon) {
+    delete boundary_polygon; // (already deleted during cleaning of cells?)
+    boundary_polygon=0;
+  }
 #ifdef QDEBUG
   qDebug() << "Freeing walls" << endl;
 #endif
@@ -1962,4 +1968,97 @@ void Mesh::StandardInit(void) {
   }
 }
 
+#include "hull.h"
+
+double Mesh::Compactness(double *res_compactness, double *res_area, double *res_cell_area) {
+  
+  // Calculate compactness using the convex hull of the cells
+  // We use Andrew's Monotone Chain Algorithm (see hull.cpp)
+
+  // Step 1. Prepare data for 2D hull code - get boundary polygon
+  int pc=0;
+  Point *p=new Point[boundary_polygon->nodes.size()];
+  for (list<Node *>::const_iterator i = boundary_polygon->nodes.begin(); 
+       i!=boundary_polygon->nodes.end(); i++) {
+    p[pc++]=Point((*i)->x,(*i)->y);
+  }
+  
+  // Step 2: call 2D Hull code
+  int np=boundary_polygon->nodes.size();
+  Point *hull=new Point[np];
+  int nph=chainHull_2D(p,np,hull);
+  
+  
+  // Step 3: calculate area of convex hull
+  double hull_area=0.;
+  for (int i=0;i<nph-1;i++) {
+    hull_area+=hull[i].x * hull[i+1].y - hull[i+1].x * hull[i].y;
+  }
+  hull_area/=2.;
+
+  // Step 4: get area of bounary polygon
+  double boundary_pol_area = boundary_polygon->CalcArea();
+  
+
+  /*  ofstream datastr("hull.dat");
+  for (int i=0;i<nph<i++) {
+    datastr << hull.x << " " << hull.y << endl;
+  }
+  ofstream polstr("pol.dat");
+  for (int i=0;i<np;h*/
+  delete[] p;
+  delete[] hull;
+
+
+  // put intermediate results into optional pointers
+  if (res_compactness) {
+    *res_compactness = boundary_pol_area/hull_area;
+  }
+  if (res_area) {
+    *res_area = hull_area;
+  }
+  if (res_cell_area) {
+    *res_cell_area = boundary_pol_area;
+  }
+
+  // return compactness
+  return boundary_pol_area/hull_area;
+
+}
+
+// DataExport
+void Mesh::CSVExportCellData(QTextStream &csv_stream) const {
+
+  csv_stream << "\"Cell Index\",\"Center of mass (x)\",\"Center of mass (y)\",\"Cell area\",\"Cell length\"";
+  
+  for (int c=0;c<Cell::NChem(); c++) {
+    csv_stream << ",\"Chemical " << c << "\"";
+  }
+  csv_stream << endl;
+  for (vector<Cell *>::const_iterator i=cells.begin();
+       i!=cells.end();
+       i++) {
+    Vector centroid = (*i)->Centroid();
+    csv_stream << (*i)->Index() << ", "
+	       << centroid.x << ", "
+	       << centroid.y << ", " 
+	       <<  (*i)->Area() << ", "
+	       <<(*i)->Length();
+    for (int c=0;c<Cell::NChem(); c++) {
+      csv_stream << ", " << (*i)->Chemical(c);
+    }
+    csv_stream << endl;
+  }
+}
+
+
+void Mesh::CSVExportMeshData(QTextStream &csv_stream) { 
+  
+  csv_stream << "\"Mesh area\",\"Number of cells\",\"Number of nodes\",\"Compactness\",\"Hull area\",\"Cell area\"" << endl;
+  
+  double res_compactness, res_area, res_cell_area;
+  Compactness(&res_compactness, &res_area, &res_cell_area);
+  csv_stream << Area() << ", " << NCells() << ", " << NNodes() << ", " << res_compactness << ", " << res_area << ", " << res_cell_area  << endl;
+  
+}
 /* finis */
