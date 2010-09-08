@@ -147,14 +147,58 @@ void ModelCatalogue::InstallModel(QAction *modelaction) {
 void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
 
   // make sure both main and plugin use the same static datamembers (ncells, nchems...)
+  mesh->Clean();
   plugin->SetCellsStaticDatamembers(CellBase::GetStaticDataMemberPointer());
 
   mesh->SetSimPlugin(plugin);
+ 
+
   Cell::SetNChem(plugin->NChem());
   plugin->SetParameters(&par);
-
+  
   if (mainwin) {
     mainwin->RefreshInfoBar();
-    mainwin->Init(0);
+    if (plugin->DefaultLeafML().isEmpty()) {
+      mainwin->Init(0);
+    } else {
+      // locate LeafML file
+      
+      QDir pluginDir(QApplication::applicationDirPath()); 
+      QStringList plugin_filters; // filter for plugins, i.e "*.dll", "*.dylib"
+      
+      
+#if defined(Q_OS_WIN) 
+      if (pluginDir.dirName().toLower() =="debug" 
+	  ||pluginDir.dirName().toLower() =="release") 
+	pluginDir.cdUp(); 
+      //plugin_filters << "*.dll";
+#elif defined(Q_OS_MAC) 
+      if (pluginDir.dirName() =="MacOS"){ 
+	pluginDir.cdUp(); 
+	pluginDir.cdUp(); 
+	pluginDir.cdUp(); 
+      }
+     
+#endif
+       // for all OS-es. Move from "bin" directory to root application folder.
+      pluginDir.cdUp();
+      cerr << "pluginDir: " << pluginDir.dirName().toStdString().c_str() << endl;
+      if (!pluginDir.cd("data/leaves")) {
+	MyWarning::warning("Directory 'data/leaves' not found! Cannot load LeafML file '%s'. Reverting to standard initial condition now...",plugin->DefaultLeafML().toStdString().c_str());
+	mainwin->Init(0);
+      } else {
+      
+	if (!pluginDir.exists(plugin->DefaultLeafML())) {
+	  MyWarning::error("LeafML file '%s' not found - hint: is file in data/leaves folder? Reverting to standard initial condition now...",plugin->DefaultLeafML().toStdString().c_str());
+	  mainwin->Init(0); 
+	} else {
+	  // Initialize simulation using default LeafML file referenced in plugin.
+	  //mainwin->Init(0);
+	  cerr << "Default LeafML: " << plugin->DefaultLeafML().toStdString().c_str() << endl;
+	  mainwin->Init(pluginDir.absFilePath(plugin->DefaultLeafML()).toStdString().c_str());
+	}
+      }
+    }
   }
+
 }

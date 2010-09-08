@@ -20,6 +20,7 @@
  */
 
 #include <string>
+#include <QString>
 #include "simplugin.h"
 
 static const std::string _module_id("$Id$");
@@ -33,5 +34,7 @@ void SimPluginInterface::SetCellsStaticDatamembers( CellsStaticDatamembers *cell
 {
   CellBase::static_data_members = cells_static_data_members_of_main;
 }
+
+QString SimPluginInterface::DefaultLeafML(void) { return QString(); }
 
 /* finis */

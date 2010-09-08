@@ -257,6 +257,9 @@ void AuxinGrowthPlugin::CellDynamics(CellBase *c, double *dchem)
   }
 }
 
+
+
+
 Q_EXPORT_PLUGIN2(auxingrowthplugin, AuxinGrowthPlugin)
 
 /* finis */
