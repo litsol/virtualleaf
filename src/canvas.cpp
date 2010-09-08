@@ -479,6 +479,7 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   file->insertItem("Read previous leaf", this, SLOT(readPrevStateXML()), Qt::Key_PageUp);
   file->insertItem("Read last leaf", this, SLOT(readLastStateXML()), Qt::Key_End);
   file->insertItem("Read first leaf", this, SLOT(readFirstStateXML()), Qt::Key_Home);
+  file->insertItem("Export cell areas", this, SLOT(exportCellData()));
 
   file->insertSeparator();
   file->insertItem("&Print...", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
@@ -1365,4 +1366,18 @@ xmlNode *Main::XMLSettingsTree(void)
   return settings;
 }
 
+void Main::exportCellData(void) {
+
+  // perhaps make this more general: a popup window were user selects data he wants to export
+  // can go to "settings" section of XML file as well so this can also be measured off-line
+  // mesh.CSVExport would take an QMap or so to record all options
+  // first line gives legenda
+  QFile file("areas.csv");
+  if ( file.open( IO_WriteOnly ) ) {
+    QTextStream stream( &file );
+    mesh.CSVExportCellData(stream);
+    mesh.CSVExportMeshData(stream);
+    file.close();
+  }
+}
 /* finis */

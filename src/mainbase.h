@@ -63,7 +63,7 @@ class MainBase  {
   virtual ~MainBase() {};
 
   virtual double TimeStep();
-  virtual void Init(char *leaffile=0);
+  virtual void Init(const char *leaffile=0);
 
   virtual bool ShowCentersP(void) {return showcentersp;}
   virtual bool ShowMeshP(void) {return showmeshp; }
@@ -133,7 +133,7 @@ class MainBase  {
 
 //#include <qapplication.h>
 #define TIMESTEP double MainBase::TimeStep(void)
-#define INIT void MainBase::Init(char *leaffile)
+#define INIT void MainBase::Init(const char *leaffile)
 
 #endif
 

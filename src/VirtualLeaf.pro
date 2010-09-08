@@ -19,8 +19,8 @@
 #  Copyright 2010 Roeland Merks.
 #
 
-CONFIG += release
-CONFIG -= debug
+CONFIG -= release
+CONFIG += debug
 CONFIG += qt
 
 QMAKE_CXXFLAGS += -fexceptions
@@ -86,6 +86,7 @@ HEADERS += \
  cell.h \
  cellitem.h \
  forwardeuler.h \
+       hull.h \ 
  infobar.h \
  mainbase.h \
  mainbase.h \
@@ -127,6 +128,7 @@ SOURCES += \
  cell.cpp \
  cellitem.cpp \
  forwardeuler.cpp \
+ hull.cpp \
  mainbase.cpp \
  matrix.cpp \
  mesh.cpp \
