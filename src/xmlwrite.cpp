@@ -1446,7 +1446,10 @@ void Mesh::XMLReadCells(xmlNode *root)
   cells.clear();
   Cell::NCells() = 0;
 
-  delete boundary_polygon;
+  if (boundary_polygon) {
+    delete boundary_polygon;
+    boundary_polygon=0;
+  }
 
   xmlNode *cur = root->xmlChildrenNode;
 
