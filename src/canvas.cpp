@@ -1367,17 +1367,32 @@ xmlNode *Main::XMLSettingsTree(void)
 }
 
 void Main::exportCellData(void) {
+  Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
+  QString fileName;
+  
+  stopSimulation();
+  fd->setMode( Q3FileDialog::AnyFile );
+
+  if ( fd->exec() == QDialog::Accepted ) {
+    fileName = fd->selectedFile();
+
+#ifdef QDEBUG  
+    qDebug() << "exportCellData filename: " << fileName << endl;
+#endif
 
   // perhaps make this more general: a popup window were user selects data he wants to export
   // can go to "settings" section of XML file as well so this can also be measured off-line
   // mesh.CSVExport would take an QMap or so to record all options
   // first line gives legenda
-  QFile file("areas.csv");
-  if ( file.open( IO_WriteOnly ) ) {
-    QTextStream stream( &file );
-    mesh.CSVExportCellData(stream);
-    mesh.CSVExportMeshData(stream);
-    file.close();
+
+    QFile file(fileName);
+    if ( file.open( IO_WriteOnly ) ) {
+      QTextStream stream( &file );
+      mesh.CSVExportCellData(stream);
+      mesh.CSVExportMeshData(stream);
+      file.close();
+    }
   }
 }
+
 /* finis */

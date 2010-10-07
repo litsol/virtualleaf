@@ -1,0 +1,1229 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R
+ /F3 5 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFType1Font 
+3 0 obj
+% Font Helvetica-Bold
+<< /BaseFont /Helvetica-Bold
+ /Encoding /WinAnsiEncoding
+ /Name /F2
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+4 0 obj
+% Page dictionary
+<< /Contents 27 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 26 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'F3': class PDFType1Font 
+5 0 obj
+% Font Courier
+<< /BaseFont /Courier
+ /Encoding /WinAnsiEncoding
+ /Name /F3
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page2': class PDFPage 
+6 0 obj
+% Page dictionary
+<< /Contents 28 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 26 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'Page3': class PDFPage 
+7 0 obj
+% Page dictionary
+<< /Contents 29 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 26 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R8': class PDFCatalog 
+8 0 obj
+% Document Root
+<< /Outlines 10 0 R
+ /PageLabels 30 0 R
+ /PageMode /UseNone
+ /Pages 26 0 R
+ /Type /Catalog >>
+endobj
+% 'R9': class PDFInfo 
+9 0 obj
+<< /Author ()
+ /CreationDate (D:20101005155533-01'00')
+ /Keywords ()
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (\(unspecified\))
+ /Title (The Virtual Leaf) >>
+endobj
+% 'R10': class PDFOutlines 
+10 0 obj
+<< /Count 16
+ /First 11 0 R
+ /Last 14 0 R
+ /Type /Outlines >>
+endobj
+% 'Outline.0': class OutlineEntryObject 
+11 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 717.0236
+ 0 ]
+ /Next 12 0 R
+ /Parent 10 0 R
+ /Title (Friday 11 June 2010) >>
+endobj
+% 'Outline.1': class OutlineEntryObject 
+12 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 393.0236
+ 0 ]
+ /Next 13 0 R
+ /Parent 10 0 R
+ /Prev 11 0 R
+ /Title (Friday 24 September 2010) >>
+endobj
+% 'Outline.2': class OutlineEntryObject 
+13 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 273.0236
+ 0 ]
+ /Next 14 0 R
+ /Parent 10 0 R
+ /Prev 12 0 R
+ /Title (Monday 27 September 2010) >>
+endobj
+% 'Outline.3': class OutlineEntryObject 
+14 0 obj
+<< /Count 11
+ /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 174.0236
+ 0 ]
+ /First 15 0 R
+ /Last 25 0 R
+ /Parent 10 0 R
+ /Prev 13 0 R
+ /Title (Tuesday 5 October 20010) >>
+endobj
+% 'Outline.16.0': class OutlineEntryObject 
+15 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 141.0236
+ 0 ]
+ /Next 16 0 R
+ /Parent 14 0 R
+ /Title (tutorial0.pro) >>
+endobj
+% 'Outline.16.1': class OutlineEntryObject 
+16 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 753.0236
+ 0 ]
+ /Next 17 0 R
+ /Parent 14 0 R
+ /Prev 15 0 R
+ /Title (auxingrowthplugin.h) >>
+endobj
+% 'Outline.16.2': class OutlineEntryObject 
+17 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 693.0236
+ 0 ]
+ /Next 18 0 R
+ /Parent 14 0 R
+ /Prev 16 0 R
+ /Title (VirtualLeaf.cpp) >>
+endobj
+% 'Outline.16.3': class OutlineEntryObject 
+18 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 633.0236
+ 0 ]
+ /Next 19 0 R
+ /Parent 14 0 R
+ /Prev 17 0 R
+ /Title (canvas.h) >>
+endobj
+% 'Outline.16.4': class OutlineEntryObject 
+19 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 585.0236
+ 0 ]
+ /Next 20 0 R
+ /Parent 14 0 R
+ /Prev 18 0 R
+ /Title (canvas.cpp) >>
+endobj
+% 'Outline.16.5': class OutlineEntryObject 
+20 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 395.8236
+ 0 ]
+ /Next 21 0 R
+ /Parent 14 0 R
+ /Prev 19 0 R
+ /Title (mesh.h) >>
+endobj
+% 'Outline.16.6': class OutlineEntryObject 
+21 0 obj
+<< /Dest [ 6 0 R
+ /XYZ
+ 62.69291
+ 250.4814
+ 0 ]
+ /Next 22 0 R
+ /Parent 14 0 R
+ /Prev 20 0 R
+ /Title (mesh.cpp) >>
+endobj
+% 'Outline.16.7': class OutlineEntryObject 
+22 0 obj
+<< /Dest [ 7 0 R
+ /XYZ
+ 62.69291
+ 753.0236
+ 0 ]
+ /Next 23 0 R
+ /Parent 14 0 R
+ /Prev 21 0 R
+ /Title (modelcatalogue.cpp) >>
+endobj
+% 'Outline.16.8': class OutlineEntryObject 
+23 0 obj
+<< /Dest [ 7 0 R
+ /XYZ
+ 62.69291
+ 705.0236
+ 0 ]
+ /Next 24 0 R
+ /Parent 14 0 R
+ /Prev 22 0 R
+ /Title (simplugin.h) >>
+endobj
+% 'Outline.16.9': class OutlineEntryObject 
+24 0 obj
+<< /Dest [ 7 0 R
+ /XYZ
+ 62.69291
+ 611.8236
+ 0 ]
+ /Next 25 0 R
+ /Parent 14 0 R
+ /Prev 23 0 R
+ /Title (simplugin.cpp) >>
+endobj
+% 'Outline.16.10': class OutlineEntryObject 
+25 0 obj
+<< /Dest [ 7 0 R
+ /XYZ
+ 62.69291
+ 530.6236
+ 0 ]
+ /Parent 14 0 R
+ /Prev 24 0 R
+ /Title (xmlwrite.cpp) >>
+endobj
+% 'R26': class PDFPages 
+26 0 obj
+% page tree
+<< /Count 3
+ /Kids [ 4 0 R
+ 6 0 R
+ 7 0 R ]
+ /Type /Pages >>
+endobj
+% 'R27': class PDFStream 
+27 0 obj
+% page stream
+<< /Length 8892 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 729.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 9.64 Tm /F2 20 Tf 24 TL (The Virtual Leaf) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 696.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Friday 11 June 2010) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 678.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Issues:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 672.0236 cm
+Q
+q
+1 0 0 1 62.69291 405.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
+q
+1 0 0 1 20 267 cm
+Q
+q
+1 0 0 1 20 267 cm
+Q
+q
+1 0 0 1 20 225 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 27 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 28.82 Tm /F1 10 Tf 12 TL 1.55284 Tw (Every class that has an association or composition eventually will need its own custom view) Tj T* 0 Tw .83436 Tw (page template, e.g. sed_view. For the moment I have set the default view for these classes to) Tj T* 0 Tw (dev_view \( a copy of base_view \).) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 225 cm
+Q
+q
+1 0 0 1 20 228 cm
+Q
+q
+1 0 0 1 20 198 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 15 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (2.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL 1.744651 Tw (An association in UML is cast as a ReferenceField in the resulting class schema. Open the) Tj T* 0 Tw (association and add the widget:label tag to the class that is being associated.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 198 cm
+Q
+q
+1 0 0 1 20 201 cm
+Q
+q
+1 0 0 1 20 171 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 15 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (3.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .73061 Tw (The default description text for a class should be a informative description of the class, not the) Tj T* 0 Tw (instance, derived from the SED-ML manual.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 171 cm
+Q
+q
+1 0 0 1 20 174 cm
+Q
+q
+1 0 0 1 20 156 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (4.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Apply 'searchable' tags to the appropriate class attributes.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 156 cm
+Q
+q
+1 0 0 1 20 159 cm
+Q
+q
+1 0 0 1 20 141 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (5.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (I choose 'isTidyHtmlWithCleanup' as the MathML validator. Will this work?) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 141 cm
+Q
+q
+1 0 0 1 20 144 cm
+Q
+q
+1 0 0 1 20 0 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 129 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (6.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 117 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .76811 Tw (What should be added to our implementation of SED-ML to make it more than merely a mirror) Tj T* 0 Tw (image of the SED-ML XML format?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 23 111 cm
+Q
+q
+1 0 0 1 23 3 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
+q
+1 0 0 1 20 108 cm
+Q
+q
+1 0 0 1 20 108 cm
+Q
+q
+1 0 0 1 20 90 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (a.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (The ability to attach files at various points, e.g. parameter files.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 90 cm
+Q
+q
+1 0 0 1 20 93 cm
+Q
+q
+1 0 0 1 20 75 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (b.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Additional output types, e.g. animations.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 75 cm
+Q
+q
+1 0 0 1 20 78 cm
+Q
+q
+1 0 0 1 20 60 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 6.22 0 Td (c.) Tj T* -6.22 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Custom page templates) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 60 cm
+Q
+q
+1 0 0 1 20 63 cm
+Q
+q
+1 0 0 1 20 45 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (d.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Custom search form) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 45 cm
+Q
+q
+1 0 0 1 20 48 cm
+Q
+q
+1 0 0 1 20 30 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (e.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Custom catalog indexes) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 30 cm
+Q
+q
+1 0 0 1 20 33 cm
+Q
+q
+1 0 0 1 20 15 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 8.44 0 Td (f.) Tj T* -8.44 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Custom portlet\(s\)) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 15 cm
+Q
+q
+1 0 0 1 20 18 cm
+Q
+q
+1 0 0 1 20 0 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (g.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Custom viewlet\(s\)) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 0 cm
+Q
+q
+1 0 0 1 20 0 cm
+Q
+q
+Q
+Q
+q
+1 0 0 1 23 3 cm
+Q
+q
+Q
+Q
+q
+1 0 0 1 20 0 cm
+Q
+q
+1 0 0 1 20 0 cm
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 405.0236 cm
+Q
+q
+1 0 0 1 62.69291 372.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Friday 24 September 2010) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 315.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 36 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F2 10 Tf 12 TL (To Do:) Tj T* ET
+Q
+Q
+BT 1 0 0 1 0 23 Tm  T* ET
+q
+1 0 0 1 10 33 cm
+Q
+q
+1 0 0 1 10 33 cm
+Q
+q
+1 0 0 1 10 15 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Publish our mercurial repositories \(Chris/Martin\). This may mesh with deploying Plone.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 10 15 cm
+Q
+q
+1 0 0 1 10 18 cm
+Q
+q
+1 0 0 1 10 0 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 5.66 0 Td (2.) Tj T* -5.66 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Create a vleaf mailing list \(Henk\).) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 10 0 cm
+Q
+q
+1 0 0 1 10 0 cm
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 285.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .602927 Tw (Found an article on SBRML - a markup language for associating systems biology data with models. At a) Tj T* 0 Tw (glance the schema seems bigger than SED-ML's, but SBRML appears to be SBML specific.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 252.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Monday 27 September 2010) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 186.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 52.82 Tm /F1 10 Tf 12 TL 3.993828 Tw (Spoke with Chris about publishing the Mercurial repositories and deploying Plone. Both can be) Tj T* 0 Tw .131567 Tw (accomplished in their own project space on a server in the DMZ. Chris said he would supply me with login) Tj T* 0 Tw 3.871984 Tw (credentials for both accounts. I will install Plone and Chris \(or Maarten\) will help me configure) Tj T* 0 Tw .795318 Tw (Apache/nginx and Varnish. Chris will install the required Mercurial packages; after which I can clone the) Tj T* 0 Tw (repositories to their new home.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 153.0236 cm
+q
+BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Tuesday 5 October 20010) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 123.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (tutorial0.pro) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 105.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Added simplugin.h to list of header files. NB: this is the only tutorial in which simplugin.h appears.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 773.1969 cm
+q
+BT 1 0 0 1 0 4.82 Tm 205.6499 0 Td 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf) Tj T* -205.6499 0 Td ET
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 238.1649 0 Td (1) Tj T* -238.1649 0 Td ET
+Q
+Q
+ 
+endstream
+
+endobj
+% 'R28': class PDFStream 
+28 0 obj
+% page stream
+<< /Length 4804 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 735.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (auxingrowthplugin.h) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 705.0236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 2.02498 Tw 12 TL /F1 10 Tf 0 0 0 rg (Declared, and defined, a virtual function named ) Tj /F3 10 Tf (DefaultLeafML\(\) ) Tj /F1 10 Tf (which merely returns a QString) Tj T* 0 Tw (naming a LeafML filename sans path.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 675.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (VirtualLeaf.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 645.0236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 14.41996 Tw 12 TL /F1 10 Tf 0 0 0 rg (Moved ) Tj /F3 10 Tf (Cell::SetMagnification\(\) ) Tj /F1 10 Tf (and ) Tj /F3 10 Tf (Cell::SetOffset\(\) ) Tj /F1 10 Tf (from ) Tj /F3 10 Tf (main\(\) ) Tj /F1 10 Tf (to) Tj T* 0 Tw /F3 10 Tf (MainBase::Init\(\)) Tj /F1 10 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 615.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (canvas.h) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 597.0236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Declare ) Tj /F3 10 Tf (exportCellData\(\)) Tj /F1 10 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 567.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (canvas.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 537.0236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 8.836412 Tw 12 TL /F1 10 Tf 0 0 0 rg (Add an 'Export cell areas' to the file dropdown menu which invokes - surprise -) Tj T* 0 Tw /F3 10 Tf (Main::exportCellData\(\)) Tj /F1 10 Tf (:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 407.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 120 re B*
+Q
+q
+BT 1 0 0 1 0 101.71 Tm 12 TL /F3 10 Tf 0 0 0 rg (void Main::exportCellData\(void\) {) Tj T* (  QFile file\("areas.csv"\);) Tj T* (  if \( file.open\( IO_WriteOnly \) \) {) Tj T* (    QTextStream stream\( ) Tj (&) Tj (file \);) Tj T* (    mesh.CSVExportCellData\(stream\);) Tj T* (    mesh.CSVExportMeshData\(stream\);) Tj T* (    file.close\(\);) Tj T* (  }) Tj T* (}) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 377.8236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (mesh.h) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 359.8236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Include ) Tj /F3 10 Tf (<) Tj (QTextStream) Tj (>) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 329.8236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .752765 Tw (Set the boundary_poloygon pointer to zero in the class constructor, and delete it, if it exists, in the class) Tj T* 0 Tw (destructor.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 311.8236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Declare ) Tj /F3 10 Tf (Compactness\(\)) Tj /F1 10 Tf (, ) Tj /F3 10 Tf (CSVExportCellData\(\) ) Tj /F1 10 Tf (and ) Tj /F3 10 Tf (CSVExportMeshData\(\)) Tj /F1 10 Tf (:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 262.4814 cm
+q
+q
+.840289 0 0 .840289 0 0 cm
+q
+1 0 0 1 6.6 7.854438 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 558 48 re B*
+Q
+q
+BT 1 0 0 1 0 29.71 Tm 12 TL /F3 10 Tf 0 0 0 rg (double Compactness\(double *res_compactness=0, double *res_area=0, double *res_cell_area=0\);) Tj T* (void CSVExportCellData\(QTextStream ) Tj (&) Tj (csv_stream\) const;) Tj T* (void CSVExportMeshData\(QTextStream ) Tj (&) Tj (csv_stream\);) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 232.4814 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (mesh.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 214.4814 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (In ) Tj /F3 10 Tf (mesh::clear\(\)) Tj /F1 10 Tf (, delete the boundary_polygon only if the pointer hasn't been assigned:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 145.2814 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 60 re B*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 41.71 Tm /F3 10 Tf 12 TL (if \(boundary_polygon\) {) Tj T* (   delete boundary_polygon;) Tj T* (   boundary_polygon=0;) Tj T* ( }) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 125.2814 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Ditto for ) Tj /F3 10 Tf (mesh::clean\(\)) Tj /F1 10 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 107.2814 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Define the code for ) Tj /F3 10 Tf (Compactness\(\)) Tj /F1 10 Tf (, ) Tj /F3 10 Tf (CSVExportCellData\(\) ) Tj /F1 10 Tf (and ) Tj /F3 10 Tf (CSVExportMeshData\(\)) Tj /F1 10 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 773.1969 cm
+q
+BT 1 0 0 1 0 4.82 Tm 205.6499 0 Td 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf) Tj T* -205.6499 0 Td ET
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 238.1649 0 Td (2) Tj T* -238.1649 0 Td ET
+Q
+Q
+ 
+endstream
+
+endobj
+% 'R29': class PDFStream 
+29 0 obj
+% page stream
+<< /Length 2249 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 735.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (modelcatalogue.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 717.0236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (In ) Tj /F3 10 Tf (InstallModel\(\)) Tj /F1 10 Tf (, find and load the default LeafML file.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 687.0236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (simplugin.h) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 669.0236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Declare ) Tj /F3 10 Tf (DefaultLeafML\(\)) Tj /F1 10 Tf (:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 623.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 36 re B*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 17.71 Tm /F3 10 Tf 12 TL (// Default LeafML-file to be read after model startup) Tj T* (virtual QString DefaultLeafML\(void\);) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 593.8236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (simplugin.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 575.8236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (Define ) Tj /F3 10 Tf (DefaultLeafML\(\)) Tj /F1 10 Tf (. Returns an empty ) Tj /F3 10 Tf (QString) Tj /F1 10 Tf (:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 542.6236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 24 re B*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 5.71 Tm /F3 10 Tf 12 TL (QString SimPluginInterface::DefaultLeafML\(void\) { return QString\(\); }) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 512.6236 cm
+q
+BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (xmlwrite.cpp) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 494.6236 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (In ) Tj /F3 10 Tf (Mesh::XMLReadCells\(\) ) Tj /F1 10 Tf (- Delete the boundary_ploygon only if its pointer has been assigned.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 773.1969 cm
+q
+BT 1 0 0 1 0 4.82 Tm 205.6499 0 Td 12 TL /F1 10 Tf 0 0 0 rg (The Virtual Leaf) Tj T* -205.6499 0 Td ET
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL 238.1649 0 Td (3) Tj T* -238.1649 0 Td ET
+Q
+Q
+ 
+endstream
+
+endobj
+% 'R30': class PDFPageLabels 
+30 0 obj
+% Document Root
+<< /Nums [ 0
+ 31 0 R
+ 1
+ 32 0 R
+ 2
+ 33 0 R ] >>
+endobj
+% 'R31': class PDFPageLabel 
+31 0 obj
+% None
+<< /S /D
+ /St 1 >>
+endobj
+% 'R32': class PDFPageLabel 
+32 0 obj
+% None
+<< /S /D
+ /St 2 >>
+endobj
+% 'R33': class PDFPageLabel 
+33 0 obj
+% None
+<< /S /D
+ /St 3 >>
+endobj
+xref
+0 34
+0000000000 65535 f
+0000000113 00000 n
+0000000233 00000 n
+0000000398 00000 n
+0000000571 00000 n
+0000000852 00000 n
+0000001011 00000 n
+0000001290 00000 n
+0000001569 00000 n
+0000001726 00000 n
+0000001953 00000 n
+0000002079 00000 n
+0000002258 00000 n
+0000002457 00000 n
+0000002656 00000 n
+0000002885 00000 n
+0000003061 00000 n
+0000003258 00000 n
+0000003451 00000 n
+0000003637 00000 n
+0000003825 00000 n
+0000004009 00000 n
+0000004195 00000 n
+0000004391 00000 n
+0000004580 00000 n
+0000004772 00000 n
+0000004928 00000 n
+0000005051 00000 n
+0000014044 00000 n
+0000018949 00000 n
+0000021303 00000 n
+0000021422 00000 n
+0000021499 00000 n
+0000021576 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\024,\377\262\237\332\204L\232\207%\364ho\271\264) (\024,\377\262\237\332\204L\232\207%\364ho\271\264)] 
+
+ /Info 9 0 R
+ /Root 8 0 R
+ /Size 34 >>
+startxref
+21623
+%%EOF
