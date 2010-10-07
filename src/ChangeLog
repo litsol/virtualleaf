@@ -1,3 +1,8 @@
+2010-10-07    <guravage@caterpie.sen.cwi.nl>
+
+	* canvas.cpp (exportCellData): Added a Q3FileDialog to inquire
+	where to write the exportCellData.
+
 2010-06-28    <guravage@caterpie.sen.cwi.nl>
 
 
