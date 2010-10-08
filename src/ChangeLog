@@ -1,3 +1,24 @@
+2010-10-08    <guravage@caterpie.sen.cwi.nl>
+
+
+	* pardialog.h:
+	* pardialog.cpp:
+	* parameter.h:
+	* parameter.cpp: Regenerated to include export_interval and export_fn_prefix.
+
+	* VirtualLeafpar.tmpl: Appended export_interval and export_fn_prefix.
+
+	* canvas.h (MainBase): Declared polymorphic exportCellData() functions.
+
+	* canvas.cpp:
+	(TimeStamp): New private TimeStamp() function.
+	(TimeStepWrap): Added invocation of exportCellData().
+	(exportCellData): Created two polymorphic functions: one with a
+	single QString argument, the other with no argument. The former is
+	called from TimeStepWrap() while the latter is called from the
+	"Export cell areas" item in the file menu.
+
+
 2010-10-07    <guravage@caterpie.sen.cwi.nl>
 
 	* canvas.cpp (exportCellData): Added a Q3FileDialog to inquire

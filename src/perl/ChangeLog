@@ -1,3 +1,8 @@
+2010-10-08    <guravage@caterpie.sen.cwi.nl>
+
+	* make_pardialog_source.pl:
+	* make_parameter_source.pl: Added GPL boilerplate and mercurial keywords.
+
 2010-06-25    <guravage@caterpie.sen.cwi.nl>
 
 	* make_parameter_source.pl: Added datadir changes.

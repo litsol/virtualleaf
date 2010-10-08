@@ -207,6 +207,7 @@ class Main : public Q3MainWindow, public MainBase {
   void readFirstStateXML();
   void readLastStateXML();
   void exportCellData();
+  void exportCellData(QString);
   void saveStateXML();
   void snapshot();
   void savePars();
@@ -225,6 +226,8 @@ class Main : public Q3MainWindow, public MainBase {
   void CleanMeshTransporters(void);
 
   void RandomizeMesh();
+
+  QString TimeStamp();
 
  signals:
   void SimulationDone(void);

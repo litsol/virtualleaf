@@ -19,6 +19,7 @@
  *
  */
 
+#include <time.h>
 #include <string>
 #include <fstream>
 #include <streambuf>
@@ -1166,10 +1167,27 @@ void Main::TimeStepWrap(void)
   static int t=0;
   TimeStep();
   t++;
+
+  if ((par.export_interval > 0) && ((t % par.export_interval) == 0)){
+    this->exportCellData(QString(par.datadir) + QString('/') + QString(par.export_fn_prefix) + this->TimeStamp());
+  }
+
   // check number of timesteps
   if (t==par.nit) {
     emit SimulationDone();
   }
+}
+
+
+QString Main::TimeStamp(){
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer [15];
+
+  time ( &rawtime );
+  timeinfo = localtime ( &rawtime );
+  strftime (buffer,15,"%Y%m%d%H%M%S",timeinfo);
+  return QString(buffer);
 }
 
 
@@ -1366,33 +1384,33 @@ xmlNode *Main::XMLSettingsTree(void)
   return settings;
 }
 
-void Main::exportCellData(void) {
-  Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
-  QString fileName;
+void Main::exportCellData(QString fileName) {
   
-  stopSimulation();
-  fd->setMode( Q3FileDialog::AnyFile );
-
-  if ( fd->exec() == QDialog::Accepted ) {
-    fileName = fd->selectedFile();
-
 #ifdef QDEBUG  
-    qDebug() << "exportCellData filename: " << fileName << endl;
+  qDebug() << "exportCellData fileName: " << fileName << endl;
 #endif
 
-  // perhaps make this more general: a popup window were user selects data he wants to export
-  // can go to "settings" section of XML file as well so this can also be measured off-line
-  // mesh.CSVExport would take an QMap or so to record all options
-  // first line gives legenda
-
-    QFile file(fileName);
-    if ( file.open( IO_WriteOnly ) ) {
-      QTextStream stream( &file );
-      mesh.CSVExportCellData(stream);
-      mesh.CSVExportMeshData(stream);
-      file.close();
-    }
+  QFile file(fileName);
+  if ( file.open( IO_WriteOnly ) ) {
+    QTextStream stream( &file );
+    mesh.CSVExportCellData(stream);
+    mesh.CSVExportMeshData(stream);
+    file.close();
   }
 }
+
+
+void Main::exportCellData() {
+  QString fileName;
+  Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
+
+  stopSimulation();
+  fd->setMode( Q3FileDialog::AnyFile );
+  if ( fd->exec() == QDialog::Accepted ) {
+    fileName = fd->selectedFile();
+  }
+  this->exportCellData(fileName);
+}
+
 
 /* finis */
