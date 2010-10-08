@@ -1,3 +1,8 @@
+2010-10-08    <guravage@caterpie.sen.cwi.nl>
+
+	* auxin_growth.xml: Added export_interval and export_fn_prefix parameters.
+
+
 2010-06-23    <guravage@caterpie.sen.cwi.nl>
 
 	* Added: tutorial3_init.xml

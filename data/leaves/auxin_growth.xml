@@ -26,6 +26,8 @@
 
 <leaf name="/Users/roel/VLeafClean_plugin/Snapshot/VLeafMacOSX/auxin_growth.xml" date="Sat Aug 29 18:28:19 2009" simtime="11660">
   <parameter>
+    <par name="export_interval" val="1000"/>
+    <par name="export_fn_prefix" val="CELLDATA_"/>
     <par name="arrowcolor" val="white"/>
     <par name="arrowsize" val="10"/>
     <par name="textcolor" val="red"/>

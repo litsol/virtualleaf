@@ -19,6 +19,8 @@
  *
  */
 
+// Do not edit. All edits will be discarded.
+
 #include "pardialog.h"
 #include "parameter.h"
 #include <cstring>
@@ -30,7 +32,7 @@
 static const std::string _module_id("$Id$");
 
 ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFlags f) : QDialog(parent,name,false,f) {
-  extern Parameter par;
+    extern Parameter par;
   arrowcolor_edit = new QLineEdit( QString("%1").arg(par.arrowcolor), this, "arrowcolor_edit" );
   arrowsize_edit = new QLineEdit( QString("%1").arg(par.arrowsize), this, "arrowsize_edit" );
   textcolor_edit = new QLineEdit( QString("%1").arg(par.textcolor), this, "textcolor_edit" );
@@ -135,12 +137,14 @@ ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFl
   b4_edit = new QLineEdit( QString("%1").arg(sbool(par.b4)), this, "b4_edit" );
   dir1_edit = new QLineEdit( QString("%1").arg(par.dir1), this, "dir1_edit" );
   dir2_edit = new QLineEdit( QString("%1").arg(par.dir2), this, "dir2_edit" );
-  // make a 1x1 grid; it will auto-expand
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  export_interval_edit = new QLineEdit( QString("%1").arg(par.export_interval), this, "export_interval_edit" );
+  export_fn_prefix_edit = new QLineEdit( QString("%1").arg(par.export_fn_prefix), this, "export_fn_prefix_edit" );
+// make a 1x1 grid; it will auto-expand
+QGridLayout *grid = new QGridLayout( this, 1, 1 );
     
-  // add the first four widgets with (row, column) addressing
-  setWindowTitle( QString( " Parameter values for VirtualLeaf") );
-  grid->addWidget( new QLabel( "<h3> Parameter values for VirtualLeaf</h3>",this), 0, 0, 1, -1, Qt::AlignCenter);
+// add the first four widgets with (row, column) addressing
+  setWindowTitle( QString( " Parameter values for The Virtual Leaf") );
+  grid->addWidget( new QLabel( "<h3> Parameter values for The Virtual Leaf</h3>",this), 0, 0, 1, -1, Qt::AlignCenter);
   grid->addWidget( new QLabel( "", this), 0+1, 0, 1, -1);
   grid->addWidget( new QLabel( " <b>Visualization</b>", this), 3, 0, 1, 2 );
   grid->addWidget( new QLabel( "arrowcolor", this ),4, 0 );
@@ -349,123 +353,129 @@ ParameterDialog::ParameterDialog(QWidget *parent, const char *name, Qt::WindowFl
   grid->addWidget( dir1_edit, 29, 6+1  );
   grid->addWidget( new QLabel( "dir2", this ),3, 8 );
   grid->addWidget( dir2_edit, 3, 8+1  );
-  QPushButton *pb = new QPushButton( "&Write", this );
-  grid->addWidget(pb, 31, 6 );
-  connect( pb, SIGNAL( clicked() ), this, SLOT( write() ) );
-  QPushButton *pb2 = new QPushButton( "&Close", this );
-  grid->addWidget(pb2,31, 6+1 );
-  connect( pb2, SIGNAL( clicked() ), this, SLOT( close() ) );
-  QPushButton *pb3 = new QPushButton( "&Reset", this );
-  grid->addWidget(pb3, 31, 6+2 );
-  connect( pb3, SIGNAL( clicked() ), this, SLOT( Reset() ) );
-  show();
+  grid->addWidget( new QLabel( "export_interval", this ),4, 8 );
+  grid->addWidget( export_interval_edit, 4, 8+1  );
+  grid->addWidget( new QLabel( "export_fn_prefix", this ),5, 8 );
+  grid->addWidget( export_fn_prefix_edit, 5, 8+1  );
+QPushButton *pb = new QPushButton( "&Write", this );
+grid->addWidget(pb, 31, 6 );
+connect( pb, SIGNAL( clicked() ), this, SLOT( write() ) );
+QPushButton *pb2 = new QPushButton( "&Close", this );
+grid->addWidget(pb2,31, 6+1 );
+connect( pb2, SIGNAL( clicked() ), this, SLOT( close() ) );
+QPushButton *pb3 = new QPushButton( "&Reset", this );
+grid->addWidget(pb3, 31, 6+2 );
+connect( pb3, SIGNAL( clicked() ), this, SLOT( Reset() ) );
+show();
 };
 
 ParameterDialog::~ParameterDialog(void) {
-  delete arrowcolor_edit;
-  delete arrowsize_edit;
-  delete textcolor_edit;
-  delete cellnumsize_edit;
-  delete nodenumsize_edit;
-  delete node_mag_edit;
-  delete outlinewidth_edit;
-  delete cell_outline_color_edit;
-  delete resize_stride_edit;
-  delete T_edit;
-  delete lambda_length_edit;
-  delete lambda_celllength_edit;
-  delete target_length_edit;
-  delete cell_expansion_rate_edit;
-  delete cell_div_expansion_rate_edit;
-  delete auxin_dependent_growth_edit;
-  delete ode_accuracy_edit;
-  delete mc_stepsize_edit;
-  delete mc_cell_stepsize_edit;
-  delete energy_threshold_edit;
-  delete bend_lambda_edit;
-  delete alignment_lambda_edit;
-  delete rel_cell_div_threshold_edit;
-  delete rel_perimeter_stiffness_edit;
-  delete collapse_node_threshold_edit;
-  delete morphogen_div_threshold_edit;
-  delete morphogen_expansion_threshold_edit;
-  delete copy_wall_edit;
-  delete source_edit;
-  delete D_edit;
-  delete initval_edit;
-  delete k1_edit;
-  delete k2_edit;
-  delete r_edit;
-  delete kr_edit;
-  delete km_edit;
-  delete Pi_tot_edit;
-  delete transport_edit;
-  delete ka_edit;
-  delete pin_prod_edit;
-  delete pin_prod_in_epidermis_edit;
-  delete pin_breakdown_edit;
-  delete pin_breakdown_internal_edit;
-  delete aux1prod_edit;
-  delete aux1prodmeso_edit;
-  delete aux1decay_edit;
-  delete aux1decaymeso_edit;
-  delete aux1transport_edit;
-  delete aux_cons_edit;
-  delete aux_breakdown_edit;
-  delete kaux1_edit;
-  delete kap_edit;
-  delete leaf_tip_source_edit;
-  delete sam_efflux_edit;
-  delete sam_auxin_edit;
-  delete sam_auxin_breakdown_edit;
-  delete van3prod_edit;
-  delete van3autokat_edit;
-  delete van3sat_edit;
-  delete k2van3_edit;
-  delete dt_edit;
-  delete rd_dt_edit;
-  delete datadir_edit;
-  delete movie_edit;
-  delete nit_edit;
-  delete maxt_edit;
-  delete storage_stride_edit;
-  delete xml_storage_stride_edit;
-  delete rseed_edit;
-  delete constituous_expansion_limit_edit;
-  delete vessel_inh_level_edit;
-  delete vessel_expansion_rate_edit;
-  delete d_edit;
-  delete e_edit;
-  delete f_edit;
-  delete c_edit;
-  delete mu_edit;
-  delete nu_edit;
-  delete rho0_edit;
-  delete rho1_edit;
-  delete c0_edit;
-  delete gamma_edit;
-  delete eps_edit;
-  delete k_edit;
-  delete i1_edit;
-  delete i2_edit;
-  delete i3_edit;
-  delete i4_edit;
-  delete i5_edit;
-  delete s1_edit;
-  delete s2_edit;
-  delete s3_edit;
-  delete b1_edit;
-  delete b2_edit;
-  delete b3_edit;
-  delete b4_edit;
-  delete dir1_edit;
-  delete dir2_edit;
+delete arrowcolor_edit;
+delete arrowsize_edit;
+delete textcolor_edit;
+delete cellnumsize_edit;
+delete nodenumsize_edit;
+delete node_mag_edit;
+delete outlinewidth_edit;
+delete cell_outline_color_edit;
+delete resize_stride_edit;
+delete T_edit;
+delete lambda_length_edit;
+delete lambda_celllength_edit;
+delete target_length_edit;
+delete cell_expansion_rate_edit;
+delete cell_div_expansion_rate_edit;
+delete auxin_dependent_growth_edit;
+delete ode_accuracy_edit;
+delete mc_stepsize_edit;
+delete mc_cell_stepsize_edit;
+delete energy_threshold_edit;
+delete bend_lambda_edit;
+delete alignment_lambda_edit;
+delete rel_cell_div_threshold_edit;
+delete rel_perimeter_stiffness_edit;
+delete collapse_node_threshold_edit;
+delete morphogen_div_threshold_edit;
+delete morphogen_expansion_threshold_edit;
+delete copy_wall_edit;
+delete source_edit;
+delete D_edit;
+delete initval_edit;
+delete k1_edit;
+delete k2_edit;
+delete r_edit;
+delete kr_edit;
+delete km_edit;
+delete Pi_tot_edit;
+delete transport_edit;
+delete ka_edit;
+delete pin_prod_edit;
+delete pin_prod_in_epidermis_edit;
+delete pin_breakdown_edit;
+delete pin_breakdown_internal_edit;
+delete aux1prod_edit;
+delete aux1prodmeso_edit;
+delete aux1decay_edit;
+delete aux1decaymeso_edit;
+delete aux1transport_edit;
+delete aux_cons_edit;
+delete aux_breakdown_edit;
+delete kaux1_edit;
+delete kap_edit;
+delete leaf_tip_source_edit;
+delete sam_efflux_edit;
+delete sam_auxin_edit;
+delete sam_auxin_breakdown_edit;
+delete van3prod_edit;
+delete van3autokat_edit;
+delete van3sat_edit;
+delete k2van3_edit;
+delete dt_edit;
+delete rd_dt_edit;
+delete datadir_edit;
+delete movie_edit;
+delete nit_edit;
+delete maxt_edit;
+delete storage_stride_edit;
+delete xml_storage_stride_edit;
+delete rseed_edit;
+delete constituous_expansion_limit_edit;
+delete vessel_inh_level_edit;
+delete vessel_expansion_rate_edit;
+delete d_edit;
+delete e_edit;
+delete f_edit;
+delete c_edit;
+delete mu_edit;
+delete nu_edit;
+delete rho0_edit;
+delete rho1_edit;
+delete c0_edit;
+delete gamma_edit;
+delete eps_edit;
+delete k_edit;
+delete i1_edit;
+delete i2_edit;
+delete i3_edit;
+delete i4_edit;
+delete i5_edit;
+delete s1_edit;
+delete s2_edit;
+delete s3_edit;
+delete b1_edit;
+delete b2_edit;
+delete b3_edit;
+delete b4_edit;
+delete dir1_edit;
+delete dir2_edit;
+delete export_interval_edit;
+delete export_fn_prefix_edit;
 }
 
 void ParameterDialog::write(void) {
     
-  extern Parameter par;
-  QString tmpval;
+extern Parameter par;
+QString tmpval;
   par.arrowcolor = strdup((const char *)arrowcolor_edit->text());
   par.arrowsize = arrowsize_edit->text().toDouble();
   par.textcolor = strdup((const char *)textcolor_edit->text());
@@ -486,7 +496,7 @@ void ParameterDialog::write(void) {
   else if (tmpval == "false" || tmpval == "no") par.auxin_dependent_growth = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("auxin_dependent_growth"),"True","False", QString::null, 0, 1)==0) par.auxin_dependent_growth=true;
-    else par.auxin_dependent_growth=false;
+      else par.auxin_dependent_growth=false;
   }
   par.ode_accuracy = ode_accuracy_edit->text().toDouble();
   par.mc_stepsize = mc_stepsize_edit->text().toDouble();
@@ -504,7 +514,7 @@ void ParameterDialog::write(void) {
   else if (tmpval == "false" || tmpval == "no") par.copy_wall = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("copy_wall"),"True","False", QString::null, 0, 1)==0) par.copy_wall=true;
-    else par.copy_wall=false;
+      else par.copy_wall=false;
   }
   par.source = source_edit->text().toDouble();
   tmpval = D_edit->text().section(',', 0, 0);
@@ -604,7 +614,7 @@ void ParameterDialog::write(void) {
   else if (tmpval == "false" || tmpval == "no") par.movie = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("movie"),"True","False", QString::null, 0, 1)==0) par.movie=true;
-    else par.movie=false;
+      else par.movie=false;
   }
   par.nit = nit_edit->text().toInt();
   par.maxt = maxt_edit->text().toDouble();
@@ -668,32 +678,34 @@ void ParameterDialog::write(void) {
   else if (tmpval == "false" || tmpval == "no") par.b1 = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("b1"),"True","False", QString::null, 0, 1)==0) par.b1=true;
-    else par.b1=false;
+      else par.b1=false;
   }
   tmpval = b2_edit->text().stripWhiteSpace();
   if (tmpval == "true" || tmpval == "yes" ) par.b2 = true;
   else if (tmpval == "false" || tmpval == "no") par.b2 = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("b2"),"True","False", QString::null, 0, 1)==0) par.b2=true;
-    else par.b2=false;
+      else par.b2=false;
   }
   tmpval = b3_edit->text().stripWhiteSpace();
   if (tmpval == "true" || tmpval == "yes" ) par.b3 = true;
   else if (tmpval == "false" || tmpval == "no") par.b3 = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("b3"),"True","False", QString::null, 0, 1)==0) par.b3=true;
-    else par.b3=false;
+      else par.b3=false;
   }
   tmpval = b4_edit->text().stripWhiteSpace();
   if (tmpval == "true" || tmpval == "yes" ) par.b4 = true;
   else if (tmpval == "false" || tmpval == "no") par.b4 = false;
   else {
     if (QMessageBox::question(this, "Syntax error", tr("Value %1 of parameter %2 is not recognized as Boolean.\nDo you mean TRUE or FALSE?").arg(tmpval).arg("b4"),"True","False", QString::null, 0, 1)==0) par.b4=true;
-    else par.b4=false;
+      else par.b4=false;
   }
   par.dir1 = strdup((const char *)dir1_edit->text());
   par.dir2 = strdup((const char *)dir2_edit->text());
-  Reset();
+  par.export_interval = export_interval_edit->text().toInt();
+  par.export_fn_prefix = strdup((const char *)export_fn_prefix_edit->text());
+Reset();
 
 }
 void ParameterDialog::Reset(void) {
@@ -802,6 +814,8 @@ void ParameterDialog::Reset(void) {
   b4_edit->setText( QString("%1").arg(sbool(par.b4)));
   dir1_edit->setText( QString("%1").arg(par.dir1) );
   dir2_edit->setText( QString("%1").arg(par.dir2) );
+  export_interval_edit->setText( QString("%1").arg(par.export_interval) );
+  export_fn_prefix_edit->setText( QString("%1").arg(par.export_fn_prefix) );
 }
 
 /* finis */

@@ -19,6 +19,9 @@
  *
  */
 
+// Do not edit. All edits will be discarded.
+
+
 #include "parameter.h"
 #include <cstdio>
 #include <cstring>
@@ -183,40 +186,44 @@ Parameter::Parameter() {
   b4 = false;
   dir1 = strdup(".");
   dir2 = strdup(".");
+  export_interval = 100;
+  export_fn_prefix = strdup("CELLDATA");
 }
 
 Parameter::~Parameter() {
     
-  // destruct parameter object
-  // free string parameter
-  CleanUp();
+// destruct parameter object
+// free string parameter
+CleanUp();
 }
 
 void Parameter::CleanUp(void) {
   if (arrowcolor) 
-    free(arrowcolor);
+     free(arrowcolor);
   if (textcolor) 
-    free(textcolor);
+     free(textcolor);
   if (cell_outline_color) 
-    free(cell_outline_color);
+     free(cell_outline_color);
   if (D) 
-    free(D);
+     free(D);
   if (initval) 
-    free(initval);
+     free(initval);
   if (datadir) 
-    free(datadir);
+     free(datadir);
   if (k) 
-    free(k);
+     free(k);
   if (s1) 
-    free(s1);
+     free(s1);
   if (s2) 
-    free(s2);
+     free(s2);
   if (s3) 
-    free(s3);
+     free(s3);
   if (dir1) 
-    free(dir1);
+     free(dir1);
   if (dir2) 
-    free(dir2);
+     free(dir2);
+  if (export_fn_prefix) 
+     free(export_fn_prefix);
 
 }
 
@@ -340,6 +347,8 @@ void Parameter::Read(const char *filename) {
   dir2 = sgetpar(fp, "dir2", ".", true);
   if (strcmp(dir2, "."))
     MakeDir(dir2);
+  export_interval = igetpar(fp, "export_interval", 100, true);
+  export_fn_prefix = sgetpar(fp, "export_fn_prefix", "CELLDATA", true);
 }
 
 const char *sbool(const bool &p) {
@@ -356,18 +365,18 @@ void Parameter::Write(ostream &os) const {
 
 
   if (arrowcolor) 
-    os << " arrowcolor = " << arrowcolor << endl;
+  os << " arrowcolor = " << arrowcolor << endl;
   os << " arrowsize = " << arrowsize << endl;
 
   if (textcolor) 
-    os << " textcolor = " << textcolor << endl;
+  os << " textcolor = " << textcolor << endl;
   os << " cellnumsize = " << cellnumsize << endl;
   os << " nodenumsize = " << nodenumsize << endl;
   os << " node_mag = " << node_mag << endl;
   os << " outlinewidth = " << outlinewidth << endl;
 
   if (cell_outline_color) 
-    os << " cell_outline_color = " << cell_outline_color << endl;
+  os << " cell_outline_color = " << cell_outline_color << endl;
   os << " resize_stride = " << resize_stride << endl;
   os << " T = " << T << endl;
   os << " lambda_length = " << lambda_length << endl;
@@ -423,12 +432,12 @@ void Parameter::Write(ostream &os) const {
   os << " dt = " << dt << endl;
   os << " rd_dt = " << rd_dt << endl;
   if (datadir) {
-    QDir dataDir = QDir::home().relativeFilePath(datadir);
-    os << " datadir = " << dataDir.dirName().toStdString() << endl;
-  }
-  else {
-    os << "datadir = ." << endl;
-  }
+                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
+                                     os << " datadir = " << dataDir.dirName().toStdString() << endl;
+                                 }
+                                 else {
+                                     os << "datadir = ." << endl;
+                                 }
   os << " movie = " << sbool(movie) << endl;
   os << " nit = " << nit << endl;
   os << " maxt = " << maxt << endl;
@@ -457,1403 +466,1431 @@ void Parameter::Write(ostream &os) const {
   os << " i5 = " << i5 << endl;
 
   if (s1) 
-    os << " s1 = " << s1 << endl;
+  os << " s1 = " << s1 << endl;
 
   if (s2) 
-    os << " s2 = " << s2 << endl;
+  os << " s2 = " << s2 << endl;
 
   if (s3) 
-    os << " s3 = " << s3 << endl;
+  os << " s3 = " << s3 << endl;
   os << " b1 = " << sbool(b1) << endl;
   os << " b2 = " << sbool(b2) << endl;
   os << " b3 = " << sbool(b3) << endl;
   os << " b4 = " << sbool(b4) << endl;
 
   if (dir1) 
-    os << " dir1 = " << dir1 << endl;
+  os << " dir1 = " << dir1 << endl;
 
   if (dir2) 
-    os << " dir2 = " << dir2 << endl;
+  os << " dir2 = " << dir2 << endl;
+  os << " export_interval = " << export_interval << endl;
+
+  if (export_fn_prefix) 
+  os << " export_fn_prefix = " << export_fn_prefix << endl;
 }
 
 void Parameter::XMLAdd(xmlNode *root) const {
-  xmlNode *xmlparameter = xmlNewChild(root, NULL, BAD_CAST "parameter", NULL);
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "arrowcolor" );
-    ostringstream text;
+    xmlNode *xmlparameter = xmlNewChild(root, NULL, BAD_CAST "parameter", NULL);
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "arrowcolor" );
+  ostringstream text;
 
-    if (arrowcolor) 
-      text << arrowcolor;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "arrowsize" );
-    ostringstream text;
+  if (arrowcolor) 
+    text << arrowcolor;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "arrowsize" );
+  ostringstream text;
     text << arrowsize;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "textcolor" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "textcolor" );
+  ostringstream text;
 
-    if (textcolor) 
-      text << textcolor;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cellnumsize" );
-    ostringstream text;
+  if (textcolor) 
+    text << textcolor;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cellnumsize" );
+  ostringstream text;
     text << cellnumsize;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nodenumsize" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nodenumsize" );
+  ostringstream text;
     text << nodenumsize;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "node_mag" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "node_mag" );
+  ostringstream text;
     text << node_mag;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "outlinewidth" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "outlinewidth" );
+  ostringstream text;
     text << outlinewidth;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_outline_color" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_outline_color" );
+  ostringstream text;
 
-    if (cell_outline_color) 
-      text << cell_outline_color;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "resize_stride" );
-    ostringstream text;
+  if (cell_outline_color) 
+    text << cell_outline_color;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "resize_stride" );
+  ostringstream text;
     text << resize_stride;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "T" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "T" );
+  ostringstream text;
     text << T;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "lambda_length" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "lambda_length" );
+  ostringstream text;
     text << lambda_length;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "lambda_celllength" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "lambda_celllength" );
+  ostringstream text;
     text << lambda_celllength;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "target_length" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "target_length" );
+  ostringstream text;
     text << target_length;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_expansion_rate" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_expansion_rate" );
+  ostringstream text;
     text << cell_expansion_rate;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_div_expansion_rate" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "cell_div_expansion_rate" );
+  ostringstream text;
     text << cell_div_expansion_rate;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "auxin_dependent_growth" );
-    ostringstream text;
-    text << sbool(auxin_dependent_growth);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "ode_accuracy" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "auxin_dependent_growth" );
+  ostringstream text;
+text << sbool(auxin_dependent_growth);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "ode_accuracy" );
+  ostringstream text;
     text << ode_accuracy;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mc_stepsize" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mc_stepsize" );
+  ostringstream text;
     text << mc_stepsize;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mc_cell_stepsize" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mc_cell_stepsize" );
+  ostringstream text;
     text << mc_cell_stepsize;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "energy_threshold" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "energy_threshold" );
+  ostringstream text;
     text << energy_threshold;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "bend_lambda" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "bend_lambda" );
+  ostringstream text;
     text << bend_lambda;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "alignment_lambda" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "alignment_lambda" );
+  ostringstream text;
     text << alignment_lambda;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rel_cell_div_threshold" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rel_cell_div_threshold" );
+  ostringstream text;
     text << rel_cell_div_threshold;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rel_perimeter_stiffness" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rel_perimeter_stiffness" );
+  ostringstream text;
     text << rel_perimeter_stiffness;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "collapse_node_threshold" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "collapse_node_threshold" );
+  ostringstream text;
     text << collapse_node_threshold;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "morphogen_div_threshold" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "morphogen_div_threshold" );
+  ostringstream text;
     text << morphogen_div_threshold;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "morphogen_expansion_threshold" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "morphogen_expansion_threshold" );
+  ostringstream text;
     text << morphogen_expansion_threshold;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "copy_wall" );
-    ostringstream text;
-    text << sbool(copy_wall);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "source" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "copy_wall" );
+  ostringstream text;
+text << sbool(copy_wall);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "source" );
+  ostringstream text;
     text << source;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "D" );
+  xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
   {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "D" );
-    xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
-    {
-      ostringstream text;
-      text << D[0];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[1];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[2];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[3];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[4];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[5];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[6];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[7];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[8];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[9];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[10];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[11];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[12];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[13];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << D[14];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "initval" );
-    xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
-    {
-      ostringstream text;
-      text << initval[0];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[1];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[2];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[3];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[4];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[5];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[6];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[7];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[8];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[9];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[10];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[11];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[12];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[13];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << initval[14];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k1" );
     ostringstream text;
+    text << D[0];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[1];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[2];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[3];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[4];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[5];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[6];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[7];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[8];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[9];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[10];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[11];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[12];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[13];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << D[14];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "initval" );
+  xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
+  {
+    ostringstream text;
+    text << initval[0];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[1];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[2];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[3];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[4];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[5];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[6];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[7];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[8];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[9];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[10];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[11];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[12];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[13];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << initval[14];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k1" );
+  ostringstream text;
     text << k1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k2" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k2" );
+  ostringstream text;
     text << k2;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "r" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "r" );
+  ostringstream text;
     text << r;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kr" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kr" );
+  ostringstream text;
     text << kr;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "km" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "km" );
+  ostringstream text;
     text << km;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "Pi_tot" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "Pi_tot" );
+  ostringstream text;
     text << Pi_tot;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "transport" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "transport" );
+  ostringstream text;
     text << transport;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "ka" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "ka" );
+  ostringstream text;
     text << ka;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_prod" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_prod" );
+  ostringstream text;
     text << pin_prod;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_prod_in_epidermis" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_prod_in_epidermis" );
+  ostringstream text;
     text << pin_prod_in_epidermis;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_breakdown" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_breakdown" );
+  ostringstream text;
     text << pin_breakdown;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_breakdown_internal" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "pin_breakdown_internal" );
+  ostringstream text;
     text << pin_breakdown_internal;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1prod" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1prod" );
+  ostringstream text;
     text << aux1prod;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1prodmeso" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1prodmeso" );
+  ostringstream text;
     text << aux1prodmeso;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1decay" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1decay" );
+  ostringstream text;
     text << aux1decay;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1decaymeso" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1decaymeso" );
+  ostringstream text;
     text << aux1decaymeso;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1transport" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux1transport" );
+  ostringstream text;
     text << aux1transport;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux_cons" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux_cons" );
+  ostringstream text;
     text << aux_cons;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux_breakdown" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "aux_breakdown" );
+  ostringstream text;
     text << aux_breakdown;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kaux1" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kaux1" );
+  ostringstream text;
     text << kaux1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kap" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "kap" );
+  ostringstream text;
     text << kap;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "leaf_tip_source" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "leaf_tip_source" );
+  ostringstream text;
     text << leaf_tip_source;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_efflux" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_efflux" );
+  ostringstream text;
     text << sam_efflux;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_auxin" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_auxin" );
+  ostringstream text;
     text << sam_auxin;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_auxin_breakdown" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "sam_auxin_breakdown" );
+  ostringstream text;
     text << sam_auxin_breakdown;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3prod" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3prod" );
+  ostringstream text;
     text << van3prod;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3autokat" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3autokat" );
+  ostringstream text;
     text << van3autokat;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3sat" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "van3sat" );
+  ostringstream text;
     text << van3sat;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k2van3" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k2van3" );
+  ostringstream text;
     text << k2van3;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dt" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dt" );
+  ostringstream text;
     text << dt;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rd_dt" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rd_dt" );
+  ostringstream text;
     text << rd_dt;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "datadir" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "datadir" );
+  ostringstream text;
 
-    if (datadir) {
-      QDir dataDir = QDir::home().relativeFilePath(datadir);
-      text << dataDir.dirName().toStdString();
-    }
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "movie" );
-    ostringstream text;
-    text << sbool(movie);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nit" );
-    ostringstream text;
+  if (datadir) {
+                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
+                                     text << dataDir.dirName().toStdString();
+                                   }
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "movie" );
+  ostringstream text;
+text << sbool(movie);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nit" );
+  ostringstream text;
     text << nit;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "maxt" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "maxt" );
+  ostringstream text;
     text << maxt;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "storage_stride" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "storage_stride" );
+  ostringstream text;
     text << storage_stride;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "xml_storage_stride" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "xml_storage_stride" );
+  ostringstream text;
     text << xml_storage_stride;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rseed" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rseed" );
+  ostringstream text;
     text << rseed;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "constituous_expansion_limit" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "constituous_expansion_limit" );
+  ostringstream text;
     text << constituous_expansion_limit;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "vessel_inh_level" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "vessel_inh_level" );
+  ostringstream text;
     text << vessel_inh_level;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "vessel_expansion_rate" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "vessel_expansion_rate" );
+  ostringstream text;
     text << vessel_expansion_rate;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "d" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "d" );
+  ostringstream text;
     text << d;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "e" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "e" );
+  ostringstream text;
     text << e;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "f" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "f" );
+  ostringstream text;
     text << f;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "c" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "c" );
+  ostringstream text;
     text << c;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mu" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "mu" );
+  ostringstream text;
     text << mu;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nu" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "nu" );
+  ostringstream text;
     text << nu;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rho0" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rho0" );
+  ostringstream text;
     text << rho0;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rho1" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "rho1" );
+  ostringstream text;
     text << rho1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "c0" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "c0" );
+  ostringstream text;
     text << c0;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "gamma" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "gamma" );
+  ostringstream text;
     text << gamma;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "eps" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "eps" );
+  ostringstream text;
     text << eps;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k" );
+  xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
   {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "k" );
-    xmlNode *xmlvalarray = xmlNewChild(xmlpar, NULL, BAD_CAST "valarray", NULL);
-    {
-      ostringstream text;
-      text << k[0];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[1];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[2];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[3];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[4];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[5];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[6];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[7];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[8];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[9];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[10];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[11];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[12];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[13];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-    {
-      ostringstream text;
-      text << k[14];
-      xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
-      xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
-    }
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i1" );
     ostringstream text;
+    text << k[0];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[1];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[2];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[3];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[4];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[5];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[6];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[7];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[8];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[9];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[10];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[11];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[12];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[13];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+  {
+    ostringstream text;
+    text << k[14];
+    xmlNode *xmlval = xmlNewChild(xmlvalarray, NULL, BAD_CAST "val", NULL);
+    xmlNewProp(xmlval, BAD_CAST "v", BAD_CAST text.str().c_str());
+  }
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i1" );
+  ostringstream text;
     text << i1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i2" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i2" );
+  ostringstream text;
     text << i2;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i3" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i3" );
+  ostringstream text;
     text << i3;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i4" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i4" );
+  ostringstream text;
     text << i4;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i5" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "i5" );
+  ostringstream text;
     text << i5;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s1" );
-    ostringstream text;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s1" );
+  ostringstream text;
 
-    if (s1) 
-      text << s1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s2" );
-    ostringstream text;
+  if (s1) 
+    text << s1;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s2" );
+  ostringstream text;
 
-    if (s2) 
-      text << s2;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s3" );
-    ostringstream text;
+  if (s2) 
+    text << s2;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "s3" );
+  ostringstream text;
 
-    if (s3) 
-      text << s3;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b1" );
-    ostringstream text;
-    text << sbool(b1);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b2" );
-    ostringstream text;
-    text << sbool(b2);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b3" );
-    ostringstream text;
-    text << sbool(b3);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b4" );
-    ostringstream text;
-    text << sbool(b4);
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dir1" );
-    ostringstream text;
+  if (s3) 
+    text << s3;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b1" );
+  ostringstream text;
+text << sbool(b1);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b2" );
+  ostringstream text;
+text << sbool(b2);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b3" );
+  ostringstream text;
+text << sbool(b3);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "b4" );
+  ostringstream text;
+text << sbool(b4);
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dir1" );
+  ostringstream text;
 
-    if (dir1) 
-      text << dir1;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
-  {
-    xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-    xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dir2" );
-    ostringstream text;
+  if (dir1) 
+    text << dir1;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "dir2" );
+  ostringstream text;
 
-    if (dir2) 
-      text << dir2;
-    xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-  }
+  if (dir2) 
+    text << dir2;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_interval" );
+  ostringstream text;
+    text << export_interval;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_fn_prefix" );
+  ostringstream text;
+
+  if (export_fn_prefix) 
+    text << export_fn_prefix;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
 }
 void Parameter::AssignValToPar(const char *namec, const char *valc) {
   QLocale standardlocale(QLocale::C);
   bool ok;
-  if (!strcmp(namec, "arrowcolor")) {
-    if (arrowcolor) { free(arrowcolor); }
-    arrowcolor=strdup(valc);
-  }
-  if (!strcmp(namec, "arrowsize")) {
-    arrowsize = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'arrowsize' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "textcolor")) {
-    if (textcolor) { free(textcolor); }
-    textcolor=strdup(valc);
-  }
-  if (!strcmp(namec, "cellnumsize")) {
-    cellnumsize = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'cellnumsize' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "nodenumsize")) {
-    nodenumsize = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'nodenumsize' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "node_mag")) {
-    node_mag = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'node_mag' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "outlinewidth")) {
-    outlinewidth = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'outlinewidth' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "cell_outline_color")) {
-    if (cell_outline_color) { free(cell_outline_color); }
-    cell_outline_color=strdup(valc);
-  }
-  if (!strcmp(namec, "resize_stride")) {
-    resize_stride = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'resize_stride' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "T")) {
-    T = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'T' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "lambda_length")) {
-    lambda_length = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'lambda_length' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "lambda_celllength")) {
-    lambda_celllength = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'lambda_celllength' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "target_length")) {
-    target_length = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'target_length' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "cell_expansion_rate")) {
-    cell_expansion_rate = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'cell_expansion_rate' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "cell_div_expansion_rate")) {
-    cell_div_expansion_rate = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'cell_div_expansion_rate' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "auxin_dependent_growth")) {
-    auxin_dependent_growth = strtobool(valc);
-  }
-  if (!strcmp(namec, "ode_accuracy")) {
-    ode_accuracy = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'ode_accuracy' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "mc_stepsize")) {
-    mc_stepsize = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mc_stepsize' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "mc_cell_stepsize")) {
-    mc_cell_stepsize = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mc_cell_stepsize' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "energy_threshold")) {
-    energy_threshold = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'energy_threshold' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "bend_lambda")) {
-    bend_lambda = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'bend_lambda' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "alignment_lambda")) {
-    alignment_lambda = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'alignment_lambda' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rel_cell_div_threshold")) {
-    rel_cell_div_threshold = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rel_cell_div_threshold' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rel_perimeter_stiffness")) {
-    rel_perimeter_stiffness = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rel_perimeter_stiffness' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "collapse_node_threshold")) {
-    collapse_node_threshold = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'collapse_node_threshold' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "morphogen_div_threshold")) {
-    morphogen_div_threshold = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'morphogen_div_threshold' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "morphogen_expansion_threshold")) {
-    morphogen_expansion_threshold = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'morphogen_expansion_threshold' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "copy_wall")) {
-    copy_wall = strtobool(valc);
-  }
-  if (!strcmp(namec, "source")) {
-    source = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'source' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "k1")) {
-    k1 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k1' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "k2")) {
-    k2 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k2' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "r")) {
-    r = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'r' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "kr")) {
-    kr = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kr' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "km")) {
-    km = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'km' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "Pi_tot")) {
-    Pi_tot = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'Pi_tot' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "transport")) {
-    transport = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'transport' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "ka")) {
-    ka = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'ka' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "pin_prod")) {
-    pin_prod = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_prod' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "pin_prod_in_epidermis")) {
-    pin_prod_in_epidermis = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_prod_in_epidermis' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "pin_breakdown")) {
-    pin_breakdown = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_breakdown' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "pin_breakdown_internal")) {
-    pin_breakdown_internal = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_breakdown_internal' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux1prod")) {
-    aux1prod = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1prod' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux1prodmeso")) {
-    aux1prodmeso = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1prodmeso' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux1decay")) {
-    aux1decay = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1decay' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux1decaymeso")) {
-    aux1decaymeso = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1decaymeso' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux1transport")) {
-    aux1transport = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1transport' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux_cons")) {
-    aux_cons = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux_cons' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "aux_breakdown")) {
-    aux_breakdown = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux_breakdown' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "kaux1")) {
-    kaux1 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kaux1' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "kap")) {
-    kap = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kap' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "leaf_tip_source")) {
-    leaf_tip_source = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'leaf_tip_source' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "sam_efflux")) {
-    sam_efflux = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_efflux' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "sam_auxin")) {
-    sam_auxin = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_auxin' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "sam_auxin_breakdown")) {
-    sam_auxin_breakdown = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_auxin_breakdown' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "van3prod")) {
-    van3prod = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3prod' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "van3autokat")) {
-    van3autokat = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3autokat' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "van3sat")) {
-    van3sat = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3sat' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "k2van3")) {
-    k2van3 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k2van3' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "dt")) {
-    dt = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'dt' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rd_dt")) {
-    rd_dt = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rd_dt' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "datadir")) {
-    if (datadir) { free(datadir); }
-    datadir=strdup(valc);
-    datadir = AppendHomeDirIfPathRelative(datadir);
-  }
-  if (!strcmp(namec, "movie")) {
-    movie = strtobool(valc);
-  }
-  if (!strcmp(namec, "nit")) {
-    nit = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'nit' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "maxt")) {
-    maxt = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'maxt' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "storage_stride")) {
-    storage_stride = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'storage_stride' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "xml_storage_stride")) {
-    xml_storage_stride = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'xml_storage_stride' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rseed")) {
-    rseed = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'rseed' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "constituous_expansion_limit")) {
-    constituous_expansion_limit = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'constituous_expansion_limit' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "vessel_inh_level")) {
-    vessel_inh_level = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'vessel_inh_level' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "vessel_expansion_rate")) {
-    vessel_expansion_rate = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'vessel_expansion_rate' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "d")) {
-    d = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'd' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "e")) {
-    e = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'e' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "f")) {
-    f = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'f' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "c")) {
-    c = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'c' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "mu")) {
-    mu = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mu' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "nu")) {
-    nu = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'nu' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rho0")) {
-    rho0 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rho0' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "rho1")) {
-    rho1 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rho1' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "c0")) {
-    c0 = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'c0' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "gamma")) {
-    gamma = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'gamma' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "eps")) {
-    eps = standardlocale.toDouble(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'eps' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "i1")) {
-    i1 = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i1' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "i2")) {
-    i2 = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i2' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "i3")) {
-    i3 = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i3' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "i4")) {
-    i4 = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i4' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "i5")) {
-    i5 = standardlocale.toInt(valc, &ok);
-    if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i5' from XML file.",valc); }
-  }
-  if (!strcmp(namec, "s1")) {
-    if (s1) { free(s1); }
-    s1=strdup(valc);
-  }
-  if (!strcmp(namec, "s2")) {
-    if (s2) { free(s2); }
-    s2=strdup(valc);
-  }
-  if (!strcmp(namec, "s3")) {
-    if (s3) { free(s3); }
-    s3=strdup(valc);
-  }
-  if (!strcmp(namec, "b1")) {
-    b1 = strtobool(valc);
-  }
-  if (!strcmp(namec, "b2")) {
-    b2 = strtobool(valc);
-  }
-  if (!strcmp(namec, "b3")) {
-    b3 = strtobool(valc);
-  }
-  if (!strcmp(namec, "b4")) {
-    b4 = strtobool(valc);
-  }
-  if (!strcmp(namec, "dir1")) {
-    if (dir1) { free(dir1); }
-    dir1=strdup(valc);
-  }
-  if (!strcmp(namec, "dir2")) {
-    if (dir2) { free(dir2); }
-    dir2=strdup(valc);
-  }
+if (!strcmp(namec, "arrowcolor")) {
+  if (arrowcolor) { free(arrowcolor); }
+  arrowcolor=strdup(valc);
+}
+if (!strcmp(namec, "arrowsize")) {
+  arrowsize = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'arrowsize' from XML file.",valc); }
+}
+if (!strcmp(namec, "textcolor")) {
+  if (textcolor) { free(textcolor); }
+  textcolor=strdup(valc);
+}
+if (!strcmp(namec, "cellnumsize")) {
+  cellnumsize = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'cellnumsize' from XML file.",valc); }
+}
+if (!strcmp(namec, "nodenumsize")) {
+  nodenumsize = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'nodenumsize' from XML file.",valc); }
+}
+if (!strcmp(namec, "node_mag")) {
+  node_mag = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'node_mag' from XML file.",valc); }
+}
+if (!strcmp(namec, "outlinewidth")) {
+  outlinewidth = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'outlinewidth' from XML file.",valc); }
+}
+if (!strcmp(namec, "cell_outline_color")) {
+  if (cell_outline_color) { free(cell_outline_color); }
+  cell_outline_color=strdup(valc);
+}
+if (!strcmp(namec, "resize_stride")) {
+  resize_stride = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'resize_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "T")) {
+  T = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'T' from XML file.",valc); }
+}
+if (!strcmp(namec, "lambda_length")) {
+  lambda_length = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'lambda_length' from XML file.",valc); }
+}
+if (!strcmp(namec, "lambda_celllength")) {
+  lambda_celllength = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'lambda_celllength' from XML file.",valc); }
+}
+if (!strcmp(namec, "target_length")) {
+  target_length = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'target_length' from XML file.",valc); }
+}
+if (!strcmp(namec, "cell_expansion_rate")) {
+  cell_expansion_rate = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'cell_expansion_rate' from XML file.",valc); }
+}
+if (!strcmp(namec, "cell_div_expansion_rate")) {
+  cell_div_expansion_rate = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'cell_div_expansion_rate' from XML file.",valc); }
+}
+if (!strcmp(namec, "auxin_dependent_growth")) {
+auxin_dependent_growth = strtobool(valc);
+}
+if (!strcmp(namec, "ode_accuracy")) {
+  ode_accuracy = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'ode_accuracy' from XML file.",valc); }
+}
+if (!strcmp(namec, "mc_stepsize")) {
+  mc_stepsize = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mc_stepsize' from XML file.",valc); }
+}
+if (!strcmp(namec, "mc_cell_stepsize")) {
+  mc_cell_stepsize = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mc_cell_stepsize' from XML file.",valc); }
+}
+if (!strcmp(namec, "energy_threshold")) {
+  energy_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'energy_threshold' from XML file.",valc); }
+}
+if (!strcmp(namec, "bend_lambda")) {
+  bend_lambda = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'bend_lambda' from XML file.",valc); }
+}
+if (!strcmp(namec, "alignment_lambda")) {
+  alignment_lambda = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'alignment_lambda' from XML file.",valc); }
+}
+if (!strcmp(namec, "rel_cell_div_threshold")) {
+  rel_cell_div_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rel_cell_div_threshold' from XML file.",valc); }
+}
+if (!strcmp(namec, "rel_perimeter_stiffness")) {
+  rel_perimeter_stiffness = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rel_perimeter_stiffness' from XML file.",valc); }
+}
+if (!strcmp(namec, "collapse_node_threshold")) {
+  collapse_node_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'collapse_node_threshold' from XML file.",valc); }
+}
+if (!strcmp(namec, "morphogen_div_threshold")) {
+  morphogen_div_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'morphogen_div_threshold' from XML file.",valc); }
+}
+if (!strcmp(namec, "morphogen_expansion_threshold")) {
+  morphogen_expansion_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'morphogen_expansion_threshold' from XML file.",valc); }
+}
+if (!strcmp(namec, "copy_wall")) {
+copy_wall = strtobool(valc);
+}
+if (!strcmp(namec, "source")) {
+  source = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'source' from XML file.",valc); }
+}
+if (!strcmp(namec, "k1")) {
+  k1 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k1' from XML file.",valc); }
+}
+if (!strcmp(namec, "k2")) {
+  k2 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k2' from XML file.",valc); }
+}
+if (!strcmp(namec, "r")) {
+  r = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'r' from XML file.",valc); }
+}
+if (!strcmp(namec, "kr")) {
+  kr = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kr' from XML file.",valc); }
+}
+if (!strcmp(namec, "km")) {
+  km = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'km' from XML file.",valc); }
+}
+if (!strcmp(namec, "Pi_tot")) {
+  Pi_tot = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'Pi_tot' from XML file.",valc); }
+}
+if (!strcmp(namec, "transport")) {
+  transport = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'transport' from XML file.",valc); }
+}
+if (!strcmp(namec, "ka")) {
+  ka = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'ka' from XML file.",valc); }
+}
+if (!strcmp(namec, "pin_prod")) {
+  pin_prod = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_prod' from XML file.",valc); }
+}
+if (!strcmp(namec, "pin_prod_in_epidermis")) {
+  pin_prod_in_epidermis = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_prod_in_epidermis' from XML file.",valc); }
+}
+if (!strcmp(namec, "pin_breakdown")) {
+  pin_breakdown = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_breakdown' from XML file.",valc); }
+}
+if (!strcmp(namec, "pin_breakdown_internal")) {
+  pin_breakdown_internal = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'pin_breakdown_internal' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux1prod")) {
+  aux1prod = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1prod' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux1prodmeso")) {
+  aux1prodmeso = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1prodmeso' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux1decay")) {
+  aux1decay = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1decay' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux1decaymeso")) {
+  aux1decaymeso = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1decaymeso' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux1transport")) {
+  aux1transport = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux1transport' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux_cons")) {
+  aux_cons = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux_cons' from XML file.",valc); }
+}
+if (!strcmp(namec, "aux_breakdown")) {
+  aux_breakdown = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'aux_breakdown' from XML file.",valc); }
+}
+if (!strcmp(namec, "kaux1")) {
+  kaux1 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kaux1' from XML file.",valc); }
+}
+if (!strcmp(namec, "kap")) {
+  kap = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'kap' from XML file.",valc); }
+}
+if (!strcmp(namec, "leaf_tip_source")) {
+  leaf_tip_source = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'leaf_tip_source' from XML file.",valc); }
+}
+if (!strcmp(namec, "sam_efflux")) {
+  sam_efflux = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_efflux' from XML file.",valc); }
+}
+if (!strcmp(namec, "sam_auxin")) {
+  sam_auxin = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_auxin' from XML file.",valc); }
+}
+if (!strcmp(namec, "sam_auxin_breakdown")) {
+  sam_auxin_breakdown = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'sam_auxin_breakdown' from XML file.",valc); }
+}
+if (!strcmp(namec, "van3prod")) {
+  van3prod = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3prod' from XML file.",valc); }
+}
+if (!strcmp(namec, "van3autokat")) {
+  van3autokat = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3autokat' from XML file.",valc); }
+}
+if (!strcmp(namec, "van3sat")) {
+  van3sat = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'van3sat' from XML file.",valc); }
+}
+if (!strcmp(namec, "k2van3")) {
+  k2van3 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'k2van3' from XML file.",valc); }
+}
+if (!strcmp(namec, "dt")) {
+  dt = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'dt' from XML file.",valc); }
+}
+if (!strcmp(namec, "rd_dt")) {
+  rd_dt = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rd_dt' from XML file.",valc); }
+}
+if (!strcmp(namec, "datadir")) {
+  if (datadir) { free(datadir); }
+  datadir=strdup(valc);
+  datadir = AppendHomeDirIfPathRelative(datadir);
+}
+if (!strcmp(namec, "movie")) {
+movie = strtobool(valc);
+}
+if (!strcmp(namec, "nit")) {
+  nit = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'nit' from XML file.",valc); }
+}
+if (!strcmp(namec, "maxt")) {
+  maxt = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'maxt' from XML file.",valc); }
+}
+if (!strcmp(namec, "storage_stride")) {
+  storage_stride = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'storage_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "xml_storage_stride")) {
+  xml_storage_stride = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'xml_storage_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "rseed")) {
+  rseed = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'rseed' from XML file.",valc); }
+}
+if (!strcmp(namec, "constituous_expansion_limit")) {
+  constituous_expansion_limit = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'constituous_expansion_limit' from XML file.",valc); }
+}
+if (!strcmp(namec, "vessel_inh_level")) {
+  vessel_inh_level = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'vessel_inh_level' from XML file.",valc); }
+}
+if (!strcmp(namec, "vessel_expansion_rate")) {
+  vessel_expansion_rate = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'vessel_expansion_rate' from XML file.",valc); }
+}
+if (!strcmp(namec, "d")) {
+  d = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'd' from XML file.",valc); }
+}
+if (!strcmp(namec, "e")) {
+  e = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'e' from XML file.",valc); }
+}
+if (!strcmp(namec, "f")) {
+  f = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'f' from XML file.",valc); }
+}
+if (!strcmp(namec, "c")) {
+  c = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'c' from XML file.",valc); }
+}
+if (!strcmp(namec, "mu")) {
+  mu = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'mu' from XML file.",valc); }
+}
+if (!strcmp(namec, "nu")) {
+  nu = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'nu' from XML file.",valc); }
+}
+if (!strcmp(namec, "rho0")) {
+  rho0 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rho0' from XML file.",valc); }
+}
+if (!strcmp(namec, "rho1")) {
+  rho1 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rho1' from XML file.",valc); }
+}
+if (!strcmp(namec, "c0")) {
+  c0 = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'c0' from XML file.",valc); }
+}
+if (!strcmp(namec, "gamma")) {
+  gamma = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'gamma' from XML file.",valc); }
+}
+if (!strcmp(namec, "eps")) {
+  eps = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'eps' from XML file.",valc); }
+}
+if (!strcmp(namec, "i1")) {
+  i1 = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i1' from XML file.",valc); }
+}
+if (!strcmp(namec, "i2")) {
+  i2 = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i2' from XML file.",valc); }
+}
+if (!strcmp(namec, "i3")) {
+  i3 = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i3' from XML file.",valc); }
+}
+if (!strcmp(namec, "i4")) {
+  i4 = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i4' from XML file.",valc); }
+}
+if (!strcmp(namec, "i5")) {
+  i5 = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'i5' from XML file.",valc); }
+}
+if (!strcmp(namec, "s1")) {
+  if (s1) { free(s1); }
+  s1=strdup(valc);
+}
+if (!strcmp(namec, "s2")) {
+  if (s2) { free(s2); }
+  s2=strdup(valc);
+}
+if (!strcmp(namec, "s3")) {
+  if (s3) { free(s3); }
+  s3=strdup(valc);
+}
+if (!strcmp(namec, "b1")) {
+b1 = strtobool(valc);
+}
+if (!strcmp(namec, "b2")) {
+b2 = strtobool(valc);
+}
+if (!strcmp(namec, "b3")) {
+b3 = strtobool(valc);
+}
+if (!strcmp(namec, "b4")) {
+b4 = strtobool(valc);
+}
+if (!strcmp(namec, "dir1")) {
+  if (dir1) { free(dir1); }
+  dir1=strdup(valc);
+}
+if (!strcmp(namec, "dir2")) {
+  if (dir2) { free(dir2); }
+  dir2=strdup(valc);
+}
+if (!strcmp(namec, "export_interval")) {
+  export_interval = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'export_interval' from XML file.",valc); }
+}
+if (!strcmp(namec, "export_fn_prefix")) {
+  if (export_fn_prefix) { free(export_fn_prefix); }
+  export_fn_prefix=strdup(valc);
+}
 }
 void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) {
-  if (!strcmp(namec, "D")) {
-    int i=0;
-    vector<double>::const_iterator v=valarray.begin();
-    while (v!=valarray.end() && i <= 14 ) {
-      D[i++]=*(v++);
-    }
+if (!strcmp(namec, "D")) {
+  int i=0;
+  vector<double>::const_iterator v=valarray.begin();
+  while (v!=valarray.end() && i <= 14 ) {
+     D[i++]=*(v++);
   }
-  if (!strcmp(namec, "initval")) {
-    int i=0;
-    vector<double>::const_iterator v=valarray.begin();
-    while (v!=valarray.end() && i <= 14 ) {
-      initval[i++]=*(v++);
-    }
+}
+if (!strcmp(namec, "initval")) {
+  int i=0;
+  vector<double>::const_iterator v=valarray.begin();
+  while (v!=valarray.end() && i <= 14 ) {
+     initval[i++]=*(v++);
   }
-  if (!strcmp(namec, "k")) {
-    int i=0;
-    vector<double>::const_iterator v=valarray.begin();
-    while (v!=valarray.end() && i <= 14 ) {
-      k[i++]=*(v++);
-    }
+}
+if (!strcmp(namec, "k")) {
+  int i=0;
+  vector<double>::const_iterator v=valarray.begin();
+  while (v!=valarray.end() && i <= 14 ) {
+     k[i++]=*(v++);
   }
+}
 }
 
 ostream &operator<<(ostream &os, Parameter &p) {
-  p.Write(os);
-  return os;
+    p.Write(os);
+    return os;
 }
 
 /* finis */
