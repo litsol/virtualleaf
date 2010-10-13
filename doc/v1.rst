@@ -198,3 +198,150 @@ Thursday 7 October 2010
 
 Added a Q3FileDialog in ``canvas.cpp:Main::exportCellData(void)`` to
 choose where to write the exported cell data.
+
+
+Friday 8 October 2010
+---------------------
+
+Added new parameters to control perodic cell exprt data.
+
+Added code to relize perodic cell export.
+
+
+
+Monday 11 October 2010
+----------------------
+
+Mercurial hooks
++++++++++++++++
+
+Tried several alternatives for Mercurial's ``pretxnchangegroup.forbid_2heads`` hook. 
+
+1. http://bitbucket.org/dgc/headcount: **Headcount** ``ui`` complains of a missing data member
+2. http://stackoverflow.com/questions/1705921/useful-mercurial-hooks: **forbid2_heads.py** doesn't load
+3. http://davidherron.com/node/961: **forbid2_heads.sh** works as advertised
+
+
+Mercurial Repositories
+++++++++++++++++++++++
+
+Tried to install Rhode Code from: http://packages.python.org/RhodeCode. 
+
+1. http://bitbucket.org/marcinkuzminski/rhodecode
+2. http://packages.python.org/RhodeCode, http://pypi.python.org/pypi/RhodeCode/1.0.0rc3
+3. http://hg.python-works.com (demo,demo)
+4. http://bitbucket.org/bfrog/cutehg
+5. http://pypi.python.org/pypi/SIP, http://www.riverbankcomputing.com/hg/sip
+6. http://pypi.python.org/pypi/PyQt
+7. http://ask.github.com/celery
+
+All goes tolerably until you tick in the url; at which point RhodeCode complains that::
+
+ Exception happened during processing of request from ('127.0.0.1', 35803)
+ Traceback (most recent call last):
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/httpserver.py", line 1068, in process_request_in_thread
+    self.finish_request(request, client_address)
+  File "/ufs/guravage/opt/Python-2.6.2/lib/python2.6/SocketServer.py", line 320, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/ufs/guravage/opt/Python-2.6.2/lib/python2.6/SocketServer.py", line 615, in __init__
+    self.handle()
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/httpserver.py", line 442, in handle
+    BaseHTTPRequestHandler.handle(self)
+  File "/ufs/guravage/opt/Python-2.6.2/lib/python2.6/BaseHTTPServer.py", line 329, in handle
+    self.handle_one_request()
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/httpserver.py", line 437, in handle_one_request
+    self.wsgi_execute()
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/httpserver.py", line 287, in wsgi_execute
+    self.wsgi_start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/cascade.py", line 130, in __call__
+    return self.apps[-1](environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Paste-1.7.5.1-py2.6.egg/paste/registry.py", line 379, in __call__
+    app_iter = self.application(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/RhodeCode-1.0.0rc1-py2.6.egg/rhodecode/lib/middleware/https_fixup.py", line 33, in __call__
+    return self.application(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Pylons-1.0-py2.6.egg/pylons/middleware.py", line 163, in __call__
+    self.app, new_environ, catch_exc_info=True)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Pylons-1.0-py2.6.egg/pylons/util.py", line 48, in call_wsgi_application
+    app_iter = application(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/WebError-0.10.2-py2.6.egg/weberror/errormiddleware.py", line 156, in __call__
+    return self.application(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/RhodeCode-1.0.0rc1-py2.6.egg/rhodecode/lib/middleware/simplehg.py", line 55, in __call__
+    return self.application(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Beaker-1.5.4-py2.6.egg/beaker/middleware.py", line 152, in __call__
+    return self.wrap_app(environ, session_start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Routes-1.12.3-py2.6.egg/routes/middleware.py", line 131, in __call__
+    response = self.app(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Pylons-1.0-py2.6.egg/pylons/wsgiapp.py", line 98, in __call__
+    self.setup_app_env(environ, start_response)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Pylons-1.0-py2.6.egg/pylons/wsgiapp.py", line 203, in setup_app_env
+    pylons_obj.translator = _get_translator(lang, pylons_config=self.config)
+  File "/ufs/guravage/.archive/mas/mr/rhodecode/lib/python2.6/site-packages/Pylons-1.0-py2.6.egg/pylons/i18n/translation.py", line 165, in _get_translator
+    raise LanguageError('IOError: %s' % ioe)
+ LanguageError: IOError: [Errno 2] No translation file found for domain: 'rhodecode'
+
+
+RE-INSTALL
+++++++++++
+
+ 1. easy_install mercurial
+ 2. mkdir src
+ 3. cd src
+ 4. hg clone http://www.riverbankcomputing.com/hg/sip
+ 5. cd sip
+ 6. python build.py prepare
+ 7. python configure.py
+ 8. make
+ 9. make install
+10. cd ..
+11. curl http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz
+12. tar xzf PyQt-x11-gpl-4.7.7
+13. cd PyQt-x11-gpl-4.7.7
+14. python configure.py
+15. make
+16. make install
+17. cd ..
+18. hg clone https://litsol@bitbucket.org/bfrog/cutehg
+19. cd cutehg
+20. python setup.py build
+21. python setup.py install
+22. cd ..
+21. easy_install rhodecode, http://pypi.python.org/pypi/RhodeCode/1.0.0rc2
+
+
+This procedure fails as before. 
+
+However, upon inspection I saw that the i18n directory was missing
+from my build but present in the rhodecode clone from bitbucket. While
+I think that the ``easy_install rhodecode`` invocation is necessary to
+install the various subsidiary packages, moving the cloned rhodecode
+into the site-packages directory seems to have made most functionality
+work. e.g. graphical logs and diff highlighting.
+
+
+
+Tuesday 12 October 2010
+-----------------------
+
+RhodeCode
++++++++++
+
+I think that if Chris can install RhodeCode, I can serve individual
+instance from my home directory.
+
+
+SED-ML L1V1RC1
+++++++++++++++
+
+Walking through the new SED-ML schema I see that they've dropped the
+generic simulation class and added AddXML and RemoveXML model change
+classes. Adding several more SED-ML examples for the symposium might
+still be justified - though they become obsolete the moment I
+introduce the new schema changes.
+
+
+
+
+
+
+
+
