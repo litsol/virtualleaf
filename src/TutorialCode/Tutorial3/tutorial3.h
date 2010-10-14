@@ -53,6 +53,9 @@ public:
 	virtual void SetCellColor(CellBase *c, QColor *color);	
 	// return number of chemicals
 	virtual int NChem(void);
+
+	// default LeafML file
+	virtual QString DefaultLeafML(void) { return QString("tutorial3_init.xml"); }
 };
 
 

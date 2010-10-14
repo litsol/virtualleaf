@@ -1,3 +1,7 @@
+2010-10-14    <guravage@caterpie.sen.cwi.nl>
+
+	* auxin_growth.xml: Changed export_fn_prefix to 'cell.'
+
 2010-10-08    <guravage@caterpie.sen.cwi.nl>
 
 	* auxin_growth.xml: Added export_interval and export_fn_prefix parameters.

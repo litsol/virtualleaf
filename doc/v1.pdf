@@ -301,10 +301,10 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 146.2729
- 315.3694
- 334.1129
- 327.3694 ]
+ /Rect [ 126.2729
+ 321.3694
+ 314.1129
+ 333.3694 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -316,10 +316,10 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 104.5829
- 207.3694
- 486.3829
- 219.3694 ]
+ /Rect [ 109.5929
+ 216.3694
+ 491.3929
+ 228.3694 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -332,9 +332,9 @@ endobj
  0
  0 ]
  /Rect [ 126.2729
- 102.3694
+ 111.3694
  302.0629
- 114.3694 ]
+ 123.3694 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -374,10 +374,10 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 225.5629
- 690.5936
- 435.1229
- 702.5936 ]
+ /Rect [ 193.5229
+ 696.5936
+ 403.0829
+ 708.5936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -413,7 +413,7 @@ endobj
 % 'R28': class PDFInfo 
 28 0 obj
 << /Author ()
- /CreationDate (D:20101013105235-01'00')
+ /CreationDate (D:20101013132920-01'00')
  /Keywords ()
  /Producer (ReportLab http://www.reportlab.com)
  /Subject (\(unspecified\))
@@ -697,7 +697,7 @@ endobj
  /Dest [ 26 0 R
  /XYZ
  62.69291
- 603.0236
+ 606.0236
  0 ]
  /First 53 0 R
  /Last 54 0 R
@@ -710,7 +710,7 @@ endobj
 << /Dest [ 26 0 R
  /XYZ
  62.69291
- 570.0236
+ 573.0236
  0 ]
  /Next 54 0 R
  /Parent 52 0 R
@@ -721,7 +721,7 @@ endobj
 << /Dest [ 26 0 R
  /XYZ
  62.69291
- 522.0236
+ 525.0236
  0 ]
  /Parent 52 0 R
  /Prev 53 0 R
@@ -1808,7 +1808,7 @@ endobj
 % 'R59': class PDFStream 
 59 0 obj
 % page stream
-<< /Length 13681 >>
+<< /Length 14133 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
@@ -1982,21 +1982,13 @@ BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (RE-INSTALL) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 371.7994 cm
+1 0 0 1 62.69291 377.7994 cm
 Q
 q
-1 0 0 1 62.69291 233.7994 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 0 2 Tm  T* ET
-q
-1 0 0 1 20 138 cm
+1 0 0 1 62.69291 377.7994 cm
 Q
 q
-1 0 0 1 20 138 cm
-Q
-q
-1 0 0 1 20 120 cm
+1 0 0 1 62.69291 359.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2017,13 +2009,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 120 cm
+1 0 0 1 62.69291 359.7994 cm
 Q
 q
-1 0 0 1 20 123 cm
+1 0 0 1 62.69291 362.7994 cm
 Q
 q
-1 0 0 1 20 105 cm
+1 0 0 1 62.69291 344.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2044,13 +2036,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 105 cm
+1 0 0 1 62.69291 344.7994 cm
 Q
 q
-1 0 0 1 20 108 cm
+1 0 0 1 62.69291 347.7994 cm
 Q
 q
-1 0 0 1 20 90 cm
+1 0 0 1 62.69291 329.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2071,13 +2063,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 90 cm
+1 0 0 1 62.69291 329.7994 cm
 Q
 q
-1 0 0 1 20 93 cm
+1 0 0 1 62.69291 332.7994 cm
 Q
 q
-1 0 0 1 20 75 cm
+1 0 0 1 62.69291 314.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2097,13 +2089,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 75 cm
+1 0 0 1 62.69291 314.7994 cm
 Q
 q
-1 0 0 1 20 78 cm
+1 0 0 1 62.69291 317.7994 cm
 Q
 q
-1 0 0 1 20 60 cm
+1 0 0 1 62.69291 299.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2124,13 +2116,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 60 cm
+1 0 0 1 62.69291 299.7994 cm
 Q
 q
-1 0 0 1 20 63 cm
+1 0 0 1 62.69291 302.7994 cm
 Q
 q
-1 0 0 1 20 45 cm
+1 0 0 1 62.69291 284.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2151,13 +2143,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 45 cm
+1 0 0 1 62.69291 284.7994 cm
 Q
 q
-1 0 0 1 20 48 cm
+1 0 0 1 62.69291 287.7994 cm
 Q
 q
-1 0 0 1 20 30 cm
+1 0 0 1 62.69291 269.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2178,13 +2170,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 30 cm
+1 0 0 1 62.69291 269.7994 cm
 Q
 q
-1 0 0 1 20 33 cm
+1 0 0 1 62.69291 272.7994 cm
 Q
 q
-1 0 0 1 20 15 cm
+1 0 0 1 62.69291 254.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2205,13 +2197,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 15 cm
+1 0 0 1 62.69291 254.7994 cm
 Q
 q
-1 0 0 1 20 18 cm
+1 0 0 1 62.69291 257.7994 cm
 Q
 q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 239.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2232,25 +2224,13 @@ q
 Q
 Q
 q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 239.7994 cm
 Q
 q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 242.7994 cm
 Q
 q
-Q
-Q
-q
-1 0 0 1 62.69291 233.7994 cm
-Q
-q
-1 0 0 1 62.69291 233.7994 cm
-Q
-q
-1 0 0 1 62.69291 233.7994 cm
-Q
-q
-1 0 0 1 62.69291 215.7994 cm
+1 0 0 1 62.69291 224.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2271,13 +2251,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 215.7994 cm
+1 0 0 1 62.69291 224.7994 cm
 Q
 q
-1 0 0 1 62.69291 218.7994 cm
+1 0 0 1 62.69291 227.7994 cm
 Q
 q
-1 0 0 1 62.69291 200.7994 cm
+1 0 0 1 62.69291 209.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2290,20 +2270,20 @@ Q
 q
 1 0 0 1 23 3 cm
 q
-BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (curl ) Tj 0 0 .501961 rg (http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz) Tj T* ET
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (wget ) Tj 0 0 .501961 rg (http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz) Tj T* ET
 Q
 Q
 q
 Q
 Q
 q
-1 0 0 1 62.69291 200.7994 cm
+1 0 0 1 62.69291 209.7994 cm
 Q
 q
-1 0 0 1 62.69291 203.7994 cm
+1 0 0 1 62.69291 212.7994 cm
 Q
 q
-1 0 0 1 62.69291 185.7994 cm
+1 0 0 1 62.69291 194.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2324,13 +2304,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 185.7994 cm
+1 0 0 1 62.69291 194.7994 cm
 Q
 q
-1 0 0 1 62.69291 188.7994 cm
+1 0 0 1 62.69291 197.7994 cm
 Q
 q
-1 0 0 1 62.69291 170.7994 cm
+1 0 0 1 62.69291 179.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2351,13 +2331,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 170.7994 cm
+1 0 0 1 62.69291 179.7994 cm
 Q
 q
-1 0 0 1 62.69291 173.7994 cm
+1 0 0 1 62.69291 182.7994 cm
 Q
 q
-1 0 0 1 62.69291 155.7994 cm
+1 0 0 1 62.69291 164.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2378,13 +2358,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 155.7994 cm
+1 0 0 1 62.69291 164.7994 cm
 Q
 q
-1 0 0 1 62.69291 158.7994 cm
+1 0 0 1 62.69291 167.7994 cm
 Q
 q
-1 0 0 1 62.69291 140.7994 cm
+1 0 0 1 62.69291 149.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2405,13 +2385,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 140.7994 cm
+1 0 0 1 62.69291 149.7994 cm
 Q
 q
-1 0 0 1 62.69291 143.7994 cm
+1 0 0 1 62.69291 152.7994 cm
 Q
 q
-1 0 0 1 62.69291 125.7994 cm
+1 0 0 1 62.69291 134.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2432,13 +2412,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 125.7994 cm
+1 0 0 1 62.69291 134.7994 cm
 Q
 q
-1 0 0 1 62.69291 128.7994 cm
+1 0 0 1 62.69291 137.7994 cm
 Q
 q
-1 0 0 1 62.69291 110.7994 cm
+1 0 0 1 62.69291 119.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2459,13 +2439,13 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 110.7994 cm
+1 0 0 1 62.69291 119.7994 cm
 Q
 q
-1 0 0 1 62.69291 113.7994 cm
+1 0 0 1 62.69291 122.7994 cm
 Q
 q
-1 0 0 1 62.69291 95.79938 cm
+1 0 0 1 62.69291 104.7994 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2485,10 +2465,37 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 95.79938 cm
+1 0 0 1 62.69291 104.7994 cm
 Q
 q
-1 0 0 1 62.69291 98.79938 cm
+1 0 0 1 62.69291 107.7994 cm
+Q
+q
+1 0 0 1 62.69291 89.79938 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL .1 0 Td (19.) Tj T* -0.1 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (cd cutehg) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 89.79938 cm
+Q
+q
+1 0 0 1 62.69291 92.79938 cm
 Q
 q
 1 0 0 1 56.69291 773.1969 cm
@@ -2510,38 +2517,11 @@ endobj
 % 'R60': class PDFStream 
 60 0 obj
 % page stream
-<< /Length 3379 >>
+<< /Length 3604 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
 1 0 0 1 62.69291 735.0236 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL .1 0 Td (19.) Tj T* -0.1 0 Td ET
-Q
-Q
-q
-1 0 0 1 23 3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (cd cutehg) Tj T* ET
-Q
-Q
-q
-Q
-Q
-q
-1 0 0 1 62.69291 735.0236 cm
-Q
-q
-1 0 0 1 62.69291 738.0236 cm
-Q
-q
-1 0 0 1 62.69291 720.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2562,13 +2542,13 @@ q
 Q
 Q
 q
+1 0 0 1 62.69291 735.0236 cm
+Q
+q
+1 0 0 1 62.69291 738.0236 cm
+Q
+q
 1 0 0 1 62.69291 720.0236 cm
-Q
-q
-1 0 0 1 62.69291 723.0236 cm
-Q
-q
-1 0 0 1 62.69291 705.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -2589,57 +2569,104 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 705.0236 cm
+1 0 0 1 62.69291 720.0236 cm
+Q
+q
+1 0 0 1 62.69291 723.0236 cm
 Q
 q
 1 0 0 1 62.69291 705.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL .1 0 Td (22.) Tj T* -0.1 0 Td ET
+Q
 Q
 q
-1 0 0 1 62.69291 687.0236 cm
+1 0 0 1 23 3 cm
 q
-BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (22. cd .. 21. easy_install rhodecode, ) Tj 0 0 .501961 rg (http://pypi.python.org/pypi/RhodeCode/1.0.0rc2) Tj T* ET
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (cd ..) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 669.0236 cm
+Q
+Q
+q
+1 0 0 1 62.69291 705.0236 cm
+Q
+q
+1 0 0 1 62.69291 708.0236 cm
+Q
+q
+1 0 0 1 62.69291 690.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL .1 0 Td (23.) Tj T* -0.1 0 Td ET
+Q
+Q
+q
+1 0 0 1 23 3 cm
+q
+BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (easy_install rhodecode, ) Tj 0 0 .501961 rg (http://pypi.python.org/pypi/RhodeCode/1.0.0rc2) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 690.0236 cm
+Q
+q
+1 0 0 1 62.69291 690.0236 cm
+Q
+q
+1 0 0 1 62.69291 672.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (This procedure fails as before.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 615.0236 cm
+1 0 0 1 62.69291 618.0236 cm
 q
 BT 1 0 0 1 0 40.82 Tm 1.747633 Tw 12 TL /F1 10 Tf 0 0 0 rg (However, upon inspection I saw that the i18n directory was missing from my build but present in the) Tj T* 0 Tw 3.201647 Tw (rhodecode clone from bitbucket. While I think that the ) Tj /F3 10 Tf (easy_install rhodecode ) Tj /F1 10 Tf (invocation is) Tj T* 0 Tw .23152 Tw (necessary to install the various subsidiary packages, moving the cloned rhodecode into the site-packages) Tj T* 0 Tw (directory seems to have made most functionality work. e.g. graphical logs and diff highlighting.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 582.0236 cm
+1 0 0 1 62.69291 585.0236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Tuesday 12 October 2010) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 552.0236 cm
+1 0 0 1 62.69291 555.0236 cm
 q
 BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (RhodeCode) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 534.0236 cm
+1 0 0 1 62.69291 537.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (I think that if Chris can install RhodeCode, I can serve individual instance from my home directory.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 504.0236 cm
+1 0 0 1 62.69291 507.0236 cm
 q
 BT 1 0 0 1 0 7.23 Tm 18 TL /F2 15 Tf 0 0 0 rg (SED-ML L1V1RC1) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 450.0236 cm
+1 0 0 1 62.69291 453.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 40.82 Tm /F1 10 Tf 12 TL 1.259318 Tw (Walking through the new SED-ML schema I see that they've dropped the generic simulation class and) Tj T* 0 Tw .36152 Tw (added AddXML and RemoveXML model change classes. Adding several more SED-ML examples for the) Tj T* 0 Tw .223735 Tw (symposium might still be justified - though they become obsolete the moment I introduce the new schema) Tj T* 0 Tw (changes.) Tj T* ET
@@ -2768,21 +2795,21 @@ xref
 0000021221 00000 n
 0000026126 00000 n
 0000032879 00000 n
-0000046662 00000 n
-0000050146 00000 n
-0000050291 00000 n
-0000050368 00000 n
-0000050445 00000 n
-0000050522 00000 n
-0000050599 00000 n
+0000047114 00000 n
+0000050823 00000 n
+0000050968 00000 n
+0000051045 00000 n
+0000051122 00000 n
+0000051199 00000 n
+0000051276 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\330\333`\005z4\302y^2~\371\223\241\231\341) (\330\333`\005z4\302y^2~\371\223\241\231\341)] 
+ [(\002\015b\216\002\016\216\222,\316k\030\021\317\316@) (\002\015b\216\002\016\216\222,\316k\030\021\317\316@)] 
 
  /Info 28 0 R
  /Root 27 0 R
  /Size 67 >>
 startxref
-50646
+51323
 %%EOF

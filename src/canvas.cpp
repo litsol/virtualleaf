@@ -90,6 +90,7 @@ using namespace std;
 // We use a global variable to save memory - all the brushes and pens in
 // the mesh are shared.
 
+#define FNAMESIZE 100
 #define QUOTE_ME(s) QUOTE_ME_2NDLEV(s)
 #define QUOTE_ME_2NDLEV(s) #s
 
@@ -480,7 +481,7 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
   file->insertItem("Read previous leaf", this, SLOT(readPrevStateXML()), Qt::Key_PageUp);
   file->insertItem("Read last leaf", this, SLOT(readLastStateXML()), Qt::Key_End);
   file->insertItem("Read first leaf", this, SLOT(readFirstStateXML()), Qt::Key_Home);
-  file->insertItem("Export cell areas", this, SLOT(exportCellData()));
+  file->insertItem("Export cell data", this, SLOT(exportCellData()));
 
   file->insertSeparator();
   file->insertItem("&Print...", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
@@ -1165,29 +1166,23 @@ void Main::print()
 void Main::TimeStepWrap(void)
 {
   static int t=0;
+  stringstream fname;
+
   TimeStep();
   t++;
 
   if ((par.export_interval > 0) && ((t % par.export_interval) == 0)){
-    this->exportCellData(QString(par.datadir) + QString('/') + QString(par.export_fn_prefix) + this->TimeStamp());
+    fname << par.datadir << "/" << par.export_fn_prefix;
+    fname.fill('0');
+    fname.width(6);
+    fname << t << ".csv";
+    this->exportCellData(QString(fname.str().c_str()));
   }
 
   // check number of timesteps
   if (t==par.nit) {
     emit SimulationDone();
   }
-}
-
-
-QString Main::TimeStamp(){
-  time_t rawtime;
-  struct tm * timeinfo;
-  char buffer [15];
-
-  time ( &rawtime );
-  timeinfo = localtime ( &rawtime );
-  strftime (buffer,15,"%Y%m%d%H%M%S",timeinfo);
-  return QString(buffer);
 }
 
 

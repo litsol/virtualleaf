@@ -55,6 +55,9 @@ public:
 	virtual int NChem(void);
 	
 	virtual double PINflux(CellBase *this_cell, CellBase *adjacent_cell, Wall *w); 
+
+	// default LeafML file
+	virtual QString DefaultLeafML(void) { return QString("tutorial5_init.xml"); }
 };
 
 

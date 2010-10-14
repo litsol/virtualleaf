@@ -283,17 +283,17 @@ All goes tolerably until you tick in the url; at which point RhodeCode complains
 RE-INSTALL
 ++++++++++
 
- 1. easy_install mercurial
- 2. mkdir src
- 3. cd src
- 4. hg clone http://www.riverbankcomputing.com/hg/sip
- 5. cd sip
- 6. python build.py prepare
- 7. python configure.py
- 8. make
- 9. make install
+1. easy_install mercurial
+2. mkdir src
+3. cd src
+4. hg clone http://www.riverbankcomputing.com/hg/sip
+5. cd sip
+6. python build.py prepare
+7. python configure.py
+8. make
+9. make install
 10. cd ..
-11. curl http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz
+11. wget http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz
 12. tar xzf PyQt-x11-gpl-4.7.7
 13. cd PyQt-x11-gpl-4.7.7
 14. python configure.py
@@ -305,7 +305,7 @@ RE-INSTALL
 20. python setup.py build
 21. python setup.py install
 22. cd ..
-21. easy_install rhodecode, http://pypi.python.org/pypi/RhodeCode/1.0.0rc2
+23. easy_install rhodecode, http://pypi.python.org/pypi/RhodeCode/1.0.0rc2
 
 
 This procedure fails as before. 
@@ -339,9 +339,14 @@ still be justified - though they become obsolete the moment I
 introduce the new schema changes.
 
 
+Wednesday 13 October 2010
+-------------------------
 
+Tweaked ``.bashrc`` and ``virtualenvwrapper.sh`` to facilitate
+virtualenv and virtualenvwrapper - many unbound variables!
 
+Pushed recent changes to repository from where Roeland can retrieve
+and test them.
 
-
-
+OK. RhodeCode RC4 works out of the box, excepting cutehg and PyQt4.
 

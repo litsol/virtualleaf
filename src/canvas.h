@@ -227,8 +227,6 @@ class Main : public Q3MainWindow, public MainBase {
 
   void RandomizeMesh();
 
-  QString TimeStamp();
-
  signals:
   void SimulationDone(void);
   void ParsChanged(void);

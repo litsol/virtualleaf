@@ -1,3 +1,7 @@
+2010-10-14    <guravage@caterpie.sen.cwi.nl>
+
+	* tutorial4.h (SimPluginInterface): Added default LeafML file.
+
 2010-06-25    <guravage@caterpie.sen.cwi.nl>
 
 	* tutorial4.pro: Added -Wno-write-strings and -Wno-unused-parameter to QMAKE_CXXFLAGS.

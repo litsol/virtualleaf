@@ -544,7 +544,6 @@ LanguageError: IOError: [Errno 2] No translation file found for domain: 'rhodeco
 </div>
 <div class="section" id="re-install">
 <h2>RE-INSTALL</h2>
-<blockquote>
 <ol class="arabic simple">
 <li>easy_install mercurial</li>
 <li>mkdir src</li>
@@ -555,14 +554,8 @@ LanguageError: IOError: [Errno 2] No translation file found for domain: 'rhodeco
 <li>python configure.py</li>
 <li>make</li>
 <li>make install</li>
-</ol>
-</blockquote>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">v1.rst</tt>, line 295)</p>
-Block quote ends without a blank line; unexpected unindent.</div>
-<ol class="arabic simple" start="10">
 <li>cd ..</li>
-<li>curl <a class="reference external" href="http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz">http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz</a></li>
+<li>wget <a class="reference external" href="http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz">http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz</a></li>
 <li>tar xzf PyQt-x11-gpl-4.7.7</li>
 <li>cd PyQt-x11-gpl-4.7.7</li>
 <li>python configure.py</li>
@@ -573,12 +566,9 @@ Block quote ends without a blank line; unexpected unindent.</div>
 <li>cd cutehg</li>
 <li>python setup.py build</li>
 <li>python setup.py install</li>
+<li>cd ..</li>
+<li>easy_install rhodecode, <a class="reference external" href="http://pypi.python.org/pypi/RhodeCode/1.0.0rc2">http://pypi.python.org/pypi/RhodeCode/1.0.0rc2</a></li>
 </ol>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">v1.rst</tt>, line 307)</p>
-Enumerated list ends without a blank line; unexpected unindent.</div>
-<p>22. cd ..
-21. easy_install rhodecode, <a class="reference external" href="http://pypi.python.org/pypi/RhodeCode/1.0.0rc2">http://pypi.python.org/pypi/RhodeCode/1.0.0rc2</a></p>
 <p>This procedure fails as before.</p>
 <p>However, upon inspection I saw that the i18n directory was missing
 from my build but present in the rhodecode clone from bitbucket. While
