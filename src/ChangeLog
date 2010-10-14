@@ -1,5 +1,13 @@
 2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
+	* VirtualLeaf.pro: Turned debug off to make all profiles must be
+	consistant.
+
+	* VirtualLeaf-install.nsi: Tweaked paths to coincide with UNIX
+	distribution, i.e. VirtualLeaf.exe, its libraries, models, and the
+	uninstaller all go in the bin directory. And leaves directory
+	placed under data directory.
+
 	* canvas.cpp (exportCellData): Added a check to inquire before
 	overwritting an existing file.
 
