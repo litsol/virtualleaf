@@ -1,3 +1,9 @@
+2010-10-14    <guravage@caterpie.sen.cwi.nl>
+
+	* canvas.cpp (exportCellData): Added a check to inquire before
+	overwritting an existing file.
+
+
 2010-10-14    <merks@cwi.nl>
 
 	* cell.cpp (DivideWalls): accomodated for rename of Circumference -> WallCircumference
@@ -6,11 +12,19 @@
 
 	* hull.cpp: added an operator< to sort Points
 
-	* cellbase.cpp (ExactCircumference): I added a new function ExactCircumference, yielding the circumference of the cell along its wall_elements
+	* cellbase.cpp (ExactCircumference): I added a new function
+	ExactCircumference, yielding the circumference of the cell along
+	its wall_elements
 
-	* VirtualLeaf.cpp: adjust info_string to accomodate for new name of function CellBase::Circumference -> CellBase::WallCircumference
-	* mesh.cpp: corrected Mesh::Compactness, the boundary coordinates need to be sorted in x,y order for the convex hull algorithm (thanks Margriet!). I updated CSVExportCellData so it exports the circumferences of hull and boundary_polygon.
-	
+	* VirtualLeaf.cpp: adjust info_string to accomodate for new name
+	of function CellBase::Circumference -> CellBase::WallCircumference
+
+	* mesh.cpp: corrected Mesh::Compactness, the boundary coordinates
+	need to be sorted in x,y order for the convex hull algorithm
+	(thanks Margriet!). I updated CSVExportCellData so it exports the
+	circumferences of hull and boundary_polygon.
+
+
 2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
 	* VirtualLeafpar.tmpl (export_fn_prefix): changed to 'cell.'
@@ -19,7 +33,7 @@
 	filename now incorporates iteration number.
 
 	* canvas.h (MainBase): Removed TimeStamp().
-	
+
 
 2010-10-08    <guravage@caterpie.sen.cwi.nl>
 

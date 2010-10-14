@@ -691,7 +691,7 @@ void Main::saveStateXML()
 			       this,
 			       tr("Overwrite File? -- Leaf Growth"),
 			       tr("A file called %1 already exists."
-				  "Do you want to overwrite it?")
+				  " Do you want to overwrite it?")
 			       .arg( fileName ),
 			       tr("&Yes"), tr("&No"),
 			       QString::null, 1, 1 ) ) {
@@ -724,7 +724,7 @@ void Main::snapshot()
 			       this,
 			       tr("Overwrite File? -- Leaf Growth"),
 			       tr("A file called %1 already exists."
-				  "Do you want to overwrite it?")
+				  " Do you want to overwrite it?")
 			       .arg( fileName ),
 			       tr("&Yes"), tr("&No"),
 			       QString::null, 1, 1 ) ) {
@@ -1403,8 +1403,18 @@ void Main::exportCellData() {
   fd->setMode( Q3FileDialog::AnyFile );
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
+    if ( QFile::exists( fileName ) &&
+	!QMessageBox::question(
+			       this,
+			       tr("Overwrite File? -- Cell Data"),
+			       tr("A file called %1 already exists."
+				  " Do you want to overwrite it?")
+			       .arg( fileName ),
+			       tr("&Yes"), tr("&No"),
+			       QString::null, 1, 1 ) ) {
+      this->exportCellData(fileName);
+    }
   }
-  this->exportCellData(fileName);
 }
 
 
