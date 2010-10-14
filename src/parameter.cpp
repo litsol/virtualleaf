@@ -53,6 +53,7 @@ Parameter::Parameter() {
   resize_stride = 0;
   T = 1.0;
   lambda_length = 100.;
+  yielding_threshold = 4.;
   lambda_celllength = 0.;
   target_length = 60.;
   cell_expansion_rate = 1.;
@@ -253,6 +254,7 @@ void Parameter::Read(const char *filename) {
   resize_stride = igetpar(fp, "resize_stride", 0, true);
   T = fgetpar(fp, "T", 1.0, true);
   lambda_length = fgetpar(fp, "lambda_length", 100., true);
+  yielding_threshold = fgetpar(fp, "yielding_threshold", 4., true);
   lambda_celllength = fgetpar(fp, "lambda_celllength", 0., true);
   target_length = fgetpar(fp, "target_length", 60., true);
   cell_expansion_rate = fgetpar(fp, "cell_expansion_rate", 1., true);
@@ -380,6 +382,7 @@ void Parameter::Write(ostream &os) const {
   os << " resize_stride = " << resize_stride << endl;
   os << " T = " << T << endl;
   os << " lambda_length = " << lambda_length << endl;
+  os << " yielding_threshold = " << yielding_threshold << endl;
   os << " lambda_celllength = " << lambda_celllength << endl;
   os << " target_length = " << target_length << endl;
   os << " cell_expansion_rate = " << cell_expansion_rate << endl;
@@ -572,6 +575,13 @@ xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
   xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "lambda_length" );
   ostringstream text;
     text << lambda_length;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "yielding_threshold" );
+  ostringstream text;
+    text << yielding_threshold;
 xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
 }
 {
@@ -1524,6 +1534,10 @@ if (!strcmp(namec, "T")) {
 if (!strcmp(namec, "lambda_length")) {
   lambda_length = standardlocale.toDouble(valc, &ok);
   if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'lambda_length' from XML file.",valc); }
+}
+if (!strcmp(namec, "yielding_threshold")) {
+  yielding_threshold = standardlocale.toDouble(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'yielding_threshold' from XML file.",valc); }
 }
 if (!strcmp(namec, "lambda_celllength")) {
   lambda_celllength = standardlocale.toDouble(valc, &ok);

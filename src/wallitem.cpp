@@ -86,7 +86,6 @@ void WallItem::setColor(void) {
 
 void WallItem::OnClick(QMouseEvent *e) {
 
-
   Wall *w=&getWall();
 #ifdef QDEBUG
   qDebug() << "Wall ID = " << w->Index() << ", this = " << w << endl;
@@ -95,10 +94,8 @@ void WallItem::OnClick(QMouseEvent *e) {
   qDebug() << "N1 = " << w->N1()->Index() << ", N2 = " << w->N2()->Index() << endl;
 #endif
   CellBase *c = wn==1?w->C1():w->C2();
-
-  TransporterDialog dialog(w, c, wn);
-  dialog.exec();
-
+  
+  
   if (e->button() == Qt::RightButton) {
     QString message;
     if (wn==1) {
@@ -111,22 +108,35 @@ void WallItem::OnClick(QMouseEvent *e) {
 
   } else {
     if (e->button() == Qt::LeftButton) {
-      if (c->BoundaryPolP()) {
-	w->cycleWallType();
-      } else {
-	if (e->modifiers() == Qt::ShiftModifier) {
-	  wn==1?w->setTransporters1(1,0):w->setTransporters2(1,0);					
+ 
+      if (e->modifiers() == Qt::ControlModifier) {
+	// let's consider wall type cycling an "easter egg". 
+	// Ctrl modifier key required 
 
+	if (c->BoundaryPolP()) {
+	  w->cycleWallType();
 	} else {
-	  // set high amount of PIN1
-	  //cerr << "Setting PIN1\n";
-	  wn==1?w->setTransporters1(1,10):w->setTransporters2(1,10);
+	  if (e->modifiers() == Qt::ShiftModifier) {
+	    wn==1?w->setTransporters1(1,0):w->setTransporters2(1,0);					
+
+	  } else {
+	    // set high amount of PIN1
+	    //cerr << "Setting PIN1\n";
+	    wn==1?w->setTransporters1(1,10):w->setTransporters2(1,10);
+	  }
 	}
+	setColor();
+      } else {
+	TransporterDialog dialog(w, c, wn);
+	dialog.exec();
       }
-      setColor();
-      update(boundingRect());
-    } 
+
+    }
+ 
   }
+  setColor();
+  update(boundingRect());
+
 }
 
-/* finis */
+  /* finis */

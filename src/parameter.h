@@ -55,6 +55,7 @@
   int resize_stride;
   double T;
   double lambda_length;
+  double yielding_threshold;
   double lambda_celllength;
   double target_length;
   double cell_expansion_rate;

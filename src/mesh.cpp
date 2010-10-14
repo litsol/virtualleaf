@@ -761,10 +761,10 @@ double Mesh::DisplaceNodes(void) {
 	  static int count=0;
 	  // Insertion of nodes (cell wall yielding)
 	  if (!node.fixed) {
-	    if (old_l1 > 4*Node::target_length && !cit->nb1->fixed) {
+	    if (old_l1 > par.yielding_threshold*Node::target_length && !cit->nb1->fixed) {
 	      node_insertion_queue.push( Edge(cit->nb1, &node) );
 	    }
-	    if (old_l2 > 4*Node::target_length && !cit->nb2->fixed) {
+	    if (old_l2 > par.yielding_threshold*Node::target_length && !cit->nb2->fixed) {
 	      node_insertion_queue.push( Edge(&node, cit->nb2 ) );
 	    }
 	    count++;

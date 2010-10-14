@@ -57,6 +57,7 @@ class ParameterDialog : public QDialog {
   QLineEdit *resize_stride_edit;
   QLineEdit *T_edit;
   QLineEdit *lambda_length_edit;
+  QLineEdit *yielding_threshold_edit;
   QLineEdit *lambda_celllength_edit;
   QLineEdit *target_length_edit;
   QLineEdit *cell_expansion_rate_edit;

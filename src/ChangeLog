@@ -1,5 +1,10 @@
 2010-10-14    <merks@cwi.nl>
 
+	* mesh.cpp: In response to referees' comments, added new parameter "yield_threshold" instead of fixed parameter '4' for yield threshold. 
+
+	* wallitem.cpp: when clicking a wall, both the wall type was cycled and the transporterdialog popped up. Corrected this - for wall type cycling, hold the Control button while left clicking. TransporterDialog only pops up for left click. Also made sure the wall is redrawn after changing the transporter values.
+	
+
 	* cell.cpp (DivideWalls): accomodated for rename of Circumference -> WallCircumference
 
 	* hull.h: added an operator< to sort Points
