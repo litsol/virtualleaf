@@ -120,7 +120,7 @@ public:
 		for (int i=0;i<Cell::NChem();i++) {
 			info_string += QString("%1 ").arg(c.Chemical(i));
 		}
-		info_string += QString("\nArea is %1\n Circumference is %2\n Boundary type is %3").arg(c.Area()).arg(c.Circumference()).arg(c.BoundaryStr());
+		info_string += QString("\nArea is %1\n Circumference is %2\n Boundary type is %3").arg(c.Area()).arg(c.WallCircumference()).arg(c.BoundaryStr());
 		
 	  info_string += "\nNodes: " + c.printednodelist();
 	  c.Draw(&canvas, info_string);

@@ -385,7 +385,7 @@ class Mesh {
   }
   QString ModelID(void) { return plugin?plugin->ModelID():QString("undefined"); }
   void StandardInit(void);	
-  double Compactness(double *res_compactness=0, double *res_area=0, double *res_cell_area=0);
+  double Compactness(double *res_compactness=0, double *res_area=0, double *res_cell_area=0, double *hull_circumference=0);
   void CSVExportCellData(QTextStream &csv_stream) const;
   void CSVExportMeshData(QTextStream &csv_stream);
   
