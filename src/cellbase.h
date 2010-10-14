@@ -175,7 +175,7 @@ class CellBase :  public QObject, public Vector
   double Length(Vector *long_axis = 0, double *width = 0) const;
   double CalcLength(Vector *long_axis = 0, double *width = 0) const;
 
-
+  double ExactCircumference(void) const;
   inline int Index(void) const { return index; }
 
 
@@ -203,7 +203,7 @@ class CellBase :  public QObject, public Vector
     flag_for_divide = true;
   }
 
-  inline double Circumference(void) const {
+  inline double WallCircumference(void) const {
     double sum=0.;
     for (list<Wall *>::const_iterator w=walls.begin();
 	 w!=walls.end();

@@ -24,6 +24,18 @@ isLeft( Point P0, Point P1, Point P2 )
 {
     return (P1.x - P0.x)*(P2.y - P0.y) - (P2.x - P0.x)*(P1.y - P0.y);
 }
+
+// required to sort points (e.g. Qt's qSort())
+bool operator<(const Point & p1, const Point & p2) {
+  if (p1.y<p2.y) return true;
+  else
+    if (p1.y>p2.y) return false;
+    else 
+      if (p1.x<p2.x) return true;
+      else
+	return false;
+}
+
 //===================================================================
  
 
