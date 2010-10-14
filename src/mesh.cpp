@@ -1970,29 +1970,42 @@ void Mesh::StandardInit(void) {
 
 #include "hull.h"
 
-double Mesh::Compactness(double *res_compactness, double *res_area, double *res_cell_area) {
+
+double Mesh::Compactness(double *res_compactness, double *res_area, double *res_cell_area, double *res_circumference) {
   
   // Calculate compactness using the convex hull of the cells
   // We use Andrew's Monotone Chain Algorithm (see hull.cpp)
 
   // Step 1. Prepare data for 2D hull code - get boundary polygon
   int pc=0;
-  Point *p=new Point[boundary_polygon->nodes.size()];
+  Point *p=new Point[boundary_polygon->nodes.size()+1];
   for (list<Node *>::const_iterator i = boundary_polygon->nodes.begin(); 
        i!=boundary_polygon->nodes.end(); i++) {
     p[pc++]=Point((*i)->x,(*i)->y);
   }
   
+  // chainHull algorithm requires sorted points
+  qSort( p, p+pc );
+
+ 
   // Step 2: call 2D Hull code
   int np=boundary_polygon->nodes.size();
-  Point *hull=new Point[np];
+  Point *hull=new Point[np+1];
   int nph=chainHull_2D(p,np,hull);
   
   
-  // Step 3: calculate area of convex hull
+  // Step 3: calculate area and circumference of convex hull
   double hull_area=0.;
+  double hull_circumference=0.;
+
   for (int i=0;i<nph-1;i++) {
     hull_area+=hull[i].x * hull[i+1].y - hull[i+1].x * hull[i].y;
+    double s_dx=(hull[i+1].x-hull[i].x);
+    double s_dy=(hull[i+1].y-hull[i].y);
+    double l=sqrt(s_dx*s_dx+s_dy*s_dy);
+    //    f << hull[i].x << " " << hull[i].y << " " << hull[i+1].x << " " << hull[i+1].y << " " << l << endl;
+    hull_circumference+=l;
+      
   }
   hull_area/=2.;
 
@@ -2020,7 +2033,10 @@ double Mesh::Compactness(double *res_compactness, double *res_area, double *res_
   if (res_cell_area) {
     *res_cell_area = boundary_pol_area;
   }
-
+  if (res_circumference) {
+    *res_circumference = hull_circumference;
+  }
+  
   // return compactness
   return boundary_pol_area/hull_area;
 
@@ -2054,11 +2070,12 @@ void Mesh::CSVExportCellData(QTextStream &csv_stream) const {
 
 void Mesh::CSVExportMeshData(QTextStream &csv_stream) { 
   
-  csv_stream << "\"Mesh area\",\"Number of cells\",\"Number of nodes\",\"Compactness\",\"Hull area\",\"Cell area\"" << endl;
+  csv_stream << "\"Morph area\",\"Number of cells\",\"Number of nodes\",\"Compactness\",\"Hull area\",\"Morph circumference\",\"Hull circumference\"" << endl;
   
-  double res_compactness, res_area, res_cell_area;
-  Compactness(&res_compactness, &res_area, &res_cell_area);
-  csv_stream << Area() << ", " << NCells() << ", " << NNodes() << ", " << res_compactness << ", " << res_area << ", " << res_cell_area  << endl;
+  double res_compactness, res_area, res_cell_area, hull_circumference;
+  Compactness(&res_compactness, &res_area, &res_cell_area, &hull_circumference);
+  double morph_circumference = boundary_polygon->ExactCircumference();
+  csv_stream << Area() << ", " << NCells() << ", " << NNodes() << ", " << res_compactness << ", " << res_area << ", " << morph_circumference << ", " << hull_circumference << endl;
   
 }
 /* finis */

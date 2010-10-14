@@ -626,4 +626,27 @@ QString CellBase::printednodelist(void)
   return info_string;
 }
 
+double CellBase::ExactCircumference(void) const
+{
+
+  // simply sum length of all edges
+  double circumference=0.;
+    
+  for (list<Node *>::const_iterator i=nodes.begin(); i!=(nodes.end()); i++) {
+
+    list<Node *>::const_iterator i_plus_1=i; i_plus_1++;
+    if (i_plus_1==nodes.end())
+      i_plus_1=nodes.begin();
+
+    double dx=((*i_plus_1)->x-(*i)->x);
+    double dy=((*i_plus_1)->y-(*i)->y);
+    double l=sqrt(dx*dx+dy*dy);
+    //    f << (*i)->x << " " << (*i)->y << " " << (*i_plus_1)->x << " " << (*i_plus_1)->y << " " << l << endl;
+
+    circumference += l;
+  }
+
+  return circumference;
+} 
+
 /* finis*/
