@@ -1,0 +1,8 @@
+2010-06-25    <guravage@caterpie.sen.cwi.nl>
+
+	* tutorial1A.pro: Added -Wno-write-strings and -Wno-unused-parameter to QMAKE_CXXFLAGS.
+
+2010-06-23    <guravage@caterpie.sen.cwi.nl>
+
+	* tutorial1A.pro: corrected windows library path.
+
