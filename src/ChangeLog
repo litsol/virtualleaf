@@ -11,7 +11,15 @@
 	* VirtualLeaf.cpp: adjust info_string to accomodate for new name of function CellBase::Circumference -> CellBase::WallCircumference
 	* mesh.cpp: corrected Mesh::Compactness, the boundary coordinates need to be sorted in x,y order for the convex hull algorithm (thanks Margriet!). I updated CSVExportCellData so it exports the circumferences of hull and boundary_polygon.
 	
+2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
+	* VirtualLeafpar.tmpl (export_fn_prefix): changed to 'cell.'
+
+	* canvas.cpp (TimeStepWrap): Removed TimeStamp(). Cell data
+	filename now incorporates iteration number.
+
+	* canvas.h (MainBase): Removed TimeStamp().
+	
 
 2010-10-08    <guravage@caterpie.sen.cwi.nl>
 
