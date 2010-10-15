@@ -117,8 +117,8 @@ RequestExecutionLevel user
 section "Virtual Leaf executable"
   #sectionIn RO
   # define the output path for the Virtual Leaf executable
-  setOutPath $INSTDIR
-  writeUninstaller $INSTDIR\uninstaller.exe
+  setOutPath $INSTDIR\bin
+  writeUninstaller $INSTDIR\bin\uninstaller.exe
   file ..\bin\VirtualLeaf.exe
 
   # Required DLLs
@@ -145,13 +145,13 @@ sectionEnd
  
 section "Virtual Leaf plugins"
   # define the output path for the Virtual Leaf models
-  setOutPath $INSTDIR\models
+  setOutPath $INSTDIR\bin\models
   file ..\bin\models\*
 sectionEnd
 
 section "Virtual Leaf data"
   # define the output path for the Virtual Leaf models
-  setOutPath $INSTDIR\leaves
+  setOutPath $INSTDIR\data\leaves
   file ..\data\leaves\*
 sectionEnd
 
