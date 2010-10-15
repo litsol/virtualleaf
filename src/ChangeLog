@@ -1,3 +1,14 @@
+2010-10-15    <guravage@caterpie.sen.cwi.nl>
+
+	* mesh.h (Mesh): Added iterations. incrementIterations() and
+	getIterations().
+
+	* VirtualLeaf.cpp (Plot): Replaced local frame counter with
+	mesh.incrementIterations().
+
+	* canvas.cpp (TimeStepWrap): Replaced local counter with
+	mesh.incrementIterations().
+
 2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
 	* VirtualLeaf.pro: Turned debug off to make all profiles must be
@@ -14,10 +25,15 @@
 
 2010-10-14    <merks@cwi.nl>
 
-	* mesh.cpp: In response to referees' comments, added new parameter "yield_threshold" instead of fixed parameter '4' for yield threshold. 
+	* mesh.cpp: In response to referees' comments, added new parameter
+	"yield_threshold" instead of fixed parameter '4' for yield
+	threshold.
 
-	* wallitem.cpp: when clicking a wall, both the wall type was cycled and the transporterdialog popped up. Corrected this - for wall type cycling, hold the Control button while left clicking. TransporterDialog only pops up for left click. Also made sure the wall is redrawn after changing the transporter values.
-	
+	* wallitem.cpp: when clicking a wall, both the wall type was
+	cycled and the transporterdialog popped up. Corrected this - for
+	wall type cycling, hold the Control button while left
+	clicking. TransporterDialog only pops up for left click. Also made
+	sure the wall is redrawn after changing the transporter values.
 
 	* cell.cpp (DivideWalls): accomodated for rename of Circumference -> WallCircumference
 

@@ -584,6 +584,7 @@ Main::Main(QGraphicsScene& c, Mesh &m, QWidget* parent, const char* name, Qt::Wi
 
   infobar = new InfoBar();
   addDockWindow(infobar);
+
 }
 
 void Main::RefreshInfoBar(void)
@@ -1165,13 +1166,16 @@ void Main::print()
 
 void Main::TimeStepWrap(void)
 {
-  static int t=0;
+  static int t;
   stringstream fname;
 
   TimeStep();
-  t++;
 
-  if ((par.export_interval > 0) && ((t % par.export_interval) == 0)){
+  //mesh.incrementIterations();
+  t = mesh.getIterations();
+  //t = (int)mesh.getTime();
+
+  if ((par.export_interval > 0) && !(t%par.export_interval)){
     fname << par.datadir << "/" << par.export_fn_prefix;
     fname.fill('0');
     fname.width(6);
@@ -1180,7 +1184,7 @@ void Main::TimeStepWrap(void)
   }
 
   // check number of timesteps
-  if (t==par.nit) {
+  if (t == par.nit) {
     emit SimulationDone();
   }
 }

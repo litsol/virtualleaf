@@ -136,7 +136,6 @@ class Main : public Q3MainWindow, public MainBase {
   void FitCanvasToWindow();
   void FitLeafToCanvas(void);
 
-
   public slots:
 
   void about();
