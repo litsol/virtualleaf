@@ -108,10 +108,13 @@ class MainBase  {
   Mesh &mesh;
   QTransform viewport;
 
+
  protected:
   QGraphicsScene &canvas;
   virtual xmlNode *XMLSettingsTree(void) const;
   virtual xmlNode *XMLViewportTree(QTransform &transform) const;
+
+
   
  protected:
   bool showcentersp;

@@ -556,7 +556,7 @@ LanguageError: IOError: [Errno 2] No translation file found for domain: 'rhodeco
 <li>make install</li>
 <li>cd ..</li>
 <li>wget <a class="reference external" href="http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz">http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz</a></li>
-<li>tar xzf PyQt-x11-gpl-4.7.7</li>
+<li>tar xzf PyQt-x11-gpl-4.7.7.tar.gz</li>
 <li>cd PyQt-x11-gpl-4.7.7</li>
 <li>python configure.py</li>
 <li>make</li>
@@ -592,6 +592,80 @@ generic simulation class and added AddXML and RemoveXML model change
 classes. Adding several more SED-ML examples for the symposium might
 still be justified - though they become obsolete the moment I
 introduce the new schema changes.</p>
+</div>
+</div>
+<div class="section" id="wednesday-13-october-2010">
+<h1>Wednesday 13 October 2010</h1>
+<p>Tweaked <tt class="docutils literal">.bashrc</tt> and <tt class="docutils literal">virtualenvwrapper.sh</tt> to facilitate
+virtualenv and virtualenvwrapper - many unbound variables!</p>
+<p>Pushed recent changes to repository from where Roeland can retrieve
+and test them.</p>
+<p>OK. RhodeCode RC4 works out of the box, excepting cutehg and PyQt4.</p>
+</div>
+<div class="section" id="friday-15-october-2010">
+<h1>Friday 15 October 2010</h1>
+<div class="section" id="id1">
+<h2>Rhodecode</h2>
+<p>Installing RhodeCode locally on the nhypnos is a real pain. In
+addition to the previous list of dependencies, for the caterpie, add
+these for the nhypnos:</p>
+<ol class="arabic simple">
+<li>Python</li>
+<li>Bison (for sip)</li>
+<li>Flex (for sip)</li>
+<li>m4 (for Bison)</li>
+<li>Qt (for PyQt)</li>
+<li>GLIBCXX_3.4.9 (for Qt) - I draw the line at (re)installing GCC!</li>
+</ol>
+<p>OK. Forget sip bison, flex, m4, Qt and the rest. Let's install just
+the minimum.</p>
+<p>First, install sqlite; we'll see in a minute that Python requires
+it. The sources are available at: <a class="reference external" href="http://www.sqlite.org/download.html">http://www.sqlite.org/download.html</a>.</p>
+<p>Second, install Python. My initial attempt complained it was missing
+the following bits and pieces:</p>
+<pre class="literal-block">
+Python build finished, but the necessary bits to build these modules were not found:
+_bsddb             _sqlite3           _ssl
+_tkinter           bsddb185           dl
+imageop            readline           sunaudiodev
+To find the necessary bits, look in setup.py in detect_modules() for the module's name.
+</pre>
+<p>So install sqlite first. And, since Python's configure script doesn't
+have an option for it, I had to tweak <tt class="docutils literal">setup.py</tt> to enumerate the
+path where it would find sqlite;</p>
+<p>Third, install RhodeCode. I first installed it using easy_install, but
+while the result worked, the changelog view did not display the
+branch/merge graphics. I then cloned the code from its bitbucket repository:</p>
+<pre class="literal-block">
+clone https://litsol&#64;bitbucket.org/marcinkuzminski/rhodecode
+</pre>
+<p>Replacing the egg installed by easy_install by this code does display
+the branch/merge graphics.</p>
+<p>Fourth, setup and serve rhodecode. Following the instructions posted
+online at: <a class="reference external" href="http://packages.python.org/RhodeCode/setup.html#setup">http://packages.python.org/RhodeCode/setup.html#setup</a> works as advertised:</p>
+<pre class="literal-block">
+paster make-config RhodeCode production.ini
+paster setup-app production.ini
+paster serve production.ini
+</pre>
+<p>All that's left is an apache rewrite rule directing
+virtualleaf.project.cwi.nl/repository to port 5000, or whaterver we
+change it to, on the nhypnos.</p>
+</div>
+<div class="section" id="id2">
+<h2>The Virtual Leaf</h2>
+<p>Added <tt class="docutils literal">incrementIterations()</tt>, <tt class="docutils literal">getIterations()</tt> and <tt class="docutils literal">int
+iterations</tt> to mesh.h. <tt class="docutils literal">incrementIterations()</tt> is called in TIMESTEP in
+VirtualLeaf.cpp. The actual counter, <tt class="docutils literal">iterations</tt> is initalized to
+zero in the Mesh class constructor.</p>
+<p>The iterations are inquired in two places: for the frame count in
+<tt class="docutils literal"><span class="pre">MainBase::Plot</span></tt> in <tt class="docutils literal">VirtualLeaf.cpp` and for the export cell data
+interval in <span class="pre">``Main::TimeStepWrap</span></tt> in <tt class="docutils literal">canvas.cpp</tt>.</p>
+<p>The questions remain: Should we use this count, and if yes, where
+should it be incremented? The previous count was incremented in
+<tt class="docutils literal"><span class="pre">Main::TimeStepWrap</span></tt>. Or should we simply use
+<tt class="docutils literal">(int)mesh.getTime()</tt>? Since this is not an ordinal count, the
+results look strange.</p>
 </div>
 </div>
 </div>

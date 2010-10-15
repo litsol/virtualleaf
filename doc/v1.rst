@@ -292,19 +292,19 @@ RE-INSTALL
 7. python configure.py
 8. make
 9. make install
-10. cd ..
+10. cd \.\.
 11. wget http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.7.tar.gz
-12. tar xzf PyQt-x11-gpl-4.7.7
+12. tar xzf PyQt-x11-gpl-4.7.7.tar.gz
 13. cd PyQt-x11-gpl-4.7.7
 14. python configure.py
 15. make
 16. make install
-17. cd ..
+17. cd \.\.
 18. hg clone https://litsol@bitbucket.org/bfrog/cutehg
 19. cd cutehg
 20. python setup.py build
 21. python setup.py install
-22. cd ..
+22. cd \.\.
 23. easy_install rhodecode, http://pypi.python.org/pypi/RhodeCode/1.0.0rc2
 
 
@@ -349,4 +349,82 @@ Pushed recent changes to repository from where Roeland can retrieve
 and test them.
 
 OK. RhodeCode RC4 works out of the box, excepting cutehg and PyQt4.
+
+
+
+Friday 15 October 2010
+----------------------
+
+Rhodecode
++++++++++
+
+Installing RhodeCode locally on the nhypnos is a real pain. In
+addition to the previous list of dependencies, for the caterpie, add
+these for the nhypnos:
+
+1. Python
+2. Bison (for sip)
+3. Flex (for sip)
+4. m4 (for Bison)
+5. Qt (for PyQt)
+6. GLIBCXX_3.4.9 (for Qt) - I draw the line at (re)installing GCC!
+
+OK. Forget sip bison, flex, m4, Qt and the rest. Let's install just
+the minimum.
+
+First, install sqlite; we'll see in a minute that Python requires
+it. The sources are available at: http://www.sqlite.org/download.html.
+
+Second, install Python. My initial attempt complained it was missing
+the following bits and pieces::
+
+ Python build finished, but the necessary bits to build these modules were not found:
+ _bsddb             _sqlite3           _ssl            
+ _tkinter           bsddb185           dl              
+ imageop            readline           sunaudiodev     
+ To find the necessary bits, look in setup.py in detect_modules() for the module's name.
+
+So install sqlite first. And, since Python's configure script doesn't
+have an option for it, I had to tweak ``setup.py`` to enumerate the
+path where it would find sqlite;
+
+Third, install RhodeCode. I first installed it using easy_install, but
+while the result worked, the changelog view did not display the
+branch/merge graphics. I then cloned the code from its bitbucket repository::
+
+ clone https://litsol@bitbucket.org/marcinkuzminski/rhodecode
+
+Replacing the egg installed by easy_install by this code does display
+the branch/merge graphics.
+
+Fourth, setup and serve rhodecode. Following the instructions posted
+online at: http://packages.python.org/RhodeCode/setup.html#setup works as advertised::
+
+ paster make-config RhodeCode production.ini
+ paster setup-app production.ini
+ paster serve production.ini
+
+All that's left is an apache rewrite rule directing
+virtualleaf.project.cwi.nl/repository to port 5000, or whaterver we
+change it to, on the nhypnos.
+
+
+The Virtual Leaf
+++++++++++++++++
+
+Added ``incrementIterations()``, ``getIterations()`` and ``int
+iterations`` to mesh.h. ``incrementIterations()`` is called in TIMESTEP in
+VirtualLeaf.cpp. The actual counter, ``iterations`` is initalized to
+zero in the Mesh class constructor.
+
+The iterations are inquired in two places: for the frame count in
+``MainBase::Plot`` in ``VirtualLeaf.cpp` and for the export cell data
+interval in ``Main::TimeStepWrap`` in ``canvas.cpp``.
+
+The questions remain: Should we use this count, and if yes, where
+should it be incremented? The previous count was incremented in
+``Main::TimeStepWrap``. Or should we simply use
+``(int)mesh.getTime()``? Since this is not an ordinal count, the
+results look strange.
+
 

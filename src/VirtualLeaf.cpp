@@ -180,7 +180,7 @@ void MainBase::Plot(int resize_stride)
 
   if ( ( batch || MovieFramesP() )) {
 
-    static int frame = 0;
+     static int frame = 0;
     // frame numbers are sequential for the most frequently written file type.
     // for the less frequently written file type they match the other type
     if (!(count%par.storage_stride) )  {
@@ -192,7 +192,8 @@ void MainBase::Plot(int resize_stride)
 
       fname << frame << ".jpg";
       if (par.storage_stride <= par.xml_storage_stride) {
-	frame++;
+	//frame = (int)mesh.getTime();
+	frame = mesh.getIterations();
       }
 
       // Write high-res JPG snapshot every plot step
@@ -207,7 +208,8 @@ void MainBase::Plot(int resize_stride)
       fname << frame << ".xml";
 
       if (par.xml_storage_stride < par.storage_stride) {
-	frame++;
+	//frame = (int)mesh.getTime();
+	frame = mesh.getIterations();
       }
       // Write XML file every ten plot steps
       mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
@@ -282,6 +284,7 @@ TIMESTEP {
     Plot(par.resize_stride);
   }
   i++;
+  mesh.incrementIterations(); // WHERE SHOULD THIS GO?!
   return mesh.getTime();
 }
 
