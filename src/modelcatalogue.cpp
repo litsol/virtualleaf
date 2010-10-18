@@ -180,8 +180,10 @@ void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
       }
      
 #endif
-       // for all OS-es. Move from "bin" directory to root application folder.
-      pluginDir.cdUp();
+      // for all OS-es. Move from "bin" directory to root application folder.
+      if (pluginDir.dirName() == "bin") {
+	pluginDir.cdUp();
+      }
       cerr << "pluginDir: " << pluginDir.dirName().toStdString().c_str() << endl;
       if (!pluginDir.cd("data/leaves")) {
 	MyWarning::warning("Directory 'data/leaves' not found! Cannot load LeafML file '%s'. Reverting to standard initial condition now...",plugin->DefaultLeafML().toStdString().c_str());
