@@ -29,6 +29,8 @@
 #include <string>
 
 #include <QLocale>
+#include <QDir>
+#include <QDebug>
 
 static const std::string _module_id("$Id$");
 
@@ -339,7 +341,10 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
     image->fill(QColor(Qt::white).rgb());
     QPainter *painter=new QPainter(image);
     canvas.render(painter);
-    if (!image->save(QString(fname))) {
+#ifdef QDEBUG
+    qDebug() << "Native Image Filename: " << QDir::toNativeSeparators(QString(fname)) << endl;
+#endif
+    if (!image->save(QDir::toNativeSeparators(QString(fname)), 0, -1)) {
       MyWarning::warning("Image not saved successfully. Is the disk full or the extension not recognized?");
     };
     delete painter;

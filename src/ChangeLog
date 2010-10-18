@@ -1,5 +1,11 @@
 2010-10-18    <guravage@caterpie.sen.cwi.nl>
 
+	* mainbase.cpp (Save): QDir::toNativeSeparators(fname). Invoke
+	save with format argument set to zero to force QImage to guess the
+	format by looking at fileName's suffix.
+
+	* VirtualLeaf-install.nsi: Put uninstaller in top directory.
+
 	* VirtualLeaf.pro: MAXOSX, look for gpl3.txt in the ../doc directory.
 
 	* Makefile (Makefile.libplugin): Removed -makefile qmake option.

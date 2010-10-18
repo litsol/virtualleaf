@@ -118,7 +118,7 @@ section "Virtual Leaf executable"
   #sectionIn RO
   # define the output path for the Virtual Leaf executable
   setOutPath $INSTDIR\bin
-  writeUninstaller $INSTDIR\bin\uninstaller.exe
+  writeUninstaller $INSTDIR\uninstaller.exe
   file ..\bin\VirtualLeaf.exe
 
   # Required DLLs
