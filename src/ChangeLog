@@ -1,3 +1,11 @@
+2010-10-18    <guravage@caterpie.sen.cwi.nl>
+
+	* VirtualLeaf.cpp (TIMESTEP): Removed getIterations().
+
+	* mesh.h (Mesh): Removed {increment,get}Iterations().
+
+	* canvas.cpp (TimeStepWrap): Replaced getIterations() with getTime().
+
 2010-10-15    <guravage@caterpie.sen.cwi.nl>
 
 	* mesh.h (Mesh): Added iterations. incrementIterations() and
