@@ -1,5 +1,7 @@
 2010-10-18    <guravage@caterpie.sen.cwi.nl>
 
+	* modelcatalogue.cpp (InstallModel): For all OS-es. Move from "bin" directory to root application folder.
+
 	* VirtualLeaf.pro: MAXOSX, look for gpl3.txt in the ../doc directory.
 
 	* Makefile (Makefile.libplugin): Removed -makefile qmake option.
