@@ -19,19 +19,19 @@ plugin_auxingrowth: Makefile.plugin_auxingrowth
 	$(MAKE) -f Makefile.plugin_auxingrowth
 
 Makefile.plugin_auxingrowth: plugin_auxingrowth.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 plugin_meinhardt: Makefile.plugin_meinhardt
 	$(MAKE) -f Makefile.plugin_meinhardt
 
 Makefile.plugin_meinhardt: plugin_meinhardt.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 plugin_test: Makefile.plugin_test
 	$(MAKE) -f Makefile.plugin_test
 
 Makefile.plugin_test: plugin_test.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 clean:
 	$(MAKE) -f Makefile.plugin_auxingrowth clean

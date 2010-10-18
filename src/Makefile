@@ -19,13 +19,13 @@ VirtualLeaf: Makefile.VirtualLeaf
 	$(MAKE) -f Makefile.VirtualLeaf
 
 Makefile.VirtualLeaf: VirtualLeaf.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 libplugin: Makefile.libplugin
 	$(MAKE) -f Makefile.libplugin
 
 Makefile.libplugin: libplugin.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 plugins:
 	$(MAKE) -C build_models -f Makefile
