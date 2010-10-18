@@ -1,3 +1,7 @@
+2010-10-18    <guravage@caterpie.sen.cwi.nl>
+
+	* Makefile (Makefile.plugin_test): Removed -makefile qmake option.
+
 2010-06-25    <guravage@caterpie.sen.cwi.nl>
 
 	* plugin_auxingrowth.pro: Added -Wno-write-strings and -Wno-unused-parameter to QMAKE_CXXFLAGS.

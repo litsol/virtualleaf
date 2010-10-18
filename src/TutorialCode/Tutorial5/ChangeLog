@@ -1,3 +1,7 @@
+2010-10-18    <guravage@caterpie.sen.cwi.nl>
+
+	* Makefile (Makefile.tutorial5): Removed -makefile qmake option.
+
 2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
 	* tutorial5.h (SimPluginInterface): Added default LeafML file.

@@ -19,7 +19,7 @@ tutorial4: Makefile.tutorial4
 	$(MAKE) -f Makefile.tutorial4
 
 Makefile.tutorial4: tutorial4.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 clean:
 	$(MAKE) -f Makefile.tutorial4 clean

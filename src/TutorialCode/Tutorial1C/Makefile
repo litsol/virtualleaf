@@ -19,7 +19,7 @@ tutorial1C: Makefile.tutorial1C
 	$(MAKE) -f Makefile.tutorial1C
 
 Makefile.tutorial1C: tutorial1C.pro
-	$(QMAKE) -makefile -o $@ $< 
+	$(QMAKE) -o $@ $< 
 
 clean:
 	$(MAKE) -f Makefile.tutorial1C clean
