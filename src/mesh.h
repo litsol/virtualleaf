@@ -83,7 +83,7 @@ class Mesh {
     time = 0.;
     plugin = 0;
     boundary_polygon=0;
-    iterations = 0;
+
   };
   ~Mesh(void) {
     if (boundary_polygon) {
@@ -391,10 +391,6 @@ class Mesh {
   void CSVExportMeshData(QTextStream &csv_stream);
   
   Node* findNextBoundaryNode(Node*);
-
-  int iterations;
-  int getIterations(){return this->iterations;}
-  void incrementIterations(){this->iterations++;}
 
  private:
 

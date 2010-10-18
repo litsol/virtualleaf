@@ -192,8 +192,7 @@ void MainBase::Plot(int resize_stride)
 
       fname << frame << ".jpg";
       if (par.storage_stride <= par.xml_storage_stride) {
-	//frame = (int)mesh.getTime();
-	frame = mesh.getIterations();
+	frame = (int)mesh.getTime();
       }
 
       // Write high-res JPG snapshot every plot step
@@ -208,8 +207,7 @@ void MainBase::Plot(int resize_stride)
       fname << frame << ".xml";
 
       if (par.xml_storage_stride < par.storage_stride) {
-	//frame = (int)mesh.getTime();
-	frame = mesh.getIterations();
+	frame = (int)mesh.getTime();
       }
       // Write XML file every ten plot steps
       mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
@@ -284,7 +282,6 @@ TIMESTEP {
     Plot(par.resize_stride);
   }
   i++;
-  mesh.incrementIterations(); // WHERE SHOULD THIS GO?!
   return mesh.getTime();
 }
 

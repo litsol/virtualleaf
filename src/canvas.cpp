@@ -1171,9 +1171,7 @@ void Main::TimeStepWrap(void)
 
   TimeStep();
 
-  //mesh.incrementIterations();
-  t = mesh.getIterations();
-  //t = (int)mesh.getTime();
+  t = (int)mesh.getTime();
 
   if ((par.export_interval > 0) && !(t%par.export_interval)){
     fname << par.datadir << "/" << par.export_fn_prefix;
