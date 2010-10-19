@@ -1,3 +1,10 @@
+2010-10-19    <guravage@caterpie.sen.cwi.nl>
+
+	* mainbase.cpp (Save): Use format specified in function prototype.
+
+	* VirtualLeaf.cpp (Plot): Render PNG instead of JPEG. Write image
+	and XML files dependent only on getTime().
+
 2010-10-18    <guravage@caterpie.sen.cwi.nl>
 
 	* mainbase.cpp (Save): QDir::toNativeSeparators(fname). Invoke

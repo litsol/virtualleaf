@@ -1,3 +1,7 @@
+2010-10-19    <guravage@caterpie.sen.cwi.nl>
+
+	* tutorial3_init.xml (public): Render PNG instead of JPEG.
+
 2010-10-18    <guravage@caterpie.sen.cwi.nl>
 
 	* Makefile (Makefile.tutorial3): Removed -makefile qmake option.

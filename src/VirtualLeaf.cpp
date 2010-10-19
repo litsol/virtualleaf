@@ -146,7 +146,8 @@ void MainBase::Plot(int resize_stride)
 
   clear();
 
-  static int count=0;
+  int count=(int)mesh.getTime();
+
   if (resize_stride) {
     if ( !((count)%resize_stride) ) {
       FitLeafToCanvas();
@@ -179,24 +180,14 @@ void MainBase::Plot(int resize_stride)
     mesh.DrawBoundary(&canvas);
 
   if ( ( batch || MovieFramesP() )) {
-
-     static int frame = 0;
-    // frame numbers are sequential for the most frequently written file type.
-    // for the less frequently written file type they match the other type
-    if (!(count%par.storage_stride) )  {
-
+    if (!(count%par.storage_stride) ) {
       stringstream fname;
       fname << par.datadir << "/leaf.";
       fname.fill('0');
       fname.width(6);
-
-      fname << frame << ".jpg";
-      if (par.storage_stride <= par.xml_storage_stride) {
-	frame = (int)mesh.getTime();
-      }
-
-      // Write high-res JPG snapshot every plot step
-      Save(fname.str().c_str(), "JPEG",1024,768);
+      fname << count << ".png";
+      // Write high-res PNG snapshot every plot step
+      Save(fname.str().c_str(), "PNG", 1024, 768);
     }
 
     if (!(count%par.xml_storage_stride)) {
@@ -204,18 +195,12 @@ void MainBase::Plot(int resize_stride)
       fname << par.datadir << "/leaf.";
       fname.fill('0');
       fname.width(6);
-      fname << frame << ".xml";
-
-      if (par.xml_storage_stride < par.storage_stride) {
-	frame = (int)mesh.getTime();
-      }
+      fname << count << ".xml";
       // Write XML file every ten plot steps
       mesh.XMLSave(fname.str().c_str(), XMLSettingsTree());
     }
   }
- count++;
 }
-
 
 
 INIT {
