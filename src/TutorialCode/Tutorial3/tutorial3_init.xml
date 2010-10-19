@@ -339,17 +339,17 @@ void MainBase::Plot(int resize_stride) {
 				frame++;
 			}
 			
-			// Write high-res JPG snapshot every plot step
+			// Write high-res PDF snapshot every plot step
 			Save(fname.str().c_str(), "PDF");
 			*/
 			
-			fname &lt;&lt; frame &lt;&lt; ".jpg";
+			fname &lt;&lt; frame &lt;&lt; ".png";
 			if (par.storage_stride &lt;= par.xml_storage_stride) {
 				frame++;
 			}
 			
-			// Write high-res JPG snapshot every plot step
-			Save(fname.str().c_str(), "JPEG",1024,768);
+			// Write high-res PNG snapshot every plot step
+			Save(fname.str().c_str(), "PNG",1024,768);
 			
 		}
 	

@@ -344,9 +344,9 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 #ifdef QDEBUG
     qDebug() << "Native Image Filename: " << QDir::toNativeSeparators(QString(fname)) << endl;
 #endif
-    if (!image->save(QDir::toNativeSeparators(QString(fname)), 0, -1)) {
+    if (!image->save(QDir::toNativeSeparators(QString(fname)), format)) {
       MyWarning::warning("Image not saved successfully. Is the disk full or the extension not recognized?");
-    };
+    }
     delete painter;
     delete image;
   } else {
@@ -355,7 +355,7 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
     pdf.setOutputFormat(QPrinter::PdfFormat);
     QPainter painter(&pdf);
     canvas.render(&painter, QRectF(), QRectF(-5000,-5000, 10000, 10000));
-
+    
     cerr << "Rendering to printer\n";
   }
 }
