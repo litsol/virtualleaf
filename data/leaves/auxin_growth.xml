@@ -104,7 +104,7 @@
     <par name="movie" val="true"/>
     <par name="nit" val="100000"/>
     <par name="maxt" val="1e+06"/>
-    <par name="storage_stride" val="10"/>
+    <par name="storage_stride" val="100"/>
     <par name="xml_storage_stride" val="500"/>
     <par name="rseed" val="-1"/>
     <par name="constituous_expansion_limit" val="16"/>

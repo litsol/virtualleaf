@@ -1,3 +1,7 @@
+2010-10-20    <guravage@caterpie.sen.cwi.nl>
+
+	* auxin_growth.xml: Increased storage_slide from 10 to 100.
+
 2010-10-14    <guravage@caterpie.sen.cwi.nl>
 
 	* auxin_growth.xml: Changed export_fn_prefix to 'cell.'
