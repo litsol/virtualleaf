@@ -55,6 +55,9 @@ class MeinhardtPlugin : public QObject, SimPluginInterface {
   virtual void SetCellColor(CellBase *c, QColor *color);	
   // return number of chemicals
   virtual int NChem(void) { return 4; }
+
+  // default XML file to be loaded on startup
+  virtual QString DefaultLeafML(void) { return QString("meinhardt_init.xml"); }
 };
 
 #endif
