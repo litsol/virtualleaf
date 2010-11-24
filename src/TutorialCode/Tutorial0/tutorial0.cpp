@@ -34,7 +34,7 @@ static const std::string _module_id("$Id$");
 
 QString Tutorial0::ModelID(void) {
   // specify the name of your model here
-  return QString( "My first model in VirtualLeaf" );
+  return QString( "0: Empty model template (does nothing)" );
 }
 
 // return the number of chemicals your model uses
