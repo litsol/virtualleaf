@@ -1381,6 +1381,9 @@ xmlNode *Main::XMLSettingsTree(void)
   return settings;
 }
 
+
+#define QDEBUG
+
 void Main::exportCellData(QString fileName) {
   
 #ifdef QDEBUG  
@@ -1406,7 +1409,7 @@ void Main::exportCellData() {
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
     if ( QFile::exists( fileName ) &&
-	!QMessageBox::question(
+	 !QMessageBox::question(
 			       this,
 			       tr("Overwrite File? -- Cell Data"),
 			       tr("A file called %1 already exists."
@@ -1414,7 +1417,9 @@ void Main::exportCellData() {
 			       .arg( fileName ),
 			       tr("&Yes"), tr("&No"),
 			       QString::null, 1, 1 ) ) {
-      this->exportCellData(fileName);
+      return exportCellData();
+    } else {
+      exportCellData(fileName);
     }
   }
 }
