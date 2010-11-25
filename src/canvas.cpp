@@ -45,7 +45,7 @@
 #include <QGraphicsItem>
 #include <QList>
 #include <QDir>
-
+#include <QFileInfo>
 #include <QDebug>
 
 #include <set>
@@ -71,7 +71,6 @@
 #include "wallitem.h"
 #include "mesh.h"
 #include "xmlwrite.h"
-#include "miscq.h"
 #include "OptionFileDialog.h"
 #include <cstdlib>
 #include <cstdio>
@@ -682,7 +681,7 @@ void Main::saveStateXML()
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
-  fd->setFilter( "XML (*.xml)");
+  fd->setFilter( "LeafML files (*.xml)");
   QString fileName;
 
   if ( fd->exec() == QDialog::Accepted ) {
@@ -715,29 +714,43 @@ void Main::snapshot()
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "Save snapshot", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
-
+  fd->setFilter( "Image files (*.pdf *.png *.jpg *.tif *.bpm)");
   QString fileName;
 
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
+    
+    // extract extension from filename
+    QFileInfo fi(fileName);
+    QString extension = fi.suffix();
+    
+    if (extension.isEmpty()) {
+      extension = "jpg";
+      fileName += ".";
+      fileName += extension;
+    }
+    
+    
     if ( QFile::exists( fileName ) &&
 	 QMessageBox::question(
 			       this,
-			       tr("Overwrite File? -- Leaf Growth"),
+			       tr("Overwrite file? -- Cell data export"),
 			       tr("A file called %1 already exists."
-				  " Do you want to overwrite it?")
-			       .arg( fileName ),
-			       tr("&Yes"), tr("&No"),
-			       QString::null, 1, 1 ) ) {
+				  " Do you want to overwrite it?").arg( fileName ),
+			       QMessageBox::Yes, QMessageBox::No 
+			       ) == QMessageBox::No
+	 ) {
+      
       return snapshot();
-
+      
     } else {
-
-      // extract extension from filename
-      QString extension = getExtension(fileName);
 
       // Save bitmaps at 1024x768
       Save((const char *)fileName, extension, 1024, 768);
+      QString status_message = QString("Wrote snapshot to %1").arg(fileName);
+      cerr << status_message.toStdString() << endl;
+      statusBar()->showMessage(status_message);
+
     }
   }
 }
@@ -908,7 +921,7 @@ void Main::readStateXML()
 #endif
   OptionFileDialog *fd = new OptionFileDialog( this, "read dialog", TRUE );
   fd->setMode( OptionFileDialog::ExistingFile );
-  fd->setFilter( "XML files (*.xml)");
+  fd->setFilter( "LeafML files (*.xml)");
   if (working_dir) {
     fd->setDir(*working_dir);
   }
@@ -1408,21 +1421,51 @@ void Main::exportCellData() {
   fd->setMode( Q3FileDialog::AnyFile );
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
+
+    // extract extension from filename
+    QFileInfo fi(fileName);
+    QString extension = fi.suffix();
+    
+    if (extension.isEmpty()) {
+      extension = "csv";
+      fileName += ".";
+      fileName += extension;
+    }
+
+    if (extension!="csv" && extension!="CSV") {
+      
+      if (
+	  QMessageBox::question(
+				 this,
+				 tr("Change extension? -- Cell data export"),
+				 tr("VirtualLeaf can only export data to CSV format (Excel-compatible)."
+				    "Do you want to change the file extension to \".csv\"?"),
+				 QMessageBox::Yes, QMessageBox::No ) == QMessageBox::No 
+	  ) {
+
+	return exportCellData();
+      } else {
+	fileName.replace(extension,"csv");
+	extension="csv";
+      }
+    }
     if ( QFile::exists( fileName ) &&
-	 !QMessageBox::question(
+	 QMessageBox::question(
 			       this,
-			       tr("Overwrite File? -- Cell Data"),
+			       tr("Overwrite file? -- Cell data export"),
 			       tr("A file called %1 already exists."
-				  " Do you want to overwrite it?")
-			       .arg( fileName ),
-			       tr("&Yes"), tr("&No"),
-			       QString::null, 1, 1 ) ) {
+				  " Do you want to overwrite it?").arg( fileName ),
+			       QMessageBox::Yes, QMessageBox::No 
+			       ) == QMessageBox::No
+	 ) {
       return exportCellData();
     } else {
       exportCellData(fileName);
+      QString status_message = QString("Wrote data file to %1").arg(fileName);
+      statusBar()->showMessage(status_message);
     }
   }
 }
 
 
-/* finis */
+  /* finis */
