@@ -832,7 +832,8 @@ void Mesh::XMLSave(const char *docname, xmlNode *options) const
   /* 
    * Dumping document to stdio or file
    */
-  xmlSetDocCompressMode(doc,9);
+  // Transparent compression seems not to work on Windows. So write uncompressed XML to ensure compatibility of LeafML files.
+  xmlSetDocCompressMode(doc,0);
   xmlSaveFormatFileEnc(docname, doc, "UTF-8", 1);
 
   /*free the document */
