@@ -53,6 +53,11 @@
   double outlinewidth;
   char * cell_outline_color;
   int resize_stride;
+  int export_interval;
+  char * export_fn_prefix;
+  int storage_stride;
+  int xml_storage_stride;
+  char * datadir;
   double T;
   double lambda_length;
   double yielding_threshold;
@@ -107,12 +112,9 @@
   double k2van3;
   double dt;
   double rd_dt;
-  char * datadir;
   bool movie;
   int nit;
   double maxt;
-  int storage_stride;
-  int xml_storage_stride;
   int rseed;
   int constituous_expansion_limit;
   double vessel_inh_level;
@@ -143,8 +145,6 @@
   bool b4;
   char * dir1;
   char * dir2;
-  int export_interval;
-  char * export_fn_prefix;
  private:
  };
 

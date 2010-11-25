@@ -388,6 +388,7 @@ class Mesh {
   void StandardInit(void);	
   double Compactness(double *res_compactness=0, double *res_area=0, double *res_cell_area=0, double *hull_circumference=0);
   void CSVExportCellData(QTextStream &csv_stream) const;
+  void CSVExportWallData(QTextStream &csv_stream) const;
   void CSVExportMeshData(QTextStream &csv_stream);
   
   Node* findNextBoundaryNode(Node*);

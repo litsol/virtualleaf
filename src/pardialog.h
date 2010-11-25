@@ -55,6 +55,11 @@ class ParameterDialog : public QDialog {
   QLineEdit *outlinewidth_edit;
   QLineEdit *cell_outline_color_edit;
   QLineEdit *resize_stride_edit;
+  QLineEdit *export_interval_edit;
+  QLineEdit *export_fn_prefix_edit;
+  QLineEdit *storage_stride_edit;
+  QLineEdit *xml_storage_stride_edit;
+  QLineEdit *datadir_edit;
   QLineEdit *T_edit;
   QLineEdit *lambda_length_edit;
   QLineEdit *yielding_threshold_edit;
@@ -109,12 +114,9 @@ class ParameterDialog : public QDialog {
   QLineEdit *k2van3_edit;
   QLineEdit *dt_edit;
   QLineEdit *rd_dt_edit;
-  QLineEdit *datadir_edit;
   QLineEdit *movie_edit;
   QLineEdit *nit_edit;
   QLineEdit *maxt_edit;
-  QLineEdit *storage_stride_edit;
-  QLineEdit *xml_storage_stride_edit;
   QLineEdit *rseed_edit;
   QLineEdit *constituous_expansion_limit_edit;
   QLineEdit *vessel_inh_level_edit;
@@ -145,7 +147,5 @@ class ParameterDialog : public QDialog {
   QLineEdit *b4_edit;
   QLineEdit *dir1_edit;
   QLineEdit *dir2_edit;
-  QLineEdit *export_interval_edit;
-  QLineEdit *export_fn_prefix_edit;
 };
 #endif

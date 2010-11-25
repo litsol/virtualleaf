@@ -645,6 +645,7 @@ void Main::savePars()
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
   fd->setFilter( "Parameter files (*.par)");
+  fd->setDir(par.datadir);
 
   QString fileName;
   if ( fd->exec() == QDialog::Accepted ) {
@@ -664,6 +665,7 @@ void Main::readPars()
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
   fd->setMode( Q3FileDialog::ExistingFile );
   fd->setFilter( "Parameter files (*.par)");
+  fd->setDir(par.datadir);
 
   QString fileName;
   if ( fd->exec() == QDialog::Accepted ) {
@@ -682,6 +684,7 @@ void Main::saveStateXML()
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
   fd->setMode( Q3FileDialog::AnyFile );
   fd->setFilter( "LeafML files (*.xml)");
+  fd->setDir(par.datadir);
   QString fileName;
 
   if ( fd->exec() == QDialog::Accepted ) {
@@ -713,6 +716,7 @@ void Main::snapshot()
 
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "Save snapshot", TRUE );
+  fd->setDir(par.datadir);
   fd->setMode( Q3FileDialog::AnyFile );
   fd->setFilter( "Image files (*.pdf *.png *.jpg *.tif *.bpm)");
   QString fileName;
@@ -910,6 +914,43 @@ void Main::readFirstStateXML()
   }
 }
 
+QDir Main::GetLeafDir(void) {
+   
+  QDir LeafDir(QApplication::applicationDirPath()); 
+  QStringList plugin_filters; // filter for plugins, i.e "*.dll", "*.dylib"
+  
+  
+#if defined(Q_OS_WIN) 
+  if (LeafDir.dirName().toLower() =="debug" 
+      ||LeafDir.dirName().toLower() =="release") 
+    LeafDir.cdUp(); 
+  //plugin_filters << "*.dll";
+#elif defined(Q_OS_MAC) 
+  if (LeafDir.dirName() =="MacOS"){ 
+    LeafDir.cdUp(); 
+    LeafDir.cdUp(); 
+    LeafDir.cdUp(); 
+  }
+  
+#endif
+  // for all OS-es. Move from "bin" directory to root application folder.
+  if (LeafDir.dirName() == "bin") {
+    LeafDir.cdUp();
+  }
+
+  LeafDir.cd("data/leaves");
+  /* if (!LeafDir.cd("data/leaves")) {
+    QString status_message = QString("No directory data/leaves");
+    statusBar()->showMessage(status_message);
+    
+    return LeafDir;
+  } 
+  */
+  return LeafDir;
+      
+}
+ 
+
 void Main::readStateXML()
 {
 
@@ -924,6 +965,8 @@ void Main::readStateXML()
   fd->setFilter( "LeafML files (*.xml)");
   if (working_dir) {
     fd->setDir(*working_dir);
+  } else {
+    fd->setDir(par.datadir);
   }
   QString fileName;
   if ( fd->exec() == QDialog::Accepted ) {
@@ -1395,8 +1438,6 @@ xmlNode *Main::XMLSettingsTree(void)
 }
 
 
-#define QDEBUG
-
 void Main::exportCellData(QString fileName) {
   
 #ifdef QDEBUG  
@@ -1407,6 +1448,7 @@ void Main::exportCellData(QString fileName) {
   if ( file.open( IO_WriteOnly ) ) {
     QTextStream stream( &file );
     mesh.CSVExportCellData(stream);
+    mesh.CSVExportWallData(stream);
     mesh.CSVExportMeshData(stream);
     file.close();
   }
@@ -1416,7 +1458,7 @@ void Main::exportCellData(QString fileName) {
 void Main::exportCellData() {
   QString fileName;
   Q3FileDialog *fd = new Q3FileDialog( this, "file dialog", TRUE );
-
+  fd->setDir(par.datadir); 
   stopSimulation();
   fd->setMode( Q3FileDialog::AnyFile );
   if ( fd->exec() == QDialog::Accepted ) {

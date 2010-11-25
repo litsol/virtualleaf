@@ -30,6 +30,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QList>
+#include <QDir>
 
 #include <string>
 #include <sstream>
@@ -162,7 +163,8 @@ class Main : public Q3MainWindow, public MainBase {
   void startSimulation(void);
   void stopSimulation(void);
   void RefreshInfoBar(void);
-
+  int readStateXML(const char *filename, bool geometry = true, bool pars=true, bool simtime = true);
+  
   void EnterRotationMode(void)
   {
 
@@ -199,8 +201,8 @@ class Main : public Q3MainWindow, public MainBase {
   void aboutQt();
   void newView();
   void EditParameters();
+  QDir GetLeafDir(void);
   void readStateXML();
-  int readStateXML(const char *filename, bool geometry = true, bool pars=true, bool simtime = true);
   void readNextStateXML();
   void readPrevStateXML();
   void readFirstStateXML();

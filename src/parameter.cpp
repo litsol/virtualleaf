@@ -51,6 +51,12 @@ Parameter::Parameter() {
   outlinewidth = 1.0;
   cell_outline_color = strdup("forestgreen");
   resize_stride = 0;
+  export_interval = 0;
+  export_fn_prefix = strdup("cell.");
+  storage_stride = 10;
+  xml_storage_stride = 500;
+  datadir = strdup(".");
+  datadir = AppendHomeDirIfPathRelative(datadir);
   T = 1.0;
   lambda_length = 100.;
   yielding_threshold = 4.;
@@ -135,13 +141,9 @@ Parameter::Parameter() {
   k2van3 = 0.3;
   dt = 0.1;
   rd_dt = 1.0;
-  datadir = strdup(".");
-  datadir = AppendHomeDirIfPathRelative(datadir);
   movie = false;
   nit = 100000;
   maxt = 1000.;
-  storage_stride = 10;
-  xml_storage_stride = 500;
   rseed = -1;
   constituous_expansion_limit = 16;
   vessel_inh_level = 1;
@@ -187,8 +189,6 @@ Parameter::Parameter() {
   b4 = false;
   dir1 = strdup(".");
   dir2 = strdup(".");
-  export_interval = 0;
-  export_fn_prefix = strdup("cell.");
 }
 
 Parameter::~Parameter() {
@@ -205,12 +205,14 @@ void Parameter::CleanUp(void) {
      free(textcolor);
   if (cell_outline_color) 
      free(cell_outline_color);
+  if (export_fn_prefix) 
+     free(export_fn_prefix);
+  if (datadir) 
+     free(datadir);
   if (D) 
      free(D);
   if (initval) 
      free(initval);
-  if (datadir) 
-     free(datadir);
   if (k) 
      free(k);
   if (s1) 
@@ -223,8 +225,6 @@ void Parameter::CleanUp(void) {
      free(dir1);
   if (dir2) 
      free(dir2);
-  if (export_fn_prefix) 
-     free(export_fn_prefix);
 
 }
 
@@ -252,6 +252,14 @@ void Parameter::Read(const char *filename) {
   outlinewidth = fgetpar(fp, "outlinewidth", 1.0, true);
   cell_outline_color = sgetpar(fp, "cell_outline_color", "forestgreen", true);
   resize_stride = igetpar(fp, "resize_stride", 0, true);
+  export_interval = igetpar(fp, "export_interval", 0, true);
+  export_fn_prefix = sgetpar(fp, "export_fn_prefix", "cell.", true);
+  storage_stride = igetpar(fp, "storage_stride", 10, true);
+  xml_storage_stride = igetpar(fp, "xml_storage_stride", 500, true);
+  datadir = sgetpar(fp, "datadir", ".", true);
+  datadir = AppendHomeDirIfPathRelative(datadir);
+  if (strcmp(datadir, "."))
+    MakeDir(datadir);
   T = fgetpar(fp, "T", 1.0, true);
   lambda_length = fgetpar(fp, "lambda_length", 100., true);
   yielding_threshold = fgetpar(fp, "yielding_threshold", 4., true);
@@ -306,15 +314,9 @@ void Parameter::Read(const char *filename) {
   k2van3 = fgetpar(fp, "k2van3", 0.3, true);
   dt = fgetpar(fp, "dt", 0.1, true);
   rd_dt = fgetpar(fp, "rd_dt", 1.0, true);
-  datadir = sgetpar(fp, "datadir", ".", true);
-  datadir = AppendHomeDirIfPathRelative(datadir);
-  if (strcmp(datadir, "."))
-    MakeDir(datadir);
   movie = bgetpar(fp, "movie", false, true);
   nit = igetpar(fp, "nit", 100000, true);
   maxt = fgetpar(fp, "maxt", 1000., true);
-  storage_stride = igetpar(fp, "storage_stride", 10, true);
-  xml_storage_stride = igetpar(fp, "xml_storage_stride", 500, true);
   rseed = igetpar(fp, "rseed", -1, true);
   constituous_expansion_limit = igetpar(fp, "constituous_expansion_limit", 16, true);
   vessel_inh_level = fgetpar(fp, "vessel_inh_level", 1, true);
@@ -349,8 +351,6 @@ void Parameter::Read(const char *filename) {
   dir2 = sgetpar(fp, "dir2", ".", true);
   if (strcmp(dir2, "."))
     MakeDir(dir2);
-  export_interval = igetpar(fp, "export_interval", 0, true);
-  export_fn_prefix = sgetpar(fp, "export_fn_prefix", "cell.", true);
 }
 
 const char *sbool(const bool &p) {
@@ -380,6 +380,19 @@ void Parameter::Write(ostream &os) const {
   if (cell_outline_color) 
   os << " cell_outline_color = " << cell_outline_color << endl;
   os << " resize_stride = " << resize_stride << endl;
+  os << " export_interval = " << export_interval << endl;
+
+  if (export_fn_prefix) 
+  os << " export_fn_prefix = " << export_fn_prefix << endl;
+  os << " storage_stride = " << storage_stride << endl;
+  os << " xml_storage_stride = " << xml_storage_stride << endl;
+  if (datadir) {
+                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
+                                     os << " datadir = " << dataDir.dirName().toStdString() << endl;
+                                 }
+                                 else {
+                                     os << "datadir = ." << endl;
+                                 }
   os << " T = " << T << endl;
   os << " lambda_length = " << lambda_length << endl;
   os << " yielding_threshold = " << yielding_threshold << endl;
@@ -434,18 +447,9 @@ void Parameter::Write(ostream &os) const {
   os << " k2van3 = " << k2van3 << endl;
   os << " dt = " << dt << endl;
   os << " rd_dt = " << rd_dt << endl;
-  if (datadir) {
-                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
-                                     os << " datadir = " << dataDir.dirName().toStdString() << endl;
-                                 }
-                                 else {
-                                     os << "datadir = ." << endl;
-                                 }
   os << " movie = " << sbool(movie) << endl;
   os << " nit = " << nit << endl;
   os << " maxt = " << maxt << endl;
-  os << " storage_stride = " << storage_stride << endl;
-  os << " xml_storage_stride = " << xml_storage_stride << endl;
   os << " rseed = " << rseed << endl;
   os << " constituous_expansion_limit = " << constituous_expansion_limit << endl;
   os << " vessel_inh_level = " << vessel_inh_level << endl;
@@ -486,10 +490,6 @@ void Parameter::Write(ostream &os) const {
 
   if (dir2) 
   os << " dir2 = " << dir2 << endl;
-  os << " export_interval = " << export_interval << endl;
-
-  if (export_fn_prefix) 
-  os << " export_fn_prefix = " << export_fn_prefix << endl;
 }
 
 void Parameter::XMLAdd(xmlNode *root) const {
@@ -561,6 +561,47 @@ xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
   xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "resize_stride" );
   ostringstream text;
     text << resize_stride;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_interval" );
+  ostringstream text;
+    text << export_interval;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_fn_prefix" );
+  ostringstream text;
+
+  if (export_fn_prefix) 
+    text << export_fn_prefix;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "storage_stride" );
+  ostringstream text;
+    text << storage_stride;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "xml_storage_stride" );
+  ostringstream text;
+    text << xml_storage_stride;
+xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
+}
+{
+  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
+  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "datadir" );
+  ostringstream text;
+
+  if (datadir) {
+                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
+                                     text << dataDir.dirName().toStdString();
+                                   }
 xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
 }
 {
@@ -1119,17 +1160,6 @@ xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
 }
 {
   xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "datadir" );
-  ostringstream text;
-
-  if (datadir) {
-                                     QDir dataDir = QDir::home().relativeFilePath(datadir);
-                                     text << dataDir.dirName().toStdString();
-                                   }
-xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-}
-{
-  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
   xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "movie" );
   ostringstream text;
 text << sbool(movie);
@@ -1147,20 +1177,6 @@ xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
   xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "maxt" );
   ostringstream text;
     text << maxt;
-xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-}
-{
-  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "storage_stride" );
-  ostringstream text;
-    text << storage_stride;
-xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-}
-{
-  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "xml_storage_stride" );
-  ostringstream text;
-    text << xml_storage_stride;
 xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
 }
 {
@@ -1471,22 +1487,6 @@ xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
     text << dir2;
 xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
 }
-{
-  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_interval" );
-  ostringstream text;
-    text << export_interval;
-xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-}
-{
-  xmlNode *xmlpar = xmlNewChild(xmlparameter, NULL, BAD_CAST "par", NULL);
-  xmlNewProp(xmlpar, BAD_CAST "name", BAD_CAST "export_fn_prefix" );
-  ostringstream text;
-
-  if (export_fn_prefix) 
-    text << export_fn_prefix;
-xmlNewProp(xmlpar, BAD_CAST "val", BAD_CAST text.str().c_str());
-}
 }
 void Parameter::AssignValToPar(const char *namec, const char *valc) {
   QLocale standardlocale(QLocale::C);
@@ -1526,6 +1526,27 @@ if (!strcmp(namec, "cell_outline_color")) {
 if (!strcmp(namec, "resize_stride")) {
   resize_stride = standardlocale.toInt(valc, &ok);
   if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'resize_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "export_interval")) {
+  export_interval = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'export_interval' from XML file.",valc); }
+}
+if (!strcmp(namec, "export_fn_prefix")) {
+  if (export_fn_prefix) { free(export_fn_prefix); }
+  export_fn_prefix=strdup(valc);
+}
+if (!strcmp(namec, "storage_stride")) {
+  storage_stride = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'storage_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "xml_storage_stride")) {
+  xml_storage_stride = standardlocale.toInt(valc, &ok);
+  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'xml_storage_stride' from XML file.",valc); }
+}
+if (!strcmp(namec, "datadir")) {
+  if (datadir) { free(datadir); }
+  datadir=strdup(valc);
+  datadir = AppendHomeDirIfPathRelative(datadir);
 }
 if (!strcmp(namec, "T")) {
   T = standardlocale.toDouble(valc, &ok);
@@ -1733,11 +1754,6 @@ if (!strcmp(namec, "rd_dt")) {
   rd_dt = standardlocale.toDouble(valc, &ok);
   if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'rd_dt' from XML file.",valc); }
 }
-if (!strcmp(namec, "datadir")) {
-  if (datadir) { free(datadir); }
-  datadir=strdup(valc);
-  datadir = AppendHomeDirIfPathRelative(datadir);
-}
 if (!strcmp(namec, "movie")) {
 movie = strtobool(valc);
 }
@@ -1748,14 +1764,6 @@ if (!strcmp(namec, "nit")) {
 if (!strcmp(namec, "maxt")) {
   maxt = standardlocale.toDouble(valc, &ok);
   if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to double while reading parameter 'maxt' from XML file.",valc); }
-}
-if (!strcmp(namec, "storage_stride")) {
-  storage_stride = standardlocale.toInt(valc, &ok);
-  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'storage_stride' from XML file.",valc); }
-}
-if (!strcmp(namec, "xml_storage_stride")) {
-  xml_storage_stride = standardlocale.toInt(valc, &ok);
-  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'xml_storage_stride' from XML file.",valc); }
 }
 if (!strcmp(namec, "rseed")) {
   rseed = standardlocale.toInt(valc, &ok);
@@ -1868,14 +1876,6 @@ if (!strcmp(namec, "dir1")) {
 if (!strcmp(namec, "dir2")) {
   if (dir2) { free(dir2); }
   dir2=strdup(valc);
-}
-if (!strcmp(namec, "export_interval")) {
-  export_interval = standardlocale.toInt(valc, &ok);
-  if (!ok) { MyWarning::error("Read error: cannot convert string \"%s\" to integer while reading parameter 'export_interval' from XML file.",valc); }
-}
-if (!strcmp(namec, "export_fn_prefix")) {
-  if (export_fn_prefix) { free(export_fn_prefix); }
-  export_fn_prefix=strdup(valc);
 }
 }
 void Parameter::AssignValArrayToPar(const char *namec, vector<double> valarray) {

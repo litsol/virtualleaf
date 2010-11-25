@@ -34,6 +34,9 @@ tutorials:
 	$(MAKE) -C build_models -f Makefile
 	$(MAKE) -C TutorialCode -f Makefile
 
+perl: Makefile.perl
+	$(MAKE) -f Makefile.perl
+
 clean:
 	$(MAKE) -f Makefile.libplugin clean
 	$(MAKE) -f Makefile.VirtualLeaf clean
