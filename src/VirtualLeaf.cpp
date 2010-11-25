@@ -207,13 +207,18 @@ INIT {
 
   //mesh.SetSimPlugin(plugin);
   if (leaffile) { 
-    xmlNode *settings;
-    mesh.XMLRead(leaffile, &settings);
-
-    main_window->XMLReadSettings(settings);
-    xmlFree(settings);
-    main_window->UserMessage(QString("Ready. Time is %1").arg(mesh.getTimeHours().c_str()));
-
+    if (qApp->type()==QApplication::Tty) {
+      
+      xmlNode *settings;
+      mesh.XMLRead(leaffile, &settings);
+      
+      main_window->XMLReadSettings(settings);
+      xmlFree(settings);
+      main_window->UserMessage(QString("Ready. Time is %1").arg(mesh.getTimeHours().c_str()));
+    } else {
+      ((Main *)main_window)->readStateXML(leaffile);
+    }
+    
   } else {
     mesh.StandardInit();
   }
@@ -413,7 +418,7 @@ int main(int argc,char **argv) {
     //    main_window->Init(leaffile);
 
     // Install model or read catalogue of models
-    ModelCatalogue model_catalogue(&mesh, useGUI?(Main *)main_window:0,modelfile);
+    ModelCatalogue model_catalogue(&mesh, main_window,modelfile);
 
 
     if (useGUI)

@@ -2065,6 +2065,42 @@ void Mesh::CSVExportCellData(QTextStream &csv_stream) const {
     }
     csv_stream << endl;
   }
+
+  
+}
+
+
+// DataExport
+void Mesh::CSVExportWallData(QTextStream &csv_stream) const {
+
+  csv_stream << "\"Wall Index\",\"Cell A\",\"Cell B\",\"Length\"";
+  
+  for (int c=0;c<Cell::NChem(); c++) {
+    csv_stream << ",\"Transporter A:" << c << "\"";
+  }
+  for (int c=0;c<Cell::NChem(); c++) {
+    csv_stream << ",\"Transporter B:" << c << "\"";
+  }
+  csv_stream << endl;
+  for (list<Wall *>::const_iterator i=walls.begin();
+       i!=walls.end();
+       i++) {
+    csv_stream << (*i)->Index() << ","
+	       << (*i)->C1()->Index() << ","
+	       << (*i)->C2()->Index() << ","
+	       << (*i)->Length();
+	      
+    for (int c=0;c<Cell::NChem(); c++) {
+      csv_stream << "," << (*i)->Transporters1(c);
+    }
+    for (int c=0;c<Cell::NChem(); c++) {
+      csv_stream << "," << (*i)->Transporters2(c);
+    }
+
+    csv_stream << endl;
+  }
+
+  
 }
 
 

@@ -41,7 +41,7 @@
 class ModelCatalogue : public QObject {
   Q_OBJECT
     public:
-  ModelCatalogue(Mesh *mesh, Main *mainwin, const char *model); 	
+  ModelCatalogue(Mesh *mesh, MainBase *mainwin, const char *model); 	
   void LoadPlugins(); 
   void LoadPlugin(const char *model);
 
@@ -54,7 +54,7 @@ class ModelCatalogue : public QObject {
  private:
   QVector<SimPluginInterface *> models;
   Mesh *mesh;
-  Main *mainwin;
+  MainBase *mainwin;
 };
 
 #endif

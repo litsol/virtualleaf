@@ -25,7 +25,7 @@
 
 static const std::string _module_id("$Id$");
 
-ModelCatalogue::ModelCatalogue(Mesh *_mesh, Main *_mainwin, const char *model=0) {
+ModelCatalogue::ModelCatalogue(Mesh *_mesh, MainBase *_mainwin, const char *model=0) {
   mesh = _mesh;
   mainwin = _mainwin;
   if (model) {
@@ -126,14 +126,14 @@ void ModelCatalogue::InstallFirstModel() {
 }
 void ModelCatalogue::PopulateModelMenu() {
   foreach (SimPluginInterface *model, models) {
-    QAction *modelaction = new QAction(model->ModelID(), mainwin); 
+    QAction *modelaction = new QAction(model->ModelID(), (Main *)mainwin); 
     QVariant data;
     data.setValue(model);
     modelaction->setData(data);
-    mainwin->modelmenu->addAction(modelaction);
+    ((Main *)mainwin)->modelmenu->addAction(modelaction);
 
   }
-  connect(mainwin->modelmenu, SIGNAL(triggered(QAction *)), this, SLOT(InstallModel(QAction *)) );
+  connect(((Main *)mainwin)->modelmenu, SIGNAL(triggered(QAction *)), this, SLOT(InstallModel(QAction *)) );
 }	
 
 void ModelCatalogue::InstallModel(QAction *modelaction) {
@@ -157,7 +157,10 @@ void ModelCatalogue::InstallModel(SimPluginInterface *plugin) {
   plugin->SetParameters(&par);
   
   if (mainwin) {
-    mainwin->RefreshInfoBar();
+    
+    if (!qApp->type()==QApplication::Tty)  // only do this if we are running a GUI
+      ((Main *)mainwin)->RefreshInfoBar();
+    
     if (plugin->DefaultLeafML().isEmpty()) {
       mainwin->Init(0);
     } else {
