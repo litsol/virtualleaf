@@ -92,7 +92,6 @@ HEADERS += \
  mainbase.h \
  matrix.h \
  mesh.h \
- miscq.h \
  modelcatalogue.h \
  Neighbor.h \
  node.h \
@@ -132,7 +131,6 @@ SOURCES += \
  mainbase.cpp \
  matrix.cpp \
  mesh.cpp \
- miscq.cpp \
  modelcatalogue.cpp \
  Neighbor.cpp \
  node.cpp \
