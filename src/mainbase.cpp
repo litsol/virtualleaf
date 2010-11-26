@@ -319,7 +319,7 @@ void MainBase::XMLReadSettings(xmlNode *settings)
   }
 }
 
-void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
+int MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 {
 
   Vector ll,ur;
@@ -327,15 +327,15 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 
   if (QString(fname).isEmpty()) {
     MyWarning::warning("No output filename given. Saving nothing.\n");
-    return;
+    return 1;
   }
 
   ll*=Cell::Magnification(); ur*=Cell::Magnification();
 
   // give the leaf some space
   Vector border = ((ur-ll)/5.);
-
-  if (!QString(format).contains("pdf", Qt::CaseInsensitive)) {
+  
+  if (!QString(format).contains("PDF", Qt::CaseInsensitive)) {
 
     QImage *image = new QImage(QSize(sizex, sizey), QImage::Format_RGB32);
     image->fill(QColor(Qt::white).rgb());
@@ -344,9 +344,12 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
 #ifdef QDEBUG
     qDebug() << "Native Image Filename: " << QDir::toNativeSeparators(QString(fname)) << endl;
 #endif
-    if (!image->save(QDir::toNativeSeparators(QString(fname)), format)) {
-      MyWarning::warning("Image not saved successfully. Is the disk full or the extension not recognized?");
-    }
+    if (!image->save(QDir::toNativeSeparators(QString(fname)))) { // please do not add "format" here! It is much better to have the system guess the file format from the extension. That prevents loads of cross-platform problems.
+      MyWarning::warning("Image '%s' not saved successfully. Is the disk full or the extension not recognized?",fname);
+      delete painter;
+      delete image;
+      return 1;
+    } 
     delete painter;
     delete image;
   } else {
@@ -358,6 +361,7 @@ void MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
     
     cerr << "Rendering to printer\n";
   }
+  return 0;
 }
 
 void MainBase::CutSAM()

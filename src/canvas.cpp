@@ -718,7 +718,7 @@ void Main::snapshot()
   Q3FileDialog *fd = new Q3FileDialog( this, "Save snapshot", TRUE );
   fd->setDir(par.datadir);
   fd->setMode( Q3FileDialog::AnyFile );
-  fd->setFilter( "Image files (*.pdf *.png *.jpg *.tif *.bpm)");
+  fd->setFilter( "Image files (*.pdf *.png *.jpg *.tif)");
   QString fileName;
 
   if ( fd->exec() == QDialog::Accepted ) {
@@ -750,8 +750,12 @@ void Main::snapshot()
     } else {
 
       // Save bitmaps at 1024x768
-      Save((const char *)fileName, extension, 1024, 768);
-      QString status_message = QString("Wrote snapshot to %1").arg(fileName);
+      QString status_message;
+      if (Save((const char *)fileName, extension, 1024, 768)==0) {
+	status_message = QString("Wrote snapshot to %1").arg(fileName);
+      } else {
+	status_message = QString("Error writing snapshot to %1").arg(fileName);
+      }
       cerr << status_message.toStdString() << endl;
       statusBar()->showMessage(status_message);
 

@@ -96,7 +96,7 @@ class MainBase  {
 
   virtual double getFluxArrowsize(void) { return 10.;}
 
-  void Save(const char *fname, const char *format, int sizex=640, int sizey=480);
+  int Save(const char *fname, const char *format, int sizex=640, int sizey=480);
   void CutSAM(void);
 
   void Plot(int resize_stride=10);
