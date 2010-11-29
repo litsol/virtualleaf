@@ -689,6 +689,18 @@ void Main::saveStateXML()
 
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
+
+    // extract extension from filename
+    QFileInfo fi(fileName);
+    QString extension = fi.suffix();
+    
+    if (extension.isEmpty()) {
+      extension = "xml";
+      fileName += ".";
+      fileName += extension;
+    }
+    
+    
     if ( QFile::exists( fileName ) &&
 	 QMessageBox::question(
 			       this,
@@ -703,7 +715,10 @@ void Main::saveStateXML()
     } else {
 
       mesh.XMLSave((const char *)fileName, XMLSettingsTree());
-
+      QString status_message;
+      status_message = QString("Wrote LeafML to %1").arg(fileName);
+      cerr << status_message.toStdString() << endl;
+      statusBar()->showMessage(status_message);
     }
   }
 }
