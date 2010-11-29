@@ -141,6 +141,10 @@ section "Virtual Leaf executable"
 
   # Prepend the Virtual Leaf bin directory to the installers PATH
   ${EnvVarUpdate} $0 "PATH" "P" "HKCU" "$INSTDIR\bin"  
+
+  # create a shortcut named "VirtualLeaf" in the start menu programs directory
+  # point the new shortcut at the program VirtualLeaf
+  createShortCut "$SMPROGRAMS\VirtualLeaf.lnk" "$INSTDIR\bin\VirtualLeaf.exe"
 sectionEnd
  
 section "Virtual Leaf plugins"
@@ -170,6 +174,9 @@ section "Uninstall"
  
   # Now delete installed file
   !insertmacro RemoveFilesAndSubDirs "$INSTDIR"
+
+  # Delete shortcut from start menu
+  delete "$SMPROGRAMS\VirtualLeaf.lnk"
 
   # Last but not least - delete the path  
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKCU" "$INSTDIR\bin"
