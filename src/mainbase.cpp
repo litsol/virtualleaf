@@ -330,6 +330,7 @@ int MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
     return 1;
   }
 
+  
   ll*=Cell::Magnification(); ur*=Cell::Magnification();
 
   // give the leaf some space
@@ -357,7 +358,7 @@ int MainBase::Save(const char *fname, const char *format, int sizex, int sizey)
     pdf.setOutputFileName(fname);
     pdf.setOutputFormat(QPrinter::PdfFormat);
     QPainter painter(&pdf);
-    canvas.render(&painter, QRectF(), QRectF(-5000,-5000, 10000, 10000));
+    canvas.render(&painter, QRectF(), QRectF(-500,-500, 1000, 1000)); // NB Fiddle with these arguments if relative size of PDF images is important.
     
     cerr << "Rendering to printer\n";
   }
