@@ -1315,13 +1315,14 @@ void Main::FitLeafToCanvas(void)
 
   // give the leaf some space
   Vector border = ((ur-ll)/5.);
-
+  
   QRectF bb( ll.x - border.x, ll.y - border.y, ur.x-ll.x + 2*border.x, ur.y-ll.y + 2*border.y );
 
 
   // cerr << ur << ", " << ll << endl;
   // editor->fitInView(bb, Qt::KeepAspectRatio);
   editor->ensureVisible(bb);
+  canvas.setSceneRect(bb);
   //editor->setTransform(viewport);
 }
 
