@@ -170,9 +170,9 @@ void MainBase::Plot(int resize_stride)
   if (ShowWallsP())
     mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::Draw ), &canvas ) );
 
-/*  if (ShowApoplastsP()) 
-    mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
-*/
+  /*  if (ShowApoplastsP()) 
+      mesh.LoopWalls( bind2nd( mem_fun_ref( &Wall::DrawApoplast ), &canvas ) );
+  */
   if (ShowMeshP()) 
     mesh.DrawNodes(&canvas);
 
@@ -277,11 +277,11 @@ TIMESTEP {
 
 
 
-/* Called if a cell is clicked */
+  /* Called if a cell is clicked */
 void Cell::OnClick(QMouseEvent *e){}
 
 
-/* Custom message handler - Default appends a newline character to the end of each line. */ 
+  /* Custom message handler - Default appends a newline character to the end of each line. */ 
 void vlMessageOutput(QtMsgType type, const char *msg)
 {
   switch (type) {
@@ -401,7 +401,7 @@ int main(int argc,char **argv) {
 	((Main *)main_window)->show();
 	((Main *)main_window)->resize( ((Main *)main_window)->sizeHint());
       } else {
-        ((Main *)main_window)->showMaximized();
+	((Main *)main_window)->showMaximized();
       }
       
       // show "About" window at start up
@@ -428,11 +428,11 @@ int main(int argc,char **argv) {
     
 
     /*    Cell::SetMagnification(1);
-    Cell::setOffset(0,0);
+	  Cell::setOffset(0,0);
 
-    main_window->FitLeafToCanvas();
+	  main_window->FitLeafToCanvas();
 
-    main_window->Plot();
+	  main_window->Plot();
     */
     if (batch) {
       double t=0.;

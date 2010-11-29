@@ -111,7 +111,7 @@ class MainBase  {
 
  protected:
   QGraphicsScene &canvas;
-  virtual xmlNode *XMLSettingsTree(void) const;
+  virtual xmlNode *XMLSettingsTree(void);
   virtual xmlNode *XMLViewportTree(QTransform &transform) const;
 
 

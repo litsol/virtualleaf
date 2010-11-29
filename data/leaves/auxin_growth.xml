@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<leaf name="/ufs/merks/VLeaf1.0/V1.0/data/leaves/auxin_growth.xml" date="Thu Nov 25 13:13:31 2010" simtime="11660">
+<leaf name="/ufs/merks/VLeaf1.0/V1.0/data/leaves/auxin_growth.xml" date="Mon Nov 29 11:43:46 2010" simtime="11660">
   <parameter>
     <par name="arrowcolor" val="white"/>
     <par name="arrowsize" val="10"/>
@@ -14,6 +14,7 @@
     <par name="export_fn_prefix" val="cell."/>
     <par name="storage_stride" val="100"/>
     <par name="xml_storage_stride" val="500"/>
+    <par name="datadir" val="auxin_growth"/>
     <par name="T" val="1"/>
     <par name="lambda_length" val="100"/>
     <par name="yielding_threshold" val="4"/>
@@ -104,7 +105,6 @@
     <par name="k2van3" val="0.3"/>
     <par name="dt" val="0.1"/>
     <par name="rd_dt" val="10"/>
-    <par name="datadir" val="auxin_growth"/>
     <par name="movie" val="true"/>
     <par name="nit" val="100000"/>
     <par name="maxt" val="1e+06"/>
@@ -384,7 +384,7 @@
     <setting name="show_cell_strain" val="false"/>
     <setting name="show_fluxes" val="true"/>
     <setting name="show_walls" val="true"/>
-    <setting name="save_movie_frames" val="true"/>
+    <setting name="save_movie_frames" val="false"/>
     <setting name="show_only_leaf_boundary" val="false"/>
     <setting name="cell_growth" val="true"/>
     <setting name="hide_cells" val="false"/>
