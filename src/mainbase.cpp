@@ -52,7 +52,7 @@ xmlNode *MainBase::XMLViewportTree(QTransform &transform) const {
   return xmlviewport;
 }
 
-xmlNode *MainBase::XMLSettingsTree(void) const {
+xmlNode *MainBase::XMLSettingsTree(void) {
 
   xmlNode *xmlsettings = xmlNewNode(NULL, BAD_CAST "settings");
   {
