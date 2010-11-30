@@ -1238,13 +1238,13 @@ void Main::print()
 #endif
 
     // Note that Cell is also translated...
-    pp.translate(-bbur.x,-bbur.y);
+    /* pp.translate(-bbur.x,-bbur.y);
     if (cw>ch) {
       pp.scale(vp.width()/(2*cw*Cell::Magnification()), vp.width()/(2*cw*Cell::Magnification()));
     } else {
       pp.scale(vp.height()/(2*ch*Cell::Magnification()), vp.height()/(2*ch*Cell::Magnification()));
-    }
-    canvas.render(&pp, QRectF(), QRectF(0.,0.,canvas.width(),canvas.height()));
+      }*/
+    canvas.render(&pp);//, QRectF(), QRectF(0.,0.,canvas.width(),canvas.height()));
   }
 }
 
