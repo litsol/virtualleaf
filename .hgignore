@@ -1,0 +1,30 @@
+# use glob syntax.
+syntax: glob
+
+*~
+*.cache
+*.Debug
+*.o
+*.orig
+*.out
+*.Release
+*.vars
+*Makefile.*
+*make.out
+*moc_*.cpp
+
+TAGS
+BROWSE
+bin/VirtualLeaf
+bin/models
+bin/VirtualLeaf.exe
+
+lib/libvleaf.a
+
+src/default.par
+src/VirtualLeaf-install.exe
+
+# switch to regexp syntax.
+syntax: regexp
+
+# finis
