@@ -738,7 +738,7 @@ void Main::snapshot()
   fd->setDir(par.datadir);
   fd->setMode( Q3FileDialog::AnyFile );
 
-  QString supported_file_formats = " .pdf";
+  QString supported_file_formats = " *.pdf";
   foreach (QString format, QImageWriter::supportedImageFormats()){
     supported_file_formats += (" *." + format);
   }
