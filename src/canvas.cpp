@@ -740,7 +740,7 @@ void Main::snapshot()
 
   QString supported_file_formats = " .pdf";
   foreach (QString format, QImageWriter::supportedImageFormats()){
-    supported_file_formats += (" ." + format);
+    supported_file_formats += (" *." + format);
   }
 
   fd->setFilter("Image files (" + supported_file_formats + " )");

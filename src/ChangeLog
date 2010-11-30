@@ -1,5 +1,9 @@
 2010-11-30    <guravage@petitdru.sen.cwi.nl>
 
+	* canvas.cpp (snapshot): Preface each image format extension with
+	an asterisk so files with those extensions to appear in the file
+	dialogue.
+
 	* VirtualLeaf-install-windows.nsi: Include imageformats folder
 	alongside executable.
 
