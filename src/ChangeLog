@@ -1,3 +1,18 @@
+2010-11-30    <guravage@petitdru.sen.cwi.nl>
+
+	* VirtualLeaf-install-windows.nsi: Include imageformats folder
+	alongside executable.
+
+	* canvas.cpp (snapshot): PNG is the default image format.
+
+2010-11-29    <guravage@petitdru.sen.cwi.nl>
+
+	* canvas.cpp (snapshot): Query and display supported snapshot file
+	formats.
+
+	* VirtualLeaf-install-windows.nsi: To facilitate debugging I added
+	the debug versions of all the windows DLLs.
+
 2010-10-19    <guravage@caterpie.sen.cwi.nl>
 
 	* mainbase.cpp (Save): Use format specified in function prototype.

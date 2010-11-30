@@ -131,7 +131,6 @@ section "Virtual Leaf executable"
   # Is the pegging of these DLLs to a specific QT version a problem?
   file C:\Qt\2010.02.1\mingw\bin\mingwm10.dll
   file C:\Qt\2010.02.1\mingw\bin\libgcc_s_dw2-1.dll
-
   file C:\Qt\2010.02.1\qt\bin\Qt3Support4.dll
   file C:\Qt\2010.02.1\qt\bin\QtCore4.dll
   file C:\Qt\2010.02.1\qt\bin\QtGui4.dll
@@ -146,7 +145,19 @@ section "Virtual Leaf executable"
   # point the new shortcut at the program VirtualLeaf
   createShortCut "$SMPROGRAMS\VirtualLeaf.lnk" "$INSTDIR\bin\VirtualLeaf.exe"
 sectionEnd
- 
+
+section "Image Formats"
+  # define the output path for the Qt Image Formats
+  setOutPath $INSTDIR\bin\imageformats
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qgif4.dll
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qico4.dll
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qjpeg4.dll
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qmng4.dll
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qsvg4.dll
+  file C:\Qt\2010.02.1\qt\plugins\imageformats\qtiff4.dll
+sectionEnd
+
+
 section "Virtual Leaf plugins"
   # define the output path for the Virtual Leaf models
   setOutPath $INSTDIR\bin\models

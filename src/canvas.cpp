@@ -47,6 +47,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDebug>
+#include <QImageWriter>
 
 #include <set>
 
@@ -728,14 +729,23 @@ void Main::saveStateXML()
 void Main::snapshot()
 {
 
+#ifdef QDEBUG
+  qDebug() << "Supported Image Formats: " << QImageWriter::supportedImageFormats() << endl;
+#endif
 
   stopSimulation();
   Q3FileDialog *fd = new Q3FileDialog( this, "Save snapshot", TRUE );
   fd->setDir(par.datadir);
   fd->setMode( Q3FileDialog::AnyFile );
-  fd->setFilter( "Image files (*.pdf *.png *.jpg *.tif)");
-  QString fileName;
 
+  QString supported_file_formats = " .pdf";
+  foreach (QString format, QImageWriter::supportedImageFormats()){
+    supported_file_formats += (" ." + format);
+  }
+
+  fd->setFilter("Image files (" + supported_file_formats + " )");
+
+  QString fileName;
   if ( fd->exec() == QDialog::Accepted ) {
     fileName = fd->selectedFile();
     
@@ -744,7 +754,7 @@ void Main::snapshot()
     QString extension = fi.suffix();
     
     if (extension.isEmpty()) {
-      extension = "jpg";
+      extension = "png";
       fileName += ".";
       fileName += extension;
     }
