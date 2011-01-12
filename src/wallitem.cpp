@@ -128,6 +128,7 @@ void WallItem::OnClick(QMouseEvent *e) {
 	setColor();
       } else {
 	TransporterDialog dialog(w, c, wn);
+	dialog.setWindowModality(Qt::WindowModal);
 	dialog.exec();
       }
 

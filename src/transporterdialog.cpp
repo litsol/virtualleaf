@@ -34,15 +34,22 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
   QPushButton *ok = new QPushButton(tr("Ok"));
   QPushButton *cancel = new QPushButton(tr("Cancel"));
   QGridLayout *t_grid = new QGridLayout; // transporter grid
+  QGridLayout *c_grid = new QGridLayout; // context grid
 
   // connect the slots
   connect(ok, SIGNAL(clicked()), this, SLOT(setTransporterValues()));
   connect(cancel, SIGNAL(clicked()), this, SLOT(close()));
 
-  // compose a label for the dialog box
-  std::stringstream label_text; 
-  label_text << "C("<< wall->C1()->Index() << "," << wall->C2()->Index() << "), N(" 
-	     << wall->N1()->Index() << "," << wall->N2()->Index() << ")";
+  // compose a label describing the cells and nodes associated with this wall
+  std::stringstream desc; 
+  desc << "between cells "<< wall->C1()->Index() << " and " << wall->C2()->Index() << ", and" << endl <<
+          "connecting nodes " << wall->N1()->Index() << " and " << wall->N2()->Index();
+
+  // description label
+  label = new QLabel;
+  label->setFrameStyle(frameStyle);
+  label->setText(tr(desc.str().c_str()));
+  c_grid->addWidget(label, 0, 0);
 
   // retrieve the current transporters
   QVector <double> transporters;  // transporter vector
@@ -57,7 +64,7 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
     // label
     label = new QLabel;
     label->setFrameStyle(frameStyle);
-    label->setText(QString("%1").arg(i+1)); // cardinal numbering
+    label->setText(QString("%1").arg(i)); // cardinal numbering, i.e. starts at zero.
 
     // line editor
     QLineEdit *editor = new QLineEdit();
@@ -80,11 +87,12 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
 
   // add both transporter and button grids to the box layout widget
   QVBoxLayout *layout = new QVBoxLayout;
+  layout->addLayout(c_grid);
   layout->addLayout(t_grid);
   layout->addLayout(b_grid);
   setLayout(layout);
 
-  setWindowTitle(tr(label_text.str().c_str()));
+  setWindowTitle(QString("Edit Transporters"));
 }
 
 void TransporterDialog::setTransporterValues()

@@ -1,3 +1,19 @@
+2011-01-12    <guravage@petitdru.sen.cwi.nl>
+
+	* transporterdialog.cpp (TransporterDialog): Add a proper title to
+	the dialog, and place the cell and wall pairs in a seperate labe.
+
+2011-01-10    <guravage@petitdru.sen.cwi.nl>
+
+	* transporterdialog.cpp (TransporterDialog): Start numbering Transporter fields at zero.
+	Resolves issue #1: http://code.google.com/p/virtualleaf/issues/detail?id=1.
+
+	* wallitem.cpp (OnClick): Change dialog modality to Qt::WindowModal.
+	Resolves issue #2: http://code.google.com/p/virtualleaf/issues/detail?id=2.
+
+	* canvas.cpp (about): Add link to Plant Physiology paper.
+	Resolves issue #3: http://code.google.com/p/virtualleaf/issues/detail?id=3.
+
 2010-11-30    <guravage@petitdru.sen.cwi.nl>
 
 	* canvas.cpp (snapshot): Preface each image format extension with

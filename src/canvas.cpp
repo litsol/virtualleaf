@@ -1021,18 +1021,39 @@ void Main::about()
 {
   static QMessageBox* about = new QMessageBox
     ( "VirtualLeaf V1.0",
-      "<h3>VirtualLeaf V1.0</h3>"
-      "<p>"
-      "An Open Source framework for cell-based modeling of plant tissue growth and development <br>"
-      "(c) 2005-2008, Roeland Merks <i>et al.</i><br>"
-      "    <a href=\"http://www.psb.vib-ugent.be\">VIB Department Plant Systems Biology</a>, "
-      "Ghent, Belgium <br>"
-      "(c) 2008-2010, <a href=\"http://www.cwi.nl/~merks\">Roeland Merks <i>et al.</i></a> <br>"
-      "    <a href=\"http://www.cwi.nl\">Centrum Wiskunde & Informatica</a> and <a href=\"http://www.ncsb.nl\">Netherlands Consortium for Systems Biology</a>, Amsterdam, Netherlands <br>"
-"<br>VirtualLeaf is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>"
-      "<br>If you use this code for your projects, please cite our paper:"
-"<br>Merks, Guravage, Inze, and Beemster. An Open Source framework for cell-based modeling of plant tissue growth and development. <i>Plant Physiology,</i> submitted.<br> . <br>"
-      "<br>Please share your model plugins and extensions at <a href=\"http://virtualleaf.googlecode.com\">http://virtualleaf.googlecode.com</a>.", 
+      "<h3>VirtualLeaf V1.0</h3>\
+       <p>\
+         An Open Source framework for cell-based modeling of plant\
+         tissue growth and development.\
+       </p>\
+       <p>(c) 2005-2008, Roeland Merks <i>et al.</i>\
+         <a href=\"http://www.psb.vib-ugent.be\">VIB Department Plant Systems Biology</a>,\
+         Ghent, Belgium.\
+       </p>\
+       <p>(c) 2008-2010,\
+         <a href=\"http://www.cwi.nl/~merks\">Roeland Merks <i>et al.</i></a>\
+         <a href=\"http://www.cwi.nl\">Centrum Wiskunde & Informatica (CWI)</a> and\
+         <a href=\"http://www.ncsb.nl\"> Netherlands Consortium for Systems Biology (NCSB)</a>,\
+         Amsterdam, the Netherlands.\
+       </p>\
+       <p>\
+         VirtualLeaf is free software: you can redistribute it and/or\
+         modify it under the terms of the GNU General Public License as\
+         published by the Free Software Foundation, either version 3 of the\
+         License, or (at your option) any later version.\
+       </p>\
+       <p>\
+         If you use this code for your projects, please cite our paper in\
+         <a href=\"http://www.plantphysiol.org\">Plant Physiology</a>, &lsquo;\
+         Roeland M. H. Merks, Michael Guravage, Dirk Inze, and Gerrit T.S. Beemster,\
+         <a href=\"http://www.plantphysiol.org/cgi/content/short/pp.110.167619?keytype=ref&ijkey=YTmfxrHG5QCsa8k\">\
+         VirtualLeaf: an Open Source framework for cell-based modeling of plant tissue growth and development</a>,<br>\
+         Plant Physiology 2010: pp.110.167619v1-pp.110.167619.\
+       </p>\
+       <p>\
+         Please share your model plugins and extensions at\
+         <a href=\"http://virtualleaf.googlecode.com\">http://virtualleaf.googlecode.com</a>.\
+       </p>",
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
   about->setButtonText( 1, "Dismiss" );
   about->show();
