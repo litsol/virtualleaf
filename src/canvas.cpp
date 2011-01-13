@@ -1048,7 +1048,7 @@ void Main::about()
          Roeland M. H. Merks, Michael Guravage, Dirk Inze, and Gerrit T.S. Beemster,\
          <a href=\"http://www.plantphysiol.org/cgi/content/short/pp.110.167619?keytype=ref&ijkey=YTmfxrHG5QCsa8k\">\
          VirtualLeaf: an Open Source framework for cell-based modeling of plant tissue growth and development</a>,<br>\
-         Plant Physiology 2010: pp.110.167619v1-pp.110.167619.\
+         Plant Physiology 2011: pp.110.167619v1-pp.110.167619.\
        </p>\
        <p>\
          Please share your model plugins and extensions at\
@@ -1056,6 +1056,16 @@ void Main::about()
        </p>",
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
   about->setButtonText( 1, "Dismiss" );
+
+  // Locate and set the message box's icon
+  QDir iconDir(QApplication::applicationDirPath()); 
+  if (iconDir.cd("../icons")) {
+    QString iconFile = iconDir.filePath("leaficon_small.png");
+    QFile icon(iconFile);
+    if (icon.exists()){
+      about->setIconPixmap(QPixmap(iconFile));
+    }
+  }
   about->show();
 }
 
