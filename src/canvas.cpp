@@ -79,9 +79,10 @@
 
 #include <algorithm>
 
-// Include VIB and PSB logos
+// Include PSB, CWI and vleaf logos
 #include "psb.xpm"
 #include "cwi.xpm"
+#include "leaficon_small.xpm"
 
 static const std::string _module_id("$Id$");
 
@@ -1056,16 +1057,7 @@ void Main::about()
        </p>",
       QMessageBox::Information, 1, 0, 0, this, 0, FALSE );
   about->setButtonText( 1, "Dismiss" );
-
-  // Locate and set the message box's icon
-  QDir iconDir(QApplication::applicationDirPath()); 
-  if (iconDir.cd("../icons")) {
-    QString iconFile = iconDir.filePath("leaficon_small.png");
-    QFile icon(iconFile);
-    if (icon.exists()){
-      about->setIconPixmap(QPixmap(iconFile));
-    }
-  }
+  about->setIconPixmap(QPixmap( leaficon_small ));
   about->show();
 }
 

@@ -1,5 +1,10 @@
 2011-01-13    <guravage@petitdru.sen.cwi.nl>
 
+	* VirtualLeaf-install-windows.nsi: Remove previous change that added icon directory.
+
+	* canvas.cpp: Instead of using a separate icon directory, compile
+	leaficon_small.xpm directly into canvas.cpp.
+
 	* VirtualLeaf-install-windows.nsi: Add new icons directory
 
 	* canvas.cpp (about): Added virtual leaf logo to About message box.
