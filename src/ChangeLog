@@ -1,5 +1,12 @@
 2011-01-13    <guravage@petitdru.sen.cwi.nl>
 
+	* transporterdialog.cpp (TransporterDialog): Use wn to discern
+	which cell a wallitem belongs to.
+
+	* wallitem.cpp (WallItem): Add a comment explaining how
+	wallnumber(wn) can be used to tell which cell a wallitem belongs
+	to.
+
 	* VirtualLeaf-install-windows.nsi: Remove previous change that added icon directory.
 
 	* canvas.cpp: Instead of using a separate icon directory, compile

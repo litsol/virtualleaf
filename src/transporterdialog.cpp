@@ -42,8 +42,10 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
 
   // compose a label describing the cells and nodes associated with this wall
   std::stringstream desc; 
-  desc << "between cells "<< wall->C1()->Index() << " and " << wall->C2()->Index() << ", and" << endl <<
-          "connecting nodes " << wall->N1()->Index() << " and " << wall->N2()->Index();
+
+  desc << "Transporters for cell "<< ((wall_num == 1) ? wall->C1() : wall->C2())->Index()
+       << "; adjacent to cell " << ((wall_num == 2) ? wall->C1() : wall->C2())->Index() << "," << endl
+       << "and connecting nodes " << wall->N1()->Index() << " and " << wall->N2()->Index() << ".";
 
   // description label
   label = new QLabel;
@@ -92,7 +94,7 @@ TransporterDialog::TransporterDialog(Wall *w, CellBase *c, int wn, QWidget *pare
   layout->addLayout(b_grid);
   setLayout(layout);
 
-  setWindowTitle(QString("Edit Transporters"));
+  setWindowTitle(QString("Edit Cell Transporters"));
 }
 
 void TransporterDialog::setTransporterValues()
