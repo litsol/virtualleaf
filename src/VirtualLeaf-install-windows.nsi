@@ -144,10 +144,6 @@ section "Virtual Leaf executable"
   # create a shortcut named "VirtualLeaf" in the start menu programs directory
   # point the new shortcut at the program VirtualLeaf
   createShortCut "$SMPROGRAMS\VirtualLeaf.lnk" "$INSTDIR\bin\VirtualLeaf.exe"
-
-  # Icons
-  setOutPath $INSTDIR\icons
-  file ..\icons\*
 sectionEnd
 
 section "Image Formats"
