@@ -1,3 +1,9 @@
+2011-01-13    <guravage@petitdru.sen.cwi.nl>
+
+	* VirtualLeaf-install-windows.nsi: Add new icons directory
+
+	* canvas.cpp (about): Added virtual leaf logo to About message box.
+
 2011-01-12    <guravage@petitdru.sen.cwi.nl>
 
 	* transporterdialog.cpp (TransporterDialog): Add a proper title to
