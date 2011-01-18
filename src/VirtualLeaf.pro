@@ -198,26 +198,9 @@ contains( GRAPHICS, x11 ) {
 # MACOSX packaging
 macx {
 ICON = leaficon.icns
-QMAKE_POST_LINK = "\
-	#install_name_tool -change libqwt.5.dylib $$QWTDIR/lib/libqwt.dylib $${TARGET}.app/Contents/MacOS/$${TARGET}; \
-	cp leaficon.icns $${DESTDIR}/$${TARGET}.app; \
-	cp ../doc/gpl3.txt $${DESTDIR}/$${TARGET}.app/Contents/MacOS/.                                    ; \
-	mkdir $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-	cp -R /Library/Frameworks/QtCore.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-	cp -R /Library/Frameworks/QtGui.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-	cp -R /Library/Frameworks/Qt3Support.framework $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-	#cp /usr/local/qwt/lib/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks; \
-	#install_name_tool -id @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/libqwt.dylib; \
-	install_name_tool -change /usr/local/qwt/lib/libqwt.dylib @executable_path/../Frameworks/libqwt.dylib $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET};\
-	install_name_tool -id @executable_path/../Frameworks/QtCore.framework/Versions/Current/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/QtCore.framework/Versions/4.0/QtCore; \
-	install_name_tool -id @executable_path/../Frameworks/QtGui.framework/Versions/Current/QtGui $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/QtGui.framework/Versions/4.0/QtGui; \
-	install_name_tool -id @executable_path/../Frameworks/Qt3Support.framework/Versions/Current/Qt3Support $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
-	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
-	install_name_tool -change Frameworks/QtGui.framework/Versions/Current/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/4.0/QtGui $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
-	install_name_tool -change Frameworks/Qt3Support.framework/Versions/Current/Qt3Support @executable_path/../Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support $${DESTDIR}/$${TARGET}.app/Contents/MacOS/$${TARGET}; \
-	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
-	install_name_tool -change Frameworks/QtGui.framework/Versions/Current/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/4.0/QtGui $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; \
-	install_name_tool -change Frameworks/QtCore.framework/Versions/Current/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4.0/QtCore $${DESTDIR}/$${TARGET}.app/Contents/Frameworks/Qt3Support.framework/Versions/4.0/Qt3Support; "
+QMAKE_POST_LINK = "cp leaficon.icns $${DESTDIR}/$${TARGET}.app; \ 
+      cp ../doc/gpl3.txt $${DESTDIR}/$${TARGET}.app/Contents/MacOS/.;" 
 }
 
+# cd $${BINDIR}; perl ../src/perl/deployapp.pl $${TARGET};"
 # finis
