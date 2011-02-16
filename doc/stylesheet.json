@@ -216,10 +216,13 @@
     }],
     ["enumerated_list" , {
       "parent": "bodytext",
-      "spaceBefore": 0
+      "spaceBefore": 0,
+      "spaceAfter": 0
     }],
     ["enumerated_list_item" , {
-      "parent": "bodytext"
+      "parent": "bodytext",
+      "spaceBefore": 0,
+      "spaceAfter": 0
     }],
     ["definition_list_term" , {
       "parent": "normal",
@@ -265,7 +268,7 @@
       "parent": "heading",
       "fontName": "stdBold",
       "fontSize": "200%",
-      "alignment": "TA_LEFT",
+      "alignment": "TA_CENTER",
       "keepWithNext": false,
       "spaceAfter": 10
     }],
