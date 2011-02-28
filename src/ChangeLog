@@ -1,3 +1,8 @@
+2011-02-28    <guravage@petitdru.sen.cwi.nl>
+
+	* canvas.cpp (about): Correct citation text.
+	Resolves issue #4: http://code.google.com/p/virtualleaf/issues/detail?id=4.
+
 2011-01-13    <guravage@petitdru.sen.cwi.nl>
 
 	* transporterdialog.cpp (TransporterDialog): Use wn to discern

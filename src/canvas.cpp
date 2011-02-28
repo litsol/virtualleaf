@@ -1046,10 +1046,10 @@ void Main::about()
        <p>\
          If you use this code for your projects, please cite our paper in\
          <a href=\"http://www.plantphysiol.org\">Plant Physiology</a>, &lsquo;\
-         Roeland M. H. Merks, Michael Guravage, Dirk Inze, and Gerrit T.S. Beemster,\
-         <a href=\"http://www.plantphysiol.org/cgi/content/short/pp.110.167619?keytype=ref&ijkey=YTmfxrHG5QCsa8k\">\
+         Roeland M. H. Merks, Michael Guravage, Dirk Inz&eacute;, and Gerrit T.S. Beemster,\
+         <a href=\"http://www.plantphysiol.org/cgi/reprint/155/2/656.pdf\">\
          VirtualLeaf: an Open Source framework for cell-based modeling of plant tissue growth and development</a>,<br>\
-         Plant Physiology 2011: pp.110.167619v1-pp.110.167619.\
+         Plant Physiology 2011: 155:656-666.\
        </p>\
        <p>\
          Please share your model plugins and extensions at\
