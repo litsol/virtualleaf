@@ -33,7 +33,7 @@
 
 QString MyAuxinModel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Auxin upstream pumping" );
+  return QString( "PIN1 recycling" );
 }
 
 // return the number of chemicals your model uses
@@ -93,16 +93,32 @@ void MyAuxinModel::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_
   dchem_c1[0] += trans21 - trans12;
   dchem_c2[0] += trans12 - trans21;
 
+  // Influx at leaf "AuxinSource" (as specified in initial condition)
+  if (w->AuxinSource()) { // test if wall is auxin source
+    double aux_flux = par->leaf_tip_source * w->Length();
+    dchem_c1[0] += aux_flux;
+    dchem_c2[0] += aux_flux;
+  }
 }
 
 
 void MyAuxinModel::WallDynamics(Wall *w, double *dw1, double *dw2){
-  // add biochemical networks for reactions occurring at walls here
+  // add biochemical networks for reactions occurring at 
+  // walls here
+  dw1[0] = 0.; dw2[0] = 0.; // chemical 0 unused in walls
+  dw1[1] = PINflux(w->C1(),w->C2(), w);
+  dw2[1] = PINflux(w->C2(),w->C1(), w);
 }
 
 
 void MyAuxinModel::CellDynamics(CellBase *c, double *dchem) { 
   // add biochemical networks for intracellular reactions here
+  // sum all incoming fluxes of PINs
+  dchem[1] = - SumFluxFromWalls( c, MyAuxinModel::PINflux ) 
+    //  Auxin-dependent production of PINs
+    + par->pin_prod * c->Chemical(0) 
+    // Breakdown of PIN
+    - par->pin_breakdown * c->Chemical(1);
 }
 
 
