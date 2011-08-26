@@ -31,7 +31,7 @@
 
 QString Mydiffusionmodel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Fick's Laws of diffusion" );
+  return QString( "Diffusion in a growing domain" );
 }
 
 // return the number of chemicals your model uses
@@ -54,10 +54,8 @@ void Mydiffusionmodel::SetCellColor(CellBase *c, QColor *color) {
 void Mydiffusionmodel::CellHouseKeeping(CellBase *c) {
   // add cell behavioral rules here
 
-  if (c->Chemical(0) < 0.5){
-    c->EnlargeTargetArea(par->cell_expansion_rate);
-  }
-
+  c->EnlargeTargetArea(par->cell_expansion_rate);
+  
   if(c->Area() > 2*c->BaseArea()){
     c->Divide();
   }
