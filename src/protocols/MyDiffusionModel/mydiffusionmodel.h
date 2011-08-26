@@ -56,7 +56,7 @@ public:
 	virtual int NChem(void);
 
 	// Name the default leaf file
-	virtual QString DefaultLeafML (void){return QString("myleaf.xml");}
+	virtual QString DefaultLeafML (void){return QString("mygrowingleaf.xml");}
 };
 
 // finis
