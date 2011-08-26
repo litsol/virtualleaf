@@ -31,7 +31,7 @@
 
 QString Mydiffusionmodel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Diffusion dependent coloriing" );
+  return QString( "Fick's Laws of diffusion" );
 }
 
 // return the number of chemicals your model uses
@@ -65,6 +65,14 @@ void Mydiffusionmodel::CellHouseKeeping(CellBase *c) {
 
 void Mydiffusionmodel::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
   // add biochemical transport rules here
+
+  // Passive fluxes (Fick's law)
+  for (int c=0;c<NChem();c++) {
+    if (w->C1()->BoundaryPolP() || w->C2()->BoundaryPolP()) return;
+    double phi = w->Length() * ( par->D[c] ) * ( w->C2()->Chemical(c) - w->C1()->Chemical(c) );
+    dchem_c1[c] += phi;
+    dchem_c2[c] -= phi;
+  }
 }
 
 void Mydiffusionmodel::WallDynamics(Wall *w, double *dw1, double *dw2) {
