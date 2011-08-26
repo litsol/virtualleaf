@@ -32,7 +32,7 @@
 
 QString Mygrowthmodel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Expanding cell model" );
+  return QString( "Divide when size doubles" );
 }
 
 // return the number of chemicals your model uses
@@ -52,6 +52,10 @@ void Mygrowthmodel::CellHouseKeeping(CellBase *c) {
   // add cell behavioral rules here
 
   c->EnlargeTargetArea(par->cell_expansion_rate);
+
+  if(c->Area() > 2*c->BaseArea()){
+    c->Divide();
+  }
 }
 
 void Mygrowthmodel::CelltoCellTransport(Wall *w, double *dchem_c1, double *dchem_c2) {
