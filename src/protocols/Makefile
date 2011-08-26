@@ -10,7 +10,8 @@ endif
 
 PROTOCOLS=\
  MyEmptyModel\
- MyGrowthModel
+ MyGrowthModel\
+ MyDiffusionModel
 
 all:
 	@for p in $(PROTOCOLS); do $(MAKE) -C $$p; done;
