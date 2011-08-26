@@ -32,7 +32,7 @@
 
 QString Mygrowthmodel::ModelID(void) {
   // specify the name of your model here
-  return QString( "Divide over explicit axis" );
+  return QString( "Divide over an arbitrary axis" );
 }
 
 // return the number of chemicals your model uses
@@ -54,7 +54,9 @@ void Mygrowthmodel::CellHouseKeeping(CellBase *c) {
   c->EnlargeTargetArea(par->cell_expansion_rate);
 
   if(c->Area() > 2*c->BaseArea()){
-    c->DivideOverAxis(Vector(0,1,0));
+    double orientation = Pi*RANDOM();
+    Vector axis(sin(orientation), cos(orientation), 0.0);
+    c->DivideOverAxis(axis);
   }
 }
 
