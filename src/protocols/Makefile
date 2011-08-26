@@ -9,7 +9,8 @@ ifeq ($(MAKE),)
 endif
 
 PROTOCOLS=\
- MyEmptyModel
+ MyEmptyModel\
+ MyGrowthModel
 
 all:
 	@for p in $(PROTOCOLS); do $(MAKE) -C $$p; done;
