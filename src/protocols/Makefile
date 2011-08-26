@@ -11,7 +11,8 @@ endif
 PROTOCOLS=\
  MyEmptyModel\
  MyGrowthModel\
- MyDiffusionModel
+ MyDiffusionModel\
+ MyAuxinModel
 
 all:
 	@for p in $(PROTOCOLS); do $(MAKE) -C $$p; done;
