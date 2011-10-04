@@ -58,7 +58,7 @@ ${Index_RemoveFilesAndSubDirs}-done:
 !macroend
 
 !define PRODUCT_NAME "The Virtual Leaf"
-!define PRODUCT_VERSION "1.0"
+!define PRODUCT_VERSION "1.0.1"
 !define PRODUCT_PUBLISHER "Center for Mathematics and Computer Science (CWI)"
 !define PRODUCT_WEB_SITE "www.cwi.nl"
 !define EXECUTABLE "VirtualLeaf.exe"

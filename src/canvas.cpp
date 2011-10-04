@@ -1021,8 +1021,8 @@ void Main::clear()
 void Main::about()
 {
   static QMessageBox* about = new QMessageBox
-    ( "VirtualLeaf V1.0",
-      "<h3>VirtualLeaf V1.0</h3>\
+    ( "VirtualLeaf V1.0.1",
+      "<h3>VirtualLeaf V1.0.1</h3>\
        <p>\
          An Open Source framework for cell-based modeling of plant\
          tissue growth and development.\
