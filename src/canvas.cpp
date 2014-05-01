@@ -1021,8 +1021,8 @@ void Main::clear()
 void Main::about()
 {
   static QMessageBox* about = new QMessageBox
-    ( "VirtualLeaf V1.0.1",
-      "<h3>VirtualLeaf V1.0.1</h3>\
+    ( "VirtualLeaf V1.0.2",
+      "<h3>VirtualLeaf V1.0.2</h3>\
        <p>\
          An Open Source framework for cell-based modeling of plant\
          tissue growth and development.\
@@ -1031,7 +1031,7 @@ void Main::about()
          <a href=\"http://www.psb.vib-ugent.be\">VIB Department Plant Systems Biology</a>,\
          Ghent, Belgium.\
        </p>\
-       <p>(c) 2008-2010,\
+       <p>(c) 2008-2014,\
          <a href=\"http://www.cwi.nl/~merks\">Roeland Merks <i>et al.</i></a>\
          <a href=\"http://www.cwi.nl\">Centrum Wiskunde & Informatica (CWI)</a> and\
          <a href=\"http://www.ncsb.nl\"> Netherlands Consortium for Systems Biology (NCSB)</a>,\
