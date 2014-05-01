@@ -169,7 +169,7 @@ class Mesh {
     for (vector<Node *>::const_iterator i=shuffled_nodes.begin();
 	 i!=shuffled_nodes.end();
 	 i++) {
-      f(*shuffled_nodes[*i]);
+      f(*i);
     }
   }
 
@@ -181,7 +181,7 @@ class Mesh {
     for (vector<Cell *>::const_iterator i=shuffled_cells.begin();
 	 i!=shuffled_cells.end();
 	 i++) {
-      f(*shuffled_cells[*i]);
+      f(*i);
     }
   }
 
