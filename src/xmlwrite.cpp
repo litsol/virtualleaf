@@ -625,7 +625,7 @@ void Wall::XMLAdd(xmlNode *parent) const {
 
   {
     ostringstream text;
-    text << WallTypetoStr(wall_type);
+    text << WallTypetoStr(wall_type).c_str();
     xmlNewProp(xmlwall, BAD_CAST "wall_type", BAD_CAST text.str().c_str());
   }
 
