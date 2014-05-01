@@ -139,7 +139,7 @@ void ModelCatalogue::PopulateModelMenu() {
 void ModelCatalogue::InstallModel(QAction *modelaction) {
   QVariant data = modelaction->data();
   SimPluginInterface *model = data.value<SimPluginInterface *>();
-  cerr << "You chose model " << model->ModelID().toStdString() << "!\n";
+  cerr << "You chose model " << model->ModelID().toStdString().c_str() << "!\n";
   mesh->Clean();
   InstallModel(model);
 }

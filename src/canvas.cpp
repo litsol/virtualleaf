@@ -719,7 +719,7 @@ void Main::saveStateXML()
       mesh.XMLSave((const char *)fileName, XMLSettingsTree());
       QString status_message;
       status_message = QString("Wrote LeafML to %1").arg(fileName);
-      cerr << status_message.toStdString() << endl;
+      cerr << status_message.toStdString().c_str() << endl;
       statusBar()->showMessage(status_message);
     }
   }
@@ -782,7 +782,7 @@ void Main::snapshot()
       } else {
 	status_message = QString("Error writing snapshot to %1").arg(fileName);
       }
-      cerr << status_message.toStdString() << endl;
+      cerr << status_message.toStdString().c_str() << endl;
       statusBar()->showMessage(status_message);
 
     }
@@ -846,7 +846,7 @@ int Main::readStateXML(const char *filename, bool geometry, bool pars, bool simt
 
     Plot();
     QString status_message = QString("Successfully read leaf from file %1. Time is %2 h.").arg(currentFile).arg(mesh.getTimeHours().c_str());
-    cerr << status_message.toStdString() << endl;
+    cerr << status_message.toStdString().c_str() << endl;
     setCaption(caption_with_file.arg(filename));
     statusBar()->message(status_message);
     emit ParsChanged();

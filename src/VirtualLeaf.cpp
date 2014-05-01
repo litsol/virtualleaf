@@ -456,7 +456,7 @@ int main(int argc,char **argv) {
     stringstream error_message;
     error_message << "I/O failure: " << strerror(errno);
     if (batch) {
-      cerr << error_message.str() <<endl;
+      cerr << error_message.str().c_str() <<endl;
       abort();
     } else {
       QString qmess(error_message.str().c_str());
